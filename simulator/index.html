@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Room Acoustic Simulator — NAAYA</title>
+<link rel="stylesheet" href="css/simulator.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═════════════════ LEFT STAGE ═════════════════ -->
+  <section class="stage">
+
+    <!-- Background video (auto-swaps based on space function) -->
+    <div class="stage-bg">
+      <video autoplay muted loop playsinline class="stage-video" id="stageVideo">
+        <source src="../assets/hero-section.mp4" type="video/mp4">
+      </video>
+      <div class="stage-bg-veil"></div>
+    </div>
+
+    <!-- Defect visualizations (toggled via classes on #stageDefects) -->
+    <div class="stage-defects" id="stageDefects">
+
+      <!-- 1. Reverb excess: concentric ripples from center -->
+      <svg class="viz viz-reverb" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="400" cy="300" r="40" class="ripple"/>
+          <circle cx="400" cy="300" r="40" class="ripple" style="animation-delay:1.05s"/>
+          <circle cx="400" cy="300" r="40" class="ripple" style="animation-delay:2.1s"/>
+          <circle cx="400" cy="300" r="40" class="ripple" style="animation-delay:3.15s"/>
+        </g>
+      </svg>
+
+    </div>
+
+    <!-- Top label -->
+    <div class="stage-label">
+      <div class="stage-label-eyebrow">Room Acoustic Simulator</div>
+      <div class="stage-label-title" id="stageProject">Untitled project</div>
+      <div class="stage-label-sub" id="stageFunction">Select a space function →</div>
+    </div>
+
+    <!-- Live readout overlay (center-left) -->
+    <div class="stage-readout">
+      <div class="readout-row">
+        <div class="readout-label">Volume</div>
+        <div class="readout-value"><span id="liveVolume">—</span><span class="readout-unit">m³</span></div>
+      </div>
+      <div class="readout-row">
+        <div class="readout-label">Current RT60 <span class="readout-sub">untreated</span></div>
+        <div class="readout-value is-hero"><span id="liveRt">—</span><span class="readout-unit">s</span></div>
+        <div class="readout-tag" id="liveStatus"></div>
+      </div>
+      <div class="readout-row">
+        <div class="readout-label">Target</div>
+        <div class="readout-value is-sub"><span id="liveTarget">—</span><span class="readout-unit">s</span></div>
+      </div>
+    </div>
+
+    <!-- Frequency mini-chart (bottom-left) -->
+    <div class="stage-chart" id="stageChart">
+      <div class="stage-chart-label">Reverberation across frequency · Hz</div>
+      <div class="stage-chart-bars" id="stageBars"></div>
+    </div>
+
+    <!-- Status indicator (bottom-right) -->
+    <div class="stage-status">
+      <span class="stage-status-dot" id="stageDot"></span>
+      <span id="stageStatusText">Awaiting input</span>
+    </div>
+
+  </section>
+
+  <!-- ═════════════════ RIGHT PANEL ═════════════════ -->
+  <aside class="panel">
+
+    <!-- Panel header -->
+    <header class="panel-header">
+      <a href="../index.html" class="panel-logo">NAAYA</a>
+      <a href="../index.html" class="panel-back">← Back</a>
+    </header>
+
+    <!-- Scrollable form area -->
+    <div class="panel-scroll">
+
+      <div class="panel-intro">
+        <div class="panel-eyebrow">Acoustic Simulator</div>
+        <h1 class="panel-title">Diagnose your space.</h1>
+        <p class="panel-subtitle">Three sections. Instant analysis. No signup.</p>
+      </div>
+
+      <!-- ── Section 1: Project ── -->
+      <section class="config-section">
+        <div class="config-head">
+          <div class="config-num">01</div>
+          <div class="config-title">Project</div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="projectName">Project name</label>
+          <input type="text" class="field-input" id="projectName" placeholder="e.g. Grand Auditorium · Shanghai">
+        </div>
+      </section>
+
+      <!-- ── Section 2: Function ── -->
+      <section class="config-section">
+        <div class="config-head">
+          <div class="config-num">02</div>
+          <div class="config-title">Space function</div>
+        </div>
+        <div class="opt-list" id="funcList"></div>
+      </section>
+
+      <!-- ── Section 3: Dimensions ── -->
+      <section class="config-section">
+        <div class="config-head">
+          <div class="config-num">03</div>
+          <div class="config-title">Dimensions</div>
+          <div class="config-meta">meters</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-input">
+            <label class="field-label">Length</label>
+            <input type="number" min="1" step="0.1" class="field-input" id="dim-length" placeholder="0">
+          </div>
+          <div class="dim-input">
+            <label class="field-label">Width</label>
+            <input type="number" min="1" step="0.1" class="field-input" id="dim-width" placeholder="0">
+          </div>
+          <div class="dim-input">
+            <label class="field-label">Height</label>
+            <input type="number" min="1" step="0.1" class="field-input" id="dim-height" placeholder="0">
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Section 4: Materials ── -->
+      <section class="config-section">
+        <div class="config-head">
+          <div class="config-num">04</div>
+          <div class="config-title">Materials</div>
+        </div>
+
+        <div class="mat-block">
+          <div class="mat-block-head">
+            <div class="mat-block-title">Ceiling</div>
+            <div class="mat-block-area" id="area-ceiling">—</div>
+          </div>
+          <div class="opt-list" data-surface="ceiling"></div>
+        </div>
+
+        <div class="mat-block">
+          <div class="mat-block-head">
+            <div class="mat-block-title">Walls</div>
+            <div class="mat-block-area" id="area-walls">—</div>
+          </div>
+          <div class="opt-list" data-surface="wall"></div>
+        </div>
+
+        <div class="mat-block">
+          <div class="mat-block-head">
+            <div class="mat-block-title">Floor</div>
+            <div class="mat-block-area" id="area-floor">—</div>
+          </div>
+          <div class="opt-list" data-surface="floor"></div>
+        </div>
+
+        <div class="mat-block">
+          <div class="mat-block-head">
+            <div class="mat-block-title">Furniture <span class="mat-block-opt">optional</span></div>
+            <div class="mat-block-area" id="area-furniture">—</div>
+          </div>
+          <div class="opt-list" data-surface="furniture"></div>
+        </div>
+      </section>
+
+      <!-- ── Report (appears after first calc) ── -->
+      <section class="config-section report-section" id="reportSection">
+        <div class="config-head">
+          <div class="config-num">05</div>
+          <div class="config-title">Diagnosis</div>
+          <div class="config-meta" id="report-status"></div>
+        </div>
+
+        <div class="report-summary" id="reportSummary"></div>
+
+        <div class="report-defects" id="reportDefects"></div>
+      </section>
+
+    </div>
+
+    <!-- Sticky footer CTA -->
+    <footer class="panel-footer">
+      <div class="panel-footer-meta">
+        <div class="panel-footer-label">Final RT60</div>
+        <div class="panel-footer-value"><span id="footerRt">—</span> s</div>
+      </div>
+      <button class="panel-cta" id="ctaContact" disabled>
+        Contact a consultant <span class="cta-arrow">→</span>
+      </button>
+    </footer>
+
+  </aside>
+</div>
+
+<!-- ═════════════════ Contact Modal ═════════════════ -->
+<div class="modal" id="contactModal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" aria-label="Close" data-close>
+      <svg viewBox="0 0 13 13" width="14" height="14"><path d="M0.35 11.67L11.67 0.35M0.35 0.35L11.67 11.67" stroke="currentColor" stroke-width="1.2"/></svg>
+    </button>
+
+    <!-- Form state -->
+    <div class="modal-state" id="modalForm">
+      <div class="modal-eyebrow">Acoustic consultation</div>
+      <h2 class="modal-title" id="modalTitle">Let's review your space.</h2>
+      <p class="modal-subtitle">A NAAYA consultant will review your simulation and respond within 24 hours.</p>
+
+      <div class="modal-summary" id="modalSummary"></div>
+
+      <form id="contactForm" novalidate>
+        <div class="field">
+          <label class="field-label" for="cEmail">Email</label>
+          <input type="email" class="field-input" id="cEmail" placeholder="you@company.com" required>
+          <div class="field-error" id="errEmail"></div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="cPhone">Phone</label>
+          <input type="tel" class="field-input" id="cPhone" placeholder="+86 138 0000 0000" required>
+          <div class="field-error" id="errPhone"></div>
+        </div>
+
+        <button type="submit" class="modal-submit">
+          Send to consultant <span class="cta-arrow">→</span>
+        </button>
+        <p class="modal-disclaimer">By submitting, you agree to be contacted by NAAYA regarding your project. We never share your details.</p>
+      </form>
+    </div>
+
+    <!-- Thank-you state -->
+    <div class="modal-state" id="modalThanks" hidden>
+      <div class="modal-eyebrow">Submitted</div>
+      <h2 class="modal-title">Thank you.</h2>
+      <p class="modal-subtitle">Your simulation and contact details have been sent. A NAAYA consultant will respond within 24 hours.</p>
+      <div class="modal-thanks-list">
+        <div class="modal-thanks-row"><span>Project</span><strong id="tProject">—</strong></div>
+        <div class="modal-thanks-row"><span>Function</span><strong id="tFunction">—</strong></div>
+        <div class="modal-thanks-row"><span>Email</span><strong id="tEmail">—</strong></div>
+      </div>
+      <button class="modal-submit is-ghost" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/materials.js"></script>
+<script src="js/acoustic-engine.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

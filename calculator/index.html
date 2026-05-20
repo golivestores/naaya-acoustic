@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAAYA — Room Acoustic Simulator</title>
+<style>
+  @font-face{font-display:swap;font-family:'Aeonik Pro';font-weight:400;src:url(../fonts/aeonik-regular.woff2) format("woff2")}
+  @font-face{font-display:swap;font-family:'Aeonik Pro';font-weight:700;src:url(../fonts/aeonik-bold.woff2) format("woff2")}
+  @font-face{font-display:swap;font-family:'Aeonik Mono';font-weight:500;src:url(../fonts/AeonikMono-Medium.woff2) format("woff2")}
+  @font-face{font-display:swap;font-family:'Aeonik Mono';font-weight:600;src:url(../fonts/AeonikMono-SemiBold.woff2) format("woff2")}
+  :root{
+    --c-black:#0b1012;
+    --c-white:#fff;
+    --c-cream:#f3f0ec;
+    --c-taupe:#d4cec6;
+    --c-grey:#212325;
+    --c-line:rgba(33,35,37,.14);
+    --c-mute:rgba(33,35,37,.55);
+    --font-pro:'Aeonik Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono:'Aeonik Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--c-cream);color:var(--c-grey);font-family:var(--font-pro);font-weight:400;-webkit-font-smoothing:antialiased}
+  body{padding:3rem 2rem;min-height:100vh}
+
+  /* ---------- Layout ---------- */
+  .shell{max-width:1440px;margin:0 auto}
+  .top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--c-line);padding-bottom:2rem;margin-bottom:3rem;gap:2rem;flex-wrap:wrap}
+  .eyebrow{font-family:var(--font-mono);font-weight:600;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c-grey);display:flex;align-items:center;gap:.7rem}
+  .eyebrow::before{content:"";display:block;width:.5rem;height:.5rem;background:currentColor;transform:rotate(45deg)}
+  .title{font-family:var(--font-pro);font-weight:400;font-size:clamp(2.2rem,4vw,3.6rem);line-height:1;letter-spacing:-.03em;margin-top:1rem}
+  .subtitle{font-size:.95rem;color:var(--c-mute);max-width:32rem;line-height:1.5}
+
+  .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:start}
+
+  /* ---------- Left form ---------- */
+  .panel{background:var(--c-white);border:1px solid var(--c-line);padding:2.5rem}
+  .field{margin-bottom:2rem}
+  .field:last-of-type{margin-bottom:0}
+  .field-label{font-family:var(--font-mono);font-weight:600;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c-grey);display:block;margin-bottom:1rem}
+  .field-label .opt{color:var(--c-mute);font-weight:500;margin-left:.5rem}
+
+  .text-input,.select-input{
+    width:100%;background:transparent;border:none;border-bottom:1px solid var(--c-line);
+    font-family:var(--font-pro);font-size:1.05rem;color:var(--c-grey);
+    padding:.6rem 0;transition:border-color .25s ease;
+  }
+  .text-input:focus,.select-input:focus{outline:none;border-bottom-color:var(--c-grey)}
+  .select-input{cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6' fill='none' stroke='%23212325' stroke-width='1.2'><path d='M1 1l4 4 4-4'/></svg>");background-repeat:no-repeat;background-position:right .2rem center;background-size:.7rem auto;padding-right:1.5rem}
+
+  .dims{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .dim-row{position:relative}
+  .dim-row .unit{position:absolute;right:0;bottom:.7rem;font-family:var(--font-mono);font-size:.75rem;color:var(--c-mute);letter-spacing:.1em}
+  .dim-row .text-input{padding-right:2.2rem}
+
+  /* ---------- Material icon picker ---------- */
+  .mats{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:1rem}
+  .mat{
+    position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.6rem;
+    text-align:center;border:none;background:transparent;padding:0;font-family:inherit;
+  }
+  .mat-circle{
+    width:64px;height:64px;border-radius:50%;background:var(--c-cream);
+    border:1px solid var(--c-line);display:flex;align-items:center;justify-content:center;
+    transition:all .3s cubic-bezier(.215,.61,.355,1);overflow:hidden;
+  }
+  .mat-circle svg,.mat-circle img{width:34px;height:34px;opacity:.78;transition:opacity .3s ease}
+  .mat:hover .mat-circle{transform:translateY(-2px);border-color:var(--c-grey)}
+  .mat[aria-pressed="true"] .mat-circle{background:var(--c-grey);border-color:var(--c-grey);box-shadow:0 0 0 3px var(--c-cream),0 0 0 4px var(--c-grey)}
+  .mat[aria-pressed="true"] .mat-circle svg,.mat[aria-pressed="true"] .mat-circle img{filter:invert(1) brightness(2);opacity:1}
+  .mat-name{font-family:var(--font-pro);font-size:.78rem;font-weight:400;color:var(--c-mute);line-height:1.2;letter-spacing:-.005em}
+  .mat[aria-pressed="true"] .mat-name{color:var(--c-grey);font-weight:700}
+
+  /* ---------- Calculate button ---------- */
+  .calc-btn{
+    margin-top:2.5rem;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:.9rem;
+    background:var(--c-grey);color:var(--c-cream);
+    font-family:var(--font-mono);font-weight:600;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:1.15rem 1.5rem;border:none;cursor:pointer;
+    transition:background .3s ease,transform .3s ease;
+  }
+  .calc-btn:hover{background:var(--c-black);transform:translateY(-1px)}
+  .calc-btn svg{width:14px;height:11px;stroke:currentColor;fill:none}
+
+  /* ---------- Right results ---------- */
+  .result{display:flex;flex-direction:column;gap:1.5rem}
+  .video-frame{
+    position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;
+    background:var(--c-black);border:1px solid var(--c-line);
+  }
+  .video-frame video,.video-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .video-frame .v-tag{
+    position:absolute;left:1.2rem;bottom:1.2rem;z-index:2;color:var(--c-cream);
+    font-family:var(--font-mono);font-weight:600;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+    display:flex;align-items:center;gap:.6rem;
+  }
+  .v-tag::before{content:"";width:.45rem;height:.45rem;background:currentColor;transform:rotate(45deg)}
+
+  .stat{background:var(--c-white);border:1px solid var(--c-line);padding:2rem}
+  .stat-label{font-family:var(--font-mono);font-weight:600;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c-mute);margin-bottom:1rem}
+  .stat-value{font-family:var(--font-pro);font-weight:700;font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;letter-spacing:-.03em;color:var(--c-grey)}
+  .stat-value .unit{font-family:var(--font-mono);font-weight:600;font-size:1rem;letter-spacing:.08em;color:var(--c-mute);margin-left:.5rem;vertical-align:.8rem}
+
+  .rt-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.2rem;gap:1rem;flex-wrap:wrap}
+  .rt-badge{font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--c-mute)}
+  .rt-bar{height:2px;background:var(--c-line);position:relative;margin:1.4rem 0 .8rem}
+  .rt-bar .range{position:absolute;top:0;height:2px;background:var(--c-taupe)}
+  .rt-bar .marker{position:absolute;top:-4px;width:2px;height:10px;background:var(--c-grey)}
+  .rt-status{font-family:var(--font-pro);font-size:.95rem;color:var(--c-grey);line-height:1.5;margin-top:.8rem}
+  .rt-status.warn{color:#a35a18}
+  .rt-status.ok{color:#1f5e3a}
+
+  .diag{background:var(--c-white);border:1px solid var(--c-line);padding:2rem}
+  .diag ul{list-style:none;display:flex;flex-direction:column;gap:.9rem}
+  .diag li{position:relative;padding-left:1.4rem;font-size:.9rem;line-height:1.6;color:var(--c-grey)}
+  .diag li::before{content:"";position:absolute;left:0;top:.55rem;width:.4rem;height:.4rem;background:var(--c-grey);transform:rotate(45deg)}
+  .diag li.ok::before{background:#1f5e3a}
+  .diag li.warn::before{background:#a35a18}
+  .diag .note{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--c-line);font-size:.78rem;color:var(--c-mute);line-height:1.6;font-family:var(--font-mono);letter-spacing:.04em}
+
+  .contact-btn{
+    width:100%;display:inline-flex;align-items:center;justify-content:center;gap:.9rem;
+    background:transparent;color:var(--c-grey);border:1px solid var(--c-grey);
+    font-family:var(--font-mono);font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:1.1rem 1.5rem;cursor:pointer;transition:all .3s ease;
+  }
+  .contact-btn:hover{background:var(--c-grey);color:var(--c-cream)}
+  .contact-btn svg{width:14px;height:11px;stroke:currentColor;fill:none}
+
+  /* ---------- Modal ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(11,16,18,.78);
+    display:flex;align-items:center;justify-content:center;
+    z-index:1000;visibility:hidden;opacity:0;transition:opacity .35s ease,visibility .35s ease;
+  }
+  .modal-overlay.active{visibility:visible;opacity:1}
+  .modal{
+    background:var(--c-cream);max-width:500px;width:90%;padding:3rem;position:relative;
+    transform:translateY(20px);transition:transform .4s cubic-bezier(.215,.61,.355,1);
+  }
+  .modal-overlay.active .modal{transform:translateY(0)}
+  .modal .close-x{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;padding:.5rem;color:var(--c-grey)}
+  .modal .close-x svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.2}
+  .modal h3{font-family:var(--font-pro);font-weight:400;font-size:1.8rem;letter-spacing:-.02em;line-height:1.1;margin-bottom:.6rem}
+  .modal .lead{font-size:.9rem;color:var(--c-mute);line-height:1.5;margin-bottom:2rem}
+  .modal .m-field{margin-bottom:1.6rem}
+  .modal .m-label{display:block;font-family:var(--font-mono);font-weight:600;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c-mute);margin-bottom:.5rem}
+  .modal .m-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--c-line);font-family:var(--font-pro);font-size:1rem;color:var(--c-grey);padding:.55rem 0}
+  .modal .m-input:focus{outline:none;border-bottom-color:var(--c-grey)}
+  .modal .m-submit{
+    margin-top:1rem;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:.9rem;
+    background:var(--c-grey);color:var(--c-cream);
+    font-family:var(--font-mono);font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:1.1rem 1.5rem;border:none;cursor:pointer;transition:background .3s ease;
+  }
+  .modal .m-submit:hover{background:var(--c-black)}
+  .modal .m-submit svg{width:14px;height:11px;stroke:currentColor;fill:none}
+
+  /* ---------- Footer ---------- */
+  .foot{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--c-line);font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;color:var(--c-mute);text-align:center;text-transform:uppercase}
+
+  /* ---------- Responsive ---------- */
+  /* ═══════════ Tablet ═══════════ */
+  @media (max-width:900px){
+    body{padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent}
+    .top{margin-bottom:2.4rem;padding-bottom:1.6rem}
+    .title{font-size:clamp(2rem,5vw,2.8rem)}
+    .grid{grid-template-columns:1fr;gap:2rem}
+    .panel{padding:2rem 1.8rem}
+    .dims{grid-template-columns:repeat(3,1fr);gap:1rem}
+    .mats{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:.9rem}
+    .mat-circle{width:60px;height:60px}
+    .mat-circle svg,.mat-circle img{width:32px;height:32px}
+    .modal{padding:2rem}
+  }
+
+  /* ═══════════ Phone (≤600px) ═══════════ */
+  @media (max-width:600px){
+    body{padding:1.4rem 1rem}
+
+    /* Header */
+    .top{flex-direction:column;align-items:flex-start;gap:1.2rem;margin-bottom:2rem;padding-bottom:1.4rem}
+    .eyebrow{font-size:.7rem;letter-spacing:.16em}
+    .title{font-size:2.2rem;line-height:1.05;margin-top:.6rem}
+    .subtitle{font-size:.88rem;max-width:none}
+
+    /* Layout */
+    .grid{gap:1.6rem}
+    .panel{padding:1.6rem 1.4rem}
+    .field{margin-bottom:1.6rem}
+    .field-label{font-size:.65rem;letter-spacing:.14em;margin-bottom:.8rem}
+
+    /* Inputs — 16px+ to prevent iOS auto-zoom */
+    .text-input,.select-input{font-size:1rem;padding:.7rem 0}
+    .dims{gap:.8rem}
+    .dim-row .unit{font-size:.7rem}
+
+    /* Material picker — tighter circles, ample tap target */
+    .mats{grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:.7rem}
+    .mat-circle{width:54px;height:54px}
+    .mat-circle svg,.mat-circle img{width:28px;height:28px}
+    .mat-name{font-size:.7rem;line-height:1.15}
+    .mat{min-height:5rem}  /* total tap area incl. label */
+
+    /* CTA button */
+    .calc-btn{margin-top:2rem;padding:1.15rem 1.2rem;font-size:.8rem;letter-spacing:.12em}
+
+    /* Right panel — video frame & stats */
+    .video-frame{aspect-ratio:16/11}
+    .video-frame .v-tag{left:1rem;bottom:1rem;font-size:.65rem;letter-spacing:.14em}
+    .stat{padding:1.6rem 1.4rem}
+    .stat-label{font-size:.65rem;letter-spacing:.14em;margin-bottom:.8rem}
+    .stat-value{font-size:2.4rem}
+    .stat-value .unit{font-size:.85rem;vertical-align:.6rem}
+    .rt-row{flex-direction:column;align-items:flex-start;gap:.4rem;margin-bottom:.8rem}
+    .rt-badge{font-size:.65rem;letter-spacing:.12em}
+    .rt-bar{margin:1.2rem 0 .6rem}
+    .rt-status{font-size:.88rem}
+
+    /* Diagnosis */
+    .diag{padding:1.6rem 1.4rem}
+    .diag ul{gap:.7rem}
+    .diag li{font-size:.85rem;line-height:1.55;padding-left:1.2rem}
+    .diag .note{font-size:.7rem;letter-spacing:.03em;padding-top:1rem;margin-top:1rem}
+
+    /* Contact button */
+    .contact-btn{padding:1.15rem 1.2rem;font-size:.75rem;letter-spacing:.12em}
+
+    /* ── Modal: bottom-sheet feel on phones ── */
+    .modal-overlay{align-items:flex-end;padding:0}
+    .modal{width:100%;max-width:100%;padding:2rem 1.6rem 1.6rem;max-height:92vh;overflow-y:auto}
+    .modal h3{font-size:1.5rem;margin-bottom:.5rem}
+    .modal .lead{font-size:.85rem;margin-bottom:1.6rem}
+    .modal .m-field{margin-bottom:1.3rem}
+    .modal .m-label{font-size:.6rem;letter-spacing:.14em;margin-bottom:.4rem}
+    .modal .m-input{font-size:1rem;padding:.55rem 0}
+    .modal .close-x{top:1.2rem;right:1.2rem;padding:.6rem}
+    .modal .m-submit{padding:1.15rem 1.2rem;font-size:.75rem;letter-spacing:.12em}
+
+    /* Footer */
+    .foot{margin-top:2rem;padding-top:1.4rem;font-size:.65rem;letter-spacing:.1em}
+  }
+
+  /* ═══════════ Very small phones (≤380px) ═══════════ */
+  @media (max-width:380px){
+    .mats{grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:.6rem}
+    .mat-circle{width:48px;height:48px}
+    .mat-circle svg,.mat-circle img{width:24px;height:24px}
+    .mat-name{font-size:.65rem}
+    .title{font-size:2rem}
+    .stat-value{font-size:2.1rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Acoustic Simulator</div>
+      <h1 class="title">Room Acoustic Simulator</h1>
+    </div>
+    <p class="subtitle">评估空间的混响时间与声学缺陷，基于 Sabine 方程为设计与改造提供专业参考。</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- ============== LEFT ============== -->
+    <section class="panel">
+
+      <div class="field">
+        <label class="field-label" for="projectName">Project<span class="opt">— 项目名称</span></label>
+        <input class="text-input" type="text" id="projectName" placeholder="例如：南山会议室 / Studio A" value="南山会议室">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="roomFunction">Space Type<span class="opt">— 空间功能</span></label>
+        <select class="select-input" id="roomFunction">
+          <option value="multipurpose">多功能礼堂</option>
+          <option value="meeting" selected>会议室</option>
+          <option value="theater">剧院剧场</option>
+          <option value="gym">体育馆</option>
+          <option value="school">学校教室</option>
+          <option value="banquet">宴会厅</option>
+          <option value="office">办公楼</option>
+          <option value="studio">录影棚</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Dimensions<span class="opt">— 长 × 宽 × 高</span></label>
+        <div class="dims">
+          <div class="dim-row"><input class="text-input" type="number" id="length" value="8.0" step="0.1"><span class="unit">m</span></div>
+          <div class="dim-row"><input class="text-input" type="number" id="width" value="8.0" step="0.1"><span class="unit">m</span></div>
+          <div class="dim-row"><input class="text-input" type="number" id="height" value="3.0" step="0.1"><span class="unit">m</span></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Walls<span class="opt">— 墙面材料</span></label>
+        <div class="mats" data-target="wallMaterial"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Ceiling<span class="opt">— 天花材料</span></label>
+        <div class="mats" data-target="ceilingMaterial"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Floor<span class="opt">— 地面材料</span></label>
+        <div class="mats" data-target="floorMaterial"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Furniture<span class="opt">— 家具 / 座椅</span></label>
+        <div class="mats" data-target="furnitureMaterial"></div>
+      </div>
+
+      <button class="calc-btn" id="calculateBtn">
+        <span>Calculate Acoustics</span>
+        <svg viewBox="0 0 14 11" xmlns="http://www.w3.org/2000/svg"><path d="M.6 0v6h12.5" stroke-width="1.2"/><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke-width="1.2"/></svg>
+      </button>
+
+    </section>
+
+    <!-- ============== RIGHT ============== -->
+    <aside class="result" id="resultPanel">
+      <div class="video-frame">
+        <video id="roomVideo" autoplay muted loop playsinline>
+          <source id="roomVideoSource" src="../assets/sim-videos/conference.mp4" type="video/mp4">
+        </video>
+        <div class="v-tag" id="roomVideoTag">会议室 · Conference</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Floor Area · 房间面积</div>
+        <div class="stat-value"><span id="floorAreaValue">64.0</span><span class="unit">m²</span></div>
+      </div>
+
+      <div class="stat">
+        <div class="rt-row">
+          <div class="stat-label" style="margin-bottom:0">Reverberation · RT60 (500Hz)</div>
+          <div class="rt-badge" id="rtRangeBadge">推荐 0.4–0.6 s</div>
+        </div>
+        <div class="stat-value"><span id="rtValue">—</span><span class="unit">s</span></div>
+        <div class="rt-bar"><div class="range" id="rtRange"></div><div class="marker" id="rtMarker"></div></div>
+        <div class="rt-status" id="rtStatus">点击计算以生成声学评估</div>
+      </div>
+
+      <div class="diag">
+        <div class="stat-label" style="margin-bottom:1.4rem">Acoustic Diagnosis · 声学诊断</div>
+        <ul id="diagList">
+          <li class="ok">输入参数后获取声场分析与改进建议</li>
+        </ul>
+        <div class="note">基于 Sabine 公式 RT60 = 0.161 · V / ΣαS；500Hz 单频估算，实际工程需现场测量。</div>
+      </div>
+
+      <button class="contact-btn" id="openModalBtn">
+        <span>Contact Acoustic Consultant</span>
+        <svg viewBox="0 0 14 11"><path d="M.6 0v6h12.5" stroke-width="1.2"/><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke-width="1.2"/></svg>
+      </button>
+    </aside>
+
+  </div>
+
+  <div class="foot">NAAYA Acoustic · Engineered for spaces that inspire</div>
+</div>
+
+<!-- ============== Modal ============== -->
+<div id="consultModal" class="modal-overlay">
+  <div class="modal">
+    <button class="close-x" id="closeModalBtn" aria-label="Close">
+      <svg viewBox="0 0 13 13"><path d="M.35 11.67L11.67.35"/><path d="M.35.35L11.67 11.67"/></svg>
+    </button>
+    <h3>Contact Consultant</h3>
+    <p class="lead">留下您的联系方式，NAAYA 声学顾问将根据您的项目参数提供专业建议。</p>
+
+    <div class="m-field">
+      <label class="m-label" for="modalName">Name · 姓名</label>
+      <input class="m-input" type="text" id="modalName" placeholder="您的姓名">
+    </div>
+    <div class="m-field">
+      <label class="m-label" for="modalEmail">Email · 电子邮箱</label>
+      <input class="m-input" type="email" id="modalEmail" placeholder="name@company.com">
+    </div>
+    <div class="m-field">
+      <label class="m-label" for="modalPhone">Phone · 电话（选填）</label>
+      <input class="m-input" type="tel" id="modalPhone" placeholder="+86 ...">
+    </div>
+
+    <button class="m-submit" id="submitConsultBtn">
+      <span>Submit Request</span>
+      <svg viewBox="0 0 14 11"><path d="M.6 0v6h12.5" stroke-width="1.2"/><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke-width="1.2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  /* ---------- Data ---------- */
+  const coeffMap = {
+    cement:0.02, latex:0.05, softwrap:0.40, polyester:0.60, wood:0.55,
+    mineral:0.70, aluminum:0.45, glass:0.03, gypsum:0.10,
+    tile:0.01, carpet:0.35, woodFloor:0.10, auditorium:0.65, concrete:0.02,
+    softChair:0.55, polyChair:0.70, auditoriumChair:0.65, none:0.05, sofa:0.60
+  };
+
+  const functionMap = {
+    multipurpose:{name:"多功能礼堂", en:"Multipurpose", minRT:1.0, maxRT:1.8, video:"theatre.mp4"},
+    meeting:     {name:"会议室",     en:"Conference",  minRT:0.4, maxRT:0.6, video:"conference.mp4"},
+    theater:     {name:"剧院剧场",   en:"Theatre",     minRT:1.2, maxRT:1.6, video:"theatre.mp4"},
+    gym:         {name:"体育馆",     en:"Sports Hall", minRT:1.8, maxRT:3.0, video:"sports.mp4"},
+    school:      {name:"学校教室",   en:"Classroom",   minRT:0.5, maxRT:0.7, video:"school.mp4"},
+    banquet:     {name:"宴会厅",     en:"Banquet",     minRT:0.8, maxRT:1.2, video:"banquet.mp4"},
+    office:      {name:"办公楼",     en:"Office",      minRT:0.4, maxRT:0.6, video:"office.mp4"},
+    studio:      {name:"录影棚",     en:"Studio",      minRT:0.2, maxRT:0.4, video:"studio.mp4"}
+  };
+
+  const hardSurfaceList = ["cement","latex","glass","tile"];
+
+  /* ---------- Material option sets (with icons) ---------- */
+  // icons are line-art SVG so they pick up brand color
+  const ICONS = {
+    cement:    `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="26" height="20"/><path d="M3 12h26M3 18h26M3 24h26M9 6v20M16 6v20M23 6v20"/></svg>`,
+    latex:     `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="26" height="26"/><path d="M3 12c4 0 4-2 8-2s4 2 8 2 4-2 10-2M3 20c4 0 4-2 8-2s4 2 8 2 4-2 10-2"/></svg>`,
+    softwrap:  `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="26" height="26" rx="3"/><path d="M3 11c5 0 5-3 13-3s8 3 13 3M3 19c5 0 5-3 13-3s8 3 13 3M3 27c5 0 5-3 13-3s8 3 13 3"/></svg>`,
+    polyester: `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="26" height="26"/><path d="M6 3v26M10 3v26M14 3v26M18 3v26M22 3v26M26 3v26"/></svg>`,
+    wood:      `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="26" height="26"/><path d="M3 9h26M3 16h26M3 23h26"/><circle cx="10" cy="6" r="1"/><circle cx="22" cy="13" r="1"/><circle cx="14" cy="20" r="1"/><circle cx="24" cy="26" r="1"/></svg>`,
+    mineral:   `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="26" height="26"/><circle cx="9" cy="9" r="2"/><circle cx="17" cy="11" r="2"/><circle cx="24" cy="8" r="2"/><circle cx="11" cy="18" r="2"/><circle cx="20" cy="20" r="2"/><circle cx="8" cy="25" r="2"/><circle cx="23" cy="25" r="2"/></svg>`,
+    aluminum:  `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 4l-5 8 5 8M16 4l-5 8 5 8M24 4l-5 8 5 8M8 12l-5 8 5 8M16 12l-5 8 5 8M24 12l-5 8 5 8"/></svg>`,
+    glass:     `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="3" width="24" height="26"/><path d="M4 3l24 26M28 3L4 29"/></svg>`,
+    gypsum:    `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="26" height="26"/><path d="M11 3v26M21 3v26"/></svg>`,
+    tile:      `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="12" height="12"/><rect x="17" y="3" width="12" height="12"/><rect x="3" y="17" width="12" height="12"/><rect x="17" y="17" width="12" height="12"/></svg>`,
+    carpet:    `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="26" height="26"/><path d="M3 7c2 2 4 0 6 2s4 0 6 2 4 0 6 2 4 0 6 2M3 13c2 2 4 0 6 2s4 0 6 2 4 0 6 2 4 0 6 2M3 19c2 2 4 0 6 2s4 0 6 2 4 0 6 2 4 0 6 2"/></svg>`,
+    woodFloor: `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 3h26v6H3zM3 13h26v6H3zM3 23h26v6H3z"/><path d="M10 3v6M19 13v6M12 23v6"/></svg>`,
+    auditorium:`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 26v-8a3 3 0 013-3h16a3 3 0 013 3v8M9 26v-7M23 26v-7M5 14h22"/><path d="M9 14V9a3 3 0 013-3h8a3 3 0 013 3v5"/></svg>`,
+    concrete:  `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="26" height="26"/><path d="M3 11l8-3 7 4 5-3 6 4M3 22l6-2 5 3 7-4 8 3"/></svg>`,
+    softChair: `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 14v-4a4 4 0 014-4h8a4 4 0 014 4v4M6 14h20v8H6zM10 22v4M22 22v4"/></svg>`,
+    polyChair: `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M10 12V8a3 3 0 013-3h6a3 3 0 013 3v4M7 12h18v8H7zM11 20v6M21 20v6"/><path d="M14 8v4M18 8v4"/></svg>`,
+    auditoriumChair:`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 12v-3a4 4 0 014-4h6a4 4 0 014 4v3M7 12h18v9H7zM12 21v5M20 21v5"/></svg>`,
+    none:      `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="12"/><path d="M8 8l16 16"/></svg>`,
+    sofa:      `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 22V14a3 3 0 013-3h16a3 3 0 013 3v8M5 18h22M3 22h26v4H3zM8 26v2M24 26v2"/></svg>`
+  };
+
+  const matLabels = {
+    cement:"水泥抹灰", latex:"乳胶漆", softwrap:"软包", polyester:"聚酯纤维", wood:"木吸音板",
+    mineral:"矿棉板", aluminum:"铝蜂窝板", glass:"玻璃", gypsum:"石膏板",
+    tile:"瓷砖", carpet:"尼龙地毯", woodFloor:"实木地板", auditorium:"礼堂椅", concrete:"混凝土",
+    softChair:"软椅", polyChair:"聚酯座椅", auditoriumChair:"礼堂椅", none:"无座椅", sofa:"沙发"
+  };
+
+  const matSets = {
+    wallMaterial:      { options:["cement","latex","softwrap","polyester","wood","mineral","aluminum","glass"], default:"latex" },
+    ceilingMaterial:   { options:["cement","latex","softwrap","polyester","wood","mineral","aluminum","gypsum"], default:"gypsum" },
+    floorMaterial:     { options:["tile","carpet","woodFloor","auditorium","concrete"], default:"carpet" },
+    furnitureMaterial: { options:["softChair","polyChair","auditoriumChair","sofa","none"], default:"softChair" }
+  };
+
+  /* ---------- State ---------- */
+  const state = {
+    wallMaterial:      matSets.wallMaterial.default,
+    ceilingMaterial:   matSets.ceilingMaterial.default,
+    floorMaterial:     matSets.floorMaterial.default,
+    furnitureMaterial: matSets.furnitureMaterial.default
+  };
+
+  /* ---------- Render material pickers ---------- */
+  function renderMatPickers(){
+    document.querySelectorAll('.mats').forEach(group=>{
+      const key = group.dataset.target;
+      const set = matSets[key];
+      group.innerHTML = set.options.map(opt=>`
+        <button type="button" class="mat" data-key="${key}" data-value="${opt}" aria-pressed="${state[key]===opt}">
+          <span class="mat-circle">${ICONS[opt]||ICONS.none}</span>
+          <span class="mat-name">${matLabels[opt]||opt}</span>
+        </button>
+      `).join('');
+    });
+    document.querySelectorAll('.mat').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const k = btn.dataset.key, v = btn.dataset.value;
+        state[k] = v;
+        document.querySelectorAll(`.mat[data-key="${k}"]`).forEach(b=>{
+          b.setAttribute('aria-pressed', b.dataset.value===v);
+        });
+      });
+    });
+  }
+
+  /* ---------- Video swap on space type ---------- */
+  function updateVideo(){
+    const fk = document.getElementById("roomFunction").value;
+    const info = functionMap[fk];
+    const video = document.getElementById("roomVideo");
+    const source = document.getElementById("roomVideoSource");
+    const tag = document.getElementById("roomVideoTag");
+    const newSrc = `../assets/sim-videos/${info.video}`;
+    if (!source.src.endsWith(info.video)) {
+      source.src = newSrc;
+      video.load();
+      video.play().catch(()=>{});
+    }
+    tag.textContent = `${info.name} · ${info.en}`;
+  }
+
+  /* ---------- Floor area live update ---------- */
+  function updateFloorArea(){
+    const L = parseFloat(document.getElementById("length").value) || 0;
+    const W = parseFloat(document.getElementById("width").value) || 0;
+    document.getElementById("floorAreaValue").textContent = (L * W).toFixed(1);
+  }
+
+  /* ---------- Calculate ---------- */
+  function calculateAcoustics(){
+    const fk = document.getElementById("roomFunction").value;
+    const L = parseFloat(document.getElementById("length").value);
+    const W = parseFloat(document.getElementById("width").value);
+    const H = parseFloat(document.getElementById("height").value);
+
+    if (isNaN(L)||isNaN(W)||isNaN(H)||L<=0||W<=0||H<=0){
+      document.getElementById("rtValue").textContent = "—";
+      document.getElementById("rtStatus").textContent = "请输入有效的长 / 宽 / 高（大于 0）";
+      document.getElementById("rtStatus").className = "rt-status warn";
+      return;
+    }
+
+    const V = L*W*H;
+    const floorArea = L*W;
+    const wallArea = 2*(L+W)*H*0.9;
+    const ceilingArea = floorArea;
+    const furnitureEquivArea = floorArea*0.3;
+
+    const aWall = coeffMap[state.wallMaterial] ?? 0.05;
+    const aCeil = coeffMap[state.ceilingMaterial] ?? 0.05;
+    const aFloor = coeffMap[state.floorMaterial] ?? 0.02;
+    const aFurn = coeffMap[state.furnitureMaterial] ?? 0.05;
+
+    const Atot = wallArea*aWall + ceilingArea*aCeil + floorArea*aFloor + furnitureEquivArea*aFurn;
+    if (Atot<=0.001){
+      document.getElementById("rtStatus").textContent = "吸声总量过小，无法估算混响时间";
+      document.getElementById("rtStatus").className = "rt-status warn";
+      return;
+    }
+
+    const RT60 = (0.161*V)/Atot;
+    const rtValue = RT60.toFixed(2);
+    const info = functionMap[fk];
+    document.getElementById("floorAreaValue").textContent = floorArea.toFixed(1);
+    document.getElementById("rtValue").textContent = rtValue;
+    document.getElementById("rtRangeBadge").textContent = `推荐 ${info.minRT}–${info.maxRT} s`;
+
+    // RT bar visualization (0 to 3.5s scale)
+    const scaleMax = 3.5;
+    const rangeStart = (info.minRT/scaleMax)*100;
+    const rangeWidth = ((info.maxRT-info.minRT)/scaleMax)*100;
+    const markerPos = Math.min(100, Math.max(0,(RT60/scaleMax)*100));
+    const rRange = document.getElementById("rtRange");
+    rRange.style.left = rangeStart+"%";
+    rRange.style.width = rangeWidth+"%";
+    document.getElementById("rtMarker").style.left = `calc(${markerPos}% - 1px)`;
+
+    const stat = document.getElementById("rtStatus");
+    if (RT60 < info.minRT){
+      stat.textContent = `声音偏干，混响不足 — 建议减少吸声面或增加反射元素。`;
+      stat.className = "rt-status warn";
+    } else if (RT60 > info.maxRT){
+      stat.textContent = `混响过长，清晰度受影响 — 建议增加吸声处理（墙面 / 天花）。`;
+      stat.className = "rt-status warn";
+    } else {
+      stat.textContent = `混响时间适宜，处于 ${info.name} 推荐区间内。`;
+      stat.className = "rt-status ok";
+    }
+
+    /* diagnosis */
+    const defects = [];
+    const ratio = L/W;
+    const isSquareLike = Math.abs(ratio-1)<0.15 || Math.abs((1/ratio)-1)<0.15;
+    const maxDim = Math.max(L,W,H);
+    const isHardWall = hardSurfaceList.includes(state.wallMaterial);
+
+    if (isSquareLike && H<3.0) defects.push({t:"平行墙面 + 层高较低，存在驻波风险", c:"warn"});
+    if (maxDim>8.0 && isHardWall) defects.push({t:"长尺寸 + 硬墙面，可能产生明显回声", c:"warn"});
+    if (isHardWall && (L>6.0||W>6.0)) defects.push({t:"硬质平行墙面可能引发颤动回声，建议增加吸声 / 扩散处理", c:"warn"});
+    if (defects.length===0) defects.push({t:"未检测到明显声学缺陷，声场基础良好", c:"ok"});
+
+    document.getElementById("diagList").innerHTML = defects.map(d=>`<li class="${d.c}">${d.t}</li>`).join('');
+
+    window.lastAcousticData = { project: document.getElementById("projectName").value.trim(), roomType: info.name, rt: rtValue, floorArea: floorArea.toFixed(1) };
+  }
+
+  /* ---------- Modal ---------- */
+  const modal = document.getElementById("consultModal");
+  function openModal(){ modal.classList.add("active"); }
+  function closeModal(){ modal.classList.remove("active"); }
+  document.getElementById("openModalBtn").addEventListener("click", openModal);
+  document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+  modal.addEventListener("click", e=>{ if (e.target===modal) closeModal(); });
+  document.addEventListener("keydown", e=>{ if (e.key==="Escape") closeModal(); });
+
+  document.getElementById("submitConsultBtn").addEventListener("click", ()=>{
+    const name = document.getElementById("modalName").value.trim();
+    const email = document.getElementById("modalEmail").value.trim();
+    const phone = document.getElementById("modalPhone").value.trim();
+    if (!name || !email){
+      alert("请填写姓名和邮箱，顾问才能联系您。");
+      return;
+    }
+    console.log("Consultation request:", { name, email, phone, data: window.lastAcousticData||{} });
+    alert(`感谢 ${name}，NAAYA 声学顾问团队将在 24 小时内与您联系。`);
+    closeModal();
+    document.getElementById("modalName").value = "";
+    document.getElementById("modalEmail").value = "";
+    document.getElementById("modalPhone").value = "";
+  });
+
+  /* ---------- Bindings ---------- */
+  document.getElementById("calculateBtn").addEventListener("click", calculateAcoustics);
+  document.getElementById("roomFunction").addEventListener("change", ()=>{ updateVideo(); calculateAcoustics(); });
+  ["length","width","height"].forEach(id=>{
+    document.getElementById(id).addEventListener("input", updateFloorArea);
+  });
+
+  /* ---------- Init ---------- */
+  renderMatPickers();
+  updateVideo();
+  updateFloorArea();
+  calculateAcoustics();
+</script>
+
+</body>
+</html>
