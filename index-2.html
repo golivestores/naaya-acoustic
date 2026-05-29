@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAAYA - Structural & Architectural Glazing Specialists</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="css/naaya.css">
+<style>
+  /* index-2 only: force Montserrat (Oberflex-style) over the shared Geist setup */
+  :root{
+    --font-f-aeonik-pro: 'Montserrat', sans-serif;
+    --font-f-aeonik-mono: 'Montserrat', sans-serif;
+  }
+  html, body, body *:not(i):not([class*="fa-"]):not([class*="glyphicon"]){
+    font-family: 'Montserrat', sans-serif !important;
+  }
+
+  /* ============================================
+     COLOR SKIN — STONE × SLATE (cool minimal mono)
+     ============================================ */
+  :root{
+    --color-cream: #e8e5df;
+    --color-black: #2a2f33;
+    --color-grey:  #2a2f33;
+    --color-taupe: #b8b5af;
+  }
+  html, body{ background:#e8e5df; color:#2a2f33; }
+  main{ background:#e8e5df; }
+
+  /* Flatten any copper-tinted accent down to subtle slate */
+  .sf-pulse{
+    background:#4a5159;
+    box-shadow:0 0 0 .35rem color-mix(in srgb, #4a5159 18%, transparent);
+  }
+  @keyframes sfDotPulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(74,81,89,.55); }
+    50%   { box-shadow:0 0 0 .9rem rgba(74,81,89,0); }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+
+</head>
+<body>
+<div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
+<a href="/" class="site-nav-logo" aria-label="Home">
+<svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-brand"><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg>
+<span class="site-nav-wordmark">NAAYA</span>
+</a>
+<nav class="site-nav-links" aria-label="Primary">
+<a href="#about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="/collection/" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-cats-v2" aria-hidden="true">
+<div class="mcat-inner">
+
+<div class="mcat-list">
+<div class="mega-label"><span data-i18n="mcat_label_series">Series</span></div>
+<div class="mcat-item is-active" data-cat="classic">
+<span class="mcat-name" data-i18n="mcat_classic">Classic Wood</span>
+<span class="mcat-count">31</span>
+</div>
+<div class="mcat-item" data-cat="art">
+<span class="mcat-name" data-i18n="mcat_art">Art &amp; Curve</span>
+<span class="mcat-count">29</span>
+</div>
+<div class="mcat-item" data-cat="metal">
+<span class="mcat-name" data-i18n="mcat_metal">PHONEX Metal</span>
+<span class="mcat-count">17</span>
+</div>
+<div class="mcat-item" data-cat="ceiling">
+<span class="mcat-name" data-i18n="mcat_ceiling">Ceiling Systems</span>
+<span class="mcat-count">12</span>
+</div>
+<div class="mcat-item" data-cat="fabric">
+<span class="mcat-name" data-i18n="mcat_fabric">Fabric &amp; Eco</span>
+<span class="mcat-count">6</span>
+</div>
+<div class="mcat-item" data-cat="pet">
+<span class="mcat-name" data-i18n="mcat_pet">Polyester (PET)</span>
+<span class="mcat-count">5</span>
+</div>
+<div class="mcat-item" data-cat="diffuser">
+<span class="mcat-name" data-i18n="mcat_diffuser">Diffusers</span>
+<span class="mcat-count">17</span>
+</div>
+<div class="mcat-item" data-cat="specialty">
+<span class="mcat-name" data-i18n="mcat_specialty">Wood Wool / Spray / Door</span>
+<span class="mcat-count">11</span>
+</div>
+<a href="/collection/" class="mcat-all" data-i18n="mcat_all">All 128 models →</a>
+</div>
+
+<div class="mcat-detail">
+
+<div class="mcat-pane is-active" data-pane="classic">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_classic_title">Classic Wood Series</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_classic_desc">MDF/MGO base with melamine, HPL or veneer finish. Grooved, perforated and micro-perforated patterns for any acoustic profile.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_classic">Classic Grooved · 10</span>
+<span class="mcat-chip" data-i18n="cls_perfo">Perfo · 6</span>
+<span class="mcat-chip" data-i18n="cls_microc">Micro Classic · 4</span>
+<span class="mcat-chip" data-i18n="cls_microa">Micro Art · 7</span>
+<span class="mcat-chip" data-i18n="cls_curve">Wood Curve · 4</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_art_title">Art Acoustic &amp; Wood Curve</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_art_desc">CNC-carved decorative panels and R≤1000mm curved panels. Sculptural acoustic focal points for hospitality and lobby spaces.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_artac">Art Acoustic · 22 (NY-AA-001~022)</span>
+<span class="mcat-chip" data-i18n="cls_curve2">Wood Curve · 3 perforations</span>
+<span class="mcat-chip" data-i18n="cls_microart">Micro Art Geometric · 7</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="metal">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_metal_title">PHONEX Metal Acoustic</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_metal_desc">Perforated aluminum with honeycomb core. Designed for airports, labs, kitchens and high-traffic industrial spaces.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_compose">Compose · 3</span>
+<span class="mcat-chip" data-i18n="cls_metalcl">Classic · 10</span>
+<span class="mcat-chip" data-i18n="cls_metalstd">Standard · 4</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="ceiling">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_ceiling_title">Ceiling Systems</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_ceiling_desc">Seamless plaster ceilings, perforated gypsum and fiberglass tiles. Plus suspended 3D Acona Art for sculpted soffits.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_uniseam">Uniseam Aero / Mono</span>
+<span class="mcat-chip" data-i18n="cls_cleaneo">Cleaneo · 4</span>
+<span class="mcat-chip" data-i18n="cls_aconac">Acona Classic</span>
+<span class="mcat-chip" data-i18n="cls_aconaa">Acona Art · 10 + 10 collections</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/uniseam.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/gypsum.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_fabric_title">Fabricoustic — Fabric &amp; Eco</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_fabric_desc">High-density fiberglass or recycled cotton core wrapped in Class-A flame-retardant acoustic fabric. NRC up to 0.9.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_fabricc">Classic · 25-60mm</span>
+<span class="mcat-chip" data-i18n="cls_fabrice">Eco · 25/50mm recycled cotton</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="pet">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_pet_title">Polyester (PET) — 100% Recyclable</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_pet_desc">PET acoustic panels, V-groove walls, engraving ceilings and folded acoustic clouds. Color-rich, low-VOC, child-safe.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_petp">Flat Panel · 9/12mm</span>
+<span class="mcat-chip" data-i18n="cls_petv">V-Groove · 12 SKU</span>
+<span class="mcat-chip" data-i18n="cls_petb">Engraving Ceiling · 12 SKU</span>
+<span class="mcat-chip" data-i18n="cls_petc">Acoustic Cloud</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="diffuser">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_diffuser_title">Acoustic Diffusers</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_diffuser_desc">ISO 17497-tested MLS, QRD, Skyline and geometric diffusers. Solid wood or MDF with paint or veneer finish.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_mls">MLS Series · 3</span>
+<span class="mcat-chip" data-i18n="cls_qrd">QRD / Skyline · 5</span>
+<span class="mcat-chip" data-i18n="cls_geom">Geometric · 9</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="specialty">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_specialty_title">Wood Wool · Spray · Soundproof Doors</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_specialty_desc">Mineralized wood-wool cement boards, seamless Acouspray AS30 finish, and STC 35-45 dB soundproof doors in metal, wood and composite.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_wool">Wood Wool · 7 shapes</span>
+<span class="mcat-chip" data-i18n="cls_spray">Acouspray AS30</span>
+<span class="mcat-chip" data-i18n="cls_door">Doors · STC 35-45 dB</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/spray.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/door.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<a href="#projects" data-i18n="nav_projects">Projects</a>
+<a href="#process" data-i18n="nav_process">Process</a>
+<a href="#contact" data-i18n="nav_contact">Contact</a>
+</nav>
+<div class="site-nav-right">
+<a href="/contact" class="site-nav-cta">
+<span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+</a>
+</div>
+</header>
+<button class="site-nav-burger" aria-label="Open menu" id="siteNavBurger"><span></span><span></span><span></span></button>
+<div class="site-nav-mobile" id="siteNavMobile" aria-hidden="true">
+<nav class="site-nav-mobile-links">
+<a href="#about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="/collection/" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-cats-v2" aria-hidden="true">
+<div class="mcat-inner">
+
+<div class="mcat-list">
+<div class="mega-label"><span data-i18n="mcat_label_series">Series</span></div>
+<div class="mcat-item is-active" data-cat="classic">
+<span class="mcat-name" data-i18n="mcat_classic">Classic Wood</span>
+<span class="mcat-count">31</span>
+</div>
+<div class="mcat-item" data-cat="art">
+<span class="mcat-name" data-i18n="mcat_art">Art &amp; Curve</span>
+<span class="mcat-count">29</span>
+</div>
+<div class="mcat-item" data-cat="metal">
+<span class="mcat-name" data-i18n="mcat_metal">PHONEX Metal</span>
+<span class="mcat-count">17</span>
+</div>
+<div class="mcat-item" data-cat="ceiling">
+<span class="mcat-name" data-i18n="mcat_ceiling">Ceiling Systems</span>
+<span class="mcat-count">12</span>
+</div>
+<div class="mcat-item" data-cat="fabric">
+<span class="mcat-name" data-i18n="mcat_fabric">Fabric &amp; Eco</span>
+<span class="mcat-count">6</span>
+</div>
+<div class="mcat-item" data-cat="pet">
+<span class="mcat-name" data-i18n="mcat_pet">Polyester (PET)</span>
+<span class="mcat-count">5</span>
+</div>
+<div class="mcat-item" data-cat="diffuser">
+<span class="mcat-name" data-i18n="mcat_diffuser">Diffusers</span>
+<span class="mcat-count">17</span>
+</div>
+<div class="mcat-item" data-cat="specialty">
+<span class="mcat-name" data-i18n="mcat_specialty">Wood Wool / Spray / Door</span>
+<span class="mcat-count">11</span>
+</div>
+<a href="/collection/" class="mcat-all" data-i18n="mcat_all">All 128 models →</a>
+</div>
+
+<div class="mcat-detail">
+
+<div class="mcat-pane is-active" data-pane="classic">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_classic_title">Classic Wood Series</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_classic_desc">MDF/MGO base with melamine, HPL or veneer finish. Grooved, perforated and micro-perforated patterns for any acoustic profile.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_classic">Classic Grooved · 10</span>
+<span class="mcat-chip" data-i18n="cls_perfo">Perfo · 6</span>
+<span class="mcat-chip" data-i18n="cls_microc">Micro Classic · 4</span>
+<span class="mcat-chip" data-i18n="cls_microa">Micro Art · 7</span>
+<span class="mcat-chip" data-i18n="cls_curve">Wood Curve · 4</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_art_title">Art Acoustic &amp; Wood Curve</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_art_desc">CNC-carved decorative panels and R≤1000mm curved panels. Sculptural acoustic focal points for hospitality and lobby spaces.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_artac">Art Acoustic · 22 (NY-AA-001~022)</span>
+<span class="mcat-chip" data-i18n="cls_curve2">Wood Curve · 3 perforations</span>
+<span class="mcat-chip" data-i18n="cls_microart">Micro Art Geometric · 7</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="metal">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_metal_title">PHONEX Metal Acoustic</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_metal_desc">Perforated aluminum with honeycomb core. Designed for airports, labs, kitchens and high-traffic industrial spaces.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_compose">Compose · 3</span>
+<span class="mcat-chip" data-i18n="cls_metalcl">Classic · 10</span>
+<span class="mcat-chip" data-i18n="cls_metalstd">Standard · 4</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="ceiling">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_ceiling_title">Ceiling Systems</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_ceiling_desc">Seamless plaster ceilings, perforated gypsum and fiberglass tiles. Plus suspended 3D Acona Art for sculpted soffits.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_uniseam">Uniseam Aero / Mono</span>
+<span class="mcat-chip" data-i18n="cls_cleaneo">Cleaneo · 4</span>
+<span class="mcat-chip" data-i18n="cls_aconac">Acona Classic</span>
+<span class="mcat-chip" data-i18n="cls_aconaa">Acona Art · 10 + 10 collections</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/uniseam.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/gypsum.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_fabric_title">Fabricoustic — Fabric &amp; Eco</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_fabric_desc">High-density fiberglass or recycled cotton core wrapped in Class-A flame-retardant acoustic fabric. NRC up to 0.9.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_fabricc">Classic · 25-60mm</span>
+<span class="mcat-chip" data-i18n="cls_fabrice">Eco · 25/50mm recycled cotton</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="pet">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_pet_title">Polyester (PET) — 100% Recyclable</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_pet_desc">PET acoustic panels, V-groove walls, engraving ceilings and folded acoustic clouds. Color-rich, low-VOC, child-safe.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_petp">Flat Panel · 9/12mm</span>
+<span class="mcat-chip" data-i18n="cls_petv">V-Groove · 12 SKU</span>
+<span class="mcat-chip" data-i18n="cls_petb">Engraving Ceiling · 12 SKU</span>
+<span class="mcat-chip" data-i18n="cls_petc">Acoustic Cloud</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="diffuser">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_diffuser_title">Acoustic Diffusers</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_diffuser_desc">ISO 17497-tested MLS, QRD, Skyline and geometric diffusers. Solid wood or MDF with paint or veneer finish.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_mls">MLS Series · 3</span>
+<span class="mcat-chip" data-i18n="cls_qrd">QRD / Skyline · 5</span>
+<span class="mcat-chip" data-i18n="cls_geom">Geometric · 9</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="specialty">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title" data-i18n="mcat_specialty_title">Wood Wool · Spray · Soundproof Doors</h3>
+<p class="mcat-pane-desc" data-i18n="mcat_specialty_desc">Mineralized wood-wool cement boards, seamless Acouspray AS30 finish, and STC 35-45 dB soundproof doors in metal, wood and composite.</p>
+</div>
+<div class="mcat-pane-models">
+<span class="mcat-chip" data-i18n="cls_wool">Wood Wool · 7 shapes</span>
+<span class="mcat-chip" data-i18n="cls_spray">Acouspray AS30</span>
+<span class="mcat-chip" data-i18n="cls_door">Doors · STC 35-45 dB</span>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/spray.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/door.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<a href="#projects" data-i18n="nav_projects">Projects</a>
+<a href="#process" data-i18n="nav_process">Process</a>
+<a href="#contact" data-i18n="nav_contact">Contact</a>
+</nav>
+</div>
+<main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page"><section class="home-header" data-v-4af64125><div class="container" data-v-4af64125><div class="row" data-v-4af64125><p class="base-heading" data-v-4af64125 data-v-342e3239 data-i18n="hero_heading">Acoustic elegance for spaces that inspire.</p><div aria-hidden="true" class="indicator" data-v-4af64125> Scroll to explore </div></div><div class="row" data-v-4af64125><h2 class="base-title" data-v-4af64125 data-v-4a4379f9 data-i18n="hero_title">Acoustic specialists</h2><p class="text" data-v-4af64125 data-i18n="hero_text">We design, engineer and deliver integrated acoustic solutions for ambitious architectural projects. Every surface reflects our commitment to clarity, craft, and performance.</p></div></div><div class="background" data-v-4af64125><div class="asset" data-v-4af64125><video autoplay muted loop playsinline class="video" data-v-4af64125><source src="assets/hero-section.mp4" type="video/mp4" data-v-4af64125></video><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80" class="base-image" width="1600" height="1373" data-v-4af64125></div></div></section><section class="about-mosaic about-proof" id="about">
+<div class="about-proof-inner">
+
+<div class="about-proof-text">
+<span class="about-proof-eyebrow"><span class="about-proof-mark">◆</span> <span data-i18n="proof_eyebrow">About NAAYA</span></span>
+<h2 class="about-proof-heading" data-i18n="proof_heading">An acoustic systems company — sixteen years of designing surfaces that disappear into the architecture.</h2>
+<a href="/about" class="about-mosaic-cta about-proof-cta">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="about_button">Who we are</span>
+</a>
+</div>
+
+<div class="about-proof-stats">
+<div class="stat">
+<span class="stat-num" data-count="2008" data-duration="1600">0</span>
+<span class="stat-label" data-i18n="proof_stat_founded">Founded</span>
+</div>
+<div class="stat">
+<span class="stat-num" data-count="16" data-duration="1400">0</span>
+<span class="stat-label" data-i18n="proof_stat_series">Series</span>
+</div>
+<div class="stat">
+<span class="stat-num" data-count="2000" data-duration="1800">0<em class="stat-plus">+</em></span>
+<span class="stat-label" data-i18n="proof_stat_projects">Projects delivered</span>
+</div>
+<div class="stat">
+<span class="stat-num">ISO 354</span>
+<span class="stat-label" data-i18n="proof_stat_iso">Certified across all series</span>
+</div>
+</div>
+
+<div class="about-proof-footnotes">
+<span data-i18n="proof_note_1">· Tested by Tongji &amp; SIA Acoustic Lab</span>
+<span data-i18n="proof_note_2">· Delivered to airports, theaters, studios across Asia &amp; EU</span>
+</div>
+
+</div>
+</section><section class="collection collection-tape">
+<div class="collection-inner">
+
+<div class="collection-head">
+<h2 class="base-title" data-v-4a4379f9 data-i18n="product_title">Product collection</h2>
+</div>
+
+<div class="tape">
+<div class="tape-row tape-row-1">
+<div class="tape-track">
+<!-- group 1 -->
+<a href="/collection/?cat=wood" class="tape-card"><div class="tape-img"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">01</span><span class="tape-name" data-i18n="cat_wood_name">Grooved</span></div></a>
+<a href="/collection/?cat=perfo" class="tape-card"><div class="tape-img"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">02</span><span class="tape-name" data-i18n="cat_perfo_name">Perforated</span></div></a>
+<a href="/collection/?cat=micro" class="tape-card"><div class="tape-img"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">03</span><span class="tape-name" data-i18n="cat_micro_name">Micro</span></div></a>
+<a href="/collection/?cat=curve" class="tape-card"><div class="tape-img"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">04</span><span class="tape-name" data-i18n="cat_curve_name">Curved</span></div></a>
+<a href="/collection/?cat=metal" class="tape-card"><div class="tape-img"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">05</span><span class="tape-name" data-i18n="cat_metal_name">Metal</span></div></a>
+<a href="/collection/?cat=uniseam" class="tape-card"><div class="tape-img"><img src="assets/categories/uniseam.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">06</span><span class="tape-name" data-i18n="cat_uniseam_name">Seamless</span></div></a>
+<a href="/collection/?cat=gypsum" class="tape-card"><div class="tape-img"><img src="assets/categories/gypsum.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">07</span><span class="tape-name" data-i18n="cat_gypsum_name">Gypsum</span></div></a>
+<!-- duplicate for seamless loop -->
+<a href="/collection/?cat=wood" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">01</span><span class="tape-name" data-i18n="cat_wood_name">Grooved</span></div></a>
+<a href="/collection/?cat=perfo" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">02</span><span class="tape-name" data-i18n="cat_perfo_name">Perforated</span></div></a>
+<a href="/collection/?cat=micro" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">03</span><span class="tape-name" data-i18n="cat_micro_name">Micro</span></div></a>
+<a href="/collection/?cat=curve" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">04</span><span class="tape-name" data-i18n="cat_curve_name">Curved</span></div></a>
+<a href="/collection/?cat=metal" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">05</span><span class="tape-name" data-i18n="cat_metal_name">Metal</span></div></a>
+<a href="/collection/?cat=uniseam" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/uniseam.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">06</span><span class="tape-name" data-i18n="cat_uniseam_name">Seamless</span></div></a>
+<a href="/collection/?cat=gypsum" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/gypsum.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">07</span><span class="tape-name" data-i18n="cat_gypsum_name">Gypsum</span></div></a>
+</div>
+</div>
+<div class="tape-row tape-row-2">
+<div class="tape-track">
+<a href="/collection/?cat=fabric" class="tape-card"><div class="tape-img"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">08</span><span class="tape-name" data-i18n="cat_fabric_name">Fabric</span></div></a>
+<a href="/collection/?cat=pet" class="tape-card"><div class="tape-img"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">09</span><span class="tape-name" data-i18n="cat_pet_name">Eco PET</span></div></a>
+<a href="/collection/?cat=woodwool" class="tape-card"><div class="tape-img"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">10</span><span class="tape-name" data-i18n="cat_woodwool_name">Wood Wool</span></div></a>
+<a href="/collection/?cat=fiberglass" class="tape-card"><div class="tape-img"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">11</span><span class="tape-name" data-i18n="cat_fiberglass_name">Fiberglass</span></div></a>
+<a href="/collection/?cat=diffuser" class="tape-card"><div class="tape-img"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">12</span><span class="tape-name" data-i18n="cat_diffuser_name">Diffuser</span></div></a>
+<a href="/collection/?cat=spray" class="tape-card"><div class="tape-img"><img src="assets/categories/spray.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">13</span><span class="tape-name" data-i18n="cat_spray_name">Spray</span></div></a>
+<a href="/collection/?cat=door" class="tape-card"><div class="tape-img"><img src="assets/categories/door.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">14</span><span class="tape-name" data-i18n="cat_door_name">Door</span></div></a>
+<!-- duplicate -->
+<a href="/collection/?cat=fabric" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">08</span><span class="tape-name" data-i18n="cat_fabric_name">Fabric</span></div></a>
+<a href="/collection/?cat=pet" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">09</span><span class="tape-name" data-i18n="cat_pet_name">Eco PET</span></div></a>
+<a href="/collection/?cat=woodwool" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">10</span><span class="tape-name" data-i18n="cat_woodwool_name">Wood Wool</span></div></a>
+<a href="/collection/?cat=fiberglass" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">11</span><span class="tape-name" data-i18n="cat_fiberglass_name">Fiberglass</span></div></a>
+<a href="/collection/?cat=diffuser" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">12</span><span class="tape-name" data-i18n="cat_diffuser_name">Diffuser</span></div></a>
+<a href="/collection/?cat=spray" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/spray.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">13</span><span class="tape-name" data-i18n="cat_spray_name">Spray</span></div></a>
+<a href="/collection/?cat=door" class="tape-card" aria-hidden="true"><div class="tape-img"><img src="assets/categories/door.webp" alt="" loading="lazy"></div><div class="tape-meta"><span class="tape-num">14</span><span class="tape-name" data-i18n="cat_door_name">Door</span></div></a>
+</div>
+</div>
+</div>
+
+<div class="tape-meta-row">
+<span class="tape-summary" data-i18n="tape_summary">14 categories · 5 material families · ISO 354 tested</span>
+</div>
+
+</div>
+</section><!-- legacy carousel hidden --><section class="collection collection-legacy" style="display:none;">
+<div class="collection-inner">
+<div class="collection-track-wrap">
+<div class="collection-row" id="collectionRow">
+<a href="/collection/?cat=wood" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">01</span>
+<span class="cat-card-count" data-i18n="cat_wood_count">Classic</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_wood_name">Grooved</h3>
+</div>
+</a>
+<a href="/collection/?cat=perfo" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">02</span>
+<span class="cat-card-count" data-i18n="cat_perfo_count">Perfo</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_perfo_name">Perforated</h3>
+</div>
+</a>
+<a href="/collection/?cat=micro" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">03</span>
+<span class="cat-card-count" data-i18n="cat_micro_count">Micro Art</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_micro_name">Micro</h3>
+</div>
+</a>
+<a href="/collection/?cat=curve" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">04</span>
+<span class="cat-card-count" data-i18n="cat_curve_count">Wood Curve</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_curve_name">Curved</h3>
+</div>
+</a>
+<a href="/collection/?cat=metal" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">05</span>
+<span class="cat-card-count" data-i18n="cat_metal_count">Phonex</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_metal_name">Metal</h3>
+</div>
+</a>
+<a href="/collection/?cat=uniseam" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/uniseam.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">06</span>
+<span class="cat-card-count" data-i18n="cat_uniseam_count">Uniseam</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_uniseam_name">Seamless</h3>
+</div>
+</a>
+<a href="/collection/?cat=gypsum" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/gypsum.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">07</span>
+<span class="cat-card-count" data-i18n="cat_gypsum_count">Cleaneo</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_gypsum_name">Gypsum</h3>
+</div>
+</a>
+<a href="/collection/?cat=spray" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/spray.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">08</span>
+<span class="cat-card-count" data-i18n="cat_spray_count">Acouspray</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_spray_name">Spray</h3>
+</div>
+</a>
+<a href="/collection/?cat=fiberglass" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">09</span>
+<span class="cat-card-count" data-i18n="cat_fiberglass_count">Acona</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_fiberglass_name">Fiberglass</h3>
+</div>
+</a>
+<a href="/collection/?cat=fabric" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">10</span>
+<span class="cat-card-count" data-i18n="cat_fabric_count">Fabricoustic</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_fabric_name">Fabric</h3>
+</div>
+</a>
+<a href="/collection/?cat=pet" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">11</span>
+<span class="cat-card-count" data-i18n="cat_pet_count">Polyester</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_pet_name">Eco PET</h3>
+</div>
+</a>
+<a href="/collection/?cat=woodwool" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">12</span>
+<span class="cat-card-count" data-i18n="cat_woodwool_count">Wood Wool</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_woodwool_name">Wood Wool</h3>
+</div>
+</a>
+<a href="/collection/?cat=diffuser" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">13</span>
+<span class="cat-card-count" data-i18n="cat_diffuser_count">Diffuser</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_diffuser_name">Diffuser</h3>
+</div>
+</a>
+<a href="/collection/?cat=door" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/door.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">14</span>
+<span class="cat-card-count" data-i18n="cat_door_count">Soundproof</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_door_name">Door</h3>
+</div>
+</a>
+</div>
+</div>
+
+<div class="collection-nav">
+<button class="collection-nav-btn prev" aria-label="Previous" data-dir="-1">
+<svg viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentcolor" stroke-width="1.2" fill="none"/></svg>
+</button>
+<button class="collection-nav-btn next" aria-label="Next" data-dir="1">
+<svg viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentcolor" stroke-width="1.2" fill="none"/></svg>
+</button>
+<span class="collection-nav-count" data-i18n="collection_count">14 categories</span>
+</div>
+
+</div>
+</section><section class="calc calc-magazine">
+<div class="calc-magazine-inner">
+
+<div class="calc-mag-photo">
+<img src="assets/projects/calc-expert.webp" alt="Acoustic expert inspecting a room" loading="lazy">
+<span class="calc-mag-badge" data-i18n="calc_mag_badge">Free · Instant report</span>
+</div>
+
+<div class="calc-mag-text">
+<span class="calc-mag-eyebrow"><span class="calc-mag-mark">◆</span> <span data-i18n="calc_eyebrow">Acoustic Calculator</span></span>
+
+<h2 class="calc-mag-headline" data-i18n="mag_headline">A free acoustic report for your space — delivered the moment you finish entering it.</h2>
+
+<p class="calc-mag-body" data-i18n="mag_body">No quote forms. No back-and-forth with a sales engineer. Sketch your room, pick your finishes, and our calculator returns a frequency-accurate RT60 report — backed by ISO 354 — right there on screen. Yours to download as a PDF.</p>
+
+<div class="calc-mag-row">
+<a href="simulator-v2/" class="calc-mag-cta">
+<span data-i18n="calc_cta">Launch the calculator</span>
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.4"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.4"></rect></svg>
+</a>
+<span class="calc-mag-meta">
+<span data-i18n="mag_meta_1">100% free</span>
+<span class="calc-mag-sep">·</span>
+<span data-i18n="mag_meta_2">No sign-up</span>
+<span class="calc-mag-sep">·</span>
+<span data-i18n="mag_meta_3">60-second turnaround</span>
+</span>
+</div>
+</div>
+
+</div>
+</section><section class="cine cine-index" id="projects">
+<div class="cine-index-inner">
+
+<div class="cine-index-head">
+<span class="cine-eyebrow"><span class="cine-mark">◆</span> <span data-i18n="projects_title">Featured projects</span></span>
+<a href="/projects/" class="cine-index-viewall">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="projects_viewall">View all 6 projects</span>
+</a>
+</div>
+
+<div class="cine-index-stage">
+
+<div class="cine-index-photo-wrap">
+<div class="cine-index-photo is-active" data-slide="1"><img src="assets/projects/project-1.webp" alt="Grand Theatre Foshan"></div>
+<div class="cine-index-photo" data-slide="2"><img src="assets/projects/project-2.webp" alt="Shenzhen Convention Center"></div>
+<div class="cine-index-photo" data-slide="3"><img src="assets/projects/project-3.webp" alt="Beijing Recording Studio"></div>
+<div class="cine-index-photo" data-slide="4"><img src="assets/projects/project-4.webp" alt="Hangzhou Concert Hall"></div>
+<div class="cine-index-photo" data-slide="5"><img src="assets/projects/project-5.webp" alt="Tencent HQ Lobby"></div>
+<div class="cine-index-photo" data-slide="6"><img src="assets/projects/project-6.webp" alt="Bulgari Hotel Shanghai"></div>
+</div>
+
+<div class="cine-index-list">
+<a href="/projects/foshan" class="cine-index-item is-active" data-slide="1">
+<span class="ci-num">01</span>
+<span class="ci-text">
+<span class="ci-name">Grand Theatre Foshan</span>
+<span class="ci-meta">Foshan, China · 2024 · Grooved · Uniseam · Micro</span>
+</span>
+<span class="ci-arrow">→</span>
+</a>
+<a href="/projects/shenzhen" class="cine-index-item" data-slide="2">
+<span class="ci-num">02</span>
+<span class="ci-text">
+<span class="ci-name">Shenzhen Convention Center</span>
+<span class="ci-meta">Shenzhen, China · 2023 · Micro · Perforated</span>
+</span>
+<span class="ci-arrow">→</span>
+</a>
+<a href="/projects/beijing-studio" class="cine-index-item" data-slide="3">
+<span class="ci-num">03</span>
+<span class="ci-text">
+<span class="ci-name">Beijing Recording Studio</span>
+<span class="ci-meta">Beijing, China · 2024 · Uniseam · Grooved</span>
+</span>
+<span class="ci-arrow">→</span>
+</a>
+<a href="/projects/hangzhou-concert" class="cine-index-item" data-slide="4">
+<span class="ci-num">04</span>
+<span class="ci-text">
+<span class="ci-name">Hangzhou Concert Hall</span>
+<span class="ci-meta">Hangzhou, China · 2024 · Micro · Grooved · Diffuser</span>
+</span>
+<span class="ci-arrow">→</span>
+</a>
+<a href="/projects/tencent" class="cine-index-item" data-slide="5">
+<span class="ci-num">05</span>
+<span class="ci-text">
+<span class="ci-name">Tencent HQ Lobby</span>
+<span class="ci-meta">Shenzhen, China · 2023 · Fabric · Acona Art</span>
+</span>
+<span class="ci-arrow">→</span>
+</a>
+<a href="/projects/bulgari" class="cine-index-item" data-slide="6">
+<span class="ci-num">06</span>
+<span class="ci-text">
+<span class="ci-name">Bulgari Hotel Shanghai</span>
+<span class="ci-meta">Shanghai, China · 2023 · Wood Curve · Phonex</span>
+</span>
+<span class="ci-arrow">→</span>
+</a>
+</div>
+
+</div>
+
+</div>
+</section>
+<section class="wws wws-network">
+<div class="wws-network-inner">
+
+<div class="wws-network-head">
+<span class="wws-eyebrow"><span class="wws-mark">◆</span> <span data-i18n="wws_title">Who we serve</span></span>
+<h2 class="wws-network-heading" data-i18n="wws_net_heading">Eight roles. One project.</h2>
+<p class="wws-network-sub" data-i18n="wws_net_sub">From concept to completion, NAAYA touches every voice in the built environment. Hover any role to see how.</p>
+</div>
+
+<div class="wws-network-stage" id="wwsNetwork">
+<svg viewBox="0 0 900 620" class="wws-network-svg" preserveAspectRatio="xMidYMid meet">
+
+<!-- connecting lines -->
+<g class="wn-lines" stroke="#0b1012" stroke-opacity=".18" stroke-width="1" fill="none">
+<line class="wn-line" data-node="owner" x1="450" y1="310" x2="450" y2="80"/>
+<line class="wn-line" data-node="architect" x1="450" y1="310" x2="620" y2="150"/>
+<line class="wn-line" data-node="mep" x1="450" y1="310" x2="700" y2="310"/>
+<line class="wn-line" data-node="acoustic" x1="450" y1="310" x2="620" y2="470"/>
+<line class="wn-line" data-node="interior" x1="450" y1="310" x2="450" y2="540"/>
+<line class="wn-line" data-node="contractor" x1="450" y1="310" x2="280" y2="470"/>
+<line class="wn-line" data-node="fitout" x1="450" y1="310" x2="200" y2="310"/>
+<line class="wn-line" data-node="distributor" x1="450" y1="310" x2="280" y2="150"/>
+</g>
+
+<!-- center brandmark -->
+<g class="wn-center" transform="translate(450,310)">
+<polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22" fill="#0b1012"/>
+<text y="80" text-anchor="middle" font-family="Aeonik Mono, monospace" font-weight="600" font-size="13" letter-spacing="3" fill="#0b1012">NAAYA</text>
+</g>
+
+<!-- 8 nodes -->
+<g class="wn-nodes">
+
+<g class="wn-node" data-node="owner" transform="translate(450,80)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" y="-30" text-anchor="middle">01</text>
+<text class="wn-name" y="-14" text-anchor="middle">Property Owners</text>
+</g>
+
+<g class="wn-node" data-node="architect" transform="translate(620,150)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="22" y="-10">02</text>
+<text class="wn-name" x="22" y="8">Architects</text>
+</g>
+
+<g class="wn-node" data-node="mep" transform="translate(700,310)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="22" y="-4">03</text>
+<text class="wn-name" x="22" y="14">MEP Consultants</text>
+</g>
+
+<g class="wn-node" data-node="acoustic" transform="translate(620,470)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="22" y="2">04</text>
+<text class="wn-name" x="22" y="20">Acoustic Consultants</text>
+</g>
+
+<g class="wn-node" data-node="interior" transform="translate(450,540)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" y="30" text-anchor="middle">05</text>
+<text class="wn-name" y="48" text-anchor="middle">Interior Designers</text>
+</g>
+
+<g class="wn-node" data-node="contractor" transform="translate(280,470)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="-22" y="2" text-anchor="end">06</text>
+<text class="wn-name" x="-22" y="20" text-anchor="end">Contractors</text>
+</g>
+
+<g class="wn-node" data-node="fitout" transform="translate(200,310)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="-22" y="-4" text-anchor="end">07</text>
+<text class="wn-name" x="-22" y="14" text-anchor="end">Fit-out Partners</text>
+</g>
+
+<g class="wn-node" data-node="distributor" transform="translate(280,150)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="-22" y="-10" text-anchor="end">08</text>
+<text class="wn-name" x="-22" y="8" text-anchor="end">Distributors</text>
+</g>
+
+</g>
+</svg>
+
+<!-- detail pane below diagram -->
+<div class="wn-detail">
+<div class="wn-pane is-active" data-pane="owner">
+<span class="wn-pane-eyebrow">01 · Property Owners</span>
+<p class="wn-pane-text">Brand-defining spaces commissioned with confidence — turnkey acoustic delivery, documented performance, and a single point of accountability from concept to handover.</p>
+</div>
+<div class="wn-pane" data-pane="architect">
+<span class="wn-pane-eyebrow">02 · Architects</span>
+<p class="wn-pane-text">Defendable specs and ready-to-drop assets — ISO 354 absorption data, Revit / CAD library, RCP examples, and tender support that survives the design review.</p>
+</div>
+<div class="wn-pane" data-pane="mep">
+<span class="wn-pane-eyebrow">03 · MEP Consultants</span>
+<p class="wn-pane-text">Cleanly coordinated interfaces — pre-cut reveals, integrated lighting / grille details, BIM-ready families, and clearance notes for plenum and service runs.</p>
+</div>
+<div class="wn-pane" data-pane="acoustic">
+<span class="wn-pane-eyebrow">04 · Acoustic Consultants</span>
+<p class="wn-pane-text">Tested data, not estimates — third-party NRC published per model across 125 Hz – 4 kHz, plus Sabine-grade reports for your project's RT60 budget.</p>
+</div>
+<div class="wn-pane" data-pane="interior">
+<span class="wn-pane-eyebrow">05 · Interior Designers</span>
+<p class="wn-pane-text">Performance that never breaks the visual language — 14 wood species, RAL-matched paint, custom veneer, fabric-wrap, and 22 CNC art patterns to choose from.</p>
+</div>
+<div class="wn-pane" data-pane="contractor">
+<span class="wn-pane-eyebrow">06 · Contractors</span>
+<p class="wn-pane-text">Things that fit on site, fast — cut-to-size delivery labeled per drawing, installer-rated mounting kits, and field tech support when the shop drawings don't match reality.</p>
+</div>
+<div class="wn-pane" data-pane="fitout">
+<span class="wn-pane-eyebrow">07 · Fit-out Partners</span>
+<p class="wn-pane-text">The last 10% without the last-minute fires — direct factory ship, regional warehousing, free replacement on transit damage, and emergency air-freight on tight schedules.</p>
+</div>
+<div class="wn-pane" data-pane="distributor">
+<span class="wn-pane-eyebrow">08 · Distributors</span>
+<p class="wn-pane-text">A real partnership, not just a wholesale list — co-branded sample books, sales training, qualified project leads, and exclusive territory protection.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section class="process" id="process">
+<div class="process-inner">
+
+<div class="process-head">
+<span class="process-eyebrow"><span class="process-mark">◆</span> <span data-i18n="process_eyebrow">How we work</span></span>
+<h2 class="process-heading" data-i18n="process_heading">From brief to handover — three steps.</h2>
+</div>
+
+<div class="process-grid">
+
+<div class="process-step">
+<span class="process-num">01</span>
+<h3 class="process-step-name" data-i18n="process_s1_name">Brief</h3>
+<p class="process-step-desc" data-i18n="process_s1_desc">You share project drawings, function, and RT60 targets — or use our free calculator first. We respond with a feasibility note within 48 hours.</p>
+<div class="process-step-deliver">
+<span class="process-deliver-label" data-i18n="process_deliver">Deliverable</span>
+<span class="process-deliver-text" data-i18n="process_s1_deliver">Feasibility note · 48 hr turnaround · Free, no sign-up</span>
+</div>
+</div>
+
+<div class="process-step">
+<span class="process-num">02</span>
+<h3 class="process-step-name" data-i18n="process_s2_name">Spec</h3>
+<p class="process-step-desc" data-i18n="process_s2_desc">Our acoustic team models the room, proposes a panel mix tuned to ISO 354 targets, and delivers a tender-ready specification with Revit / CAD assets.</p>
+<div class="process-step-deliver">
+<span class="process-deliver-label" data-i18n="process_deliver">Deliverable</span>
+<span class="process-deliver-text" data-i18n="process_s2_deliver">RT60 report · Panel-mix spec · Revit / CAD library · 5 working days</span>
+</div>
+</div>
+
+<div class="process-step">
+<span class="process-num">03</span>
+<h3 class="process-step-name" data-i18n="process_s3_name">Build</h3>
+<p class="process-step-desc" data-i18n="process_s3_desc">Custom production, factory-direct shipping, on-site installation support, and post-install acoustic verification — closing the loop with measured RT60.</p>
+<div class="process-step-deliver">
+<span class="process-deliver-label" data-i18n="process_deliver">Deliverable</span>
+<span class="process-deliver-text" data-i18n="process_s3_deliver">Manufactured panels · Install support · ISO 354 verification report</span>
+</div>
+</div>
+
+</div>
+
+<div class="process-foot">
+<p class="process-foot-text" data-i18n="process_foot_text">Ready to brief us on your project?</p>
+<a href="/contact" class="process-cta">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.4"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.4"></rect></svg>
+<span data-i18n="process_cta">Contact us</span>
+</a>
+</div>
+
+</div>
+</section>
+
+<footer class="footer" data-v-b5a28948 id="contact"><div class="container" data-v-b5a28948><a aria-current="page" href="/" class="is-active is-exact-active logo" data-v-b5a28948><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-b5a28948><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg></a><div class="footer-content">
+
+<div class="footer-col footer-col-brand">
+<div class="footer-brand-name">NAAYA</div>
+<p class="footer-brand-tag" data-i18n="footer_tag">Acoustic elegance for spaces that inspire. 16 series engineered for architectural projects worldwide.</p>
+<address class="footer-addr">
+<a href="mailto:info@naaya.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>info@naaya.com</a>
+<a href="tel:+862088888888" class="footer-link"><span data-i18n="footer_phone_label">Phone</span><br>+86 20 8888 8888</a>
+<span class="footer-link"><span data-i18n="footer_addr_label">Address</span><br><span data-i18n="footer_addr">Guangzhou, China</span></span>
+</address>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_products">Products</h4>
+<a href="/collection/?cat=wood" data-i18n="footer_p_wood">Wood Panels</a>
+<a href="/collection/?cat=ceiling" data-i18n="footer_p_ceiling">Ceiling Systems</a>
+<a href="/collection/?cat=metal" data-i18n="footer_p_metal">Metal Acoustic</a>
+<a href="/collection/?cat=fabric" data-i18n="footer_p_fabric">Fabric &amp; Eco</a>
+<a href="/collection/?cat=specialty" data-i18n="footer_p_specialty">Diffusers &amp; Doors</a>
+<a href="/collection/" data-i18n="footer_p_all">All series →</a>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_company">Company</h4>
+<a href="/about" data-i18n="footer_c_about">About NAAYA</a>
+<a href="/approach" data-i18n="footer_c_approach">Our approach</a>
+<a href="/projects/" data-i18n="footer_c_projects">Featured projects</a>
+<a href="/showroom" data-i18n="footer_c_factory">Factory tour</a>
+<a href="/careers" data-i18n="footer_c_careers">Careers</a>
+<a href="/news/" data-i18n="footer_c_news">News</a>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_resources">Resources</h4>
+<a href="/downloads" data-i18n="footer_r_specs">Spec sheets</a>
+<a href="/downloads" data-i18n="footer_r_catalog">Product catalogue</a>
+<a href="/acoustics-101" data-i18n="footer_r_guide">Acoustics 101</a>
+<a href="/certifications" data-i18n="footer_r_certs">Certifications</a>
+<a href="/faq" data-i18n="footer_r_faq">FAQ</a>
+</div>
+
+<div class="footer-col footer-col-cta">
+<h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
+<p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
+<a href="/contact" class="footer-cta-btn">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="cta_button">Get in touch</span>
+</a>
+<form class="footer-newsletter" onsubmit="return false">
+<label class="footer-newsletter-label" data-i18n="footer_newsletter">Subscribe to our newsletter</label>
+<div class="footer-newsletter-row">
+<input type="email" placeholder="you@example.com" class="footer-newsletter-input" aria-label="Email">
+<button type="submit" class="footer-newsletter-btn" aria-label="Subscribe">→</button>
+</div>
+</form>
+</div>
+
+</div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2026, NAAYA </div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
+
+<script src="js/naaya.js"></script>
+</body>
+</html>

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAAYA - Structural & Architectural Glazing Specialists</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/naaya.css">
+<style>
+  /* index-3 only: force IBM Plex Sans + Plex Mono over the shared Geist setup */
+  :root{
+    --font-f-aeonik-pro: 'IBM Plex Sans', system-ui, sans-serif;
+    --font-f-aeonik-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  html, body, body *:not(i):not([class*="fa-"]):not([class*="glyphicon"]){
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  /* Keep mono on small uppercase meta / eyebrow / number-stamp elements */
+  [class*="-eyebrow"], [class*="-meta"], [class*="-deliver-label"], [class*="-mono"],
+  .aw-meta, .aw-eyebrow, .calc-meta, .calc-eyebrow, .ptl-meta, .ptl-num,
+  .wws-mat-head, .wws-mat-num, .cb-meta, .cb-num,
+  .mindex-num, .cat-index-num, .sf-num, .ei-meta, .ei-eyebrow, .ei-deliver-label, .ei-cta-r,
+  code, pre, kbd, samp{
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  /* ============================================
+     COLOR SKIN — WARM WHITE × COCOA × RUST
+     ============================================ */
+  :root{
+    --color-cream: #f4f0e7;
+    --color-black: #1d1812;
+    --color-grey:  #1d1812;
+    --color-taupe: #d6cfc1;
+  }
+  html, body{ background:#f4f0e7; color:#1d1812; }
+  main{ background:#f4f0e7; }
+
+  /* --- ALL copper #b87333 → rust #8a4332 --- */
+  .about-wave-line{
+    background:linear-gradient(to bottom, #8a4332, color-mix(in srgb, #1d1812 60%, transparent));
+  }
+  .aw-anchor-dot{
+    background:#8a4332;
+    box-shadow:0 0 0 .4rem color-mix(in srgb, #8a4332 18%, transparent);
+  }
+  @keyframes awdotPulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(138,67,50,.55); }
+    50%   { box-shadow:0 0 0 .9rem rgba(138,67,50,0); }
+  }
+
+  .cat-index-item::before{ background:#8a4332; }
+  .cat-index-item.is-active .ci-num,
+  .cat-index-item:hover .ci-num{ color:#8a4332; }
+  .ci-fam[data-fam="wood"]{
+    background:color-mix(in srgb, #8a4332 14%, transparent);
+    color:#5b2818;
+  }
+  .ci-fam[data-fam="soft"]{
+    background:color-mix(in srgb, #b5694d 22%, transparent);
+    color:#5b2818;
+  }
+
+  .sf-pulse{
+    background:#8a4332;
+    box-shadow:0 0 0 .35rem color-mix(in srgb, #8a4332 18%, transparent);
+  }
+  @keyframes sfDotPulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(138,67,50,.55); }
+    50%   { box-shadow:0 0 0 .9rem rgba(138,67,50,0); }
+  }
+
+  /* Freq spectrum bar — rebuilt with rust palette */
+  .freq-spectrum-bar{
+    background: linear-gradient(to right,
+      #3a2820 0%, #5b3a2f 22%, #c6b0a2 50%, #c08260 72%, #8a4332 90%, #4a2419 100%);
+  }
+  .freq-spectrum-bar::after{ background:#1d1812; }
+  .freq-spectrum-scale{ color: rgba(90,55,40,.65); }
+
+  /* Panel texture — rust-tinted dots and shine */
+  .panel-texture{
+    background-image: radial-gradient(circle at center, rgba(74,36,25,.55) 1.4px, transparent 1.6px);
+  }
+  .panel-texture::after{
+    background-image: linear-gradient(90deg, transparent 38%, rgba(138,67,50,.45) 50%, transparent 62%);
+  }
+
+  /* Measurement line */
+  .meas-line .ml-tick{ background:#8a4332; }
+  .meas-line .ml-tick::after{
+    background:#8a4332;
+    box-shadow: 0 0 0 .5rem #f4f0e7, 0 0 0 .8rem color-mix(in srgb, #8a4332 22%, transparent);
+  }
+  .meas-line .ml-line::after{
+    background: linear-gradient(90deg, transparent, #8a4332 50%, transparent);
+  }
+  @keyframes meterTickPulse{
+    0%, 30%, 100%{
+      box-shadow: 0 0 0 .5rem #f4f0e7,
+                  0 0 0 .8rem color-mix(in srgb, #8a4332 22%, transparent);
+    }
+    15%{
+      box-shadow: 0 0 0 .5rem #f4f0e7,
+                  0 0 0 2rem color-mix(in srgb, #8a4332 0%, transparent);
+    }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+
+</head>
+<body>
+<div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
+<a href="/" class="site-nav-logo" aria-label="Home">
+<svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-brand"><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg>
+<span class="site-nav-wordmark">NAAYA</span>
+</a>
+<nav class="site-nav-links" aria-label="Primary">
+<a href="#about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="#products" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-index" aria-hidden="true">
+<div class="mindex-inner">
+
+<div class="mindex-head">
+<span class="mindex-eyebrow">Series</span>
+<a href="/collection/" class="mindex-all">All <span class="sf-num">128</span> models →</a>
+</div>
+
+<div class="mindex-cols">
+
+<div class="mindex-col">
+<div class="mindex-col-head">
+<span class="mindex-col-num">01</span>
+<span class="mindex-col-name">Wood</span>
+</div>
+<a href="/collection/?cat=classic" class="mindex-item"><span class="mindex-item-name">Classic Grooved</span><span class="mindex-item-count">10</span></a>
+<a href="/collection/?cat=perfo" class="mindex-item"><span class="mindex-item-name">Perfo</span><span class="mindex-item-count">6</span></a>
+<a href="/collection/?cat=micro-classic" class="mindex-item"><span class="mindex-item-name">Micro Classic</span><span class="mindex-item-count">4</span></a>
+<a href="/collection/?cat=micro-art" class="mindex-item"><span class="mindex-item-name">Micro Art</span><span class="mindex-item-count">7</span></a>
+<a href="/collection/?cat=wood-curve" class="mindex-item"><span class="mindex-item-name">Wood Curve</span><span class="mindex-item-count">4</span></a>
+<a href="/collection/?cat=art-acoustic" class="mindex-item"><span class="mindex-item-name">Art Acoustic</span><span class="mindex-item-count">22</span></a>
+</div>
+
+<div class="mindex-col">
+<div class="mindex-col-head">
+<span class="mindex-col-num">02</span>
+<span class="mindex-col-name">Metal &amp; Ceiling</span>
+</div>
+<a href="/collection/?cat=phonex-compose" class="mindex-item"><span class="mindex-item-name">PHONEX Compose</span><span class="mindex-item-count">3</span></a>
+<a href="/collection/?cat=phonex-classic" class="mindex-item"><span class="mindex-item-name">PHONEX Classic</span><span class="mindex-item-count">10</span></a>
+<a href="/collection/?cat=phonex-standard" class="mindex-item"><span class="mindex-item-name">PHONEX Standard</span><span class="mindex-item-count">4</span></a>
+<a href="/collection/?cat=uniseam" class="mindex-item"><span class="mindex-item-name">Uniseam Aero / Mono</span><span class="mindex-item-count">2</span></a>
+<a href="/collection/?cat=cleaneo" class="mindex-item"><span class="mindex-item-name">Cleaneo Gypsum</span><span class="mindex-item-count">4</span></a>
+<a href="/collection/?cat=acona" class="mindex-item"><span class="mindex-item-name">Acona Classic / Art</span><span class="mindex-item-count">11</span></a>
+</div>
+
+<div class="mindex-col">
+<div class="mindex-col-head">
+<span class="mindex-col-num">03</span>
+<span class="mindex-col-name">Soft &amp; Specialty</span>
+</div>
+<a href="/collection/?cat=fabric" class="mindex-item"><span class="mindex-item-name">Fabricoustic</span><span class="mindex-item-count">6</span></a>
+<a href="/collection/?cat=pet" class="mindex-item"><span class="mindex-item-name">Polyester (PET)</span><span class="mindex-item-count">5</span></a>
+<a href="/collection/?cat=woodwool" class="mindex-item"><span class="mindex-item-name">Wood Wool</span><span class="mindex-item-count">7</span></a>
+<a href="/collection/?cat=spray" class="mindex-item"><span class="mindex-item-name">Acouspray AS30</span><span class="mindex-item-count">1</span></a>
+<a href="/collection/?cat=diffuser" class="mindex-item"><span class="mindex-item-name">Diffusers</span><span class="mindex-item-count">17</span></a>
+<a href="/collection/?cat=door" class="mindex-item"><span class="mindex-item-name">Soundproof Doors</span><span class="mindex-item-count">3</span></a>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<a href="#projects" data-i18n="nav_projects">Projects</a>
+<a href="#process" data-i18n="nav_process">Process</a>
+<a href="#contact" data-i18n="nav_contact">Contact</a>
+</nav>
+<div class="site-nav-right">
+<a href="/contact" class="site-nav-cta">
+<span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+</a>
+</div>
+</header>
+<button class="site-nav-burger" aria-label="Open menu" id="siteNavBurger"><span></span><span></span><span></span></button>
+<div class="site-nav-mobile" id="siteNavMobile" aria-hidden="true">
+<nav class="site-nav-mobile-links">
+<a href="#about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="#products" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-index" aria-hidden="true">
+<div class="mindex-inner">
+
+<div class="mindex-head">
+<span class="mindex-eyebrow">Series</span>
+<a href="/collection/" class="mindex-all">All <span class="sf-num">128</span> models →</a>
+</div>
+
+<div class="mindex-cols">
+
+<div class="mindex-col">
+<div class="mindex-col-head">
+<span class="mindex-col-num">01</span>
+<span class="mindex-col-name">Wood</span>
+</div>
+<a href="/collection/?cat=classic" class="mindex-item"><span class="mindex-item-name">Classic Grooved</span><span class="mindex-item-count">10</span></a>
+<a href="/collection/?cat=perfo" class="mindex-item"><span class="mindex-item-name">Perfo</span><span class="mindex-item-count">6</span></a>
+<a href="/collection/?cat=micro-classic" class="mindex-item"><span class="mindex-item-name">Micro Classic</span><span class="mindex-item-count">4</span></a>
+<a href="/collection/?cat=micro-art" class="mindex-item"><span class="mindex-item-name">Micro Art</span><span class="mindex-item-count">7</span></a>
+<a href="/collection/?cat=wood-curve" class="mindex-item"><span class="mindex-item-name">Wood Curve</span><span class="mindex-item-count">4</span></a>
+<a href="/collection/?cat=art-acoustic" class="mindex-item"><span class="mindex-item-name">Art Acoustic</span><span class="mindex-item-count">22</span></a>
+</div>
+
+<div class="mindex-col">
+<div class="mindex-col-head">
+<span class="mindex-col-num">02</span>
+<span class="mindex-col-name">Metal &amp; Ceiling</span>
+</div>
+<a href="/collection/?cat=phonex-compose" class="mindex-item"><span class="mindex-item-name">PHONEX Compose</span><span class="mindex-item-count">3</span></a>
+<a href="/collection/?cat=phonex-classic" class="mindex-item"><span class="mindex-item-name">PHONEX Classic</span><span class="mindex-item-count">10</span></a>
+<a href="/collection/?cat=phonex-standard" class="mindex-item"><span class="mindex-item-name">PHONEX Standard</span><span class="mindex-item-count">4</span></a>
+<a href="/collection/?cat=uniseam" class="mindex-item"><span class="mindex-item-name">Uniseam Aero / Mono</span><span class="mindex-item-count">2</span></a>
+<a href="/collection/?cat=cleaneo" class="mindex-item"><span class="mindex-item-name">Cleaneo Gypsum</span><span class="mindex-item-count">4</span></a>
+<a href="/collection/?cat=acona" class="mindex-item"><span class="mindex-item-name">Acona Classic / Art</span><span class="mindex-item-count">11</span></a>
+</div>
+
+<div class="mindex-col">
+<div class="mindex-col-head">
+<span class="mindex-col-num">03</span>
+<span class="mindex-col-name">Soft &amp; Specialty</span>
+</div>
+<a href="/collection/?cat=fabric" class="mindex-item"><span class="mindex-item-name">Fabricoustic</span><span class="mindex-item-count">6</span></a>
+<a href="/collection/?cat=pet" class="mindex-item"><span class="mindex-item-name">Polyester (PET)</span><span class="mindex-item-count">5</span></a>
+<a href="/collection/?cat=woodwool" class="mindex-item"><span class="mindex-item-name">Wood Wool</span><span class="mindex-item-count">7</span></a>
+<a href="/collection/?cat=spray" class="mindex-item"><span class="mindex-item-name">Acouspray AS30</span><span class="mindex-item-count">1</span></a>
+<a href="/collection/?cat=diffuser" class="mindex-item"><span class="mindex-item-name">Diffusers</span><span class="mindex-item-count">17</span></a>
+<a href="/collection/?cat=door" class="mindex-item"><span class="mindex-item-name">Soundproof Doors</span><span class="mindex-item-count">3</span></a>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<a href="#projects" data-i18n="nav_projects">Projects</a>
+<a href="#process" data-i18n="nav_process">Process</a>
+<a href="#contact" data-i18n="nav_contact">Contact</a>
+</nav>
+</div>
+<main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23>
+
+<svg class="sf-defs" aria-hidden="true"><defs>
+<linearGradient id="sfGrad1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1d1812"/><stop offset="22%" stop-color="#4a2419"/><stop offset="45%" stop-color="#8a4332"/><stop offset="68%" stop-color="#b5694d"/><stop offset="90%" stop-color="#5b2818"/><stop offset="100%" stop-color="#1d1812"/></linearGradient>
+<linearGradient id="sfGrad2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2a2017" stop-opacity="0"/><stop offset="30%" stop-color="#2a2017" stop-opacity=".7"/><stop offset="70%" stop-color="#8a4332" stop-opacity=".55"/><stop offset="100%" stop-color="#2a2017" stop-opacity="0"/></linearGradient>
+<linearGradient id="sfGrad3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2a2017" stop-opacity="0"/><stop offset="50%" stop-color="#b5694d" stop-opacity=".5"/><stop offset="100%" stop-color="#2a2017" stop-opacity="0"/></linearGradient>
+<linearGradient id="sfLineGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1d1812" stop-opacity=".25"/><stop offset="40%" stop-color="#8a4332" stop-opacity=".55"/><stop offset="100%" stop-color="#1d1812" stop-opacity=".25"/></linearGradient>
+<linearGradient id="sfSpineGrad" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#8a4332" stop-opacity="0"/><stop offset="20%" stop-color="#8a4332" stop-opacity=".55"/><stop offset="80%" stop-color="#8a4332" stop-opacity=".55"/><stop offset="100%" stop-color="#8a4332" stop-opacity="0"/></linearGradient>
+</defs></svg>
+
+<div class="sf-spine" aria-hidden="true"><svg viewBox="0 0 24 600" preserveAspectRatio="none"><path class="sf-spine-w" d="M12,0 Q22,30 12,60 T12,120 T12,180 T12,240 T12,300 T12,360 T12,420 T12,480 T12,540 T12,600"/></svg></div>
+
+<div class="home-page"><section class="home-header" data-v-4af64125><div class="container" data-v-4af64125><div class="row" data-v-4af64125><p class="base-heading" data-v-4af64125 data-v-342e3239 data-i18n="hero_heading">Acoustic elegance for spaces that inspire.</p><div aria-hidden="true" class="indicator" data-v-4af64125> Scroll to explore </div></div><div class="row" data-v-4af64125><h2 class="base-title" data-v-4af64125 data-v-4a4379f9 data-i18n="hero_title">Acoustic specialists</h2><p class="text" data-v-4af64125 data-i18n="hero_text">We design, engineer and deliver integrated acoustic solutions for ambitious architectural projects. Every surface reflects our commitment to clarity, craft, and performance.</p></div></div><div class="background" data-v-4af64125><div class="asset" data-v-4af64125><video autoplay muted loop playsinline class="video" data-v-4af64125><source src="assets/hero-section.mp4" type="video/mp4" data-v-4af64125></video><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80" class="base-image" width="1600" height="1373" data-v-4af64125></div></div></section><section class="about-mosaic about-wave" id="about">
+<div class="about-wave-shell">
+<div class="about-wave-stage">
+
+<svg class="about-wave-bg" viewBox="-200 0 2000 680" preserveAspectRatio="none">
+<defs>
+<linearGradient id="awgrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%"  stop-color="#1d1812"/>
+<stop offset="22%" stop-color="#4a2419"/>
+<stop offset="45%" stop-color="#8a4332"/>
+<stop offset="68%" stop-color="#b5694d"/>
+<stop offset="90%" stop-color="#5b2818"/>
+<stop offset="100%" stop-color="#1d1812"/>
+</linearGradient>
+<linearGradient id="awgrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#2a2017" stop-opacity="0"/>
+<stop offset="30%" stop-color="#2a2017" stop-opacity=".7"/>
+<stop offset="70%" stop-color="#8a4332" stop-opacity=".55"/>
+<stop offset="100%" stop-color="#2a2017" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="awgrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#2a2017" stop-opacity="0"/>
+<stop offset="50%" stop-color="#b5694d" stop-opacity=".5"/>
+<stop offset="100%" stop-color="#2a2017" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<path class="aw-wave aw-w3" d="M-200,420 Q-100,330 0,420 T200,420 T400,420 T600,420 T800,420 T1000,420 T1200,420 T1400,420 T1600,420 T1800,420 T2000,420"/>
+<path class="aw-wave aw-w2" d="M-200,440 Q-100,360 0,440 T200,440 T400,440 T600,440 T800,440 T1000,440 T1200,440 T1400,440 T1600,440 T1800,440 T2000,440"/>
+<path class="aw-wave aw-w1" d="M-200,300 C-80,300 0,400 120,400 C240,400 320,200 440,200 C560,200 640,440 760,440 C880,440 960,240 1080,240 C1200,240 1280,440 1400,440 C1520,440 1600,260 1720,260 C1840,260 1920,440 2000,440"/>
+</svg>
+
+<span class="about-wave-eyebrow"><span class="about-wave-mark">◆</span> <span data-i18n="proof_eyebrow">About NAAYA</span></span>
+<h2 class="about-wave-heading" data-i18n="aw_heading">Sixteen years of<br>designing how a<br>room sounds.</h2>
+
+<div class="aw-anchor" style="left:23%; top:36rem"><span class="aw-anchor-dot"></span><span class="aw-anchor-num">2008</span><span class="aw-anchor-label" data-i18n="proof_stat_founded">Founded</span></div>
+<div class="aw-anchor" style="left:43%; top:42rem"><span class="aw-anchor-dot"></span><span class="aw-anchor-num">16</span><span class="aw-anchor-label" data-i18n="proof_stat_series">Series</span></div>
+<div class="aw-anchor" style="left:63%; top:46rem"><span class="aw-anchor-dot"></span><span class="aw-anchor-num">ISO 354</span><span class="aw-anchor-label" data-i18n="proof_stat_iso">Certified</span></div>
+<div class="aw-anchor" style="left:83%; top:48rem"><span class="aw-anchor-dot"></span><span class="aw-anchor-num">2000<em class="aw-anchor-plus">+</em></span><span class="aw-anchor-label" data-i18n="proof_stat_projects">Projects</span></div>
+
+<a href="/about" class="aw-cta">
+<span data-i18n="about_button">Who we are</span>
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+</a>
+
+</div>
+</div>
+</section>
+<section class="collection collection-cat-index" id="products">
+<div class="cat-index-inner">
+
+<div class="cat-index-head">
+<span class="cat-index-eyebrow"><span class="cat-index-mark">◆</span> <span data-i18n="product_title">Product collection</span></span>
+<a href="/collection/" class="cat-index-viewall">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="cat_index_viewall">All <span class="sf-num">128</span> models</span>
+</a>
+</div>
+
+<div class="cat-index-stage">
+
+<div class="cat-index-photo-wrap">
+<div class="cat-index-photo is-active" data-cat="1"><img src="assets/categories/wood.webp" alt="Classic Grooved"></div>
+<div class="cat-index-photo" data-cat="2"><img src="assets/categories/micro.webp" alt="Micro Perforated"></div>
+<div class="cat-index-photo" data-cat="3"><img src="assets/categories/curve.webp" alt="Wood Curve"></div>
+<div class="cat-index-photo" data-cat="4"><img src="assets/categories/metal.webp" alt="PHONEX Metal"></div>
+<div class="cat-index-photo" data-cat="5"><img src="assets/categories/uniseam.webp" alt="Acoustic Ceilings"></div>
+<div class="cat-index-photo" data-cat="6"><img src="assets/categories/fabric.webp" alt="Fabricoustic & PET"></div>
+<div class="cat-index-photo" data-cat="7"><img src="assets/categories/diffuser.webp" alt="Diffuser & Doors"></div>
+</div>
+
+<div class="cat-index-list">
+<a href="/collection/?cat=classic" class="cat-index-item is-active" data-cat="1"><span class="ci-num">01</span><span class="ci-name">Classic Grooved</span><span class="ci-fam" data-fam="wood">Wood</span><span class="ci-meta">10 models</span></a>
+<a href="/collection/?cat=micro" class="cat-index-item" data-cat="2"><span class="ci-num">02</span><span class="ci-name">Micro Perforated</span><span class="ci-fam" data-fam="wood">Wood</span><span class="ci-meta">17 models</span></a>
+<a href="/collection/?cat=curve" class="cat-index-item" data-cat="3"><span class="ci-num">03</span><span class="ci-name">Wood Curve</span><span class="ci-fam" data-fam="wood">Wood</span><span class="ci-meta">4 models</span></a>
+<a href="/collection/?cat=metal" class="cat-index-item" data-cat="4"><span class="ci-num">04</span><span class="ci-name">PHONEX Metal</span><span class="ci-fam" data-fam="metal">Metal</span><span class="ci-meta">17 models</span></a>
+<a href="/collection/?cat=ceiling" class="cat-index-item" data-cat="5"><span class="ci-num">05</span><span class="ci-name">Acoustic Ceilings</span><span class="ci-fam" data-fam="ceiling">Ceiling</span><span class="ci-meta">6 systems</span></a>
+<a href="/collection/?cat=soft" class="cat-index-item" data-cat="6"><span class="ci-num">06</span><span class="ci-name">Fabricoustic &amp; PET</span><span class="ci-fam" data-fam="soft">Soft</span><span class="ci-meta">11 models</span></a>
+<a href="/collection/?cat=specialty" class="cat-index-item" data-cat="7"><span class="ci-num">07</span><span class="ci-name">Diffuser &amp; Doors</span><span class="ci-fam" data-fam="specialty">Specialty</span><span class="ci-meta">21 models</span></a>
+</div>
+
+</div>
+
+</div>
+</section><!-- legacy carousel hidden --><section class="collection collection-legacy" style="display:none;">
+</section><!-- legacy carousel hidden --><section class="collection collection-legacy" style="display:none;">
+<div class="collection-inner">
+<div class="collection-track-wrap">
+<div class="collection-row" id="collectionRow">
+<a href="/collection/?cat=wood" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">01</span>
+<span class="cat-card-count" data-i18n="cat_wood_count">Classic</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_wood_name">Grooved</h3>
+</div>
+</a>
+<a href="/collection/?cat=perfo" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">02</span>
+<span class="cat-card-count" data-i18n="cat_perfo_count">Perfo</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_perfo_name">Perforated</h3>
+</div>
+</a>
+<a href="/collection/?cat=micro" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">03</span>
+<span class="cat-card-count" data-i18n="cat_micro_count">Micro Art</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_micro_name">Micro</h3>
+</div>
+</a>
+<a href="/collection/?cat=curve" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">04</span>
+<span class="cat-card-count" data-i18n="cat_curve_count">Wood Curve</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_curve_name">Curved</h3>
+</div>
+</a>
+<a href="/collection/?cat=metal" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">05</span>
+<span class="cat-card-count" data-i18n="cat_metal_count">Phonex</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_metal_name">Metal</h3>
+</div>
+</a>
+<a href="/collection/?cat=uniseam" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/uniseam.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">06</span>
+<span class="cat-card-count" data-i18n="cat_uniseam_count">Uniseam</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_uniseam_name">Seamless</h3>
+</div>
+</a>
+<a href="/collection/?cat=gypsum" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/gypsum.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">07</span>
+<span class="cat-card-count" data-i18n="cat_gypsum_count">Cleaneo</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_gypsum_name">Gypsum</h3>
+</div>
+</a>
+<a href="/collection/?cat=spray" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/spray.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">08</span>
+<span class="cat-card-count" data-i18n="cat_spray_count">Acouspray</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_spray_name">Spray</h3>
+</div>
+</a>
+<a href="/collection/?cat=fiberglass" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">09</span>
+<span class="cat-card-count" data-i18n="cat_fiberglass_count">Acona</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_fiberglass_name">Fiberglass</h3>
+</div>
+</a>
+<a href="/collection/?cat=fabric" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">10</span>
+<span class="cat-card-count" data-i18n="cat_fabric_count">Fabricoustic</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_fabric_name">Fabric</h3>
+</div>
+</a>
+<a href="/collection/?cat=pet" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">11</span>
+<span class="cat-card-count" data-i18n="cat_pet_count">Polyester</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_pet_name">Eco PET</h3>
+</div>
+</a>
+<a href="/collection/?cat=woodwool" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">12</span>
+<span class="cat-card-count" data-i18n="cat_woodwool_count">Wood Wool</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_woodwool_name">Wood Wool</h3>
+</div>
+</a>
+<a href="/collection/?cat=diffuser" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">13</span>
+<span class="cat-card-count" data-i18n="cat_diffuser_count">Diffuser</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_diffuser_name">Diffuser</h3>
+</div>
+</a>
+<a href="/collection/?cat=door" class="cat-card">
+<div class="cat-card-image"><img src="assets/categories/door.webp" alt="" loading="lazy"></div>
+<div class="cat-card-meta">
+<div class="cat-card-top">
+<span class="cat-card-num">14</span>
+<span class="cat-card-count" data-i18n="cat_door_count">Soundproof</span>
+</div>
+<h3 class="cat-card-name" data-i18n="cat_door_name">Door</h3>
+</div>
+</a>
+</div>
+</div>
+
+<div class="collection-nav">
+<button class="collection-nav-btn prev" aria-label="Previous" data-dir="-1">
+<svg viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentcolor" stroke-width="1.2" fill="none"/></svg>
+</button>
+<button class="collection-nav-btn next" aria-label="Next" data-dir="1">
+<svg viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentcolor" stroke-width="1.2" fill="none"/></svg>
+</button>
+<span class="collection-nav-count" data-i18n="collection_count">14 categories</span>
+</div>
+
+</div>
+</section><section class="calc calc-report" id="calculator">
+<div class="calc-report-inner">
+
+<div class="calc-report-text">
+<span class="calc-report-eyebrow"><span class="calc-report-mark">◆</span> <span data-i18n="calc_eyebrow">Acoustic Calculator</span></span>
+<h2 class="calc-report-headline" data-i18n="cr_headline">Your free acoustic report — one click away.</h2>
+<div class="freq-spectrum" aria-hidden="true">
+<div class="freq-spectrum-bar"></div>
+<div class="freq-spectrum-scale"><span>20Hz</span><span>100Hz</span><span>1kHz</span><span>10kHz</span><span>20kHz</span></div>
+</div>
+<p class="calc-report-body" data-i18n="cr_body">Sketch your room, pick from 14 NAAYA series, and our calculator returns a frequency-accurate RT60 report — backed by ISO 354. Download as PDF the moment it's ready.</p>
+<a href="simulator-v2/" class="calc-report-cta">
+<span class="sf-pulse" aria-hidden="true"></span><span data-i18n="calc_cta">Launch the calculator</span>
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.4"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.4"></rect></svg>
+</a>
+<span class="calc-report-meta" data-i18n="cr_meta">100% free  ·  No sign-up  ·  ISO 354 methodology</span>
+</div>
+
+<div class="calc-report-doc">
+<svg class="calc-report-svg" viewBox="0 0 1400 820" xmlns="http://www.w3.org/2000/svg">
+<!-- page outline -->
+<rect x="30" y="30" width="1340" height="760" fill="none" stroke="#0b1012" stroke-width="1.4"/>
+<!-- corner ticks -->
+<g stroke="#0b1012" stroke-width="1" fill="#0b1012">
+  <rect x="24" y="24" width="12" height="12"/>
+  <rect x="1364" y="24" width="12" height="12"/>
+  <rect x="24" y="784" width="12" height="12"/>
+  <rect x="1364" y="784" width="12" height="12"/>
+</g>
+
+<!-- header -->
+<g font-family="Aeonik Mono, monospace" fill="#0b1012">
+  <text x="68" y="80" font-size="17" font-weight="600" letter-spacing="3">RT60 REPORT</text>
+  <text x="1332" y="80" font-size="13" font-weight="500" letter-spacing="2" text-anchor="end" opacity=".55">NAAYA · ACOUSTIC</text>
+</g>
+<line x1="68" y1="104" x2="1332" y2="104" stroke="#0b1012" stroke-width=".9"/>
+
+<!-- vertical divider between left info column and right chart column -->
+<line x1="600" y1="104" x2="600" y2="660" stroke="#0b1012" stroke-width=".5" stroke-dasharray="3 4" opacity=".45"/>
+
+<!-- LEFT COLUMN -->
+<g font-family="Aeonik Mono, monospace" fill="#0b1012">
+  <text x="68" y="148" font-size="14" letter-spacing="2" opacity=".55" font-weight="500">PROJECT</text>
+</g>
+<text x="68" y="194" font-family="Aeonik Pro, sans-serif" font-size="34" letter-spacing="-.6" fill="#0b1012">Conference Auditorium</text>
+<g font-family="Aeonik Mono, monospace" fill="#0b1012" font-weight="500" letter-spacing="1.5" opacity=".55">
+  <text x="68" y="226" font-size="14">Volume 240 m³  ·  Capacity 180</text>
+  <text x="68" y="250" font-size="14">Ceiling 4.2 m</text>
+</g>
+
+<line x1="68" y1="284" x2="560" y2="284" stroke="#0b1012" stroke-width=".5" stroke-dasharray="3 4" opacity=".45"/>
+
+<g font-family="Aeonik Mono, monospace" fill="#0b1012">
+  <text x="68" y="324" font-size="14" letter-spacing="2" opacity=".55" font-weight="500">RESULT  ·  RT60 AVERAGE</text>
+</g>
+<text x="68" y="436" font-family="Aeonik Pro, sans-serif" font-size="120" letter-spacing="-4" fill="#0b1012" font-weight="400">0.9<tspan font-size="50" opacity=".5"> s</tspan></text>
+<g font-family="Aeonik Mono, monospace" fill="#0b1012" font-weight="500" letter-spacing="1.5" opacity=".55">
+  <text x="68" y="470" font-size="14">FROM 1.8 s  ·  −50 %</text>
+  <text x="68" y="492" font-size="14">OPTIMAL FOR SPEECH</text>
+</g>
+
+<line x1="68" y1="528" x2="560" y2="528" stroke="#0b1012" stroke-width=".5" stroke-dasharray="3 4" opacity=".45"/>
+
+<g font-family="Aeonik Mono, monospace" fill="#0b1012">
+  <text x="68" y="568" font-size="14" letter-spacing="2" opacity=".55" font-weight="500">NRC AVERAGE</text>
+</g>
+<text x="68" y="624" font-family="Aeonik Pro, sans-serif" font-size="56" letter-spacing="-1.4" font-weight="400" fill="#0b1012">0.83</text>
+<text x="68" y="650" font-family="Aeonik Mono, monospace" font-size="14" opacity=".55" font-weight="500" letter-spacing="1.5" fill="#0b1012">ACROSS 125 Hz — 4 kHz</text>
+
+<!-- RIGHT COLUMN: frequency chart -->
+<g transform="translate(660, 144)">
+  <text x="0" y="0" font-family="Aeonik Mono, monospace" font-size="14" letter-spacing="2" opacity=".55" font-weight="500" fill="#0b1012">FREQUENCY RESPONSE  ·  125 Hz — 4 kHz</text>
+  <g transform="translate(40,30)">
+    <g stroke="#0b1012" stroke-width=".6">
+      <line x1="0" y1="0" x2="620" y2="0" opacity=".25"/>
+      <line x1="0" y1="100" x2="620" y2="100" opacity=".15"/>
+      <line x1="0" y1="200" x2="620" y2="200" opacity=".15"/>
+      <line x1="0" y1="300" x2="620" y2="300" opacity=".15"/>
+      <line x1="0" y1="400" x2="620" y2="400" opacity=".25"/>
+    </g>
+    <g font-family="Aeonik Mono, monospace" font-size="12" letter-spacing="1.4" opacity=".55" fill="#0b1012" font-weight="500">
+      <text x="-12" y="5" text-anchor="end">3.0s</text>
+      <text x="-12" y="105" text-anchor="end">2.0s</text>
+      <text x="-12" y="205" text-anchor="end">1.0s</text>
+      <text x="-12" y="305" text-anchor="end">0.5s</text>
+      <text x="-12" y="405" text-anchor="end">0s</text>
+    </g>
+    <!-- before curve -->
+    <path d="M0,42 L104,64 L208,108 L310,170 L414,212 L518,196 L620,150" stroke="#0b1012" stroke-width="1.2" stroke-dasharray="6 4" fill="none" opacity=".55"/>
+    <!-- improvement area -->
+    <path d="M0,42 L104,64 L208,108 L310,170 L414,212 L518,196 L620,150 L620,310 L518,322 L414,334 L310,340 L208,338 L104,326 L0,312 Z" fill="#b87333" fill-opacity=".11"/>
+    <!-- after curve -->
+    <path d="M0,312 L104,326 L208,338 L310,340 L414,334 L518,322 L620,310" stroke="#b87333" stroke-width="2.4" fill="none"/>
+    <g fill="#b87333">
+      <circle cx="0" cy="312" r="4"/>
+      <circle cx="104" cy="326" r="4"/>
+      <circle cx="208" cy="338" r="4"/>
+      <circle cx="310" cy="340" r="4"/>
+      <circle cx="414" cy="334" r="4"/>
+      <circle cx="518" cy="322" r="4"/>
+      <circle cx="620" cy="310" r="4"/>
+    </g>
+    <g font-family="Aeonik Mono, monospace" font-size="12" letter-spacing="1.4" opacity=".55" fill="#0b1012" font-weight="500">
+      <text x="0" y="426" text-anchor="middle">125</text>
+      <text x="104" y="426" text-anchor="middle">250</text>
+      <text x="208" y="426" text-anchor="middle">500</text>
+      <text x="310" y="426" text-anchor="middle">1k</text>
+      <text x="414" y="426" text-anchor="middle">2k</text>
+      <text x="518" y="426" text-anchor="middle">3k</text>
+      <text x="620" y="426" text-anchor="middle">4k</text>
+    </g>
+    <!-- legend -->
+    <g font-family="Aeonik Mono, monospace" font-size="12" letter-spacing="1.4" font-weight="500" fill="#0b1012" transform="translate(0,478)">
+      <line x1="0" y1="-4" x2="20" y2="-4" stroke="#0b1012" stroke-width="1.4" stroke-dasharray="4 3" opacity=".55"/>
+      <text x="28" y="0" opacity=".75">UNTREATED</text>
+      <line x1="170" y1="-4" x2="190" y2="-4" stroke="#b87333" stroke-width="2.4"/>
+      <text x="198" y="0">NAAYA TREATED</text>
+      <rect x="384" y="-12" width="20" height="12" fill="#b87333" fill-opacity=".18"/>
+      <text x="412" y="0" opacity=".75">IMPROVEMENT Δ</text>
+    </g>
+  </g>
+</g>
+
+<!-- BOTTOM BAND -->
+<line x1="68" y1="688" x2="1332" y2="688" stroke="#0b1012" stroke-width=".9"/>
+
+<g transform="translate(68, 718)">
+  <text x="0" y="0" font-family="Aeonik Mono, monospace" font-size="13" letter-spacing="1.5" opacity=".55" font-weight="500" fill="#0b1012">SURFACE MIX  ·  PANEL ALLOCATION</text>
+  <g transform="translate(0,18)">
+    <rect x="0"    y="0" width="480" height="18" fill="none" stroke="#0b1012" stroke-width="1"/>
+    <rect x="480"  y="0" width="304" height="18" fill="none" stroke="#0b1012" stroke-width="1"/>
+    <rect x="784"  y="0" width="228" height="18" fill="none" stroke="#0b1012" stroke-width="1"/>
+    <rect x="1012" y="0" width="252" height="18" fill="none" stroke="#0b1012" stroke-width="1"/>
+    <rect x="0"    y="0" width="480" height="18" fill="#b87333" fill-opacity=".18"/>
+    <rect x="784"  y="0" width="228" height="18" fill="#b87333" fill-opacity=".35"/>
+  </g>
+  <g font-family="Aeonik Mono, monospace" font-size="12" letter-spacing="1.2" font-weight="500" fill="#0b1012" transform="translate(0,54)">
+    <text x="0" y="0">WOOD GROOVED · 38%</text>
+    <text x="480" y="0">MICRO PERFO · 24%</text>
+    <text x="784" y="0">FABRIC · 18%</text>
+    <text x="1012" y="0">DIFFUSER · 20%</text>
+  </g>
+</g>
+
+<g font-family="Aeonik Mono, monospace" fill="#0b1012">
+  <text x="68" y="770" font-size="12" font-weight="600" letter-spacing="2">ISO 354  ·  EN 13501  ·  EN 717</text>
+  <text x="1332" y="770" font-size="12" font-weight="500" letter-spacing="1.5" text-anchor="end" opacity=".55">PAGE 01 / 04  ·  naaya.com/calculator</text>
+</g>
+
+</svg>
+
+</div>
+</section>
+<section class="cine cine-bento" id="projects">
+<div class="cine-bento-inner">
+
+<div class="cine-bento-head">
+<span class="cine-bento-eyebrow"><span class="cine-bento-mark">◆</span> <span data-i18n="projects_title">Featured projects</span></span>
+<a href="/projects/" class="cine-bento-viewall">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="projects_viewall">View all <span class="sf-num">6</span> projects</span>
+</a>
+</div>
+
+<div class="cine-bento-grid">
+
+<a href="/projects/foshan" class="cb-card cb-big">
+<img src="assets/projects/project-1.webp" alt="Grand Theatre Foshan">
+<div class="cb-overlay">
+<span class="cb-num">01</span>
+<span class="cb-name">Grand Theatre Foshan</span>
+<span class="cb-meta">Foshan, China · 2024 · Grooved + Uniseam</span>
+</div>
+</a>
+
+<a href="/projects/shenzhen" class="cb-card">
+<img src="assets/projects/project-2.webp" alt="Shenzhen Convention Center">
+<div class="cb-overlay">
+<span class="cb-num">02</span>
+<span class="cb-name">Shenzhen Convention</span>
+<span class="cb-meta">2023 · Micro</span>
+</div>
+</a>
+
+<a href="/projects/beijing-studio" class="cb-card">
+<img src="assets/projects/project-3.webp" alt="Beijing Recording Studio">
+<div class="cb-overlay">
+<span class="cb-num">03</span>
+<span class="cb-name">Beijing Studio</span>
+<span class="cb-meta">2024 · Uniseam</span>
+</div>
+</a>
+
+<a href="/projects/hangzhou-concert" class="cb-card cb-tall">
+<img src="assets/projects/project-4.webp" alt="Hangzhou Concert Hall">
+<div class="cb-overlay">
+<span class="cb-num">04</span>
+<span class="cb-name">Hangzhou Concert Hall</span>
+<span class="cb-meta">2024 · Micro + Diffuser</span>
+</div>
+</a>
+
+<a href="/projects/tencent" class="cb-card cb-wide">
+<img src="assets/projects/project-5.webp" alt="Tencent HQ Lobby">
+<div class="cb-overlay">
+<span class="cb-num">05</span>
+<span class="cb-name">Tencent HQ Lobby</span>
+<span class="cb-meta">Shenzhen · 2023 · Fabric · Acona Art</span>
+</div>
+</a>
+
+<a href="/projects/bulgari" class="cb-card">
+<img src="assets/projects/project-6.webp" alt="Bulgari Hotel Shanghai">
+<div class="cb-overlay">
+<span class="cb-num">06</span>
+<span class="cb-name">Bulgari Shanghai</span>
+<span class="cb-meta">2023 · Wood Curve</span>
+</div>
+</a>
+
+</div>
+
+</div>
+</section>
+<section class="wws wws-matrix" id="industries">
+<div class="wws-matrix-inner">
+
+<div class="wws-matrix-head">
+<span class="wws-eyebrow"><span class="wws-mark">◆</span> <span data-i18n="wws_title">Who we serve</span></span>
+<h2 class="wws-matrix-heading" data-i18n="wws_matrix_heading">A role for every voice in the project.</h2>
+<p class="wws-matrix-sub" data-i18n="wws_matrix_sub">Eight distinct user groups — each with a matching deliverable.</p>
+</div>
+
+<div class="panel-texture" aria-hidden="true"></div>
+
+<div class="wws-matrix-table">
+
+<div class="wws-mat-row wws-mat-head">
+<span class="wws-mat-col-num">No.</span>
+<span class="wws-mat-col-role">Role</span>
+<span class="wws-mat-col-concern">Their concern</span>
+<span class="wws-mat-col-deliver">NAAYA delivers</span>
+<span class="wws-mat-col-asset">Key asset</span>
+</div>
+
+<a href="/about#owners" class="wws-mat-row">
+<span class="wws-mat-col-num">01</span>
+<span class="wws-mat-col-role">Property Owners</span>
+<span class="wws-mat-col-concern">"I'm betting my brand on this space."</span>
+<span class="wws-mat-col-deliver">Turnkey delivery with documented performance.</span>
+<span class="wws-mat-col-asset">Spec sheet · acceptance report</span>
+</a>
+
+<a href="/about#architects" class="wws-mat-row">
+<span class="wws-mat-col-num">02</span>
+<span class="wws-mat-col-role">Architects</span>
+<span class="wws-mat-col-concern">"I need RT60 numbers I can defend in review."</span>
+<span class="wws-mat-col-deliver">ISO 354 data + tender-ready specifications.</span>
+<span class="wws-mat-col-asset">Revit / CAD library</span>
+</a>
+
+<a href="/about#mep" class="wws-mat-row">
+<span class="wws-mat-col-num">03</span>
+<span class="wws-mat-col-role">MEP Consultants</span>
+<span class="wws-mat-col-concern">"Coordination between trades has to be clean."</span>
+<span class="wws-mat-col-deliver">Pre-cut reveals, integrated grille / lighting details.</span>
+<span class="wws-mat-col-asset">BIM-ready families</span>
+</a>
+
+<a href="/about#acoustic" class="wws-mat-row">
+<span class="wws-mat-col-num">04</span>
+<span class="wws-mat-col-role">Acoustic Consultants</span>
+<span class="wws-mat-col-concern">"I spec on tested data — not estimates."</span>
+<span class="wws-mat-col-deliver">Third-party NRC across 125 Hz – 4 kHz.</span>
+<span class="wws-mat-col-asset">Lab report · per model</span>
+</a>
+
+<a href="/about#interior" class="wws-mat-row">
+<span class="wws-mat-col-num">05</span>
+<span class="wws-mat-col-role">Interior Designers</span>
+<span class="wws-mat-col-concern">"Acoustic shouldn't compromise the visual."</span>
+<span class="wws-mat-col-deliver">14 wood species · RAL paint · custom veneer.</span>
+<span class="wws-mat-col-asset">Sample book · 22 CNC art</span>
+</a>
+
+<a href="/about#contractors" class="wws-mat-row">
+<span class="wws-mat-col-num">06</span>
+<span class="wws-mat-col-role">Contractors</span>
+<span class="wws-mat-col-concern">"I need things to fit on site, fast."</span>
+<span class="wws-mat-col-deliver">Cut-to-size delivery, labeled per drawing.</span>
+<span class="wws-mat-col-asset">Installer-rated mounting kit</span>
+</a>
+
+<a href="/about#fitout" class="wws-mat-row">
+<span class="wws-mat-col-num">07</span>
+<span class="wws-mat-col-role">Fit-out Partners</span>
+<span class="wws-mat-col-concern">"The last 10% is where the timeline burns."</span>
+<span class="wws-mat-col-deliver">Direct ship, regional warehouse, free replacement.</span>
+<span class="wws-mat-col-asset">SLA-backed logistics</span>
+</a>
+
+<a href="/about#distributors" class="wws-mat-row">
+<span class="wws-mat-col-num">08</span>
+<span class="wws-mat-col-role">Distributors</span>
+<span class="wws-mat-col-concern">"I sell solutions, not just product lists."</span>
+<span class="wws-mat-col-deliver">Co-branded samples, training, qualified leads.</span>
+<span class="wws-mat-col-asset">Exclusive territory</span>
+</a>
+
+</div>
+
+</div>
+</section>
+
+<section class="process process-timeline" id="process">
+<div class="process-tl-inner">
+
+<div class="process-tl-head">
+<span class="process-eyebrow"><span class="process-mark">◆</span> <span data-i18n="process_eyebrow">How we work</span></span>
+<h2 class="process-tl-heading" data-i18n="process_heading">From brief to handover — three steps.</h2>
+</div>
+
+<div class="process-tl-track">
+
+<!-- Row 1: step headers (num + name + meta) -->
+<div class="ptl-cell">
+<span class="ptl-num">01</span>
+<span class="ptl-name" data-i18n="process_s1_name">Brief</span>
+<span class="ptl-meta" data-i18n="ptl_s1_meta">48-HOUR TURNAROUND</span>
+</div>
+<div class="ptl-cell">
+<span class="ptl-num">02</span>
+<span class="ptl-name" data-i18n="process_s2_name">Spec</span>
+<span class="ptl-meta" data-i18n="ptl_s2_meta">5 WORKING DAYS</span>
+</div>
+<div class="ptl-cell">
+<span class="ptl-num">03</span>
+<span class="ptl-name" data-i18n="process_s3_name">Build</span>
+<span class="ptl-meta" data-i18n="ptl_s3_meta">ISO 354 VERIFIED</span>
+</div>
+
+</div>
+
+<!-- the timeline: animated wave with 3 dots aligned at step centers -->
+<div class="process-tl-line meas-line">
+<span class="ml-line"></span>
+<span class="ml-cap ml-cap-l"></span>
+<span class="ml-cap ml-cap-r"></span>
+<span class="ml-tick" style="left:16.66%"></span>
+<span class="ml-tick" style="left:50%"></span>
+<span class="ml-tick" style="left:83.33%"></span>
+</div>
+
+<div class="process-tl-track">
+
+<!-- Row 2: descriptions -->
+<div class="ptl-cell ptl-desc-cell">
+<p class="ptl-desc" data-i18n="process_s1_desc">You share project drawings, function, and RT60 targets — or use our free calculator first. We respond with a feasibility note within 48 hours.</p>
+<div class="ptl-deliver"><span class="ptl-deliver-label" data-i18n="process_deliver">Deliverable</span><span class="ptl-deliver-text" data-i18n="process_s1_deliver">Feasibility note · 48 hr turnaround · Free, no sign-up</span></div>
+</div>
+
+<div class="ptl-cell ptl-desc-cell">
+<p class="ptl-desc" data-i18n="process_s2_desc">Our acoustic team models the room, proposes a panel mix tuned to ISO 354 targets, and delivers a tender-ready specification with Revit / CAD assets.</p>
+<div class="ptl-deliver"><span class="ptl-deliver-label" data-i18n="process_deliver">Deliverable</span><span class="ptl-deliver-text" data-i18n="process_s2_deliver">RT60 report · Panel-mix spec · Revit / CAD library · 5 working days</span></div>
+</div>
+
+<div class="ptl-cell ptl-desc-cell">
+<p class="ptl-desc" data-i18n="process_s3_desc">Custom production, factory-direct shipping, on-site installation support, and post-install acoustic verification — closing the loop with measured RT60.</p>
+<div class="ptl-deliver"><span class="ptl-deliver-label" data-i18n="process_deliver">Deliverable</span><span class="ptl-deliver-text" data-i18n="process_s3_deliver">Manufactured panels · Install support · ISO 354 verification report</span></div>
+</div>
+
+</div>
+
+<div class="process-foot">
+<p class="process-foot-text" data-i18n="process_foot_text">Ready to brief us on your project?</p>
+<a href="#contact" class="process-cta">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.4"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.4"></rect></svg>
+<span data-i18n="process_cta">Contact us</span>
+</a>
+</div>
+
+</div>
+</section>
+
+<footer class="footer" data-v-b5a28948 id="contact"><div class="container" data-v-b5a28948><a aria-current="page" href="/" class="is-active is-exact-active logo" data-v-b5a28948><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-b5a28948><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg></a><div class="footer-content">
+
+<div class="footer-col footer-col-brand">
+<div class="footer-brand-name">NAAYA</div>
+<p class="footer-brand-tag" data-i18n="footer_tag">Acoustic elegance for spaces that inspire. 16 series engineered for architectural projects worldwide.</p>
+<address class="footer-addr">
+<a href="mailto:info@naaya.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>info@naaya.com</a>
+<a href="tel:+862088888888" class="footer-link"><span data-i18n="footer_phone_label">Phone</span><br>+86 20 8888 8888</a>
+<span class="footer-link"><span data-i18n="footer_addr_label">Address</span><br><span data-i18n="footer_addr">Guangzhou, China</span></span>
+</address>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_products">Products</h4>
+<a href="/collection/?cat=wood" data-i18n="footer_p_wood">Wood Panels</a>
+<a href="/collection/?cat=ceiling" data-i18n="footer_p_ceiling">Ceiling Systems</a>
+<a href="/collection/?cat=metal" data-i18n="footer_p_metal">Metal Acoustic</a>
+<a href="/collection/?cat=fabric" data-i18n="footer_p_fabric">Fabric &amp; Eco</a>
+<a href="/collection/?cat=specialty" data-i18n="footer_p_specialty">Diffusers &amp; Doors</a>
+<a href="/collection/" data-i18n="footer_p_all">All series →</a>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_company">Company</h4>
+<a href="/about" data-i18n="footer_c_about">About NAAYA</a>
+<a href="/approach" data-i18n="footer_c_approach">Our approach</a>
+<a href="/projects/" data-i18n="footer_c_projects">Featured projects</a>
+<a href="/showroom" data-i18n="footer_c_factory">Factory tour</a>
+<a href="/careers" data-i18n="footer_c_careers">Careers</a>
+<a href="/news/" data-i18n="footer_c_news">News</a>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_resources">Resources</h4>
+<a href="/downloads" data-i18n="footer_r_specs">Spec sheets</a>
+<a href="/downloads" data-i18n="footer_r_catalog">Product catalogue</a>
+<a href="/acoustics-101" data-i18n="footer_r_guide">Acoustics 101</a>
+<a href="/certifications" data-i18n="footer_r_certs">Certifications</a>
+<a href="/faq" data-i18n="footer_r_faq">FAQ</a>
+</div>
+
+<div class="footer-col footer-col-cta">
+<h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
+<p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
+<a href="/contact" class="footer-cta-btn">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="cta_button">Get in touch</span>
+</a>
+<form class="footer-newsletter" onsubmit="return false">
+<label class="footer-newsletter-label" data-i18n="footer_newsletter">Subscribe to our newsletter</label>
+<div class="footer-newsletter-row">
+<input type="email" placeholder="you@example.com" class="footer-newsletter-input" aria-label="Email">
+<button type="submit" class="footer-newsletter-btn" aria-label="Subscribe">→</button>
+</div>
+</form>
+</div>
+
+</div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2026, NAAYA </div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
+
+<script src="js/naaya.js"></script>
+</body>
+</html>
