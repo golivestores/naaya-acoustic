@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAAYA — Who We Serve · 3 versions compare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/naaya.css">
+<style>
+  :root{
+    --font-f-aeonik-pro:'Inter', system-ui, -apple-system, sans-serif;
+    --font-f-aeonik-mono:'Inter', system-ui, -apple-system, sans-serif;
+    --color-cream:#ffffff; --color-black:#231f20; --color-grey:#231f20;
+  }
+  html, body, body *:not(i):not([class*="fa-"]):not([class*="glyphicon"]){
+    font-family:'Inter', system-ui, -apple-system, sans-serif;
+  }
+  /* unlock the naaya.css fixed/overflow:hidden viewport so this page scrolls natively */
+  html, body{ position:static; inset:auto; overflow:visible; height:auto; background:#ffffff; color:#231f20; }
+  body{ overflow-x:hidden; }
+  main, .main{ position:static; overflow:visible; height:auto; background:#ffffff; }
+  .arrow-svg, .site-nav-cta-arrow{ display:none !important; }
+  .cmp-label{
+    position:relative; z-index:1;
+    background:#231f20; color:#fff;
+    font-weight:600; font-size:1.3rem; letter-spacing:.04em;
+    padding:1.4rem 4rem; text-transform:uppercase;
+    display:flex; gap:1.2rem; align-items:baseline;
+  }
+  .cmp-label small{ font-weight:400; opacity:.6; letter-spacing:.02em; text-transform:none; font-size:1.2rem; }
+  .cmp-wrap{ border-bottom:1px dashed color-mix(in srgb, #231f20 25%, transparent); padding-bottom:4rem; }
+
+  /* ===== Versions A & C (signal network + glass constellation) ===== */
+.sn, .sn *, .gc, .gc *{ box-sizing:border-box; }
+.sn h2,.sn p,.sn span,.gc h2,.gc p,.gc span{ margin:0; }
+.sn, .gc{ --ink:#231f20; --bg:#ffffff; --rust:#8a4332; --mono:'Inter',ui-monospace,monospace; }
+/* ====================== VERSION A — Living Signal Network ====================== */
+.sn{padding:10rem 4rem;background:#ffffff}
+.sn-head{max-width:60rem;margin-bottom:4rem}
+.sn-eyebrow{font-family:var(--mono);font-size:1.15rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:1.6rem}
+.sn-title{font-size:clamp(2.6rem,4vw,4.4rem);font-weight:500;letter-spacing:-.02em;line-height:1.05}
+.sn-sub{margin-top:1.4rem;font-size:1.5rem;line-height:1.5;color:color-mix(in srgb,var(--ink) 62%,transparent);max-width:48rem}
+.sn-stage{display:grid;grid-template-columns:1.15fr .85fr;gap:4rem;align-items:center}
+.sn-svg{width:100%;height:auto;max-height:62vh;overflow:visible}
+.sn-ring{fill:none;stroke:var(--rust);opacity:0}
+.sn-line{stroke:color-mix(in srgb,var(--ink) 16%,transparent);stroke-width:1;stroke-dasharray:252;stroke-dashoffset:252;transition:stroke-dashoffset .6s cubic-bezier(.5,0,0,1),stroke .4s,opacity .4s;opacity:.5}
+.sn-line.is-active{stroke:var(--rust);stroke-width:1.4;stroke-dashoffset:0;opacity:1}
+.sn-hub-ring{fill:none;stroke:var(--ink);stroke-width:1;opacity:.18}
+.sn-hub-core{fill:var(--ink)}
+.sn-hub-text{fill:#fff;font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:.18em;text-anchor:middle;dominant-baseline:middle}
+.sn-dot{fill:#fff;stroke:color-mix(in srgb,var(--ink) 35%,transparent);stroke-width:1.4;transition:all .35s cubic-bezier(.5,0,0,1)}
+.sn-halo{fill:var(--rust);opacity:0;transition:opacity .35s}
+.sn-node{cursor:pointer;outline:none}
+.sn-node .sn-num{fill:color-mix(in srgb,var(--ink) 45%,transparent);font-family:var(--mono);font-size:13.5px;font-weight:600;letter-spacing:.1em;transition:fill .35s}
+.sn-node .sn-name{fill:var(--ink);font-family:'Inter',sans-serif;font-size:19px;font-weight:500;transition:fill .35s,font-weight .35s}
+.sn-node:hover .sn-dot,.sn-node.is-active .sn-dot{fill:var(--rust);stroke:var(--rust);r:8.5}
+.sn-node:hover .sn-halo,.sn-node.is-active .sn-halo{opacity:.14}
+.sn-node:hover .sn-num,.sn-node.is-active .sn-num{fill:var(--rust)}
+.sn-node:hover .sn-name,.sn-node.is-active .sn-name{font-weight:600}
+.sn-particle{fill:var(--rust);opacity:0}
+@keyframes snBreathe{0%,100%{r:6.6}50%{r:7.6}}
+.sn-dot{animation:snBreathe 3.4s ease-in-out infinite}
+.sn-detail{border-left:1px solid color-mix(in srgb,var(--ink) 14%,transparent);padding-left:3.2rem;min-height:18rem;position:relative}
+.sn-pane{position:absolute;inset:0 0 auto 3.2rem;opacity:0;transform:translateY(1rem);transition:opacity .45s,transform .45s;pointer-events:none}
+.sn-pane.is-active{opacity:1;transform:none;pointer-events:auto}
+.sn-pane-eyebrow{font-family:var(--mono);font-size:1.2rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:1.6rem}
+.sn-pane-text{font-size:1.9rem;line-height:1.45;font-weight:400;letter-spacing:-.01em}
+@media(max-width:900px){.sn-stage{grid-template-columns:1fr;gap:2rem}.sn-detail{border-left:none;border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent);padding:2.4rem 0 0;min-height:14rem}.sn-pane{inset:2.4rem 0 auto 0}}
+
+
+    /* ===== Version E — Editorial Index + Image Reveal ===== */
+  .er,.er *{box-sizing:border-box} .er h2,.er p,.er span,.er ul,.er li,.er figure{margin:0;padding:0;list-style:none}
+  .er{padding:10rem 4rem;background:#fff;color:#231f20;font-family:'Inter',sans-serif}
+  .er-head{max-width:60rem;margin-bottom:4rem}
+  .er-eyebrow{font-size:1.15rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#8a4332;display:block;margin-bottom:1.4rem}
+  .er-title{font-size:clamp(2.6rem,3.4vw,4rem);font-weight:500;letter-spacing:-.02em;line-height:1.06}
+  .er-body{display:grid;grid-template-columns:1.15fr .85fr;gap:6rem;align-items:center}
+  .er-item{display:flex;align-items:center;gap:2.4rem;padding:2.9rem 0;border-top:1px solid rgba(35,31,32,.12);cursor:pointer;transition:padding-left .35s cubic-bezier(.165,.84,.44,1)}
+  .er-item:last-child{border-bottom:1px solid rgba(35,31,32,.12)}
+  .er-num{font-size:1.2rem;font-weight:600;letter-spacing:.1em;color:rgba(35,31,32,.4);transition:color .3s}
+  .er-name{font-size:2.4rem;font-weight:400;letter-spacing:-.01em;transition:color .3s,font-weight .3s}
+  .er-item:hover,.er-item.is-active{padding-left:.8rem}
+  .er-item.is-active .er-name{font-weight:600;color:#8a4332}
+  .er-item.is-active .er-num{color:#8a4332}
+  .er-media{position:relative;width:100%;aspect-ratio:4/5;max-height:60vh;overflow:hidden;background:#ece7df}
+  .er-pane{position:absolute;inset:0;opacity:0;transition:opacity .7s ease;pointer-events:none}
+  .er-pane.is-active{opacity:1;pointer-events:auto}
+  .er-pane img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block;transform:scale(1.04);transition:transform 6s ease}
+  .er-pane.is-active img{transform:scale(1)}
+  .er-info{position:relative;margin-top:2.8rem;min-height:9.5rem}
+  .er-text{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;pointer-events:none}
+  .er-text.is-active{opacity:1;pointer-events:auto}
+  .er-text-eyebrow{font-size:1.2rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8a4332;display:block;margin-bottom:1.2rem}
+  .er-text p{font-size:1.7rem;line-height:1.5;color:#231f20;max-width:54rem}
+  @media(max-width:900px){.er-body{grid-template-columns:1fr;gap:3rem}.er-media{aspect-ratio:4/5;max-height:none}.er-item{padding:2.2rem 0}}
+
+  /* ===== Version G — Acoustic Spectrum ===== */
+  .sp,.sp *{box-sizing:border-box} .sp h2,.sp p,.sp span{margin:0}
+  .sp{padding:10rem 4rem;background:#fff;color:#231f20;font-family:'Inter',sans-serif}
+  .sp-head{max-width:60rem;margin-bottom:4rem}
+  .sp-eyebrow{font-size:1.15rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#8a4332;display:block;margin-bottom:1.4rem}
+  .sp-title{font-size:clamp(2.6rem,3.4vw,4rem);font-weight:500;letter-spacing:-.02em;line-height:1.06}
+  .sp-spectrum{display:flex;gap:1.6rem;align-items:flex-end;border-bottom:1px solid rgba(35,31,32,.14);padding-bottom:2rem}
+  .sp-band{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:1.6rem;padding:0;font-family:inherit}
+  .sp-bars{display:flex;align-items:flex-end;justify-content:center;gap:.4rem;height:15rem}
+  .sp-bars span{width:.7rem;background:rgba(35,31,32,.18);transform-origin:bottom;transform:scaleY(.5);animation:spEq var(--d) ease-in-out infinite;animation-delay:var(--dl);transition:background .35s}
+  @keyframes spEq{0%,100%{transform:scaleY(.32)}50%{transform:scaleY(1)}}
+  .sp-band:hover .sp-bars span,.sp-band.is-active .sp-bars span{background:#8a4332}
+  .sp-label{display:flex;flex-direction:column;gap:.5rem;text-align:center;align-items:center}
+  .sp-num{font-size:1.05rem;font-weight:600;letter-spacing:.1em;color:rgba(35,31,32,.4)}
+  .sp-name{font-size:1.4rem;font-weight:400;letter-spacing:-.01em;line-height:1.2}
+  .sp-band.is-active .sp-num,.sp-band:hover .sp-num{color:#8a4332}
+  .sp-band.is-active .sp-name{font-weight:600}
+  .sp-detail{position:relative;min-height:9rem;margin-top:3.4rem;max-width:64rem}
+  .sp-pane{position:absolute;inset:0;opacity:0;transition:opacity .45s;pointer-events:none}
+  .sp-pane.is-active{opacity:1;pointer-events:auto}
+  .sp-pane-eyebrow{font-size:1.2rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8a4332;display:block;margin-bottom:1.2rem}
+  .sp-pane p{font-size:1.8rem;line-height:1.45}
+  @media(max-width:900px){.sp-spectrum{overflow-x:auto}.sp-band{min-width:14vw}.sp-name{font-size:1.1rem}}
+
+  /* ===== Version H — Technical Blueprint ===== */
+  .bp,.bp *{box-sizing:border-box} .bp h2,.bp p,.bp span{margin:0}
+  .bp{padding:10rem 4rem;background:#fbfafa;color:#231f20;font-family:'Inter',sans-serif}
+  .bp-head{max-width:60rem;margin-bottom:3rem}
+  .bp-eyebrow{font-size:1.15rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#8a4332;display:block;margin-bottom:1.4rem}
+  .bp-title{font-size:clamp(2.6rem,3.4vw,4rem);font-weight:500;letter-spacing:-.02em;line-height:1.06}
+  .bp-svg{width:100%;height:auto;max-height:46vh;display:block;margin:0 auto;overflow:visible}
+  .bp-room{fill:none;stroke:rgba(35,31,32,.5);stroke-width:1.2}
+  .bp-ceiling line,.bp-wall line{stroke:rgba(35,31,32,.32);stroke-width:1}
+  .bp-floor line{stroke:rgba(35,31,32,.22);stroke-width:1}
+  .bp-floorline{stroke:rgba(35,31,32,.5);stroke-width:1.2}
+  .bp-lead{stroke:rgba(35,31,32,.3);stroke-width:1}
+  .bp-tgt{fill:rgba(35,31,32,.4);transition:fill .3s,r .3s}
+  .bp-badge{fill:#fff;stroke:rgba(35,31,32,.4);stroke-width:1.2;transition:fill .3s,stroke .3s}
+  .bp-badge-t{font-family:'Inter';font-size:12px;font-weight:600;fill:rgba(35,31,32,.6);text-anchor:middle;dominant-baseline:central;letter-spacing:.06em;transition:fill .3s}
+  .bp-marker{cursor:pointer}
+  .bp-marker.is-active .bp-badge{fill:#8a4332;stroke:#8a4332}
+  .bp-marker.is-active .bp-badge-t{fill:#fff}
+  .bp-marker.is-active .bp-tgt{fill:#8a4332;r:6}
+  .bp-marker.is-active .bp-lead{stroke:#8a4332;stroke-width:1.4}
+  .bp-legend{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem 2rem;margin-top:3.4rem;border-top:1px solid rgba(35,31,32,.14);padding-top:2.6rem}
+  .bp-leg{display:flex;align-items:baseline;gap:1rem;background:none;border:none;cursor:pointer;text-align:left;padding:.6rem 0;font-family:inherit;color:#231f20}
+  .bp-leg-num{font-size:1.05rem;font-weight:600;letter-spacing:.1em;color:rgba(35,31,32,.4);transition:color .3s}
+  .bp-leg-name{font-size:1.5rem;font-weight:400;transition:color .3s,font-weight .3s}
+  .bp-leg.is-active .bp-leg-num{color:#8a4332}
+  .bp-leg.is-active .bp-leg-name{color:#8a4332;font-weight:600}
+  .bp-detail{position:relative;min-height:7.5rem;margin-top:2.4rem;max-width:64rem}
+  .bp-pane{position:absolute;inset:0;opacity:0;transition:opacity .45s;pointer-events:none}
+  .bp-pane.is-active{opacity:1}
+  .bp-pane-eyebrow{font-size:1.2rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8a4332;display:block;margin-bottom:1rem}
+  .bp-pane p{font-size:1.7rem;line-height:1.45}
+  @media(max-width:900px){.bp-legend{grid-template-columns:repeat(2,1fr)}}
+
+    /* ===== Version I — Capability Console (with portrait) ===== */
+  .cc,.cc *{box-sizing:border-box} .cc h2,.cc p,.cc span,.cc ul,.cc li{margin:0;padding:0;list-style:none}
+  .cc{padding:10rem 4rem;background:#fff;color:#231f20;font-family:'Inter',sans-serif}
+  .cc-head{max-width:60rem;margin-bottom:4rem}
+  .cc-eyebrow{font-size:1.15rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#8a4332;display:block;margin-bottom:1.4rem}
+  .cc-title{font-size:clamp(2.6rem,3.4vw,4rem);font-weight:500;letter-spacing:-.02em;line-height:1.06}
+  .cc-body{display:grid;grid-template-columns:.82fr 1.18fr;gap:5rem;align-items:stretch}
+  .cc-list{align-self:center}
+  .cc-item{display:flex;align-items:center;gap:2.4rem;padding:2.5rem 0;border-top:1px solid rgba(35,31,32,.12);cursor:pointer;transition:padding-left .35s cubic-bezier(.165,.84,.44,1)}
+  .cc-item:last-child{border-bottom:1px solid rgba(35,31,32,.12)}
+  .cc-num{font-size:1.2rem;font-weight:600;letter-spacing:.1em;color:rgba(35,31,32,.4);transition:color .3s}
+  .cc-name{font-size:2.2rem;font-weight:400;letter-spacing:-.01em;transition:color .3s,font-weight .3s}
+  .cc-item:hover,.cc-item.is-active{padding-left:.8rem}
+  .cc-item.is-active .cc-name{font-weight:600;color:#8a4332}
+  .cc-item.is-active .cc-num{color:#8a4332}
+  .cc-stage{position:relative;min-height:42rem;border:1px solid rgba(35,31,32,.14);overflow:hidden;background:#fbfafa}
+  .cc-card{position:absolute;inset:0;display:grid;grid-template-columns:.8fr 1.2fr;opacity:0;transition:opacity .5s ease;pointer-events:none}
+  .cc-card.is-active{opacity:1;pointer-events:auto}
+  .cc-card-media{position:relative;overflow:hidden;background:#ece7df}
+  .cc-card-media img{width:100%;height:100%;object-fit:cover;object-position:center 24%;display:block;transform:scale(1.04);transition:transform 6s ease}
+  .cc-card.is-active .cc-card-media img{transform:scale(1)}
+  .cc-card-body{padding:3.6rem 3.8rem;display:flex;flex-direction:column}
+  .cc-card-eyebrow{font-size:1.2rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8a4332;display:block;margin-bottom:2rem}
+  .cc-card-stmt{font-size:2.3rem;font-weight:500;letter-spacing:-.02em;line-height:1.2;margin-bottom:2.6rem}
+  .cc-chips{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:auto}
+  .cc-chip{font-size:1.25rem;font-weight:500;padding:.7rem 1.4rem;border:1px solid rgba(35,31,32,.2);border-radius:4rem;color:#231f20}
+  .cc-badge{display:inline-flex;align-items:center;gap:.9rem;margin-top:2.8rem;font-size:1.2rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8a4332}
+  .cc-badge-dot{font-size:1.4rem}
+  @media(max-width:900px){.cc-body{grid-template-columns:1fr;gap:3rem}.cc-stage{min-height:0}.cc-card{position:relative;grid-template-columns:1fr;opacity:0;height:0;overflow:hidden}.cc-card.is-active{height:auto}.cc-card-media{aspect-ratio:5/4}}
+  /* ===== shared "Our Approach" CTA (one per section) ===== */
+  .wws-approach{display:inline-flex;align-items:center;margin-top:2.8rem;padding:1.3rem 2.8rem;background:#231f20;color:#fff;font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid #231f20;transition:background .3s,color .3s}
+  .wws-approach:hover{background:transparent;color:#231f20}
+
+</style>
+</head>
+<body>
+<main class="main">
+
+<div class="cmp-label">Version 1 <small>&mdash; Card Grid</small></div>
+<div class="cmp-wrap">
+<section class="wws">
+<div class="wws-inner">
+
+<div class="wws-head">
+<h2 class="base-title" data-v-4a4379f9 data-i18n="wws_title">Who we serve</h2>
+<div class="wws-head-right">
+<p class="base-heading wws-heading" data-v-342e3239 data-i18n="wws_heading">A partner for every voice in the project.</p>
+<a class="wws-approach" href="/approach">Our Approach</a>
+</div>
+</div>
+
+<div class="wws-grid">
+<a href="/contact" class="wws-card">
+<div class="wws-card-image"><img src="assets/personas-real/owner.webp" alt="" loading="lazy"></div>
+<div class="wws-card-overlay">
+<span class="wws-card-num">01</span>
+<h3 class="wws-card-name" data-i18n="wws_owner_name">Property Owners</h3>
+<p class="wws-card-desc" data-i18n="wws_owner_desc">Visionaries commissioning exceptional spaces</p>
+</div>
+</a>
+<a href="/contact" class="wws-card">
+<div class="wws-card-image"><img src="assets/personas-real/architect.webp" alt="" loading="lazy"></div>
+<div class="wws-card-overlay">
+<span class="wws-card-num">02</span>
+<h3 class="wws-card-name" data-i18n="wws_architect_name">Architects</h3>
+<p class="wws-card-desc" data-i18n="wws_architect_desc">Designers shaping the acoustic blueprint</p>
+</div>
+</a>
+<a href="/contact" class="wws-card">
+<div class="wws-card-image"><img src="assets/personas-real/mep.webp" alt="" loading="lazy"></div>
+<div class="wws-card-overlay">
+<span class="wws-card-num">03</span>
+<h3 class="wws-card-name" data-i18n="wws_mep_name">MEP Consultants</h3>
+<p class="wws-card-desc" data-i18n="wws_mep_desc">Engineering allies for seamless integration</p>
+</div>
+</a>
+<a href="/contact" class="wws-card">
+<div class="wws-card-image"><img src="assets/personas-real/acoustic.webp" alt="" loading="lazy"></div>
+<div class="wws-card-overlay">
+<span class="wws-card-num">04</span>
+<h3 class="wws-card-name" data-i18n="wws_acoustic_name">Acoustic Consultants</h3>
+<p class="wws-card-desc" data-i18n="wws_acoustic_desc">Specialists defining the sound of a space</p>
+</div>
+</a>
+<a href="/contact" class="wws-card">
+<div class="wws-card-image"><img src="assets/personas-real/interior.webp" alt="" loading="lazy"></div>
+<div class="wws-card-overlay">
+<span class="wws-card-num">05</span>
+<h3 class="wws-card-name" data-i18n="wws_interior_name">Interior Designers</h3>
+<p class="wws-card-desc" data-i18n="wws_interior_desc">Creatives balancing beauty and performance</p>
+</div>
+</a>
+<a href="/contact" class="wws-card">
+<div class="wws-card-image"><img src="assets/personas-real/contractor.webp" alt="" loading="lazy"></div>
+<div class="wws-card-overlay">
+<span class="wws-card-num">06</span>
+<h3 class="wws-card-name" data-i18n="wws_contractor_name">General Contractors</h3>
+<p class="wws-card-desc" data-i18n="wws_contractor_desc">Builders delivering complex projects on time</p>
+</div>
+</a>
+<a href="/contact" class="wws-card">
+<div class="wws-card-image"><img src="assets/personas-real/fitout.webp" alt="" loading="lazy"></div>
+<div class="wws-card-overlay">
+<span class="wws-card-num">07</span>
+<h3 class="wws-card-name" data-i18n="wws_fitout_name">Fit-out Companies</h3>
+<p class="wws-card-desc" data-i18n="wws_fitout_desc">Experts in precision acoustic installation</p>
+</div>
+</a>
+<a href="/contact" class="wws-card">
+<div class="wws-card-image"><img src="assets/personas-real/distributor.webp" alt="" loading="lazy"></div>
+<div class="wws-card-overlay">
+<span class="wws-card-num">08</span>
+<h3 class="wws-card-name" data-i18n="wws_distributor_name">Acoustic Distributors</h3>
+<p class="wws-card-desc" data-i18n="wws_distributor_desc">Partners extending our global reach</p>
+</div>
+</a>
+</div>
+
+</div>
+</section>
+</div>
+
+<div class="cmp-label">Version 2 <small>&mdash; Role Network</small></div>
+<div class="cmp-wrap">
+<section class="wws wws-network">
+<div class="wws-network-inner">
+
+<div class="wws-network-head">
+<span class="wws-eyebrow"><span class="wws-mark">◆</span> <span data-i18n="wws_title">Who we serve</span></span>
+<h2 class="wws-network-heading" data-i18n="wws_net_heading">Eight roles. One project.</h2>
+<p class="wws-network-sub" data-i18n="wws_net_sub">From concept to completion, NAAYA touches every voice in the built environment. Hover any role to see how.</p>
+<a class="wws-approach" href="/approach">Our Approach</a>
+</div>
+
+<div class="wws-network-stage" id="wwsNetwork">
+<svg viewBox="0 0 900 620" class="wws-network-svg" preserveAspectRatio="xMidYMid meet">
+
+<!-- connecting lines -->
+<g class="wn-lines" stroke="#0b1012" stroke-opacity=".18" stroke-width="1" fill="none">
+<line class="wn-line" data-node="owner" x1="450" y1="310" x2="450" y2="80"/>
+<line class="wn-line" data-node="architect" x1="450" y1="310" x2="620" y2="150"/>
+<line class="wn-line" data-node="mep" x1="450" y1="310" x2="700" y2="310"/>
+<line class="wn-line" data-node="acoustic" x1="450" y1="310" x2="620" y2="470"/>
+<line class="wn-line" data-node="interior" x1="450" y1="310" x2="450" y2="540"/>
+<line class="wn-line" data-node="contractor" x1="450" y1="310" x2="280" y2="470"/>
+<line class="wn-line" data-node="fitout" x1="450" y1="310" x2="200" y2="310"/>
+<line class="wn-line" data-node="distributor" x1="450" y1="310" x2="280" y2="150"/>
+</g>
+
+<!-- center brandmark -->
+<g class="wn-center" transform="translate(450,310)">
+<polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22" fill="#0b1012"/>
+<text y="80" text-anchor="middle" font-family="Aeonik Mono, monospace" font-weight="600" font-size="13" letter-spacing="3" fill="#0b1012">NAAYA</text>
+</g>
+
+<!-- 8 nodes -->
+<g class="wn-nodes">
+
+<g class="wn-node" data-node="owner" transform="translate(450,80)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" y="-30" text-anchor="middle">01</text>
+<text class="wn-name" y="-14" text-anchor="middle">Property Owners</text>
+</g>
+
+<g class="wn-node" data-node="architect" transform="translate(620,150)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="22" y="-10">02</text>
+<text class="wn-name" x="22" y="8">Architects</text>
+</g>
+
+<g class="wn-node" data-node="mep" transform="translate(700,310)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="22" y="-4">03</text>
+<text class="wn-name" x="22" y="14">MEP Consultants</text>
+</g>
+
+<g class="wn-node" data-node="acoustic" transform="translate(620,470)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="22" y="2">04</text>
+<text class="wn-name" x="22" y="20">Acoustic Consultants</text>
+</g>
+
+<g class="wn-node" data-node="interior" transform="translate(450,540)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" y="30" text-anchor="middle">05</text>
+<text class="wn-name" y="48" text-anchor="middle">Interior Designers</text>
+</g>
+
+<g class="wn-node" data-node="contractor" transform="translate(280,470)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="-22" y="2" text-anchor="end">06</text>
+<text class="wn-name" x="-22" y="20" text-anchor="end">Contractors</text>
+</g>
+
+<g class="wn-node" data-node="fitout" transform="translate(200,310)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="-22" y="-4" text-anchor="end">07</text>
+<text class="wn-name" x="-22" y="14" text-anchor="end">Fit-out Partners</text>
+</g>
+
+<g class="wn-node" data-node="distributor" transform="translate(280,150)">
+<circle class="wn-dot" r="11"/>
+<text class="wn-num" x="-22" y="-10" text-anchor="end">08</text>
+<text class="wn-name" x="-22" y="8" text-anchor="end">Distributors</text>
+</g>
+
+</g>
+</svg>
+
+<!-- detail pane below diagram -->
+<div class="wn-detail">
+<div class="wn-pane is-active" data-pane="owner">
+<span class="wn-pane-eyebrow">01 · Property Owners</span>
+<p class="wn-pane-text">Brand-defining spaces commissioned with confidence — turnkey acoustic delivery, documented performance, and a single point of accountability from concept to handover.</p>
+</div>
+<div class="wn-pane" data-pane="architect">
+<span class="wn-pane-eyebrow">02 · Architects</span>
+<p class="wn-pane-text">Defendable specs and ready-to-drop assets — ISO 354 absorption data, Revit / CAD library, RCP examples, and tender support that survives the design review.</p>
+</div>
+<div class="wn-pane" data-pane="mep">
+<span class="wn-pane-eyebrow">03 · MEP Consultants</span>
+<p class="wn-pane-text">Cleanly coordinated interfaces — pre-cut reveals, integrated lighting / grille details, BIM-ready families, and clearance notes for plenum and service runs.</p>
+</div>
+<div class="wn-pane" data-pane="acoustic">
+<span class="wn-pane-eyebrow">04 · Acoustic Consultants</span>
+<p class="wn-pane-text">Tested data, not estimates — third-party NRC published per model across 125 Hz – 4 kHz, plus Sabine-grade reports for your project's RT60 budget.</p>
+</div>
+<div class="wn-pane" data-pane="interior">
+<span class="wn-pane-eyebrow">05 · Interior Designers</span>
+<p class="wn-pane-text">Performance that never breaks the visual language — 14 wood species, RAL-matched paint, custom veneer, fabric-wrap, and 22 CNC art patterns to choose from.</p>
+</div>
+<div class="wn-pane" data-pane="contractor">
+<span class="wn-pane-eyebrow">06 · Contractors</span>
+<p class="wn-pane-text">Things that fit on site, fast — cut-to-size delivery labeled per drawing, installer-rated mounting kits, and field tech support when the shop drawings don't match reality.</p>
+</div>
+<div class="wn-pane" data-pane="fitout">
+<span class="wn-pane-eyebrow">07 · Fit-out Partners</span>
+<p class="wn-pane-text">The last 10% without the last-minute fires — direct factory ship, regional warehousing, free replacement on transit damage, and emergency air-freight on tight schedules.</p>
+</div>
+<div class="wn-pane" data-pane="distributor">
+<span class="wn-pane-eyebrow">08 · Distributors</span>
+<p class="wn-pane-text">A real partnership, not just a wholesale list — co-branded sample books, sales training, qualified project leads, and exclusive territory protection.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+</div>
+
+
+
+
+
+<div class="cmp-label">Version 3 <small>&mdash; Living Signal Network</small></div>
+<div class="cmp-wrap">
+<section class="sn">
+  <div class="sn-head">
+    <span class="sn-eyebrow">◆ Who we serve</span>
+    <h2 class="sn-title">Eight roles. One signal.</h2>
+    <p class="sn-sub">From concept to handover, NAAYA connects every voice in the build. Hover a node — follow the signal back to the core.</p>
+<a class="wws-approach" href="/approach">Our Approach</a>
+  </div>
+  <div class="sn-stage" id="snStage">
+    <svg class="sn-svg" viewBox="0 0 760 720" id="snSvg">
+      <circle class="sn-ring" cx="360" cy="360" r="60"><animate attributeName="r" values="60;252" dur="4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0" dur="4s" repeatCount="indefinite"/></circle>
+      <circle class="sn-ring" cx="360" cy="360" r="60"><animate attributeName="r" values="60;252" dur="4s" begin="1.33s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0" dur="4s" begin="1.33s" repeatCount="indefinite"/></circle>
+      <circle class="sn-ring" cx="360" cy="360" r="60"><animate attributeName="r" values="60;252" dur="4s" begin="2.66s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0" dur="4s" begin="2.66s" repeatCount="indefinite"/></circle>
+      <g id="snLines"><line class="sn-line" data-node="owner" x1="360" y1="360" x2="360.0" y2="108.0"></line><line class="sn-line" data-node="architect" x1="360" y1="360" x2="538.2" y2="181.8"></line><line class="sn-line" data-node="mep" x1="360" y1="360" x2="612.0" y2="360.0"></line><line class="sn-line" data-node="acoustic" x1="360" y1="360" x2="538.2" y2="538.2"></line><line class="sn-line" data-node="interior" x1="360" y1="360" x2="360.0" y2="612.0"></line><line class="sn-line" data-node="contractor" x1="360" y1="360" x2="181.8" y2="538.2"></line><line class="sn-line" data-node="fitout" x1="360" y1="360" x2="108.0" y2="360.0"></line><line class="sn-line" data-node="distributor" x1="360" y1="360" x2="181.8" y2="181.8"></line></g>
+      <g class="sn-hub"><circle class="sn-hub-ring" cx="360" cy="360" r="42"></circle><circle class="sn-hub-core" cx="360" cy="360" r="30"></circle><text class="sn-hub-text" x="360" y="360">NAAYA</text></g>
+      <circle class="sn-particle" id="snParticle" r="4" cx="360" cy="360"></circle>
+      <g id="snNodes"><g class="sn-node" data-node="owner" tabindex="0">
+<circle class="sn-halo" cx="360.0" cy="108.0" r="26"></circle>
+<circle class="sn-dot" cx="360.0" cy="108.0" r="7"></circle>
+<text class="sn-name" x="360.0" y="88.0" text-anchor="middle">Property Owners</text>
+<text class="sn-num"  x="360.0" y="72.0" text-anchor="middle">01</text>
+</g><g class="sn-node" data-node="architect" tabindex="0">
+<circle class="sn-halo" cx="538.2" cy="181.8" r="26"></circle>
+<circle class="sn-dot" cx="538.2" cy="181.8" r="7"></circle>
+<text class="sn-name" x="554.2" y="186.8" text-anchor="start">Architects</text>
+<text class="sn-num"  x="554.2" y="167.8" text-anchor="start">02</text>
+</g><g class="sn-node" data-node="mep" tabindex="0">
+<circle class="sn-halo" cx="612.0" cy="360.0" r="26"></circle>
+<circle class="sn-dot" cx="612.0" cy="360.0" r="7"></circle>
+<text class="sn-name" x="628.0" y="365.0" text-anchor="start">MEP Consultants</text>
+<text class="sn-num"  x="628.0" y="346.0" text-anchor="start">03</text>
+</g><g class="sn-node" data-node="acoustic" tabindex="0">
+<circle class="sn-halo" cx="538.2" cy="538.2" r="26"></circle>
+<circle class="sn-dot" cx="538.2" cy="538.2" r="7"></circle>
+<text class="sn-name" x="554.2" y="543.2" text-anchor="start">Acoustic Consultants</text>
+<text class="sn-num"  x="554.2" y="524.2" text-anchor="start">04</text>
+</g><g class="sn-node" data-node="interior" tabindex="0">
+<circle class="sn-halo" cx="360.0" cy="612.0" r="26"></circle>
+<circle class="sn-dot" cx="360.0" cy="612.0" r="7"></circle>
+<text class="sn-name" x="360.0" y="654.0" text-anchor="middle">Interior Designers</text>
+<text class="sn-num"  x="360.0" y="638.0" text-anchor="middle">05</text>
+</g><g class="sn-node" data-node="contractor" tabindex="0">
+<circle class="sn-halo" cx="181.8" cy="538.2" r="26"></circle>
+<circle class="sn-dot" cx="181.8" cy="538.2" r="7"></circle>
+<text class="sn-name" x="165.8" y="543.2" text-anchor="end">Contractors</text>
+<text class="sn-num"  x="165.8" y="524.2" text-anchor="end">06</text>
+</g><g class="sn-node" data-node="fitout" tabindex="0">
+<circle class="sn-halo" cx="108.0" cy="360.0" r="26"></circle>
+<circle class="sn-dot" cx="108.0" cy="360.0" r="7"></circle>
+<text class="sn-name" x="92.0" y="365.0" text-anchor="end">Fit-out Partners</text>
+<text class="sn-num"  x="92.0" y="346.0" text-anchor="end">07</text>
+</g><g class="sn-node" data-node="distributor" tabindex="0">
+<circle class="sn-halo" cx="181.8" cy="181.8" r="26"></circle>
+<circle class="sn-dot" cx="181.8" cy="181.8" r="7"></circle>
+<text class="sn-name" x="165.8" y="186.8" text-anchor="end">Distributors</text>
+<text class="sn-num"  x="165.8" y="167.8" text-anchor="end">08</text>
+</g></g>
+    </svg>
+    <div class="sn-detail"><div class="sn-pane is-active" data-pane="owner"><span class="sn-pane-eyebrow">01 · Property Owners</span><p class="sn-pane-text">Brand-defining spaces commissioned with confidence — turnkey acoustic delivery, documented performance, and a single point of accountability from concept to handover.</p></div><div class="sn-pane" data-pane="architect"><span class="sn-pane-eyebrow">02 · Architects</span><p class="sn-pane-text">Defendable specs and ready-to-drop assets — ISO 354 absorption data, Revit / CAD library, RCP examples, and tender support that survives the design review.</p></div><div class="sn-pane" data-pane="mep"><span class="sn-pane-eyebrow">03 · MEP Consultants</span><p class="sn-pane-text">Cleanly coordinated interfaces — pre-cut reveals, integrated lighting / grille details, BIM-ready families, and clearance notes for plenum and service runs.</p></div><div class="sn-pane" data-pane="acoustic"><span class="sn-pane-eyebrow">04 · Acoustic Consultants</span><p class="sn-pane-text">Tested data, not estimates — third-party NRC published per model across 125 Hz – 4 kHz, plus Sabine-grade reports for your project's RT60 budget.</p></div><div class="sn-pane" data-pane="interior"><span class="sn-pane-eyebrow">05 · Interior Designers</span><p class="sn-pane-text">Performance that never breaks the visual language — 14 wood species, RAL-matched paint, custom veneer, fabric-wrap, and 22 CNC art patterns to choose from.</p></div><div class="sn-pane" data-pane="contractor"><span class="sn-pane-eyebrow">06 · Contractors</span><p class="sn-pane-text">Things that fit on site, fast — cut-to-size delivery labeled per drawing, installer-rated mounting kits, and field tech support when the shop drawings don't match reality.</p></div><div class="sn-pane" data-pane="fitout"><span class="sn-pane-eyebrow">07 · Fit-out Partners</span><p class="sn-pane-text">The last 10% without the last-minute fires — direct factory ship, regional warehousing, free replacement on transit damage, and emergency air-freight on tight schedules.</p></div><div class="sn-pane" data-pane="distributor"><span class="sn-pane-eyebrow">08 · Distributors</span><p class="sn-pane-text">A real partnership, not just a wholesale list — co-branded sample books, sales training, qualified project leads, and exclusive territory protection.</p></div></div>
+  </div>
+</section>
+</div>
+
+
+
+
+<div class="cmp-label">Version 4 <small>&mdash; Editorial Index + Image</small></div>
+<div class="cmp-wrap">
+<section class="er">
+  <div class="er-head">
+    <span class="er-eyebrow">◆ Who we serve</span>
+    <h2 class="er-title">A role for every voice in the project.</h2>
+<a class="wws-approach" href="/approach">Our Approach</a>
+  </div>
+  <div class="er-body">
+    <ul class="er-list" id="erList"><li class="er-item is-active" data-role="owner" tabindex="0"><span class="er-num">01</span><span class="er-name">Property Owners</span></li><li class="er-item" data-role="architect" tabindex="0"><span class="er-num">02</span><span class="er-name">Architects</span></li><li class="er-item" data-role="mep" tabindex="0"><span class="er-num">03</span><span class="er-name">MEP Consultants</span></li><li class="er-item" data-role="acoustic" tabindex="0"><span class="er-num">04</span><span class="er-name">Acoustic Consultants</span></li><li class="er-item" data-role="interior" tabindex="0"><span class="er-num">05</span><span class="er-name">Interior Designers</span></li><li class="er-item" data-role="contractor" tabindex="0"><span class="er-num">06</span><span class="er-name">Contractors</span></li><li class="er-item" data-role="fitout" tabindex="0"><span class="er-num">07</span><span class="er-name">Fit-out Partners</span></li><li class="er-item" data-role="distributor" tabindex="0"><span class="er-num">08</span><span class="er-name">Distributors</span></li></ul>
+    <div class="er-stage">
+      <div class="er-media"><figure class="er-pane is-active" data-pane="owner"><img src="assets/personas-real/owner.webp" alt="Property Owners" loading="lazy"></figure><figure class="er-pane" data-pane="architect"><img src="assets/personas-real/architect.webp" alt="Architects" loading="lazy"></figure><figure class="er-pane" data-pane="mep"><img src="assets/personas-real/mep.webp" alt="MEP Consultants" loading="lazy"></figure><figure class="er-pane" data-pane="acoustic"><img src="assets/personas-real/acoustic.webp" alt="Acoustic Consultants" loading="lazy"></figure><figure class="er-pane" data-pane="interior"><img src="assets/personas-real/interior.webp" alt="Interior Designers" loading="lazy"></figure><figure class="er-pane" data-pane="contractor"><img src="assets/personas-real/contractor.webp" alt="Contractors" loading="lazy"></figure><figure class="er-pane" data-pane="fitout"><img src="assets/personas-real/fitout.webp" alt="Fit-out Partners" loading="lazy"></figure><figure class="er-pane" data-pane="distributor"><img src="assets/personas-real/distributor.webp" alt="Distributors" loading="lazy"></figure></div>
+      <div class="er-info"><div class="er-text is-active" data-text="owner"><span class="er-text-eyebrow">01 · Property Owners</span><p>Brand-defining spaces commissioned with confidence — turnkey acoustic delivery, documented performance, and a single point of accountability from concept to handover.</p></div><div class="er-text" data-text="architect"><span class="er-text-eyebrow">02 · Architects</span><p>Defendable specs and ready-to-drop assets — ISO 354 absorption data, Revit / CAD library, RCP examples, and tender support that survives the design review.</p></div><div class="er-text" data-text="mep"><span class="er-text-eyebrow">03 · MEP Consultants</span><p>Cleanly coordinated interfaces — pre-cut reveals, integrated lighting / grille details, BIM-ready families, and clearance notes for plenum and service runs.</p></div><div class="er-text" data-text="acoustic"><span class="er-text-eyebrow">04 · Acoustic Consultants</span><p>Tested data, not estimates — third-party NRC published per model across 125 Hz – 4 kHz, plus Sabine-grade reports for your project's RT60 budget.</p></div><div class="er-text" data-text="interior"><span class="er-text-eyebrow">05 · Interior Designers</span><p>Performance that never breaks the visual language — 14 wood species, RAL-matched paint, custom veneer, fabric-wrap, and 22 CNC art patterns to choose from.</p></div><div class="er-text" data-text="contractor"><span class="er-text-eyebrow">06 · Contractors</span><p>Things that fit on site, fast — cut-to-size delivery labeled per drawing, installer-rated mounting kits, and field tech support when the shop drawings don't match reality.</p></div><div class="er-text" data-text="fitout"><span class="er-text-eyebrow">07 · Fit-out Partners</span><p>The last 10% without the last-minute fires — direct factory ship, regional warehousing, free replacement on transit damage, and emergency air-freight on tight schedules.</p></div><div class="er-text" data-text="distributor"><span class="er-text-eyebrow">08 · Distributors</span><p>A real partnership, not just a wholesale list — co-branded sample books, sales training, qualified project leads, and exclusive territory protection.</p></div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+
+
+<div class="cmp-label">Version 5 <small>&mdash; Acoustic Spectrum</small></div>
+<div class="cmp-wrap"><section class="sp">
+  <div class="sp-head"><span class="sp-eyebrow">◆ Who we serve</span><h2 class="sp-title">Tuned to every frequency of the build.</h2>
+<a class="wws-approach" href="/approach">Our Approach</a></div>
+  <div class="sp-spectrum" id="spSpectrum"><button class="sp-band is-active" data-role="owner"><div class="sp-bars"><span style="height:75%;--d:1.66s;--dl:0.36s"></span><span style="height:40%;--d:0.96s;--dl:0.48s"></span><span style="height:80%;--d:1.37s;--dl:0.82s"></span><span style="height:61%;--d:0.93s;--dl:0.39s"></span><span style="height:42%;--d:1.09s;--dl:0.50s"></span><span style="height:41%;--d:1.56s;--dl:0.11s"></span><span style="height:62%;--d:1.40s;--dl:0.52s"></span></div><div class="sp-label"><span class="sp-num">01</span><span class="sp-name">Property Owners</span></div></button><button class="sp-band" data-role="architect"><div class="sp-bars"><span style="height:41%;--d:1.36s;--dl:0.36s"></span><span style="height:62%;--d:0.94s;--dl:0.77s"></span><span style="height:71%;--d:1.24s;--dl:0.49s"></span><span style="height:73%;--d:1.35s;--dl:0.61s"></span><span style="height:47%;--d:1.37s;--dl:0.58s"></span><span style="height:81%;--d:0.98s;--dl:0.64s"></span><span style="height:41%;--d:1.40s;--dl:0.45s"></span></div><div class="sp-label"><span class="sp-num">02</span><span class="sp-name">Architects</span></div></button><button class="sp-band" data-role="mep"><div class="sp-bars"><span style="height:88%;--d:1.52s;--dl:0.42s"></span><span style="height:92%;--d:1.19s;--dl:0.22s"></span><span style="height:57%;--d:1.46s;--dl:0.22s"></span><span style="height:72%;--d:1.32s;--dl:0.79s"></span><span style="height:91%;--d:1.13s;--dl:0.88s"></span><span style="height:49%;--d:1.31s;--dl:0.15s"></span><span style="height:77%;--d:1.02s;--dl:0.44s"></span></div><div class="sp-label"><span class="sp-num">03</span><span class="sp-name">MEP Consultants</span></div></button><button class="sp-band" data-role="acoustic"><div class="sp-bars"><span style="height:39%;--d:1.67s;--dl:0.07s"></span><span style="height:74%;--d:1.17s;--dl:0.32s"></span><span style="height:97%;--d:1.36s;--dl:0.41s"></span><span style="height:45%;--d:1.66s;--dl:0.43s"></span><span style="height:42%;--d:0.95s;--dl:0.63s"></span><span style="height:91%;--d:1.13s;--dl:0.35s"></span><span style="height:78%;--d:0.92s;--dl:0.42s"></span></div><div class="sp-label"><span class="sp-num">04</span><span class="sp-name">Acoustic Consultants</span></div></button><button class="sp-band" data-role="interior"><div class="sp-bars"><span style="height:55%;--d:1.39s;--dl:0.44s"></span><span style="height:61%;--d:1.51s;--dl:0.12s"></span><span style="height:65%;--d:1.22s;--dl:0.83s"></span><span style="height:97%;--d:0.96s;--dl:0.40s"></span><span style="height:69%;--d:1.61s;--dl:0.74s"></span><span style="height:69%;--d:1.47s;--dl:0.89s"></span><span style="height:82%;--d:1.67s;--dl:0.14s"></span></div><div class="sp-label"><span class="sp-num">05</span><span class="sp-name">Interior Designers</span></div></button><button class="sp-band" data-role="contractor"><div class="sp-bars"><span style="height:56%;--d:1.02s;--dl:0.59s"></span><span style="height:35%;--d:1.29s;--dl:0.53s"></span><span style="height:67%;--d:1.13s;--dl:0.13s"></span><span style="height:81%;--d:1.39s;--dl:0.29s"></span><span style="height:50%;--d:1.45s;--dl:0.46s"></span><span style="height:40%;--d:1.27s;--dl:0.78s"></span><span style="height:84%;--d:1.22s;--dl:0.35s"></span></div><div class="sp-label"><span class="sp-num">06</span><span class="sp-name">Contractors</span></div></button><button class="sp-band" data-role="fitout"><div class="sp-bars"><span style="height:95%;--d:1.41s;--dl:0.06s"></span><span style="height:42%;--d:1.69s;--dl:0.40s"></span><span style="height:48%;--d:1.17s;--dl:0.05s"></span><span style="height:34%;--d:1.35s;--dl:0.48s"></span><span style="height:80%;--d:1.39s;--dl:0.06s"></span><span style="height:60%;--d:1.39s;--dl:0.13s"></span><span style="height:66%;--d:1.66s;--dl:0.54s"></span></div><div class="sp-label"><span class="sp-num">07</span><span class="sp-name">Fit-out Partners</span></div></button><button class="sp-band" data-role="distributor"><div class="sp-bars"><span style="height:94%;--d:1.00s;--dl:0.76s"></span><span style="height:93%;--d:1.28s;--dl:0.28s"></span><span style="height:52%;--d:0.98s;--dl:0.31s"></span><span style="height:67%;--d:1.28s;--dl:0.62s"></span><span style="height:100%;--d:0.92s;--dl:0.86s"></span><span style="height:80%;--d:1.02s;--dl:0.49s"></span><span style="height:37%;--d:1.51s;--dl:0.27s"></span></div><div class="sp-label"><span class="sp-num">08</span><span class="sp-name">Distributors</span></div></button></div>
+  <div class="sp-detail"><div class="sp-pane is-active" data-pane="owner"><span class="sp-pane-eyebrow">01 · Property Owners</span><p>Brand-defining spaces commissioned with confidence — turnkey acoustic delivery, documented performance, and a single point of accountability from concept to handover.</p></div><div class="sp-pane" data-pane="architect"><span class="sp-pane-eyebrow">02 · Architects</span><p>Defendable specs and ready-to-drop assets — ISO 354 absorption data, Revit / CAD library, RCP examples, and tender support that survives the design review.</p></div><div class="sp-pane" data-pane="mep"><span class="sp-pane-eyebrow">03 · MEP Consultants</span><p>Cleanly coordinated interfaces — pre-cut reveals, integrated lighting / grille details, BIM-ready families, and clearance notes for plenum and service runs.</p></div><div class="sp-pane" data-pane="acoustic"><span class="sp-pane-eyebrow">04 · Acoustic Consultants</span><p>Tested data, not estimates — third-party NRC published per model across 125 Hz – 4 kHz, plus Sabine-grade reports for your project's RT60 budget.</p></div><div class="sp-pane" data-pane="interior"><span class="sp-pane-eyebrow">05 · Interior Designers</span><p>Performance that never breaks the visual language — 14 wood species, RAL-matched paint, custom veneer, fabric-wrap, and 22 CNC art patterns to choose from.</p></div><div class="sp-pane" data-pane="contractor"><span class="sp-pane-eyebrow">06 · Contractors</span><p>Things that fit on site, fast — cut-to-size delivery labeled per drawing, installer-rated mounting kits, and field tech support when the shop drawings don't match reality.</p></div><div class="sp-pane" data-pane="fitout"><span class="sp-pane-eyebrow">07 · Fit-out Partners</span><p>The last 10% without the last-minute fires — direct factory ship, regional warehousing, free replacement on transit damage, and emergency air-freight on tight schedules.</p></div><div class="sp-pane" data-pane="distributor"><span class="sp-pane-eyebrow">08 · Distributors</span><p>A real partnership, not just a wholesale list — co-branded sample books, sales training, qualified project leads, and exclusive territory protection.</p></div></div>
+</section></div>
+
+<div class="cmp-label">Version 6 <small>&mdash; Technical Blueprint</small></div>
+<div class="cmp-wrap"><section class="bp">
+  <div class="bp-head"><span class="bp-eyebrow">◆ Who we serve</span><h2 class="bp-title">A role for every voice in the project.</h2>
+<a class="wws-approach" href="/approach">Our Approach</a></div>
+  <div class="bp-stage">
+    <svg class="bp-svg" viewBox="0 0 1100 560" id="bpSvg" preserveAspectRatio="xMidYMid meet">
+      <rect class="bp-room" x="360" y="120" width="380" height="320"></rect>
+      <g class="bp-ceiling"><line x1="378" y1="120" x2="378" y2="138"></line><line x1="410" y1="120" x2="410" y2="138"></line><line x1="442" y1="120" x2="442" y2="138"></line><line x1="474" y1="120" x2="474" y2="138"></line><line x1="506" y1="120" x2="506" y2="138"></line><line x1="538" y1="120" x2="538" y2="138"></line><line x1="570" y1="120" x2="570" y2="138"></line><line x1="602" y1="120" x2="602" y2="138"></line><line x1="634" y1="120" x2="634" y2="138"></line><line x1="666" y1="120" x2="666" y2="138"></line><line x1="698" y1="120" x2="698" y2="138"></line></g>
+      <g class="bp-wall"><line x1="375" y1="150" x2="392" y2="150"></line><line x1="708" y1="150" x2="725" y2="150"></line><line x1="375" y1="180" x2="392" y2="180"></line><line x1="708" y1="180" x2="725" y2="180"></line><line x1="375" y1="210" x2="392" y2="210"></line><line x1="708" y1="210" x2="725" y2="210"></line><line x1="375" y1="240" x2="392" y2="240"></line><line x1="708" y1="240" x2="725" y2="240"></line><line x1="375" y1="270" x2="392" y2="270"></line><line x1="708" y1="270" x2="725" y2="270"></line><line x1="375" y1="300" x2="392" y2="300"></line><line x1="708" y1="300" x2="725" y2="300"></line><line x1="375" y1="330" x2="392" y2="330"></line><line x1="708" y1="330" x2="725" y2="330"></line><line x1="375" y1="360" x2="392" y2="360"></line><line x1="708" y1="360" x2="725" y2="360"></line><line x1="375" y1="390" x2="392" y2="390"></line><line x1="708" y1="390" x2="725" y2="390"></line></g>
+      <g class="bp-floor"><line x1="360" y1="440" x2="348" y2="456"></line><line x1="384" y1="440" x2="372" y2="456"></line><line x1="408" y1="440" x2="396" y2="456"></line><line x1="432" y1="440" x2="420" y2="456"></line><line x1="456" y1="440" x2="444" y2="456"></line><line x1="480" y1="440" x2="468" y2="456"></line><line x1="504" y1="440" x2="492" y2="456"></line><line x1="528" y1="440" x2="516" y2="456"></line><line x1="552" y1="440" x2="540" y2="456"></line><line x1="576" y1="440" x2="564" y2="456"></line><line x1="600" y1="440" x2="588" y2="456"></line><line x1="624" y1="440" x2="612" y2="456"></line><line x1="648" y1="440" x2="636" y2="456"></line><line x1="672" y1="440" x2="660" y2="456"></line><line x1="696" y1="440" x2="684" y2="456"></line><line x1="720" y1="440" x2="708" y2="456"></line></g>
+      <line class="bp-floorline" x1="360" y1="440" x2="740" y2="440"></line>
+      <g class="bp-marker" data-role="owner">
+<line class="bp-lead" x1="430" y1="120" x2="430" y2="118"></line>
+<circle class="bp-tgt" cx="430" cy="120" r="4"></circle>
+<circle class="bp-badge" cx="430" cy="86" r="13"></circle>
+<text class="bp-badge-t" x="430" y="86">01</text></g><g class="bp-marker" data-role="mep">
+<line class="bp-lead" x1="670" y1="120" x2="670" y2="118"></line>
+<circle class="bp-tgt" cx="670" cy="120" r="4"></circle>
+<circle class="bp-badge" cx="670" cy="86" r="13"></circle>
+<text class="bp-badge-t" x="670" y="86">03</text></g><g class="bp-marker" data-role="architect">
+<line class="bp-lead" x1="360" y1="205" x2="358" y2="205"></line>
+<circle class="bp-tgt" cx="360" cy="205" r="4"></circle>
+<circle class="bp-badge" cx="318" cy="205" r="13"></circle>
+<text class="bp-badge-t" x="318" y="205">02</text></g><g class="bp-marker" data-role="acoustic">
+<line class="bp-lead" x1="740" y1="205" x2="742" y2="205"></line>
+<circle class="bp-tgt" cx="740" cy="205" r="4"></circle>
+<circle class="bp-badge" cx="782" cy="205" r="13"></circle>
+<text class="bp-badge-t" x="782" y="205">04</text></g><g class="bp-marker" data-role="interior">
+<line class="bp-lead" x1="360" y1="355" x2="358" y2="355"></line>
+<circle class="bp-tgt" cx="360" cy="355" r="4"></circle>
+<circle class="bp-badge" cx="318" cy="355" r="13"></circle>
+<text class="bp-badge-t" x="318" y="355">05</text></g><g class="bp-marker" data-role="fitout">
+<line class="bp-lead" x1="740" y1="355" x2="742" y2="355"></line>
+<circle class="bp-tgt" cx="740" cy="355" r="4"></circle>
+<circle class="bp-badge" cx="782" cy="355" r="13"></circle>
+<text class="bp-badge-t" x="782" y="355">07</text></g><g class="bp-marker" data-role="contractor">
+<line class="bp-lead" x1="470" y1="440" x2="470" y2="442"></line>
+<circle class="bp-tgt" cx="470" cy="440" r="4"></circle>
+<circle class="bp-badge" cx="470" cy="474" r="13"></circle>
+<text class="bp-badge-t" x="470" y="474">06</text></g><g class="bp-marker" data-role="distributor">
+<line class="bp-lead" x1="630" y1="440" x2="630" y2="442"></line>
+<circle class="bp-tgt" cx="630" cy="440" r="4"></circle>
+<circle class="bp-badge" cx="630" cy="474" r="13"></circle>
+<text class="bp-badge-t" x="630" y="474">08</text></g>
+    </svg>
+  </div>
+  <div class="bp-legend" id="bpLegend"><button class="bp-leg is-active" data-role="owner"><span class="bp-leg-num">01</span><span class="bp-leg-name">Property Owners</span></button><button class="bp-leg" data-role="architect"><span class="bp-leg-num">02</span><span class="bp-leg-name">Architects</span></button><button class="bp-leg" data-role="mep"><span class="bp-leg-num">03</span><span class="bp-leg-name">MEP Consultants</span></button><button class="bp-leg" data-role="acoustic"><span class="bp-leg-num">04</span><span class="bp-leg-name">Acoustic Consultants</span></button><button class="bp-leg" data-role="interior"><span class="bp-leg-num">05</span><span class="bp-leg-name">Interior Designers</span></button><button class="bp-leg" data-role="contractor"><span class="bp-leg-num">06</span><span class="bp-leg-name">Contractors</span></button><button class="bp-leg" data-role="fitout"><span class="bp-leg-num">07</span><span class="bp-leg-name">Fit-out Partners</span></button><button class="bp-leg" data-role="distributor"><span class="bp-leg-num">08</span><span class="bp-leg-name">Distributors</span></button></div>
+  <div class="bp-detail"><div class="bp-pane is-active" data-pane="owner"><span class="bp-pane-eyebrow">01 · Property Owners</span><p>Brand-defining spaces commissioned with confidence — turnkey acoustic delivery, documented performance, and a single point of accountability from concept to handover.</p></div><div class="bp-pane" data-pane="architect"><span class="bp-pane-eyebrow">02 · Architects</span><p>Defendable specs and ready-to-drop assets — ISO 354 absorption data, Revit / CAD library, RCP examples, and tender support that survives the design review.</p></div><div class="bp-pane" data-pane="mep"><span class="bp-pane-eyebrow">03 · MEP Consultants</span><p>Cleanly coordinated interfaces — pre-cut reveals, integrated lighting / grille details, BIM-ready families, and clearance notes for plenum and service runs.</p></div><div class="bp-pane" data-pane="acoustic"><span class="bp-pane-eyebrow">04 · Acoustic Consultants</span><p>Tested data, not estimates — third-party NRC published per model across 125 Hz – 4 kHz, plus Sabine-grade reports for your project's RT60 budget.</p></div><div class="bp-pane" data-pane="interior"><span class="bp-pane-eyebrow">05 · Interior Designers</span><p>Performance that never breaks the visual language — 14 wood species, RAL-matched paint, custom veneer, fabric-wrap, and 22 CNC art patterns to choose from.</p></div><div class="bp-pane" data-pane="contractor"><span class="bp-pane-eyebrow">06 · Contractors</span><p>Things that fit on site, fast — cut-to-size delivery labeled per drawing, installer-rated mounting kits, and field tech support when the shop drawings don't match reality.</p></div><div class="bp-pane" data-pane="fitout"><span class="bp-pane-eyebrow">07 · Fit-out Partners</span><p>The last 10% without the last-minute fires — direct factory ship, regional warehousing, free replacement on transit damage, and emergency air-freight on tight schedules.</p></div><div class="bp-pane" data-pane="distributor"><span class="bp-pane-eyebrow">08 · Distributors</span><p>A real partnership, not just a wholesale list — co-branded sample books, sales training, qualified project leads, and exclusive territory protection.</p></div></div>
+</section></div>
+
+<div class="cmp-label">Version 7 <small>&mdash; Capability Console</small></div>
+<div class="cmp-wrap"><section class="cc">
+  <div class="cc-head"><span class="cc-eyebrow">◆ Who we serve</span><h2 class="cc-title">A capability for every role.</h2>
+<a class="wws-approach" href="/approach">Our Approach</a></div>
+  <div class="cc-body"><ul class="cc-list" id="ccList"><li class="cc-item is-active" data-role="owner" tabindex="0"><span class="cc-num">01</span><span class="cc-name">Property Owners</span></li><li class="cc-item" data-role="architect" tabindex="0"><span class="cc-num">02</span><span class="cc-name">Architects</span></li><li class="cc-item" data-role="mep" tabindex="0"><span class="cc-num">03</span><span class="cc-name">MEP Consultants</span></li><li class="cc-item" data-role="acoustic" tabindex="0"><span class="cc-num">04</span><span class="cc-name">Acoustic Consultants</span></li><li class="cc-item" data-role="interior" tabindex="0"><span class="cc-num">05</span><span class="cc-name">Interior Designers</span></li><li class="cc-item" data-role="contractor" tabindex="0"><span class="cc-num">06</span><span class="cc-name">Contractors</span></li><li class="cc-item" data-role="fitout" tabindex="0"><span class="cc-num">07</span><span class="cc-name">Fit-out Partners</span></li><li class="cc-item" data-role="distributor" tabindex="0"><span class="cc-num">08</span><span class="cc-name">Distributors</span></li></ul><div class="cc-stage"><div class="cc-card is-active" data-card="owner"><div class="cc-card-media"><img src="assets/personas-real/owner.webp" alt="Property Owners" loading="lazy"></div><div class="cc-card-body"><span class="cc-card-eyebrow">01 · Property Owners</span><p class="cc-card-stmt">Brand-defining spaces, delivered turnkey.</p><div class="cc-chips"><span class="cc-chip">Turnkey delivery</span><span class="cc-chip">Documented performance</span><span class="cc-chip">Single point of contact</span></div><div class="cc-badge"><span class="cc-badge-dot">◈</span>TURNKEY</div></div></div><div class="cc-card" data-card="architect"><div class="cc-card-media"><img src="assets/personas-real/architect.webp" alt="Architects" loading="lazy"></div><div class="cc-card-body"><span class="cc-card-eyebrow">02 · Architects</span><p class="cc-card-stmt">Specs that survive the design review.</p><div class="cc-chips"><span class="cc-chip">ISO 354 data</span><span class="cc-chip">Revit / CAD library</span><span class="cc-chip">Tender support</span></div><div class="cc-badge"><span class="cc-badge-dot">◈</span>ISO 354</div></div></div><div class="cc-card" data-card="mep"><div class="cc-card-media"><img src="assets/personas-real/mep.webp" alt="MEP Consultants" loading="lazy"></div><div class="cc-card-body"><span class="cc-card-eyebrow">03 · MEP Consultants</span><p class="cc-card-stmt">Cleanly coordinated interfaces.</p><div class="cc-chips"><span class="cc-chip">Pre-cut reveals</span><span class="cc-chip">BIM-ready families</span><span class="cc-chip">Plenum clearances</span></div><div class="cc-badge"><span class="cc-badge-dot">◈</span>BIM-READY</div></div></div><div class="cc-card" data-card="acoustic"><div class="cc-card-media"><img src="assets/personas-real/acoustic.webp" alt="Acoustic Consultants" loading="lazy"></div><div class="cc-card-body"><span class="cc-card-eyebrow">04 · Acoustic Consultants</span><p class="cc-card-stmt">Tested data, not estimates.</p><div class="cc-chips"><span class="cc-chip">NRC per model</span><span class="cc-chip">125 Hz – 4 kHz</span><span class="cc-chip">Sabine RT60 report</span></div><div class="cc-badge"><span class="cc-badge-dot">◈</span>3RD-PARTY TESTED</div></div></div><div class="cc-card" data-card="interior"><div class="cc-card-media"><img src="assets/personas-real/interior.webp" alt="Interior Designers" loading="lazy"></div><div class="cc-card-body"><span class="cc-card-eyebrow">05 · Interior Designers</span><p class="cc-card-stmt">Performance that holds the visual language.</p><div class="cc-chips"><span class="cc-chip">14 wood species</span><span class="cc-chip">RAL-matched paint</span><span class="cc-chip">22 CNC patterns</span></div><div class="cc-badge"><span class="cc-badge-dot">◈</span>FULLY CUSTOM</div></div></div><div class="cc-card" data-card="contractor"><div class="cc-card-media"><img src="assets/personas-real/contractor.webp" alt="Contractors" loading="lazy"></div><div class="cc-card-body"><span class="cc-card-eyebrow">06 · Contractors</span><p class="cc-card-stmt">Things that fit on site, fast.</p><div class="cc-chips"><span class="cc-chip">Cut-to-size</span><span class="cc-chip">Mounting kits</span><span class="cc-chip">Field tech support</span></div><div class="cc-badge"><span class="cc-badge-dot">◈</span>SITE-READY</div></div></div><div class="cc-card" data-card="fitout"><div class="cc-card-media"><img src="assets/personas-real/fitout.webp" alt="Fit-out Partners" loading="lazy"></div><div class="cc-card-body"><span class="cc-card-eyebrow">07 · Fit-out Partners</span><p class="cc-card-stmt">The last 10% without the fires.</p><div class="cc-chips"><span class="cc-chip">Direct factory ship</span><span class="cc-chip">Regional warehousing</span><span class="cc-chip">Transit-damage cover</span></div><div class="cc-badge"><span class="cc-badge-dot">◈</span>ON-TIME</div></div></div><div class="cc-card" data-card="distributor"><div class="cc-card-media"><img src="assets/personas-real/distributor.webp" alt="Distributors" loading="lazy"></div><div class="cc-card-body"><span class="cc-card-eyebrow">08 · Distributors</span><p class="cc-card-stmt">A real partnership, not a price list.</p><div class="cc-chips"><span class="cc-chip">Co-branded samples</span><span class="cc-chip">Qualified leads</span><span class="cc-chip">Territory protection</span></div><div class="cc-badge"><span class="cc-badge-dot">◈</span>EXCLUSIVE TERRITORY</div></div></div></div></div>
+</section></div>
+</main>
+<script>
+/* V2 (index-2 network) hover switcher — extracted from naaya.js, standalone (no Lenis/GSAP) */
+(function initWwsNetwork(){
+  const stage = document.getElementById('wwsNetwork');
+  if (!stage) return;
+  const nodes = stage.querySelectorAll('.wn-node');
+  const lines = stage.querySelectorAll('.wn-line');
+  const panes = stage.querySelectorAll('.wn-pane');
+  if (!nodes.length) return;
+  const activate = (key) => {
+    nodes.forEach(n => n.classList.toggle('is-active', n.dataset.node === key));
+    lines.forEach(l => l.classList.toggle('is-active', l.dataset.node === key));
+    panes.forEach(p => p.classList.toggle('is-active', p.dataset.pane === key));
+  };
+  nodes.forEach(n => {
+    n.addEventListener('mouseenter', () => activate(n.dataset.node));
+    n.addEventListener('focus', () => activate(n.dataset.node));
+  });
+})();
+</script>
+<script>
+/* ---- Version A: detail swap + signal particle along active line ---- */
+(function(){
+  const NODES={"owner": [360.0, 108.0], "architect": [538.2, 181.8], "mep": [612.0, 360.0], "acoustic": [538.2, 538.2], "interior": [360.0, 612.0], "contractor": [181.8, 538.2], "fitout": [108.0, 360.0], "distributor": [181.8, 181.8]}, CX=360, CY=360;
+  const stage=document.getElementById('snStage');
+  const nodes=stage.querySelectorAll('.sn-node');
+  const lines=stage.querySelectorAll('.sn-line');
+  const panes=stage.querySelectorAll('.sn-pane');
+  const particle=document.getElementById('snParticle');
+  let raf=null, t0=null, current=null;
+  function setActive(key){
+    nodes.forEach(n=>n.classList.toggle('is-active',n.dataset.node===key));
+    lines.forEach(l=>l.classList.toggle('is-active',l.dataset.node===key));
+    panes.forEach(p=>p.classList.toggle('is-active',p.dataset.pane===key));
+  }
+  function runParticle(key){
+    current=key; const dst=NODES[key]; if(!dst)return;
+    cancelAnimationFrame(raf); t0=null;
+    function step(ts){
+      if(current!==key){particle.setAttribute('opacity','0');return;}
+      if(!t0)t0=ts; let p=((ts-t0)%1100)/1100;
+      const x=dst[0]+(CX-dst[0])*p, y=dst[1]+(CY-dst[1])*p;
+      particle.setAttribute('cx',x); particle.setAttribute('cy',y);
+      particle.setAttribute('opacity', String(0.9*(1-Math.abs(p-0.5)*1.2)));
+      raf=requestAnimationFrame(step);
+    }
+    raf=requestAnimationFrame(step);
+  }
+  nodes.forEach(n=>{
+    const k=n.dataset.node;
+    n.addEventListener('mouseenter',()=>{setActive(k);runParticle(k);});
+    n.addEventListener('focus',()=>{setActive(k);runParticle(k);});
+  });
+  stage.addEventListener('mouseleave',()=>{current=null;particle.setAttribute('opacity','0');});
+})();
+
+
+</script>
+<script>
+/* Version E — index hover -> image + text crossfade (text sits BELOW image, never clipped) */
+(function(){
+  var list=document.getElementById('erList'); if(!list) return;
+  var sec=list.closest('.er');
+  var items=sec.querySelectorAll('.er-item'), panes=sec.querySelectorAll('.er-pane'), texts=sec.querySelectorAll('.er-text');
+  function act(k){
+    items.forEach(function(it){it.classList.toggle('is-active',it.dataset.role===k);});
+    panes.forEach(function(p){p.classList.toggle('is-active',p.dataset.pane===k);});
+    texts.forEach(function(t){t.classList.toggle('is-active',t.dataset.text===k);});
+  }
+  items.forEach(function(it){ it.addEventListener('mouseenter',function(){act(it.dataset.role);}); it.addEventListener('focus',function(){act(it.dataset.role);}); });
+})();
+</script>
+<script>
+/* G/H/I — index/legend hover -> crossfade panels (no Lenis) */
+(function(){
+  function wire(rootSel, itemSel, paneSel, itemKey, paneKey){
+    var root=document.querySelector(rootSel); if(!root) return;
+    var sec=root.closest('section');
+    var items=sec.querySelectorAll(itemSel), panes=sec.querySelectorAll(paneSel);
+    function act(k){ items.forEach(function(it){it.classList.toggle('is-active',it.dataset[itemKey]===k);});
+      panes.forEach(function(p){p.classList.toggle('is-active',p.dataset[paneKey]===k);}); }
+    items.forEach(function(it){ var k=it.dataset[itemKey];
+      it.addEventListener('mouseenter',function(){act(k);}); it.addEventListener('focus',function(){act(k);}); });
+  }
+  wire('#spSpectrum','.sp-band','.sp-pane','role','pane');
+  wire('#bpLegend','.bp-leg','.bp-pane','role','pane');
+  // H: also activate the svg marker on legend hover
+  (function(){ var leg=document.getElementById('bpLegend'); if(!leg) return; var sec=leg.closest('section');
+    var markers=sec.querySelectorAll('.bp-marker'), legs=sec.querySelectorAll('.bp-leg');
+    function mk(k){ markers.forEach(function(m){m.classList.toggle('is-active',m.dataset.role===k);}); }
+    legs.forEach(function(l){ l.addEventListener('mouseenter',function(){mk(l.dataset.role);}); });
+    markers.forEach(function(m){ m.addEventListener('mouseenter',function(){ var ev=new Event('mouseenter');
+      legs.forEach(function(l){ if(l.dataset.role===m.dataset.role) l.dispatchEvent(ev); }); }); });
+  })();
+  wire('#ccList','.cc-item','.cc-card','role','card');
+})();
+</script>
+</body>
+</html>
