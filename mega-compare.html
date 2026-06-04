@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAAYA — Mega Menu Layout Compare (A / C)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/naaya.css">
+<style>
+:root{--ink:#231f20;}
+html,body{position:static!important;inset:auto!important;overflow:visible!important;height:auto!important;background:#fff;color:var(--ink);}
+*{box-sizing:border-box;}
+body{font-family:'Inter',system-ui,sans-serif;margin:0;}
+.mc-wrap{max-width:150rem;margin:0 auto;padding:6rem 4rem 10rem;}
+.mc-intro{border-bottom:1px solid rgba(35,31,32,.12);padding-bottom:3rem;margin-bottom:5rem;}
+.mc-intro h1{font-size:3.4rem;font-weight:500;letter-spacing:-.02em;margin:0 0 1rem;}
+.mc-intro p{font-size:1.5rem;line-height:1.6;color:rgba(35,31,32,.7);max-width:80rem;margin:0;}
+.mc-section{margin:0 0 8rem;}
+.mc-tag{display:flex;align-items:baseline;gap:1.4rem;margin-bottom:2.4rem;}
+.mc-tag b{font-size:2.2rem;font-weight:600;letter-spacing:-.01em;}
+.mc-tag span{font-family:'Inter';font-size:1.15rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(35,31,32,.45);}
+
+/* panel frame */
+.mc-panel{border:1px solid rgba(35,31,32,.14);background:#fff;}
+.mc-panel .mcat-inner{display:grid;grid-template-columns:30rem minmax(0,1fr);gap:5rem;padding:4rem 4rem 4.5rem;max-width:none;min-height:0;margin:0;}
+
+/* left list */
+.mcat-list{display:flex;flex-direction:column;gap:0;max-height:min(56rem,72vh);overflow-y:auto;padding-right:.8rem;}
+.mcat-list::-webkit-scrollbar{width:4px;}.mcat-list::-webkit-scrollbar-thumb{background:rgba(35,31,32,.18);border-radius:2px;}
+.mega-label{margin-bottom:1.4rem;}
+.mega-label span{font-family:'Inter';font-size:1.15rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);}
+.mcat-item{display:flex;justify-content:space-between;align-items:baseline;padding:.58rem 0;border-top:1px solid rgba(35,31,32,.1);cursor:pointer;transition:padding-left .3s ease;}
+.mcat-item:last-of-type{border-bottom:1px solid rgba(35,31,32,.1);}
+.mcat-item:hover,.mcat-item.is-active{padding-left:.6rem;}
+.mcat-item.is-active{background:linear-gradient(90deg,rgba(35,31,32,.05),transparent);}
+.mcat-name{font-size:1.45rem;color:var(--ink);}
+.mcat-item.is-active .mcat-name{font-weight:600;}
+.mcat-count{font-size:1rem;letter-spacing:.08em;color:rgba(35,31,32,.4);}
+.mcat-all{margin-top:1rem;padding-top:1.1rem;font-size:1.15rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-top:1px solid rgba(35,31,32,.18);}
+
+/* detail + panes */
+.mc-detail{position:relative;}
+.mc-pane{display:none;flex-direction:column;gap:2.2rem;}
+.mc-pane.is-active{display:flex;animation:mcfade .35s ease;}
+@keyframes mcfade{from{opacity:0;transform:translateY(.6rem)}to{opacity:1;transform:none}}
+.mc-head{max-width:70rem;}
+.mc-title{font-size:2.6rem;font-weight:500;letter-spacing:-.015em;margin:0 0 1rem;}
+.mc-desc{font-size:1.4rem;line-height:1.55;color:rgba(35,31,32,.8);margin:0;}
+
+/* spec row (4 in a line) */
+.mc-specs{display:flex;gap:3.2rem;flex-wrap:wrap;}
+.mc-spec{display:flex;align-items:center;gap:1rem;}
+.mc-spec svg{width:2.2rem;height:2.2rem;color:var(--ink);opacity:.82;}
+.mc-st{display:flex;flex-direction:column;line-height:1.15;}
+.mc-sl{font-size:1rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(35,31,32,.45);}
+.mc-sv{font-size:1.5rem;font-weight:500;}
+
+/* product row (laid along the bottom) */
+.mc-prodrow{display:flex;gap:1.4rem;flex-wrap:wrap;}
+.mc-pcard{width:12.5rem;}
+.mc-pimg{width:100%;aspect-ratio:4/5;overflow:hidden;background:#f4f3f2;border:1px solid rgba(35,31,32,.08);}
+.mc-pimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+.mc-pcard:hover .mc-pimg img{transform:scale(1.05);}
+.mc-pname{display:block;margin-top:.7rem;font-size:1.2rem;font-weight:500;letter-spacing:-.005em;color:var(--ink);}
+
+/* Layout A: compact scene + product row */
+.mc-scene--A{width:100%;aspect-ratio:16/6;overflow:hidden;background:#eee;}
+.mc-scene--A img{width:100%;height:100%;object-fit:cover;display:block;}
+.mc-prodrow--A .mc-pcard{width:12rem;}
+
+/* Layout C: hero scene with product cards overlaid on the image */
+.mc-scene--C{position:relative;width:100%;aspect-ratio:16/7.5;overflow:hidden;background:#eee;}
+.mc-scene--C>img{width:100%;height:100%;object-fit:cover;display:block;}
+.mc-scene--C::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(to top,rgba(20,17,18,.55),transparent);pointer-events:none;}
+.mc-prodrow--C{position:absolute;left:2.2rem;right:2.2rem;bottom:2.2rem;z-index:2;gap:1.2rem;flex-wrap:nowrap;overflow:hidden;}
+.mc-prodrow--C .mc-pcard{width:11.5rem;flex:none;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);padding:.9rem .9rem 1.1rem;box-shadow:0 .8rem 2.4rem rgba(0,0,0,.22);}
+.mc-prodrow--C .mc-pimg{border:none;background:#f0efee;}
+.mc-prodrow--C .mc-pname{margin-top:.6rem;font-size:1.1rem;}
+
+@media(max-width:1100px){
+ .mc-panel .mcat-inner{grid-template-columns:1fr;gap:3rem;}
+ .mc-specs{gap:2rem;}
+ .mc-pcard,.mc-prodrow--A .mc-pcard,.mc-prodrow--C .mc-pcard{width:calc(33.333% - 1rem);}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="mcS" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l2.5-6 4 16 4-19 2.5 9H22"/></symbol>
+<symbol id="mcT" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+<symbol id="mcF" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.4 3.8 5.2 5.2 5.2 9.2A5.2 5.2 0 0 1 6.8 12.2c0-1.7.8-3 1.9-4 .4 2.1 2.1 2.2 2.1.2 0-2 .2-3.6 1.2-5.4z"/></symbol>
+<symbol id="mcE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></symbol>
+</defs></svg>
+<div class="mc-wrap">
+<div class="mc-intro">
+<h1>Mega Menu — Detail Layout Compare</h1>
+<p>Two directions for the product detail pane: icons in one row, a landscape scene image, then the white-background product shot with its name. Hover the series list on the left to switch. Scene &amp; product images are auto-extracted placeholders.</p>
+</div>
+
+<div class="mc-section">
+<div class="mc-tag"><b>Layout A</b><span>Vertical editorial stack</span></div>
+<div class="mc-panel mega-cats-v2 layout-A">
+<div class="mcat-inner">
+<div class="mcat-list">
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item is-active" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="#" class="mcat-all">All models →</a>
+</div>
+<div class="mc-detail">
+<div class="mc-pane" data-pane="classic">
+<div class="mc-head"><h3 class="mc-title">Classic Series</h3><p class="mc-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.80</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/classic.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-1.webp" alt="" loading="lazy"></div><span class="mc-pname">28/4</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-2.webp" alt="" loading="lazy"></div><span class="mc-pname">5/3</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-3.webp" alt="" loading="lazy"></div><span class="mc-pname">9/2</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-4.webp" alt="" loading="lazy"></div><span class="mc-pname">13/3</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-5.webp" alt="" loading="lazy"></div><span class="mc-pname">14/2</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-6.webp" alt="" loading="lazy"></div><span class="mc-pname">18/3</span></div></div>
+</div>
+<div class="mc-pane is-active" data-pane="perfo">
+<div class="mc-head"><h3 class="mc-title">Perfo Series</h3><p class="mc-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.85</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/perfo.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-1.webp" alt="" loading="lazy"></div><span class="mc-pname">16/3</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-2.webp" alt="" loading="lazy"></div><span class="mc-pname">16/6</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-3.webp" alt="" loading="lazy"></div><span class="mc-pname">16/8</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-4.webp" alt="" loading="lazy"></div><span class="mc-pname">20/6</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-5.webp" alt="" loading="lazy"></div><span class="mc-pname">20/7</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-6.webp" alt="" loading="lazy"></div><span class="mc-pname">32/6</span></div></div>
+</div>
+<div class="mc-pane" data-pane="micro">
+<div class="mc-head"><h3 class="mc-title">Micro Series</h3><p class="mc-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.85</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/micro.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-1.webp" alt="" loading="lazy"></div><span class="mc-pname">2/0.5</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-2.webp" alt="" loading="lazy"></div><span class="mc-pname">4/0.7</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-3.webp" alt="" loading="lazy"></div><span class="mc-pname">5/1</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-4.webp" alt="" loading="lazy"></div><span class="mc-pname">8/1</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-5.webp" alt="" loading="lazy"></div><span class="mc-pname">Art 1A</span></div></div>
+</div>
+<div class="mc-pane" data-pane="curve">
+<div class="mc-head"><h3 class="mc-title">Wood Curve Series</h3><p class="mc-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.85</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/curve.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/curve-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Convex</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/curve-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Wave</span></div></div>
+</div>
+<div class="mc-pane" data-pane="art">
+<div class="mc-head"><h3 class="mc-title">Art Acoustic Series</h3><p class="mc-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.90</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/art.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-1.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-001</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-2.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-002</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-3.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-003</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-4.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-010</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-5.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-017</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-6.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-022</span></div></div>
+</div>
+<div class="mc-pane" data-pane="phonex">
+<div class="mc-head"><h3 class="mc-title">Phonex Metal Series</h3><p class="mc-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">0.70–0.80</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">20 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/phonex.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/phonex-1.webp" alt="" loading="lazy"></div><span class="mc-pname">5/2.3</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/phonex-2.webp" alt="" loading="lazy"></div><span class="mc-pname">8/4</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/phonex-3.webp" alt="" loading="lazy"></div><span class="mc-pname">10/5</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/phonex-4.webp" alt="" loading="lazy"></div><span class="mc-pname">Standard 5/1</span></div></div>
+</div>
+<div class="mc-pane" data-pane="uniseam">
+<div class="mc-head"><h3 class="mc-title">Uniseam Series</h3><p class="mc-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">0.75+</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">12 / 30 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/uniseam.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/uniseam-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Aero</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/uniseam-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Mono</span></div></div>
+</div>
+<div class="mc-pane" data-pane="cleaneo">
+<div class="mc-head"><h3 class="mc-title">Cleaneo Series</h3><p class="mc-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.80</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">12.5 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/cleaneo.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/cleaneo-1.webp" alt="" loading="lazy"></div><span class="mc-pname">8/18R</span></div></div>
+</div>
+<div class="mc-pane" data-pane="acouspray">
+<div class="mc-head"><h3 class="mc-title">Acouspray Series</h3><p class="mc-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.95</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">30 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/acouspray.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/acouspray-1.webp" alt="" loading="lazy"></div><span class="mc-pname">AS30</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/acouspray-2.webp" alt="" loading="lazy"></div><span class="mc-pname">AS30 Fine</span></div></div>
+</div>
+<div class="mc-pane" data-pane="acona">
+<div class="mc-head"><h3 class="mc-title">Acona Classic Series</h3><p class="mc-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 1.00</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 / 20 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/acona.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/acona-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Classic</span></div></div>
+</div>
+<div class="mc-pane" data-pane="aconaart">
+<div class="mc-head"><h3 class="mc-title">Acona Art Series</h3><p class="mc-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 1.00</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">25 / 40 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/aconaart.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/aconaart-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Cloud</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/aconaart-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Baffle</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/aconaart-3.webp" alt="" loading="lazy"></div><span class="mc-pname">Pyramid</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/aconaart-4.webp" alt="" loading="lazy"></div><span class="mc-pname">Convex</span></div></div>
+</div>
+<div class="mc-pane" data-pane="fabric">
+<div class="mc-head"><h3 class="mc-title">Fabricoustic Series</h3><p class="mc-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.90</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">25–60 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/fabric.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/fabric-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Classic</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/fabric-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Eco</span></div></div>
+</div>
+<div class="mc-pane" data-pane="pet">
+<div class="mc-head"><h3 class="mc-title">Polyester (PET) Series</h3><p class="mc-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.85</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">9 / 12 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/pet.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/pet-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Panel 9mm</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/pet-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Panel 12mm</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/pet-3.webp" alt="" loading="lazy"></div><span class="mc-pname">V-Groove</span></div></div>
+</div>
+<div class="mc-pane" data-pane="woodwool">
+<div class="mc-head"><h3 class="mc-title">Wood Wool Series</h3><p class="mc-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.60</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15–25 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/woodwool.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/woodwool-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Panel</span></div></div>
+</div>
+<div class="mc-pane" data-pane="diffuser">
+<div class="mc-head"><h3 class="mc-title">Diffuser Series</h3><p class="mc-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">Scattering</span><span class="mc-sv">ISO 17497</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Depth</span><span class="mc-sv">Custom</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/diffuser.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/diffuser-1.webp" alt="" loading="lazy"></div><span class="mc-pname">MLS</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/diffuser-2.webp" alt="" loading="lazy"></div><span class="mc-pname">QRD</span></div></div>
+</div>
+<div class="mc-pane" data-pane="door">
+<div class="mc-head"><h3 class="mc-title">Soundproofed Door Series</h3><p class="mc-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">STC</span><span class="mc-sv">35–45 dB</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">50–100 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--A"><img src="assets/mega/scene/door.webp" alt="" loading="lazy"></div>
+<div class="mc-prodrow mc-prodrow--A"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/door-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Composite</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="mc-section">
+<div class="mc-tag"><b>Layout C</b><span>Scene hero · floating product card</span></div>
+<div class="mc-panel mega-cats-v2 layout-C">
+<div class="mcat-inner">
+<div class="mcat-list">
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item is-active" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="#" class="mcat-all">All models →</a>
+</div>
+<div class="mc-detail">
+<div class="mc-pane" data-pane="classic">
+<div class="mc-head"><h3 class="mc-title">Classic Series</h3><p class="mc-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.80</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/classic.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-1.webp" alt="" loading="lazy"></div><span class="mc-pname">28/4</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-2.webp" alt="" loading="lazy"></div><span class="mc-pname">5/3</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-3.webp" alt="" loading="lazy"></div><span class="mc-pname">9/2</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-4.webp" alt="" loading="lazy"></div><span class="mc-pname">13/3</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-5.webp" alt="" loading="lazy"></div><span class="mc-pname">14/2</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/classic-6.webp" alt="" loading="lazy"></div><span class="mc-pname">18/3</span></div></div>
+</div>
+</div>
+<div class="mc-pane is-active" data-pane="perfo">
+<div class="mc-head"><h3 class="mc-title">Perfo Series</h3><p class="mc-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.85</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/perfo.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-1.webp" alt="" loading="lazy"></div><span class="mc-pname">16/3</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-2.webp" alt="" loading="lazy"></div><span class="mc-pname">16/6</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-3.webp" alt="" loading="lazy"></div><span class="mc-pname">16/8</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-4.webp" alt="" loading="lazy"></div><span class="mc-pname">20/6</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-5.webp" alt="" loading="lazy"></div><span class="mc-pname">20/7</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/perfo-6.webp" alt="" loading="lazy"></div><span class="mc-pname">32/6</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="micro">
+<div class="mc-head"><h3 class="mc-title">Micro Series</h3><p class="mc-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.85</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/micro.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-1.webp" alt="" loading="lazy"></div><span class="mc-pname">2/0.5</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-2.webp" alt="" loading="lazy"></div><span class="mc-pname">4/0.7</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-3.webp" alt="" loading="lazy"></div><span class="mc-pname">5/1</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-4.webp" alt="" loading="lazy"></div><span class="mc-pname">8/1</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/micro-5.webp" alt="" loading="lazy"></div><span class="mc-pname">Art 1A</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="curve">
+<div class="mc-head"><h3 class="mc-title">Wood Curve Series</h3><p class="mc-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.85</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/curve.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/curve-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Convex</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/curve-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Wave</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="art">
+<div class="mc-head"><h3 class="mc-title">Art Acoustic Series</h3><p class="mc-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.90</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/art.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-1.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-001</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-2.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-002</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-3.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-003</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-4.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-010</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-5.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-017</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/art-6.webp" alt="" loading="lazy"></div><span class="mc-pname">NY-AA-022</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="phonex">
+<div class="mc-head"><h3 class="mc-title">Phonex Metal Series</h3><p class="mc-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">0.70–0.80</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">20 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/phonex.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/phonex-1.webp" alt="" loading="lazy"></div><span class="mc-pname">5/2.3</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/phonex-2.webp" alt="" loading="lazy"></div><span class="mc-pname">8/4</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/phonex-3.webp" alt="" loading="lazy"></div><span class="mc-pname">10/5</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/phonex-4.webp" alt="" loading="lazy"></div><span class="mc-pname">Standard 5/1</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="uniseam">
+<div class="mc-head"><h3 class="mc-title">Uniseam Series</h3><p class="mc-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">0.75+</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">12 / 30 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/uniseam.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/uniseam-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Aero</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/uniseam-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Mono</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="cleaneo">
+<div class="mc-head"><h3 class="mc-title">Cleaneo Series</h3><p class="mc-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.80</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">12.5 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/cleaneo.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/cleaneo-1.webp" alt="" loading="lazy"></div><span class="mc-pname">8/18R</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="acouspray">
+<div class="mc-head"><h3 class="mc-title">Acouspray Series</h3><p class="mc-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.95</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">30 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/acouspray.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/acouspray-1.webp" alt="" loading="lazy"></div><span class="mc-pname">AS30</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/acouspray-2.webp" alt="" loading="lazy"></div><span class="mc-pname">AS30 Fine</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="acona">
+<div class="mc-head"><h3 class="mc-title">Acona Classic Series</h3><p class="mc-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 1.00</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15 / 20 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/acona.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/acona-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Classic</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="aconaart">
+<div class="mc-head"><h3 class="mc-title">Acona Art Series</h3><p class="mc-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 1.00</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">25 / 40 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/aconaart.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/aconaart-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Cloud</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/aconaart-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Baffle</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/aconaart-3.webp" alt="" loading="lazy"></div><span class="mc-pname">Pyramid</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/aconaart-4.webp" alt="" loading="lazy"></div><span class="mc-pname">Convex</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="fabric">
+<div class="mc-head"><h3 class="mc-title">Fabricoustic Series</h3><p class="mc-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.90</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">25–60 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/fabric.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/fabric-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Classic</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/fabric-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Eco</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="pet">
+<div class="mc-head"><h3 class="mc-title">Polyester (PET) Series</h3><p class="mc-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.85</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">9 / 12 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/pet.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/pet-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Panel 9mm</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/pet-2.webp" alt="" loading="lazy"></div><span class="mc-pname">Panel 12mm</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/pet-3.webp" alt="" loading="lazy"></div><span class="mc-pname">V-Groove</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="woodwool">
+<div class="mc-head"><h3 class="mc-title">Wood Wool Series</h3><p class="mc-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">NRC</span><span class="mc-sv">up to 0.60</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">15–25 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/woodwool.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/woodwool-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Panel</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="diffuser">
+<div class="mc-head"><h3 class="mc-title">Diffuser Series</h3><p class="mc-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">Scattering</span><span class="mc-sv">ISO 17497</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Depth</span><span class="mc-sv">Custom</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/diffuser.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/diffuser-1.webp" alt="" loading="lazy"></div><span class="mc-pname">MLS</span></div><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/diffuser-2.webp" alt="" loading="lazy"></div><span class="mc-pname">QRD</span></div></div>
+</div>
+</div>
+<div class="mc-pane" data-pane="door">
+<div class="mc-head"><h3 class="mc-title">Soundproofed Door Series</h3><p class="mc-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p></div>
+<div class="mc-specs mc-specs--row"><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="mc-st"><span class="mc-sl">STC</span><span class="mc-sv">35–45 dB</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="mc-st"><span class="mc-sl">Thickness</span><span class="mc-sv">50–100 mm</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="mc-st"><span class="mc-sl">Fire</span><span class="mc-sv">EN 13501</span></span></div><div class="mc-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="mc-st"><span class="mc-sl">Eco / VOC</span><span class="mc-sv">EN 717</span></span></div></div>
+<div class="mc-scene mc-scene--C"><img src="assets/mega/scene/door.webp" alt="" loading="lazy">
+<div class="mc-prodrow mc-prodrow--C"><div class="mc-pcard"><div class="mc-pimg"><img src="assets/mega/product/door-1.webp" alt="" loading="lazy"></div><span class="mc-pname">Composite</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.mc-panel').forEach(function(panel){
+  var items=panel.querySelectorAll('.mcat-item'), panes=panel.querySelectorAll('.mc-pane');
+  function act(k){items.forEach(function(c){c.classList.toggle('is-active',c.dataset.cat===k);});panes.forEach(function(p){p.classList.toggle('is-active',p.dataset.pane===k);});}
+  items.forEach(function(it){it.addEventListener('mouseenter',function(){act(it.dataset.cat);});});
+});
+</script>
+</body>
+</html>
