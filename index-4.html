@@ -63,6 +63,92 @@
   @media(min-width:1101px){
     .footer-content{ grid-template-columns:1.6fr 1fr 1fr 1.4fr; }  /* 4 cols (Resources removed) */
   }
+
+  /* --- Product Collection: material label removed → keep the model count right-aligned --- */
+  .cat-card-top{ justify-content:flex-end; }
+
+  /* --- Brand logo: nav swaps white(over hero) / black(scrolled on white) --- */
+  .site-nav-logo{ display:inline-flex; align-items:center; }
+  /* default (inline) = black logo shown; over the hero (not scrolled) swap to white */
+  .site-nav:not(.is-scrolled) .logo-light{ display:block !important; }
+  .site-nav:not(.is-scrolled) .logo-dark{ display:none !important; }
+  /* footer mark: small, natural aspect (defeat global img{width:100%}) --- */
+  .footer-brand-logo{ height:2.4rem !important; width:auto !important; display:block; margin-bottom:2rem; }
+
+  /* --- Calculator footnote: longer sentence copy, readable (not uppercase) --- */
+  .calc-foot{
+    text-transform:none;
+    letter-spacing:0;
+    font-size:1.25rem;
+    line-height:1.5;
+    max-width:42rem;
+    margin-top:1.4rem;
+  }
+
+  /* --- About mosaic: 5 images, Direction C (two-row balanced filmstrip) --- */
+  .about-mosaic-grid{
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-rows:23rem 18rem;
+    grid-template-areas:
+      "m1 m1 m2 m2"
+      "m3 m4 m4 m5";
+  }
+
+  /* ============================================
+     Mega menu — 16 Naaya Collections + spec tags
+     (index-4 only; overrides shared naaya.css)
+     ============================================ */
+  /* Left list: 16 compact rows, internal scroll on short viewports */
+  .mega-cats-v2 .mcat-list{
+    gap:0;
+    max-height:min(58rem, 74vh);
+    overflow-y:auto;
+    padding-right:.9rem;
+  }
+  .mega-cats-v2 .mcat-list::-webkit-scrollbar{ width:4px; }
+  .mega-cats-v2 .mcat-list::-webkit-scrollbar-thumb{
+    background:color-mix(in srgb, var(--color-black) 18%, transparent); border-radius:2px;
+  }
+  .mega-cats-v2 .mcat-item{ padding:.6rem 0; }
+  .mega-cats-v2 .mcat-name{ font-size:1.45rem; }
+  .mega-cats-v2 .mcat-all{ margin-top:1rem; padding-top:1.1rem; }
+
+  /* Right detail: a touch taller so specs + thumbs never clip */
+  .mega-cats-v2 .mcat-detail{ min-height:46rem; }
+
+  /* Spec tags — 2×2 grid, icon + label + value */
+  .mcat-specs{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:1.4rem 2.6rem; margin-top:.2rem; max-width:48rem;
+  }
+  .mcat-spec{ display:flex; align-items:center; gap:1.1rem; }
+  .mcat-spec svg{
+    width:2.2rem; height:2.2rem; flex:none;
+    color:var(--color-black); opacity:.82;
+  }
+  .ms-text{ display:flex; flex-direction:column; line-height:1.18; }
+  .ms-label{
+    font-family:var(--font-f-aeonik-mono);
+    font-size:1rem; letter-spacing:.12em; text-transform:uppercase;
+    color:color-mix(in srgb, var(--color-black) 45%, transparent);
+  }
+  .ms-val{
+    font-size:1.5rem; font-weight:500; letter-spacing:-.01em;
+    color:var(--color-black);
+  }
+
+  /* Thumbs: 2 up, sized down to sit beside the specs */
+  .mega-cats-v2 .mcat-pane-thumbs{
+    grid-template-columns:repeat(2, 1fr);
+    max-width:38rem; gap:1.2rem;
+  }
+
+  @media(max-width:1100px){
+    .mega-cats-v2 .mcat-list{ max-height:none; overflow:visible; }
+    .mega-cats-v2 .mcat-detail{ min-height:0; }
+    .mcat-specs{ max-width:none; }
+    .mega-cats-v2 .mcat-pane-thumbs{ max-width:none; }
+  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
@@ -72,10 +158,16 @@
 
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="mcS" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l2.5-6 4 16 4-19 2.5 9H22"/></symbol>
+<symbol id="mcT" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+<symbol id="mcF" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.4 3.8 5.2 5.2 5.2 9.2A5.2 5.2 0 0 1 6.8 12.2c0-1.7.8-3 1.9-4 .4 2.1 2.1 2.2 2.1.2 0-2 .2-3.6 1.2-5.4z"/></symbol>
+<symbol id="mcE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></symbol>
+</defs></svg>
 <div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
-<a href="/" class="site-nav-logo" aria-label="Home">
-<svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-brand"><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg>
-<span class="site-nav-wordmark">NAAYA</span>
+<a href="/" class="site-nav-logo" aria-label="NAAYA Home">
+<img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="site-nav-logo-img logo-light" style="height:2.2rem;width:auto;display:none">
+<img src="assets/brand/naaya-logo.webp" alt="" aria-hidden="true" class="site-nav-logo-img logo-dark" style="height:2.2rem;width:auto;display:block">
 </a>
 <nav class="site-nav-links" aria-label="Primary">
 <a href="/about" data-i18n="nav_about">About</a>
@@ -85,55 +177,38 @@
 <div class="mcat-inner">
 
 <div class="mcat-list">
-<div class="mega-label"><span data-i18n="mcat_label_series">Series</span></div>
-<div class="mcat-item is-active" data-cat="classic">
-<span class="mcat-name" data-i18n="mcat_classic">Classic Wood</span>
-<span class="mcat-count">31</span>
-</div>
-<div class="mcat-item" data-cat="art">
-<span class="mcat-name" data-i18n="mcat_art">Art &amp; Curve</span>
-<span class="mcat-count">29</span>
-</div>
-<div class="mcat-item" data-cat="metal">
-<span class="mcat-name" data-i18n="mcat_metal">PHONEX Metal</span>
-<span class="mcat-count">17</span>
-</div>
-<div class="mcat-item" data-cat="ceiling">
-<span class="mcat-name" data-i18n="mcat_ceiling">Ceiling Systems</span>
-<span class="mcat-count">12</span>
-</div>
-<div class="mcat-item" data-cat="fabric">
-<span class="mcat-name" data-i18n="mcat_fabric">Fabric &amp; Eco</span>
-<span class="mcat-count">6</span>
-</div>
-<div class="mcat-item" data-cat="pet">
-<span class="mcat-name" data-i18n="mcat_pet">Polyester (PET)</span>
-<span class="mcat-count">5</span>
-</div>
-<div class="mcat-item" data-cat="diffuser">
-<span class="mcat-name" data-i18n="mcat_diffuser">Diffusers</span>
-<span class="mcat-count">17</span>
-</div>
-<div class="mcat-item" data-cat="specialty">
-<span class="mcat-name" data-i18n="mcat_specialty">Wood Wool / Spray / Door</span>
-<span class="mcat-count">11</span>
-</div>
-<a href="/collection/" class="mcat-all" data-i18n="mcat_all">All 128 models →</a>
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item is-active" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="/collection/" class="mcat-all">All models →</a>
 </div>
 
 <div class="mcat-detail">
 
 <div class="mcat-pane is-active" data-pane="classic">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_classic_title">Classic Wood Series</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_classic_desc">MDF/MGO base with melamine, HPL or veneer finish. Grooved, perforated and micro-perforated patterns for any acoustic profile.</p>
+<h3 class="mcat-pane-title">Classic Series</h3>
+<p class="mcat-pane-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_classic">Classic Grooved · 10</span>
-<span class="mcat-chip" data-i18n="cls_perfo">Perfo · 6</span>
-<span class="mcat-chip" data-i18n="cls_microc">Micro Classic · 4</span>
-<span class="mcat-chip" data-i18n="cls_microa">Micro Art · 7</span>
-<span class="mcat-chip" data-i18n="cls_curve">Wood Curve · 4</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
@@ -141,73 +216,188 @@
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane" data-pane="perfo">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_art_title">Art Acoustic &amp; Wood Curve</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_art_desc">CNC-carved decorative panels and R≤1000mm curved panels. Sculptural acoustic focal points for hospitality and lobby spaces.</p>
+<h3 class="mcat-pane-title">Perfo Series</h3>
+<p class="mcat-pane-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_artac">Art Acoustic · 22 (NY-AA-001~022)</span>
-<span class="mcat-chip" data-i18n="cls_curve2">Wood Curve · 3 perforations</span>
-<span class="mcat-chip" data-i18n="cls_microart">Micro Art Geometric · 7</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="metal">
+<div class="mcat-pane" data-pane="micro">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_metal_title">PHONEX Metal Acoustic</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_metal_desc">Perforated aluminum with honeycomb core. Designed for airports, labs, kitchens and high-traffic industrial spaces.</p>
+<h3 class="mcat-pane-title">Micro Series</h3>
+<p class="mcat-pane-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation. Includes Micro Classic and Micro Art geometries.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_compose">Compose · 3</span>
-<span class="mcat-chip" data-i18n="cls_metalcl">Classic · 10</span>
-<span class="mcat-chip" data-i18n="cls_metalstd">Standard · 4</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="curve">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Curve Series</h3>
+<p class="mcat-pane-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces for effective absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Art Acoustic Series</h3>
+<p class="mcat-pane-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="phonex">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Phonex Metal Series</h3>
+<p class="mcat-pane-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.70–0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/metal-4.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="ceiling">
+<div class="mcat-pane" data-pane="uniseam">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_ceiling_title">Ceiling Systems</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_ceiling_desc">Seamless plaster ceilings, perforated gypsum and fiberglass tiles. Plus suspended 3D Acona Art for sculpted soffits.</p>
+<h3 class="mcat-pane-title">Uniseam Series</h3>
+<p class="mcat-pane-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_uniseam">Uniseam Aero / Mono</span>
-<span class="mcat-chip" data-i18n="cls_cleaneo">Cleaneo · 4</span>
-<span class="mcat-chip" data-i18n="cls_aconac">Acona Classic</span>
-<span class="mcat-chip" data-i18n="cls_aconaa">Acona Art · 10 + 10 collections</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.75+</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12 / 30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="cleaneo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Cleaneo Series</h3>
+<p class="mcat-pane-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12.5 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane" data-pane="acouspray">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_fabric_title">Fabricoustic — Fabric &amp; Eco</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_fabric_desc">High-density fiberglass or recycled cotton core wrapped in Class-A flame-retardant acoustic fabric. NRC up to 0.9.</p>
+<h3 class="mcat-pane-title">Acouspray Series</h3>
+<p class="mcat-pane-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_fabricc">Classic · 25-60mm</span>
-<span class="mcat-chip" data-i18n="cls_fabrice">Eco · 25/50mm recycled cotton</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.95</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acona">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Classic Series</h3>
+<p class="mcat-pane-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 / 20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="aconaart">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Art Series</h3>
+<p class="mcat-pane-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25 / 40 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Fabricoustic Series</h3>
+<p class="mcat-pane-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25–60 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
 </div>
@@ -215,56 +405,69 @@
 
 <div class="mcat-pane" data-pane="pet">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_pet_title">Polyester (PET) — 100% Recyclable</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_pet_desc">PET acoustic panels, V-groove walls, engraving ceilings and folded acoustic clouds. Color-rich, low-VOC, child-safe.</p>
+<h3 class="mcat-pane-title">Polyester (PET) Series</h3>
+<p class="mcat-pane-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_petp">Flat Panel · 9/12mm</span>
-<span class="mcat-chip" data-i18n="cls_petv">V-Groove · 12 SKU</span>
-<span class="mcat-chip" data-i18n="cls_petb">Engraving Ceiling · 12 SKU</span>
-<span class="mcat-chip" data-i18n="cls_petc">Acoustic Cloud</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">9 / 12 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/pet-3.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="woodwool">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Wool Series</h3>
+<p class="mcat-pane-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.60</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15–25 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
 <div class="mcat-pane" data-pane="diffuser">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_diffuser_title">Acoustic Diffusers</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_diffuser_desc">ISO 17497-tested MLS, QRD, Skyline and geometric diffusers. Solid wood or MDF with paint or veneer finish.</p>
+<h3 class="mcat-pane-title">Diffuser Series</h3>
+<p class="mcat-pane-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_mls">MLS Series · 3</span>
-<span class="mcat-chip" data-i18n="cls_qrd">QRD / Skyline · 5</span>
-<span class="mcat-chip" data-i18n="cls_geom">Geometric · 9</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">Scattering</span><span class="ms-val">ISO 17497</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Depth</span><span class="ms-val">Custom</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="specialty">
+<div class="mcat-pane" data-pane="door">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_specialty_title">Wood Wool · Spray · Soundproof Doors</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_specialty_desc">Mineralized wood-wool cement boards, seamless Acouspray AS30 finish, and STC 35-45 dB soundproof doors in metal, wood and composite.</p>
+<h3 class="mcat-pane-title">Soundproofed Door Series</h3>
+<p class="mcat-pane-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_wool">Wood Wool · 7 shapes</span>
-<span class="mcat-chip" data-i18n="cls_spray">Acouspray AS30</span>
-<span class="mcat-chip" data-i18n="cls_door">Doors · STC 35-45 dB</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">STC</span><span class="ms-val">35–45 dB</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">50–100 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
@@ -294,55 +497,38 @@
 <div class="mcat-inner">
 
 <div class="mcat-list">
-<div class="mega-label"><span data-i18n="mcat_label_series">Series</span></div>
-<div class="mcat-item is-active" data-cat="classic">
-<span class="mcat-name" data-i18n="mcat_classic">Classic Wood</span>
-<span class="mcat-count">31</span>
-</div>
-<div class="mcat-item" data-cat="art">
-<span class="mcat-name" data-i18n="mcat_art">Art &amp; Curve</span>
-<span class="mcat-count">29</span>
-</div>
-<div class="mcat-item" data-cat="metal">
-<span class="mcat-name" data-i18n="mcat_metal">PHONEX Metal</span>
-<span class="mcat-count">17</span>
-</div>
-<div class="mcat-item" data-cat="ceiling">
-<span class="mcat-name" data-i18n="mcat_ceiling">Ceiling Systems</span>
-<span class="mcat-count">12</span>
-</div>
-<div class="mcat-item" data-cat="fabric">
-<span class="mcat-name" data-i18n="mcat_fabric">Fabric &amp; Eco</span>
-<span class="mcat-count">6</span>
-</div>
-<div class="mcat-item" data-cat="pet">
-<span class="mcat-name" data-i18n="mcat_pet">Polyester (PET)</span>
-<span class="mcat-count">5</span>
-</div>
-<div class="mcat-item" data-cat="diffuser">
-<span class="mcat-name" data-i18n="mcat_diffuser">Diffusers</span>
-<span class="mcat-count">17</span>
-</div>
-<div class="mcat-item" data-cat="specialty">
-<span class="mcat-name" data-i18n="mcat_specialty">Wood Wool / Spray / Door</span>
-<span class="mcat-count">11</span>
-</div>
-<a href="/collection/" class="mcat-all" data-i18n="mcat_all">All 128 models →</a>
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item is-active" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="/collection/" class="mcat-all">All models →</a>
 </div>
 
 <div class="mcat-detail">
 
 <div class="mcat-pane is-active" data-pane="classic">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_classic_title">Classic Wood Series</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_classic_desc">MDF/MGO base with melamine, HPL or veneer finish. Grooved, perforated and micro-perforated patterns for any acoustic profile.</p>
+<h3 class="mcat-pane-title">Classic Series</h3>
+<p class="mcat-pane-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_classic">Classic Grooved · 10</span>
-<span class="mcat-chip" data-i18n="cls_perfo">Perfo · 6</span>
-<span class="mcat-chip" data-i18n="cls_microc">Micro Classic · 4</span>
-<span class="mcat-chip" data-i18n="cls_microa">Micro Art · 7</span>
-<span class="mcat-chip" data-i18n="cls_curve">Wood Curve · 4</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
@@ -350,73 +536,188 @@
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane" data-pane="perfo">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_art_title">Art Acoustic &amp; Wood Curve</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_art_desc">CNC-carved decorative panels and R≤1000mm curved panels. Sculptural acoustic focal points for hospitality and lobby spaces.</p>
+<h3 class="mcat-pane-title">Perfo Series</h3>
+<p class="mcat-pane-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_artac">Art Acoustic · 22 (NY-AA-001~022)</span>
-<span class="mcat-chip" data-i18n="cls_curve2">Wood Curve · 3 perforations</span>
-<span class="mcat-chip" data-i18n="cls_microart">Micro Art Geometric · 7</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="metal">
+<div class="mcat-pane" data-pane="micro">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_metal_title">PHONEX Metal Acoustic</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_metal_desc">Perforated aluminum with honeycomb core. Designed for airports, labs, kitchens and high-traffic industrial spaces.</p>
+<h3 class="mcat-pane-title">Micro Series</h3>
+<p class="mcat-pane-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation. Includes Micro Classic and Micro Art geometries.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_compose">Compose · 3</span>
-<span class="mcat-chip" data-i18n="cls_metalcl">Classic · 10</span>
-<span class="mcat-chip" data-i18n="cls_metalstd">Standard · 4</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="curve">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Curve Series</h3>
+<p class="mcat-pane-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces for effective absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Art Acoustic Series</h3>
+<p class="mcat-pane-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="phonex">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Phonex Metal Series</h3>
+<p class="mcat-pane-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.70–0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/metal-4.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="ceiling">
+<div class="mcat-pane" data-pane="uniseam">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_ceiling_title">Ceiling Systems</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_ceiling_desc">Seamless plaster ceilings, perforated gypsum and fiberglass tiles. Plus suspended 3D Acona Art for sculpted soffits.</p>
+<h3 class="mcat-pane-title">Uniseam Series</h3>
+<p class="mcat-pane-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_uniseam">Uniseam Aero / Mono</span>
-<span class="mcat-chip" data-i18n="cls_cleaneo">Cleaneo · 4</span>
-<span class="mcat-chip" data-i18n="cls_aconac">Acona Classic</span>
-<span class="mcat-chip" data-i18n="cls_aconaa">Acona Art · 10 + 10 collections</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.75+</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12 / 30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="cleaneo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Cleaneo Series</h3>
+<p class="mcat-pane-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12.5 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane" data-pane="acouspray">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_fabric_title">Fabricoustic — Fabric &amp; Eco</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_fabric_desc">High-density fiberglass or recycled cotton core wrapped in Class-A flame-retardant acoustic fabric. NRC up to 0.9.</p>
+<h3 class="mcat-pane-title">Acouspray Series</h3>
+<p class="mcat-pane-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_fabricc">Classic · 25-60mm</span>
-<span class="mcat-chip" data-i18n="cls_fabrice">Eco · 25/50mm recycled cotton</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.95</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acona">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Classic Series</h3>
+<p class="mcat-pane-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 / 20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="aconaart">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Art Series</h3>
+<p class="mcat-pane-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25 / 40 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Fabricoustic Series</h3>
+<p class="mcat-pane-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25–60 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
 </div>
@@ -424,56 +725,69 @@
 
 <div class="mcat-pane" data-pane="pet">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_pet_title">Polyester (PET) — 100% Recyclable</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_pet_desc">PET acoustic panels, V-groove walls, engraving ceilings and folded acoustic clouds. Color-rich, low-VOC, child-safe.</p>
+<h3 class="mcat-pane-title">Polyester (PET) Series</h3>
+<p class="mcat-pane-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_petp">Flat Panel · 9/12mm</span>
-<span class="mcat-chip" data-i18n="cls_petv">V-Groove · 12 SKU</span>
-<span class="mcat-chip" data-i18n="cls_petb">Engraving Ceiling · 12 SKU</span>
-<span class="mcat-chip" data-i18n="cls_petc">Acoustic Cloud</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">9 / 12 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
 <div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/pet-3.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="woodwool">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Wool Series</h3>
+<p class="mcat-pane-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.60</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15–25 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
 <div class="mcat-pane" data-pane="diffuser">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_diffuser_title">Acoustic Diffusers</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_diffuser_desc">ISO 17497-tested MLS, QRD, Skyline and geometric diffusers. Solid wood or MDF with paint or veneer finish.</p>
+<h3 class="mcat-pane-title">Diffuser Series</h3>
+<p class="mcat-pane-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_mls">MLS Series · 3</span>
-<span class="mcat-chip" data-i18n="cls_qrd">QRD / Skyline · 5</span>
-<span class="mcat-chip" data-i18n="cls_geom">Geometric · 9</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">Scattering</span><span class="ms-val">ISO 17497</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Depth</span><span class="ms-val">Custom</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
-<div class="mcat-pane" data-pane="specialty">
+<div class="mcat-pane" data-pane="door">
 <div class="mcat-pane-head">
-<h3 class="mcat-pane-title" data-i18n="mcat_specialty_title">Wood Wool · Spray · Soundproof Doors</h3>
-<p class="mcat-pane-desc" data-i18n="mcat_specialty_desc">Mineralized wood-wool cement boards, seamless Acouspray AS30 finish, and STC 35-45 dB soundproof doors in metal, wood and composite.</p>
+<h3 class="mcat-pane-title">Soundproofed Door Series</h3>
+<p class="mcat-pane-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p>
 </div>
-<div class="mcat-pane-models">
-<span class="mcat-chip" data-i18n="cls_wool">Wood Wool · 7 shapes</span>
-<span class="mcat-chip" data-i18n="cls_spray">Acouspray AS30</span>
-<span class="mcat-chip" data-i18n="cls_door">Doors · STC 35-45 dB</span>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">STC</span><span class="ms-val">35–45 dB</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">50–100 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
 <div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
 <div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
 </div>
 </div>
 
@@ -501,29 +815,25 @@
 </div>
 
 <div class="about-mosaic-grid">
-<a href="/collection/?cat=wood" class="mat-card mat-1">
-<img src="assets/grooved.jpg" alt="">
-<span class="mat-label"><em data-i18n="mat_eyebrow_01">01</em> <span data-i18n="mat_wood">Wood</span></span>
+<a href="/process" class="mat-card mat-1">
+<img src="assets/services/sim.webp" alt="Acoustic simulation">
+<span class="mat-label"><em>01</em> <span>Acoustic Simulation</span></span>
 </a>
-<a href="/collection/?cat=metal" class="mat-card mat-2">
-<img src="assets/perforated.jpg" alt="">
-<span class="mat-label"><em data-i18n="mat_eyebrow_02">02</em> <span data-i18n="mat_metal">Metal</span></span>
+<a href="/process" class="mat-card mat-2">
+<img src="assets/services/factory.webp" alt="In-house manufacturing">
+<span class="mat-label"><em>02</em> <span>Manufacturing</span></span>
 </a>
-<a href="/collection/?cat=fabric" class="mat-card mat-3">
-<img src="assets/duo-1.jpg" alt="">
-<span class="mat-label"><em data-i18n="mat_eyebrow_03">03</em> <span data-i18n="mat_fabric">Fabric</span></span>
+<a href="/process" class="mat-card mat-3">
+<img src="assets/services/install.webp" alt="Installation">
+<span class="mat-label"><em>03</em> <span>Installation</span></span>
 </a>
-<a href="/collection/?cat=ceiling" class="mat-card mat-4">
-<img src="assets/uniseam-scene.jpg" alt="">
-<span class="mat-label"><em data-i18n="mat_eyebrow_04">04</em> <span data-i18n="mat_gypsum">Gypsum</span></span>
+<a href="/process" class="mat-card mat-4">
+<img src="assets/services/testing.webp" alt="Acoustic testing">
+<span class="mat-label"><em>04</em> <span>Acoustic Testing</span></span>
 </a>
-<a href="/collection/?cat=fabric" class="mat-card mat-5">
-<img src="assets/duo-2.jpg" alt="">
-<span class="mat-label"><em data-i18n="mat_eyebrow_05">05</em> <span data-i18n="mat_pet">PET Eco</span></span>
-</a>
-<a href="/collection/?cat=specialty" class="mat-card mat-6">
-<img src="assets/footer-bg.jpg" alt="">
-<span class="mat-label"><em data-i18n="mat_eyebrow_06">06</em> <span data-i18n="mat_spray">Spray</span></span>
+<a href="/process" class="mat-card mat-5">
+<img src="assets/services/acceptance.webp" alt="Handover and acceptance">
+<span class="mat-label"><em>05</em> <span>Acceptance</span></span>
 </a>
 </div>
 
@@ -534,7 +844,7 @@
 <div class="collection-head">
 <h2 class="base-title" data-v-4a4379f9 data-i18n="product_title">Product collection</h2>
 <div class="collection-head-right">
-<p class="base-heading collection-heading" data-v-342e3239 data-i18n="collection_heading">16 series engineered for every acoustic challenge — across five material families.</p>
+<p class="base-heading collection-heading" data-v-342e3239>20 series engineered for every acoustic challenge — across five material families.</p>
 <a href="/collection/" class="collection-viewall">
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 <span data-i18n="collection_viewall">View all</span>
@@ -548,7 +858,6 @@
 <div class="cat-card-image"><img src="assets/categories/wood.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Wood</span>
 <span class="cat-card-count">10 models</span>
 </div>
 <h3 class="cat-card-name">Classic</h3>
@@ -558,7 +867,6 @@
 <div class="cat-card-image"><img src="assets/categories/perfo.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Wood</span>
 <span class="cat-card-count">6 models</span>
 </div>
 <h3 class="cat-card-name">Perfo</h3>
@@ -568,7 +876,6 @@
 <div class="cat-card-image"><img src="assets/categories/micro.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Wood</span>
 <span class="cat-card-count">11 models</span>
 </div>
 <h3 class="cat-card-name">Micro</h3>
@@ -578,7 +885,6 @@
 <div class="cat-card-image"><img src="assets/categories/curve.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Wood</span>
 <span class="cat-card-count">3 models</span>
 </div>
 <h3 class="cat-card-name">Wood Curve</h3>
@@ -588,7 +894,6 @@
 <div class="cat-card-image"><img src="assets/categories/metal.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Aluminium</span>
 <span class="cat-card-count">17 models</span>
 </div>
 <h3 class="cat-card-name">PHONEX</h3>
@@ -598,7 +903,6 @@
 <div class="cat-card-image"><img src="assets/categories/uniseam.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Plaster</span>
 <span class="cat-card-count">2 models</span>
 </div>
 <h3 class="cat-card-name">Uniseam</h3>
@@ -608,7 +912,6 @@
 <div class="cat-card-image"><img src="assets/categories/gypsum.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Gypsum</span>
 <span class="cat-card-count">4 models</span>
 </div>
 <h3 class="cat-card-name">Cleaneo</h3>
@@ -618,7 +921,6 @@
 <div class="cat-card-image"><img src="assets/categories/spray.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Spray</span>
 <span class="cat-card-count">1 model</span>
 </div>
 <h3 class="cat-card-name">Acouspray</h3>
@@ -628,7 +930,6 @@
 <div class="cat-card-image"><img src="assets/categories/fiberglass.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Fiberglass</span>
 <span class="cat-card-count">11 models</span>
 </div>
 <h3 class="cat-card-name">Acona</h3>
@@ -638,7 +939,6 @@
 <div class="cat-card-image"><img src="assets/categories/fabric.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Fabric</span>
 <span class="cat-card-count">6 models</span>
 </div>
 <h3 class="cat-card-name">Fabricoustic</h3>
@@ -648,7 +948,6 @@
 <div class="cat-card-image"><img src="assets/categories/pet.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">PET</span>
 <span class="cat-card-count">5 models</span>
 </div>
 <h3 class="cat-card-name">Polyester</h3>
@@ -658,7 +957,6 @@
 <div class="cat-card-image"><img src="assets/categories/woodwool.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Wood Wool</span>
 <span class="cat-card-count">7 models</span>
 </div>
 <h3 class="cat-card-name">Wood Wool</h3>
@@ -668,7 +966,6 @@
 <div class="cat-card-image"><img src="assets/categories/diffuser.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Wood</span>
 <span class="cat-card-count">17 models</span>
 </div>
 <h3 class="cat-card-name">Diffuser</h3>
@@ -678,7 +975,6 @@
 <div class="cat-card-image"><img src="assets/categories/door.webp" alt="" loading="lazy"></div>
 <div class="cat-card-meta">
 <div class="cat-card-top">
-<span class="cat-card-num">Composite</span>
 <span class="cat-card-count">3 models</span>
 </div>
 <h3 class="cat-card-name">Soundproofed Door</h3>
@@ -694,7 +990,7 @@
 </div>
 
 <div class="collection-nav">
-<span class="collection-nav-count">14 categories</span>
+<span class="collection-nav-count">20 categories</span>
 </div>
 
 </div>
@@ -770,8 +1066,8 @@
 <p class="calc-sub" data-i18n="calc_sub">Sketch your room, pick your finishes, and our calculator returns a frequency-accurate reverberation report — plus a panel mix tuned to ISO 354 targets.</p>
 
 <ol class="calc-steps">
-<li><span class="calc-step-num">01</span><div><div class="calc-step-name" data-i18n="calc_step_1">Input your space</div><div class="calc-step-desc" data-i18n="calc_step_1d">Volume, function, ceiling height.</div></div></li>
-<li><span class="calc-step-num">02</span><div><div class="calc-step-name" data-i18n="calc_step_2">Pick your materials</div><div class="calc-step-desc" data-i18n="calc_step_2d">From 14 NAAYA series and common surfaces.</div></div></li>
+<li><span class="calc-step-num">01</span><div><div class="calc-step-name">Input your project info</div><div class="calc-step-desc" data-i18n="calc_step_1d">Volume, function, ceiling height.</div></div></li>
+<li><span class="calc-step-num">02</span><div><div class="calc-step-name">Pick your preferable materials</div><div class="calc-step-desc" data-i18n="calc_step_2d">From 14 NAAYA series and common surfaces.</div></div></li>
 <li><span class="calc-step-num">03</span><div><div class="calc-step-name" data-i18n="calc_step_3">Get the RT report</div><div class="calc-step-desc" data-i18n="calc_step_3d">Frequency curve, NRC, and panel mix.</div></div></li>
 </ol>
 
@@ -779,7 +1075,7 @@
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 <span data-i18n="calc_cta">Launch the calculator</span>
 </a>
-<div class="calc-foot" data-i18n="calc_foot">Free · No sign-up · ISO 354 methodology</div>
+<div class="calc-foot">Sign up today to receive your free acoustic design report. Contact us for a chance to win a free session with a senior acoustic consultant.</div>
 </div>
 
 </div>
@@ -1060,8 +1356,7 @@
 <footer class="footer" data-v-b5a28948><div class="container" data-v-b5a28948><a aria-current="page" href="/" class="is-active is-exact-active logo" data-v-b5a28948><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-b5a28948><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg></a><div class="footer-content">
 
 <div class="footer-col footer-col-brand">
-<div class="footer-brand-name">NAAYA</div>
-<p class="footer-brand-tag" data-i18n="footer_tag">Acoustic elegance for spaces that inspire. 16 series engineered for architectural projects worldwide.</p>
+<img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="footer-brand-logo" style="height:2.4rem;width:auto;align-self:flex-start;margin-bottom:2rem">
 <address class="footer-addr">
 <a href="mailto:info@naaya.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>info@naaya.com</a>
 <a href="tel:+862088888888" class="footer-link"><span data-i18n="footer_phone_label">Phone</span><br>+86 20 8888 8888</a>
@@ -1103,7 +1398,7 @@
 </form>
 </div>
 
-</div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2024, NAAYA™</div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
+</div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2014, NAAYA™</div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
 
 <script src="js/naaya.js"></script>
 </body>
