@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — NAAYA Acoustic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/naaya.css">
+<style>
+  /* ============================================
+     index-4 ONLY skin — Inter + White × #231f20
+     (overrides the shared naaya.css; does not touch
+      index-1/2/3 which share the same stylesheet)
+     ============================================ */
+
+  /* --- Typeface: single typeface (Inter) across the whole page,
+         à la Kvadrat. Remaps the shared --font-f-aeonik-* vars. --- */
+  :root{
+    --font-f-aeonik-pro:  'Inter', system-ui, -apple-system, sans-serif;
+    --font-f-aeonik-mono: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  html, body, body *:not(i):not([class*="fa-"]):not([class*="glyphicon"]){
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* --- Color skin: pure white canvas, single warm-near-black ink --- */
+  :root{
+    --color-cream: #ffffff;   /* page background */
+    --color-black: #231f20;   /* primary ink / text */
+    --color-grey:  #231f20;
+  }
+  html, body{ background:#ffffff; color:#231f20; }
+  main, .main{ background:#ffffff; }
+
+  /* --- Remove the arrow-diamond icon from all buttons/links --- */
+  .site-nav-cta-arrow, .arrow-svg{ display:none !important; }
+
+  /* --- Product Collection: prev/next arrows on the sides, centred on the image band --- */
+  .collection-track-wrap > .collection-nav-btn{
+    position:absolute;
+    top:17.3rem;                 /* centre of a 26rem card's 3/4 image */
+    transform:translateY(-50%);
+    z-index:5;
+    background:#ffffff;
+    border-color:color-mix(in srgb, var(--color-black) 12%, transparent);
+    box-shadow:0 .4rem 1.6rem rgba(0,0,0,.14);
+  }
+  .collection-track-wrap > .collection-nav-btn.prev{ left:1.6rem; }
+  .collection-track-wrap > .collection-nav-btn.next{ right:1.6rem; }
+  @media(max-width:900px){
+    .collection-track-wrap > .collection-nav-btn{ top:14.7rem; }  /* 22rem card */
+  }
+  @media(max-width:600px){
+    .collection-track-wrap > .collection-nav-btn{ display:none; } /* swipe on mobile */
+  }
+  .collection-nav-count{ margin-left:0; }
+
+  /* --- Footer: solid colour, no background photo --- */
+  .footer .background[data-v-b5a28948]{ display:none; }
+  .footer[data-v-b5a28948]{ background:#231f20; }          /* SCHEME A — Deep Ink */
+  @media(min-width:1101px){
+    .footer-content{ grid-template-columns:1.6fr 1fr 1fr 1.4fr; }  /* 4 cols (Resources removed) */
+  }
+
+  /* --- Product Collection: material label removed → keep the model count right-aligned --- */
+  .cat-card-top{ justify-content:flex-end; }
+
+  /* --- Brand logo: nav swaps white(over hero) / black(scrolled on white) --- */
+  .site-nav-logo{ display:inline-flex; align-items:center; }
+  /* default (inline) = black logo shown; over the hero (not scrolled) swap to white */
+  .site-nav:not(.is-scrolled) .logo-light{ display:block !important; }
+  .site-nav:not(.is-scrolled) .logo-dark{ display:none !important; }
+  /* footer mark: small, natural aspect (defeat global img{width:100%}) --- */
+  .footer-brand-logo{ height:2.4rem !important; width:auto !important; display:block; margin-bottom:2rem; }
+
+  /* --- Calculator footnote: longer sentence copy, readable (not uppercase) --- */
+  .calc-foot{
+    text-transform:none;
+    letter-spacing:0;
+    font-size:1.25rem;
+    line-height:1.5;
+    max-width:42rem;
+    margin-top:1.4rem;
+  }
+
+  /* --- About mosaic: 5 images, Direction C (two-row balanced filmstrip) --- */
+  .about-mosaic-grid{
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-rows:23rem 18rem;
+    grid-template-areas:
+      "m1 m1 m2 m2"
+      "m3 m4 m4 m5";
+  }
+
+  /* ============================================
+     Mega menu — 16 Naaya Collections + spec tags
+     (index-4 only; overrides shared naaya.css)
+     ============================================ */
+  /* Left list: 16 compact rows, internal scroll on short viewports */
+  .mega-cats-v2 .mcat-list{
+    gap:0;
+    max-height:min(58rem, 74vh);
+    overflow-y:auto;
+    padding-right:.9rem;
+  }
+  .mega-cats-v2 .mcat-list::-webkit-scrollbar{ width:4px; }
+  .mega-cats-v2 .mcat-list::-webkit-scrollbar-thumb{
+    background:color-mix(in srgb, var(--color-black) 18%, transparent); border-radius:2px;
+  }
+  .mega-cats-v2 .mcat-item{ padding:.6rem 0; }
+  .mega-cats-v2 .mcat-name{ font-size:1.45rem; }
+  .mega-cats-v2 .mcat-all{ margin-top:1rem; padding-top:1.1rem; }
+
+  /* Right detail: a touch taller so specs + thumbs never clip */
+  .mega-cats-v2 .mcat-detail{ min-height:46rem; }
+
+  /* Spec tags — 2×2 grid, icon + label + value */
+  .mcat-specs{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:1.4rem 2.6rem; margin-top:.2rem; max-width:48rem;
+  }
+  .mcat-spec{ display:flex; align-items:center; gap:1.1rem; }
+  .mcat-spec svg{
+    width:2.2rem; height:2.2rem; flex:none;
+    color:var(--color-black); opacity:.82;
+  }
+  .ms-text{ display:flex; flex-direction:column; line-height:1.18; }
+  .ms-label{
+    font-family:var(--font-f-aeonik-mono);
+    font-size:1rem; letter-spacing:.12em; text-transform:uppercase;
+    color:color-mix(in srgb, var(--color-black) 45%, transparent);
+  }
+  .ms-val{
+    font-size:1.5rem; font-weight:500; letter-spacing:-.01em;
+    color:var(--color-black);
+  }
+
+  /* Thumbs: 2 up, sized down to sit beside the specs */
+  .mega-cats-v2 .mcat-pane-thumbs{
+    grid-template-columns:repeat(2, 1fr);
+    max-width:38rem; gap:1.2rem;
+  }
+
+  @media(max-width:1100px){
+    .mega-cats-v2 .mcat-list{ max-height:none; overflow:visible; }
+    .mega-cats-v2 .mcat-detail{ min-height:0; }
+    .mcat-specs{ max-width:none; }
+    .mega-cats-v2 .mcat-pane-thumbs{ max-width:none; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+
+
+<style id="cl-skin">
+/* ============================================================
+   Product collection page — catalogue index. Type-first head,
+   hairline spec-dense series cards, selector + finishes +
+   certifications. .cl-* unique. 1rem ~ 10px @1600.
+   ============================================================ */
+main,.scroll{ transform:none!important; }
+
+/* ---- scroll-reveal motion (shared util) ---- */
+.ab-rise{ opacity:0; transform:translateY(2.6rem); transition:opacity .9s ease, transform .9s cubic-bezier(.16,1,.3,1); will-change:opacity,transform; }
+.ab-rise.in{ opacity:1; transform:none; }
+.ab-rise-img img{ transform:scale(1.06); transition:transform 1.4s cubic-bezier(.16,1,.3,1); }
+.ab-rise-img.in img{ transform:scale(1); }
+@media(prefers-reduced-motion:reduce){
+  .ab-rise,.ab-rise.in{ opacity:1; transform:none; transition:none; }
+  .ab-rise-img img,.ab-rise-img.in img{ transform:none; transition:none; }
+}
+
+:root{
+  --cl-muted:color-mix(in srgb,var(--color-black) 64%,transparent);
+  --cl-faint:color-mix(in srgb,var(--color-black) 44%,transparent);
+  --cl-hair:color-mix(in srgb,var(--color-black) 12%,transparent);
+}
+.cl-wrap{ max-width:164rem; margin:0 auto; padding:0 5rem; }
+@media(max-width:900px){ .cl-wrap{ padding:0 3.4rem; } }
+@media(max-width:600px){ .cl-wrap{ padding:0 2rem; } }
+.cl-mono{ font-family:var(--font-f-aeonik-mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; }
+.cl-sec{ margin:13rem 0; }
+@media(max-width:600px){ .cl-sec{ margin:7rem 0; } }
+.cl-secmark{ font-family:var(--font-f-aeonik-mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; color:var(--cl-faint); margin-bottom:3.2rem; }
+.cl-lead{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:clamp(2.4rem,2.4vw,3.8rem); letter-spacing:-.025em; line-height:1.25; color:var(--color-black); margin:0; max-width:30ch; }
+
+/* ---- S1 Hero — full-bleed product texture ---- */
+.cl-hero{ position:relative; min-height:84svh; display:flex; flex-direction:column; background:#0e0c0c; overflow:hidden; }
+.cl-hero-bg{ position:absolute; inset:0; z-index:0; }
+.cl-hero-bg img{ width:100%; height:100%; object-fit:cover; opacity:.88; display:block; }
+.cl-hero-bg::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,8,8,.52) 0%,rgba(10,8,8,.16) 45%,rgba(10,8,8,.84) 100%); }
+.cl-hero-inner{ position:relative; z-index:2; margin-top:auto; width:100%; max-width:164rem; margin-left:auto; margin-right:auto; padding:16rem 5rem 6rem; }
+.cl-meta{ display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; color:rgba(255,255,255,.62); margin-bottom:4.2rem; }
+.cl-title{ font-family:var(--font-f-aeonik-pro); font-weight:400; letter-spacing:-.04em; line-height:.98; font-size:clamp(5rem,7vw,11.8rem); color:#fff; margin:0; max-width:12ch; }
+.cl-sub{ display:flex; justify-content:space-between; align-items:flex-end; gap:5rem; margin-top:4rem; flex-wrap:wrap; }
+.cl-sub > p{ font-family:var(--font-f-aeonik-pro); font-size:1.7rem; line-height:1.6; color:rgba(255,255,255,.78); max-width:46rem; margin:0; }
+.cl-facts{ display:flex; gap:4.2rem; flex-wrap:wrap; }
+@media(max-width:600px){ .cl-facts{ display:grid; grid-template-columns:1fr 1fr; gap:2.6rem 2.4rem; width:100%; } .cl-fact:last-child{ grid-column:1/-1; } }
+.cl-fact .k{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.55); margin-bottom:.7rem; }
+.cl-fact .v{ font-family:var(--font-f-aeonik-pro); font-size:1.5rem; font-weight:500; letter-spacing:-.01em; color:#fff; }
+@media(max-width:900px){ .cl-hero-inner{ padding:14rem 3.4rem 5rem; } }
+@media(max-width:600px){ .cl-hero-inner{ padding:12rem 2rem 4.2rem; } .cl-meta{ margin-bottom:3rem; } .cl-meta span:last-child{ display:none; } }
+@media(max-height:700px) and (max-width:600px){ .cl-hero-inner{ padding-bottom:2.6rem; } .cl-sub{ margin-top:2.6rem; } }
+
+/* ---- S2 Index : filter ---- */
+.cl-filter{ display:flex; flex-wrap:wrap; gap:.8rem; margin:5rem 0 0; }
+@media(max-width:600px){
+  .cl-filter{ margin-top:3.4rem; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin-left:-2rem; margin-right:-2rem; padding:0 2rem; }
+  .cl-filter::-webkit-scrollbar{ display:none; }
+  .cl-chip{ white-space:nowrap; flex:0 0 auto; }
+}
+.cl-chip{ appearance:none; -webkit-appearance:none; background:transparent; cursor:pointer; font-family:var(--font-f-aeonik-mono); font-size:1.2rem; letter-spacing:.08em; text-transform:uppercase; color:color-mix(in srgb,var(--color-black) 62%,transparent); border:1px solid color-mix(in srgb,var(--color-black) 22%,transparent); padding:1rem 1.6rem; transition:color .25s ease, border-color .25s ease, background .25s ease; }
+.cl-chip sup{ font-size:.9rem; margin-left:.5rem; color:color-mix(in srgb,var(--color-black) 38%,transparent); }
+.cl-chip:hover{ color:var(--color-black); border-color:color-mix(in srgb,var(--color-black) 50%,transparent); }
+.cl-chip.is-active{ background:var(--color-black); color:var(--color-white); border-color:var(--color-black); }
+.cl-chip.is-active sup{ color:rgba(255,255,255,.6); }
+
+/* ---- S2 Index : series cards ---- */
+.cl-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:5.4rem 1.6rem; margin-top:5.6rem; }
+@media(max-width:1280px){ .cl-grid{ grid-template-columns:repeat(3,1fr); } }
+@media(max-width:1100px){ .cl-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:600px){ .cl-grid{ grid-template-columns:1fr; gap:0; margin-top:4rem; } }
+.cl-card{ display:block; text-decoration:none; color:inherit; border-top:1px solid var(--cl-hair); padding-top:1.3rem; }
+.cl-card-bar{ display:flex; justify-content:space-between; gap:1rem 2rem; flex-wrap:wrap; font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.1em; text-transform:uppercase; color:var(--cl-faint); margin-bottom:1.3rem; }
+.cl-card-img{ overflow:hidden; background:#f4f2f0; }
+.cl-card-img img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; transition:transform 1.1s cubic-bezier(.16,1,.3,1); }
+.cl-card:hover .cl-card-img img{ transform:scale(1.04); }
+.cl-card h3{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:2.3rem; letter-spacing:-.01em; color:var(--color-black); margin:1.6rem 0 .8rem; }
+.cl-card .d{ font-family:var(--font-f-aeonik-pro); font-size:1.45rem; line-height:1.55; color:var(--cl-muted); margin:0; }
+.cl-card .s{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--cl-faint); margin-top:1.4rem; }
+.cl-card .f{ display:inline-block; margin-top:1.4rem; font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-black); border-bottom:1px solid color-mix(in srgb,var(--color-black) 35%,transparent); padding-bottom:.3rem; transition:border-color .25s ease; }
+.cl-card:hover .f{ border-bottom-color:var(--color-black); }
+/* mobile: compact thumb-row catalogue */
+@media(max-width:600px){
+  .cl-card{ display:grid; grid-template-columns:10.4rem 1fr; gap:0 1.8rem; padding:2rem 0; }
+  .cl-card-bar{ grid-column:2; order:1; margin-bottom:.6rem; }
+  .cl-card-img{ grid-column:1; grid-row:1 / span 4; align-self:start; }
+  .cl-card-img img{ aspect-ratio:1/1; }
+  .cl-card h3{ grid-column:2; order:2; font-size:1.9rem; margin:0 0 .5rem; }
+  .cl-card .d{ grid-column:2; order:3; font-size:1.35rem; }
+  .cl-card .s{ grid-column:2; order:4; margin-top:1rem; }
+  .cl-card .f{ grid-column:2; order:5; justify-self:start; margin-top:1rem; }
+}
+
+/* ---- S3 By need : 4 quiet tiles ---- */
+.cl-need{ display:grid; grid-template-columns:repeat(4,1fr); gap:4.8rem; margin-top:5.2rem; }
+@media(max-width:980px){ .cl-need{ grid-template-columns:1fr 1fr; gap:4rem; } }
+@media(max-width:560px){ .cl-need{ grid-template-columns:1fr; gap:3.2rem; } }
+.cl-need-item .n{ font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.12em; color:var(--cl-faint); }
+.cl-need-item h3{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:2.1rem; letter-spacing:-.01em; color:var(--color-black); margin:1.4rem 0 1rem; }
+.cl-need-item p{ font-family:var(--font-f-aeonik-pro); font-size:1.45rem; line-height:1.6; color:var(--cl-muted); margin:0 0 1.4rem; }
+.cl-need-item .ls{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-black); line-height:2; }
+
+/* ---- S4 Finishes ---- */
+.cl-fin{ display:grid; grid-template-columns:repeat(4,1fr); gap:4.8rem; margin-top:5.2rem; }
+@media(max-width:980px){ .cl-fin{ grid-template-columns:1fr 1fr; gap:4rem; } }
+@media(max-width:560px){ .cl-fin{ grid-template-columns:1fr; gap:3.2rem; } }
+.cl-fin-col{ border-top:1px solid var(--cl-hair); padding-top:1.6rem; }
+.cl-fin-col .k{ display:flex; justify-content:space-between; gap:2rem; font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-black); }
+.cl-fin-col .k em{ font-style:normal; color:var(--cl-faint); }
+.cl-fin-col p{ font-family:var(--font-f-aeonik-pro); font-size:1.4rem; line-height:1.65; color:var(--cl-muted); margin:1.2rem 0 0; }
+
+/* ---- S5 Certifications ---- */
+.cl-certs{ border-top:1px solid var(--cl-hair); margin-top:5.2rem; }
+.cl-cert{ display:grid; grid-template-columns:16rem 1fr auto; gap:3rem; padding:2rem 0; border-bottom:1px solid var(--cl-hair); align-items:baseline; }
+@media(max-width:700px){ .cl-cert{ grid-template-columns:1fr; gap:.5rem; padding:1.8rem 0; } }
+.cl-cert .c{ font-family:var(--font-f-aeonik-mono); font-size:1.2rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-black); }
+.cl-cert .w{ font-family:var(--font-f-aeonik-pro); font-size:1.5rem; color:var(--cl-muted); }
+.cl-cert .x{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--cl-faint); }
+
+/* ---- S6 CTA ---- */
+.cl-cta{ display:flex; justify-content:space-between; align-items:center; gap:3rem; flex-wrap:wrap; margin-top:6.4rem; padding-top:6.4rem; border-top:1px solid var(--cl-hair); }
+.cl-cta p{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:clamp(2.4rem,2.6vw,3.8rem); letter-spacing:-.025em; margin:0; max-width:22ch; }
+.cl-cta-btns{ display:flex; gap:1.2rem; flex-wrap:wrap; }
+.cl-btn{ font-family:var(--font-f-aeonik-mono); font-size:1.3rem; letter-spacing:.06em; text-transform:uppercase; padding:1.6rem 2.8rem; text-decoration:none; border:1px solid var(--color-black); color:var(--color-black); }
+.cl-btn.solid{ background:var(--color-black); color:#fff; }
+.cl-end{ height:13rem; }
+@media(max-width:600px){ .cl-end{ height:7rem; } }
+</style>
+
+
+
+<style id="pj3">
+/* ============================================
+   projects-3.html — case collection page (.pj3-*)
+   ============================================ */
+:root{
+  --pj3-ink:#231f20; --pj3-paper:#fff; --pj3-mist:color-mix(in srgb, #231f20 5%, #fff);
+  --pj3-line:rgba(35,31,32,.13); --pj3-hair:rgba(35,31,32,.08);
+  --pj3-muted:rgba(35,31,32,.56); --pj3-faint:rgba(35,31,32,.4);
+}
+
+/* ---------- nav: dark logo + dark text over the LIGHT hero ---------- */
+.site-nav:not(.is-scrolled){ color:var(--color-grey); }
+.site-nav:not(.is-scrolled) .logo-light{ display:none !important; }
+.site-nav:not(.is-scrolled) .logo-dark{ display:block !important; }
+.site-nav-burger{ color:var(--color-grey); }
+
+/* ---------- footer redesign: the shared footer is a 100svh block with its
+   parts absolutely pinned; with the parallax removed it left a big empty void.
+   Re-laid out as a compact, normal-flow footer. transform:none also guards
+   against the original eff-ful naaya.js when this page is deployed. ---------- */
+.footer{ height:auto !important; min-height:0 !important; overflow:hidden !important;
+  position:relative !important; background:var(--pj3-ink) !important; }
+.footer .background{ display:none !important; }
+.footer .container{ transform:none !important; position:relative !important; inset:auto !important;
+  display:block !important; max-width:152rem; margin:0 auto; padding:9rem 4rem 3rem !important; z-index:1; }
+.footer .container > .logo{ display:none !important; }
+.footer .footer-content{ position:static !important; inset:auto !important;
+  display:grid !important; grid-template-columns:1.7fr 1fr 1fr 1.6fr !important; gap:4rem 5rem !important;
+  padding-bottom:5.5rem !important; }
+.footer .footer-col-cta{ max-width:none !important; }
+.footer .bottom{ position:relative !important; inset:auto !important; z-index:1;
+  display:flex !important; flex-direction:row !important; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:1.4rem 3rem; max-width:152rem; margin:0 auto;
+  padding:2.8rem 4rem 0 !important; border-top:1px solid rgba(255,255,255,.14);
+  color:color-mix(in srgb,#fff 55%, transparent) !important; }
+.footer .bottom .copyright{ position:static !important; inset:auto !important; opacity:1 !important; order:-1; }
+.footer .bottom .nav{ position:static !important; inset:auto !important;
+  display:flex !important; flex-direction:row !important; align-items:center; gap:2.4rem !important; }
+.footer .bottom .social, .footer .bottom .legal{ position:static !important; right:auto !important; display:inline-flex !important; }
+.footer .bottom .social .item:first-child, .footer .bottom .legal .item:first-child{ margin-left:0 !important; }
+.footer .bottom .exo-ape{ position:static !important; right:auto !important; opacity:1 !important; }
+/* large faint brand wordmark fills the space */
+.footer::after{ content:"NAAYA"; position:absolute; left:50%; bottom:-3.5rem; transform:translateX(-50%);
+  font-family:'Inter',system-ui,sans-serif; font-weight:700; font-size:clamp(9rem,23vw,38rem); line-height:.7;
+  letter-spacing:-.01em; color:rgba(255,255,255,.05); white-space:nowrap; pointer-events:none; z-index:0; }
+
+/* ---------- S1 Banner (light) ---------- */
+.pj3-banner{ position:relative; background:var(--pj3-paper); color:var(--pj3-ink); min-height:100svh; display:flex; border-bottom:1px solid var(--pj3-line); }
+.pj3-banner-inner{ width:100%; max-width:152rem; margin:0 auto; padding:13rem 4rem 5rem;
+  display:flex; flex-direction:column; }
+.pj3-eyebrow{ display:flex; gap:2.4rem; font-size:1.2rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--pj3-faint); border-bottom:1px solid var(--pj3-line); padding-bottom:1.8rem; }
+.pj3-slogan{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
+  overflow:visible!important; margin:auto 0; font-weight:700; line-height:.9; letter-spacing:-.025em;
+  font-size:clamp(5rem,11.5vw,15rem); padding:5rem 0 3.5rem; color:var(--pj3-ink); }
+.pj3-slogan .dot{ display:inline-block; width:.13em; height:.13em; margin-left:.05em;
+  background:var(--pj3-ink); vertical-align:baseline; }
+.pj3-foot{ display:grid; grid-template-columns:1.05fr 1fr; gap:5rem; align-items:end;
+  border-top:1px solid var(--pj3-line); padding-top:3.4rem; }
+.pj3-stats{ display:grid; grid-template-columns:repeat(2,auto); gap:3rem 5rem; align-content:start; justify-content:start; }
+.pj3-stat .n{ font-size:clamp(3.2rem,4vw,5rem); font-weight:600; line-height:1; letter-spacing:-.02em; }
+.pj3-stat .l{ margin-top:.9rem; font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pj3-faint); }
+.pj3-lede{ font-size:1.45rem; line-height:1.72; color:var(--pj3-muted); max-width:60rem; margin:0; }
+
+/* ---------- generic section ---------- */
+.pj3-sec{ background:var(--pj3-paper); padding:9rem 0; }
+.pj3-wrap{ max-width:152rem; margin:0 auto; padding:0 4rem; }
+.pj3-secmark{ font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:var(--pj3-faint); }
+.pj3-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:4rem; flex-wrap:wrap; }
+.pj3-h2{ font-size:clamp(3rem,4.4vw,5rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:1.4rem 0 0; }
+.pj3-lead{ font-size:1.5rem; line-height:1.6; color:var(--pj3-muted); max-width:46rem; margin:0; }
+
+/* ---------- filter (15 categories, no icon) ---------- */
+.pj3-filter{ display:flex; flex-wrap:wrap; gap:.8rem; margin:4rem 0 3.2rem; }
+.pj3-chip{ appearance:none; cursor:pointer; background:transparent; color:var(--pj3-muted);
+  border:1px solid var(--pj3-line); border-radius:999px; padding:.85rem 1.6rem; font-size:1.25rem;
+  font-weight:500; transition:all .25s; display:inline-flex; gap:.5rem; align-items:baseline; white-space:nowrap; }
+.pj3-chip sup{ font-size:.9rem; color:var(--pj3-faint); font-weight:500; }
+.pj3-chip:hover{ border-color:var(--pj3-ink); color:var(--pj3-ink); }
+.pj3-chip.is-active{ background:var(--pj3-ink); border-color:var(--pj3-ink); color:#fff; }
+.pj3-chip.is-active sup{ color:rgba(255,255,255,.55); }
+
+/* ---------- grid (image-background case cards) ---------- */
+.pj3-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; }
+.pj3-card{ position:relative; display:block; overflow:hidden; text-decoration:none;
+  aspect-ratio:4/5; background:var(--pj3-mist); color:#fff; }
+.pj3-card.is-hidden{ display:none; }
+.pj3-card-img{ position:absolute; inset:0; }
+.pj3-card-img img{ width:100%; height:100%; object-fit:cover;
+  transition:transform .9s cubic-bezier(.16,.84,.44,1); }
+.pj3-card:hover .pj3-card-img img{ transform:scale(1.06); }
+.pj3-card::after{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to top, rgba(35,31,32,.93) 0%, rgba(35,31,32,.55) 34%, rgba(35,31,32,0) 64%, rgba(35,31,32,.18) 100%); }
+.pj3-card-body{ position:absolute; inset:0; z-index:2; padding:2.4rem; display:flex; flex-direction:column; justify-content:space-between; }
+.pj3-card-tag{ align-self:flex-start; display:inline-flex; align-items:center; gap:.7rem;
+  font-size:1.1rem; letter-spacing:.1em; text-transform:uppercase; color:#fff;
+  border:1px solid rgba(255,255,255,.42); border-radius:999px; padding:.5rem 1.1rem .5rem .9rem; }
+.pj3-card-tag .pj3-ic{ width:1.6rem; height:1.6rem; flex:none; }
+.pj3-card h3{ font-size:2.05rem; font-weight:600; line-height:1.14; letter-spacing:-.01em; margin:0; }
+.pj3-card-loc{ margin:.8rem 0 0; font-size:1.25rem; letter-spacing:.03em; color:rgba(255,255,255,.68); }
+.pj3-card-go{ display:block; margin-top:1.5rem; font-size:1.15rem; letter-spacing:.08em; text-transform:uppercase;
+  color:#fff; opacity:0; transform:translateY(.6rem); transition:all .35s; }
+.pj3-card:hover .pj3-card-go{ opacity:1; transform:none; }
+
+/* ---------- S3 contact (black, static) ---------- */
+.pj3-contact{ background:var(--pj3-ink); color:#fff; }
+.pj3-contact-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:5rem; align-items:end; }
+.pj3-contact-mark{ font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.45); }
+.pj3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1; margin:1.6rem 0 0; }
+.pj3-contact h2 .dot{ color:#fff; }
+.pj3-contact-sub{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); max-width:44rem; margin:2.2rem 0 0; }
+.pj3-contact-info{ display:flex; flex-direction:column; gap:1.8rem; }
+.pj3-contact-info .k{ font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:.4rem; }
+.pj3-contact-info a, .pj3-contact-info span{ color:#fff; text-decoration:none; font-size:1.6rem; display:block; transition:opacity .25s; }
+.pj3-contact-info a:hover{ opacity:.6; }
+.pj3-contact-info .pj3-cta{ display:inline-flex; align-items:center; gap:1rem; margin-top:1rem; align-self:flex-start;
+  height:4.6rem; padding:0 2.2rem; line-height:1; border:1px solid rgba(255,255,255,.4); background:transparent;
+  color:#fff!important; text-decoration:none; font-family:var(--font-f-aeonik-mono);
+  font-weight:600; font-size:1.2rem; letter-spacing:.08em; text-transform:uppercase;
+  transition:background .3s ease, color .3s ease, border-color .3s ease; }
+.pj3-contact-info .pj3-cta:hover{ background:#fff; color:var(--pj3-ink)!important; border-color:#fff; }
+.pj3-contact-info .pj3-cta span{ display:inline-block; transform:translateY(.07em); }  /* optical centering: all-caps caps ride high, nudge down */
+
+/* ---------- reveal (grid + heading only) ---------- */
+.pj3-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
+.pj3-rise.in{ opacity:1; transform:none; }
+.pj3-rise.d1{ transition-delay:.07s } .pj3-rise.d2{ transition-delay:.14s } .pj3-rise.d3{ transition-delay:.21s }
+
+/* ---------- responsive ---------- */
+@media(max-width:1100px){ .pj3-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:900px){
+  .pj3-banner-inner{ padding:11rem 2.4rem 4rem; }
+  .pj3-foot{ grid-template-columns:1fr; gap:3.2rem; }
+  .pj3-sec{ padding:6.5rem 0; } .pj3-wrap{ padding:0 2.4rem; }
+  .pj3-contact-grid{ grid-template-columns:1fr; gap:3.4rem; align-items:start; }
+}
+@media(max-width:600px){
+  .pj3-grid{ grid-template-columns:1fr; }
+  .pj3-stats{ grid-template-columns:repeat(2,1fr); gap:2.6rem 2rem; }
+  .pj3-card-go{ opacity:1; transform:none; }
+  .pj3-eyebrow{ flex-wrap:wrap; gap:1rem; }
+  .pj3-card{ aspect-ratio:3/4; }
+}
+
+/* ---------- footer responsive ---------- */
+@media(max-width:900px){
+  .footer .container{ padding:7rem 2.4rem 3rem !important; }
+  .footer .footer-content{ grid-template-columns:1fr 1fr !important; gap:3.4rem 3rem !important; }
+  .footer .bottom{ padding:2.6rem 2.4rem 0 !important; }
+}
+@media(max-width:600px){
+  .footer .container{ padding:6rem 2rem 3rem !important; }
+  .footer .footer-content{ grid-template-columns:1fr !important; gap:3rem !important; padding-bottom:4rem !important; }
+  .footer .bottom{ flex-direction:column !important; align-items:flex-start !important; gap:1.6rem !important; padding:2.4rem 2rem 0 !important; }
+  .footer .bottom .nav{ flex-direction:column !important; align-items:flex-start !important; gap:1rem !important; }
+  .footer .bottom .social, .footer .bottom .legal{ flex-wrap:wrap !important; }
+  .footer::after{ font-size:7rem; bottom:-1rem; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="mcS" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l2.5-6 4 16 4-19 2.5 9H22"/></symbol>
+<symbol id="mcT" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+<symbol id="mcF" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.4 3.8 5.2 5.2 5.2 9.2A5.2 5.2 0 0 1 6.8 12.2c0-1.7.8-3 1.9-4 .4 2.1 2.1 2.2 2.1.2 0-2 .2-3.6 1.2-5.4z"/></symbol>
+<symbol id="mcE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></symbol>
+</defs></svg>
+<div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
+<a href="/" class="site-nav-logo" aria-label="NAAYA Home">
+<img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="site-nav-logo-img logo-light" style="height:2.2rem;width:auto;display:none">
+<img src="assets/brand/naaya-logo.webp" alt="" aria-hidden="true" class="site-nav-logo-img logo-dark" style="height:2.2rem;width:auto;display:block">
+</a>
+<nav class="site-nav-links" aria-label="Primary">
+<a href="/about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="/collection/" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-cats-v2" aria-hidden="true">
+<div class="mcat-inner">
+
+<div class="mcat-list">
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item is-active" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="/collection/" class="mcat-all">All models →</a>
+</div>
+
+<div class="mcat-detail">
+
+<div class="mcat-pane is-active" data-pane="classic">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Classic Series</h3>
+<p class="mcat-pane-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="perfo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Perfo Series</h3>
+<p class="mcat-pane-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="micro">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Micro Series</h3>
+<p class="mcat-pane-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation. Includes Micro Classic and Micro Art geometries.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="curve">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Curve Series</h3>
+<p class="mcat-pane-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces for effective absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Art Acoustic Series</h3>
+<p class="mcat-pane-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="phonex">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Phonex Metal Series</h3>
+<p class="mcat-pane-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.70–0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="uniseam">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Uniseam Series</h3>
+<p class="mcat-pane-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.75+</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12 / 30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="cleaneo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Cleaneo Series</h3>
+<p class="mcat-pane-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12.5 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acouspray">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acouspray Series</h3>
+<p class="mcat-pane-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.95</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acona">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Classic Series</h3>
+<p class="mcat-pane-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 / 20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="aconaart">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Art Series</h3>
+<p class="mcat-pane-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25 / 40 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Fabricoustic Series</h3>
+<p class="mcat-pane-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25–60 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="pet">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Polyester (PET) Series</h3>
+<p class="mcat-pane-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">9 / 12 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="woodwool">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Wool Series</h3>
+<p class="mcat-pane-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.60</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15–25 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="diffuser">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Diffuser Series</h3>
+<p class="mcat-pane-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">Scattering</span><span class="ms-val">ISO 17497</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Depth</span><span class="ms-val">Custom</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="door">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Soundproofed Door Series</h3>
+<p class="mcat-pane-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">STC</span><span class="ms-val">35–45 dB</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">50–100 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<a href="/projects/" data-i18n="nav_projects">Projects</a>
+<a href="/process" data-i18n="nav_process">Process</a>
+<a href="/contact" data-i18n="nav_contact">Contact</a>
+</nav>
+<div class="site-nav-right">
+<a href="/contact" class="site-nav-cta">
+<span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+</a>
+</div>
+</header>
+<button class="site-nav-burger" aria-label="Open menu" id="siteNavBurger"><span></span><span></span><span></span></button>
+<div class="site-nav-mobile" id="siteNavMobile" aria-hidden="true">
+<nav class="site-nav-mobile-links">
+<a href="/about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="/collection/" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-cats-v2" aria-hidden="true">
+<div class="mcat-inner">
+
+<div class="mcat-list">
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item is-active" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="/collection/" class="mcat-all">All models →</a>
+</div>
+
+<div class="mcat-detail">
+
+<div class="mcat-pane is-active" data-pane="classic">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Classic Series</h3>
+<p class="mcat-pane-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="perfo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Perfo Series</h3>
+<p class="mcat-pane-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="micro">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Micro Series</h3>
+<p class="mcat-pane-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation. Includes Micro Classic and Micro Art geometries.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="curve">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Curve Series</h3>
+<p class="mcat-pane-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces for effective absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Art Acoustic Series</h3>
+<p class="mcat-pane-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="phonex">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Phonex Metal Series</h3>
+<p class="mcat-pane-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.70–0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="uniseam">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Uniseam Series</h3>
+<p class="mcat-pane-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.75+</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12 / 30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="cleaneo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Cleaneo Series</h3>
+<p class="mcat-pane-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12.5 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acouspray">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acouspray Series</h3>
+<p class="mcat-pane-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.95</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acona">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Classic Series</h3>
+<p class="mcat-pane-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 / 20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="aconaart">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Art Series</h3>
+<p class="mcat-pane-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25 / 40 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Fabricoustic Series</h3>
+<p class="mcat-pane-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25–60 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="pet">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Polyester (PET) Series</h3>
+<p class="mcat-pane-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">9 / 12 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="woodwool">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Wool Series</h3>
+<p class="mcat-pane-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.60</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15–25 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="diffuser">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Diffuser Series</h3>
+<p class="mcat-pane-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">Scattering</span><span class="ms-val">ISO 17497</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Depth</span><span class="ms-val">Custom</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="door">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Soundproofed Door Series</h3>
+<p class="mcat-pane-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">STC</span><span class="ms-val">35–45 dB</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">50–100 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<a href="/projects/" data-i18n="nav_projects">Projects</a>
+<a href="/process" data-i18n="nav_process">Process</a>
+<a href="/contact" data-i18n="nav_contact">Contact</a>
+</nav>
+</div>
+<main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page">
+
+<!-- ===== S1 Banner ===== -->
+<section class="pj3-banner">
+<div class="pj3-banner-inner">
+<div class="pj3-eyebrow"><span>NAAYA — Projects</span><span>Selected works · 2026</span><span>14+ countries delivered</span></div>
+<h1 class="pj3-slogan">Sound Shapes<br>Inspired Spaces<span class="dot"></span></h1>
+<div class="pj3-foot">
+<div class="pj3-stats">
+<div class="pj3-stat"><div class="n">5000+</div><div class="l">Projects completed</div></div>
+<div class="pj3-stat"><div class="n">14+</div><div class="l">Countries</div></div>
+<div class="pj3-stat"><div class="n">38</div><div class="l">Patents &amp; systems</div></div>
+<div class="pj3-stat"><div class="n">100%</div><div class="l">Commissioned delivery</div></div>
+</div>
+<p class="pj3-lede">NAAYA delivers integrated acoustic design and engineering solutions across global building typologies — cultural performance venues, theatres, hotels, office environments, government facilities, exhibition spaces, sports arenas, educational institutions, healthcare environments, religious buildings, media production studios, residential projects and high-end private experience spaces. Our scope covers acoustic design, vibration and noise control, architectural sound insulation, acoustic simulation, interior engineering, material supply, installation and final commissioning — a fully integrated turnkey delivery system trusted by international architecture studios, developers and institutional clients worldwide.</p>
+</div>
+</div>
+</section>
+
+<!-- ===== S2 Selected Projects ===== -->
+<section class="pj3-sec">
+<div class="pj3-wrap">
+<div class="pj3-head pj3-rise">
+<div>
+<div class="pj3-secmark">01 — Selected Projects</div>
+<h2 class="pj3-h2">Fifteen sectors,<br>one acoustic standard.</h2>
+</div>
+<p class="pj3-lead">A curated collection of acoustic projects delivered by NAAYA across global building typologies. Filter by sector.</p>
+</div>
+<div class="pj3-filter pj3-rise d1" aria-label="Filter projects by sector">
+<button class="pj3-chip is-active" data-f="all" type="button">All<sup>19</sup></button>
+<button class="pj3-chip" data-f="auditoriums" type="button">Auditoriums<sup>02</sup></button>
+<button class="pj3-chip" data-f="theatres" type="button">Theatres<sup>02</sup></button>
+<button class="pj3-chip" data-f="hotels" type="button">Hotels<sup>02</sup></button>
+<button class="pj3-chip" data-f="office" type="button">Office<sup>02</sup></button>
+<button class="pj3-chip" data-f="government" type="button">Government<sup>01</sup></button>
+<button class="pj3-chip" data-f="exhibition" type="button">Exhibition<sup>01</sup></button>
+<button class="pj3-chip" data-f="sports" type="button">Sports<sup>01</sup></button>
+<button class="pj3-chip" data-f="education" type="button">Education<sup>01</sup></button>
+<button class="pj3-chip" data-f="hospitals" type="button">Healthcare<sup>01</sup></button>
+<button class="pj3-chip" data-f="worship" type="button">Worship<sup>01</sup></button>
+<button class="pj3-chip" data-f="studios" type="button">Studios<sup>01</sup></button>
+<button class="pj3-chip" data-f="showrooms" type="button">Showrooms<sup>01</sup></button>
+<button class="pj3-chip" data-f="clubs" type="button">Clubs<sup>01</sup></button>
+<button class="pj3-chip" data-f="residential" type="button">Residential<sup>01</sup></button>
+<button class="pj3-chip" data-f="cinema" type="button">Home Cinema<sup>01</sup></button>
+</div>
+<div class="pj3-grid">
+<a class="pj3-card pj3-rise" data-group="auditoriums" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-hall.webp" alt="Riverside Grand Auditorium" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums</span><div class="pj3-card-bottom"><h3>Riverside Grand Auditorium</h3><p class="pj3-card-loc">Shenzhen, CN · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="auditoriums" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-foyer.webp" alt="Civic Multipurpose Hall" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums</span><div class="pj3-card-bottom"><h3>Civic Multipurpose Hall</h3><p class="pj3-card-loc">Lyon, FR · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="theatres" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-opera.webp" alt="Metropolitan Opera House" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.6h18"/><path d="M6 4.6c-1.2 3.6-1.2 8.3 0 11.9"/><path d="M9.4 4.6c1 3.6 1 8.3 0 11.9"/><path d="M14.6 4.6c-1 3.6-1 8.3 0 11.9"/><path d="M18 4.6c1.2 3.6 1.2 8.3 0 11.9"/><path d="M3 20.4h18"/></svg>Theatres</span><div class="pj3-card-bottom"><h3>Metropolitan Opera House</h3><p class="pj3-card-loc">Vienna, AT · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="theatres" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-hero.webp" alt="Lakeside Performance Centre" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.6h18"/><path d="M6 4.6c-1.2 3.6-1.2 8.3 0 11.9"/><path d="M9.4 4.6c1 3.6 1 8.3 0 11.9"/><path d="M14.6 4.6c-1 3.6-1 8.3 0 11.9"/><path d="M18 4.6c1.2 3.6 1.2 8.3 0 11.9"/><path d="M3 20.4h18"/></svg>Theatres</span><div class="pj3-card-bottom"><h3>Lakeside Performance Centre</h3><p class="pj3-card-loc">Oslo, NO · 2022</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="hotels" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-golden.webp" alt="The Golden Ballroom" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pj3-card-bottom"><h3>The Golden Ballroom</h3><p class="pj3-card-loc">Dubai, AE · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="hotels" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-5.webp" alt="Harbour Grand Hotel" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pj3-card-bottom"><h3>Harbour Grand Hotel</h3><p class="pj3-card-loc">Singapore · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="office" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-conf.webp" alt="Helix Headquarters" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pj3-card-bottom"><h3>Helix Headquarters</h3><p class="pj3-card-loc">Amsterdam, NL · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="office" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-atrium.webp" alt="Northpoint Meeting Suites" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pj3-card-bottom"><h3>Northpoint Meeting Suites</h3><p class="pj3-card-loc">Munich, DE · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="government" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-corridor.webp" alt="National Civic Centre" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9 12 4l8.5 5"/><path d="M3 9.2h18"/><path d="M5.6 9.2v8M9.8 9.2v8M14.2 9.2v8M18.4 9.2v8"/><path d="M3.5 20.5h17"/><path d="M4.6 17.2h14.8"/></svg>Government</span><div class="pj3-card-bottom"><h3>National Civic Centre</h3><p class="pj3-card-loc">Canberra, AU · 2022</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="exhibition" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-foyer.webp" alt="Modern Art Pavilion" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="15" rx="1"/><path d="M7 15.5l3.2-4 2.1 2.6 2.3-3.2L18 15.5"/><circle cx="9" cy="9" r="1.2"/></svg>Exhibition</span><div class="pj3-card-bottom"><h3>Modern Art Pavilion</h3><p class="pj3-card-loc">Berlin, DE · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="sports" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-hall.webp" alt="Skyline Arena" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5.5"/><ellipse cx="12" cy="12" rx="4.4" ry="2.4"/></svg>Sports</span><div class="pj3-card-bottom"><h3>Skyline Arena</h3><p class="pj3-card-loc">Toronto, CA · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="education" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-hero.webp" alt="Westbridge University Hall" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9 12 5l9.5 4-9.5 4z"/><path d="M6.5 11.3v4.2c0 1.4 2.6 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4.2"/><path d="M21.5 9.1v4.2"/></svg>Education</span><div class="pj3-card-bottom"><h3>Westbridge University Hall</h3><p class="pj3-card-loc">Boston, US · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="hospitals" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-3.webp" alt="St. Mary Medical Centre" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M6.5 13h3l1.4-3.4 2.2 6 1.4-2.6h2.6"/></svg>Healthcare</span><div class="pj3-card-bottom"><h3>St. Mary Medical Centre</h3><p class="pj3-card-loc">Zurich, CH · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="worship" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-vaults.webp" alt="Cathedral of Light" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 20.5V11a6.5 6.5 0 0 1 13 0v9.5"/><path d="M3.5 20.5h17"/><path d="M12 2v3.4"/><path d="M10.4 3.7h3.2"/></svg>Worship</span><div class="pj3-card-bottom"><h3>Cathedral of Light</h3><p class="pj3-card-loc">Milan, IT · 2022</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="studios" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-4.webp" alt="Northgate Recording Studios" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="10.5" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><path d="M12 17v3.5"/><path d="M8.5 20.5h7"/></svg>Studios</span><div class="pj3-card-bottom"><h3>Northgate Recording Studios</h3><p class="pj3-card-loc">London, UK · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="showrooms" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-2.webp" alt="Lumina Brand Experience" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9 5.2 4.5h13.6L20 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/><path d="M4 9h16"/></svg>Showrooms</span><div class="pj3-card-bottom"><h3>Lumina Brand Experience</h3><p class="pj3-card-loc">Shanghai, CN · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="clubs" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-6.webp" alt="The Velvet Lounge" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11V8.5A2.5 2.5 0 0 1 8.5 6h7A2.5 2.5 0 0 1 18 8.5V11"/><path d="M4.5 11A1.5 1.5 0 0 0 3 12.5V16h18v-3.5A1.5 1.5 0 0 0 19.5 11a1.5 1.5 0 0 0-1.5 1.5V14H6v-1.5A1.5 1.5 0 0 0 4.5 11z"/><path d="M5 16v3M19 16v3"/></svg>Clubs</span><div class="pj3-card-bottom"><h3>The Velvet Lounge</h3><p class="pj3-card-loc">Macau · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="residential" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-1.webp" alt="Hillcrest Private Villa" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11 12 4.5l8.5 6.5"/><path d="M5.5 9.8V19.5h13V9.8"/><rect x="10" y="14" width="4" height="5.5"/></svg>Residential</span><div class="pj3-card-bottom"><h3>Hillcrest Private Villa</h3><p class="pj3-card-loc">Los Angeles, US · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="cinema" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-corridor.webp" alt="Aurora Home Cinema" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="12.5" height="10" rx="1.5"/><path d="M7 19.5h6"/><path d="M18 8.6a4.5 4.5 0 0 1 0 6.8"/><path d="M20.6 6.2a8 8 0 0 1 0 11.6"/></svg>Home Cinema</span><div class="pj3-card-bottom"><h3>Aurora Home Cinema</h3><p class="pj3-card-loc">Seoul, KR · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+</div>
+</div>
+</section>
+
+<!-- ===== S3 Contact ===== -->
+<section class="pj3-sec pj3-contact">
+<div class="pj3-wrap">
+<div class="pj3-contact-grid">
+<div>
+<div class="pj3-contact-mark">Get in touch</div>
+<h2>Let&rsquo;s shape your space<span class="dot">.</span></h2>
+<p class="pj3-contact-sub">From concert halls to private listening rooms — tell us about your project and our acoustic team will respond within two business days.</p>
+</div>
+<div class="pj3-contact-info">
+<div><div class="k">Email</div><a href="mailto:info@naaya.com">info@naaya.com</a></div>
+<div><div class="k">Phone</div><a href="tel:+862088888888">+86 20 8888 8888</a></div>
+<div><div class="k">Studio</div><span>Guangzhou, China</span></div>
+<a class="pj3-cta" href="mailto:info@naaya.com"><span>Start a project →</span></a>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="footer" data-v-b5a28948><div class="container" data-v-b5a28948><a aria-current="page" href="/" class="is-active is-exact-active logo" data-v-b5a28948><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-b5a28948><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg></a><div class="footer-content">
+
+<div class="footer-col footer-col-brand">
+<img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="footer-brand-logo" style="height:2.4rem;width:auto;align-self:flex-start;margin-bottom:2rem">
+<address class="footer-addr">
+<a href="mailto:info@naaya.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>info@naaya.com</a>
+<a href="tel:+862088888888" class="footer-link"><span data-i18n="footer_phone_label">Phone</span><br>+86 20 8888 8888</a>
+<span class="footer-link"><span data-i18n="footer_addr_label">Address</span><br><span data-i18n="footer_addr">Guangzhou, China</span></span>
+</address>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_products">Products</h4>
+<a href="/collection/?cat=wood" data-i18n="footer_p_wood">Wood Panels</a>
+<a href="/collection/?cat=ceiling" data-i18n="footer_p_ceiling">Ceiling Systems</a>
+<a href="/collection/?cat=metal" data-i18n="footer_p_metal">Metal Acoustic</a>
+<a href="/collection/?cat=fabric" data-i18n="footer_p_fabric">Fabric &amp; Eco</a>
+<a href="/collection/?cat=specialty" data-i18n="footer_p_specialty">Diffusers &amp; Doors</a>
+<a href="/collection/" data-i18n="footer_p_all">All series →</a>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title">Company</h4>
+<a href="/about">About NAAYA</a>
+<a href="/projects/">Project references</a>
+<a href="/process">Process</a>
+<a href="/contact">Contact</a>
+</div>
+
+<div class="footer-col footer-col-cta">
+<h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
+<p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
+<a href="/contact" class="footer-cta-btn">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="cta_button">Get in touch</span>
+</a>
+<form class="footer-newsletter" onsubmit="return false">
+<label class="footer-newsletter-label" data-i18n="footer_newsletter">Subscribe to our newsletter</label>
+<div class="footer-newsletter-row">
+<input type="email" placeholder="you@example.com" class="footer-newsletter-input" aria-label="Email">
+<button type="submit" class="footer-newsletter-btn" aria-label="Subscribe">→</button>
+</div>
+</form>
+</div>
+
+</div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2014, NAAYA™</div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
+
+<script src="js/naaya.js"></script>
+
+<script>
+(function(){
+  var chips=document.querySelectorAll('.pj3-chip');
+  var cards=document.querySelectorAll('.pj3-card');
+  chips.forEach(function(c){ c.addEventListener('click',function(){
+    chips.forEach(function(x){ x.classList.remove('is-active'); });
+    c.classList.add('is-active');
+    var f=c.getAttribute('data-f');
+    cards.forEach(function(card){
+      var show = (f==='all') || card.getAttribute('data-group')===f;
+      card.classList.toggle('is-hidden', !show);
+    });
+  }); });
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.pj3-rise').forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+<script>
+/* Scroll-reveal motion for text & images */
+(function(){
+  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var STEP=90;
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}})},{threshold:0.12,rootMargin:'0px 0px -5% 0px'});
+  function R(el,d,img){ if(!el)return; el.classList.add('ab-rise'); if(img)el.classList.add('ab-rise-img'); if(d)el.style.transitionDelay=(d*STEP)+'ms'; obs.observe(el); }
+  function each(p,sel,fn){ Array.prototype.forEach.call((p||document).querySelectorAll(sel),fn); }
+  // head
+  R(document.querySelector('.cl-meta'),0);
+  R(document.querySelector('.cl-title'),1);
+  R(document.querySelector('.cl-sub > p'),2);
+  each(document,'.cl-fact',function(el,i){ R(el,i+3); });
+  // section marks + leads
+  each(document,'.cl-secmark',function(el){ R(el,0); });
+  each(document,'.cl-lead',function(el){ R(el,1); });
+  // filter + cards
+  R(document.querySelector('.cl-filter'),2);
+  each(document,'.cl-grid .cl-card',function(el,i){ R(el,(i%4),true); });
+  // need tiles / finishes / certs
+  each(document,'.cl-need-item',function(el,i){ R(el,i); });
+  each(document,'.cl-fin-col',function(el,i){ R(el,i); });
+  each(document,'.cl-cert',function(el,i){ R(el,Math.min(i,3)); });
+  // cta
+  R(document.querySelector('.cl-cta'),1);
+})();
+</script>
+<script>
+/* Material family filter */
+(function(){
+  var chips=document.querySelectorAll('.cl-chip');
+  var cards=document.querySelectorAll('.cl-card[data-cat]');
+  Array.prototype.forEach.call(chips,function(chip){
+    chip.addEventListener('click',function(){
+      Array.prototype.forEach.call(chips,function(c){ c.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+      var f=chip.getAttribute('data-f');
+      Array.prototype.forEach.call(cards,function(card){
+        card.style.display=(f==='all'||card.getAttribute('data-cat')===f)?'':'none';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
