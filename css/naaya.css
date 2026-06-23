@@ -3491,3 +3491,30 @@ body.nav-open .site-nav-mobile{ opacity:1; pointer-events:auto; }
                 0 0 0 2rem color-mix(in srgb, #b87333 0%, transparent);
   }
 }
+
+/* ============================================================
+   Footer — COMPACT flat-black (site-wide). Replaces the 100svh
+   full-screen canvas + GSAP parallax + bg photo/wordmark with a
+   content-height footer: columns + bottom bar in normal flow.
+   Appended last so it wins over the base footer rules above.
+   ============================================================ */
+.footer[data-v-b5a28948]{ height:auto; overflow:visible; padding:9rem 4rem 3.6rem; }
+.footer .background[data-v-b5a28948]{ display:none; }
+.footer .container[data-v-b5a28948]{ position:static; inset:auto; transform:none !important;
+  display:block; height:auto; }
+.footer .container[data-v-b5a28948] > .logo[data-v-b5a28948]{ display:none; }
+.footer .footer-content{ position:static; inset:auto; max-width:152rem; margin:0 auto; width:100%; }
+.footer .bottom[data-v-b5a28948]{ position:static; inset:auto; display:flex; align-items:center;
+  flex-wrap:wrap; gap:1.6rem 2.4rem; max-width:152rem; margin:5.5rem auto 0; width:100%;
+  padding-top:3rem; border-top:1px solid color-mix(in srgb, var(--color-white) 12%, transparent); }
+.footer .bottom[data-v-b5a28948] .copyright[data-v-b5a28948]{ position:static; }
+.footer .bottom[data-v-b5a28948] .nav[data-v-b5a28948]{ position:static; inset:auto; display:flex;
+  flex-direction:row; align-items:center; gap:2.4rem; flex:1; }
+.footer .bottom[data-v-b5a28948] .legal[data-v-b5a28948]{ position:static; right:auto; margin-left:auto; }
+.footer .bottom[data-v-b5a28948] .exo-ape[data-v-b5a28948]{ position:static; right:auto; }
+@media(max-width:600px){
+  .footer[data-v-b5a28948]{ padding:6rem 2rem 3rem; }
+  .footer .bottom[data-v-b5a28948]{ flex-direction:column; align-items:flex-start; gap:1.6rem; margin-top:4rem; }
+  .footer .bottom[data-v-b5a28948] .nav[data-v-b5a28948]{ flex-direction:column; align-items:flex-start; gap:1.2rem; }
+  .footer .bottom[data-v-b5a28948] .legal[data-v-b5a28948]{ margin-left:0; }
+}

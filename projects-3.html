@@ -295,59 +295,35 @@ main,.scroll{ transform:none!important; }
   --pj3-muted:rgba(35,31,32,.56); --pj3-faint:rgba(35,31,32,.4);
 }
 
-/* ---------- nav: dark logo + dark text over the LIGHT hero ---------- */
-.site-nav:not(.is-scrolled){ color:var(--color-grey); }
-.site-nav:not(.is-scrolled) .logo-light{ display:none !important; }
-.site-nav:not(.is-scrolled) .logo-dark{ display:block !important; }
-.site-nav-burger{ color:var(--color-grey); }
+/* ---------- nav: DARK hero — use the inherited index-4 skin default
+   (transparent nav, white text + white logo over the black hero; toggles to
+   cream/dark once scrolled past .home-header). No override needed. ---------- */
 
-/* ---------- footer redesign: the shared footer is a 100svh block with its
-   parts absolutely pinned; with the parallax removed it left a big empty void.
-   Re-laid out as a compact, normal-flow footer. transform:none also guards
-   against the original eff-ful naaya.js when this page is deployed. ---------- */
-.footer{ height:auto !important; min-height:0 !important; overflow:hidden !important;
-  position:relative !important; background:var(--pj3-ink) !important; }
-.footer .background{ display:none !important; }
-.footer .container{ transform:none !important; position:relative !important; inset:auto !important;
-  display:block !important; max-width:152rem; margin:0 auto; padding:9rem 4rem 3rem !important; z-index:1; }
-.footer .container > .logo{ display:none !important; }
-.footer .footer-content{ position:static !important; inset:auto !important;
-  display:grid !important; grid-template-columns:1.7fr 1fr 1fr 1.6fr !important; gap:4rem 5rem !important;
-  padding-bottom:5.5rem !important; }
-.footer .footer-col-cta{ max-width:none !important; }
-.footer .bottom{ position:relative !important; inset:auto !important; z-index:1;
-  display:flex !important; flex-direction:row !important; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:1.4rem 3rem; max-width:152rem; margin:0 auto;
-  padding:2.8rem 4rem 0 !important; border-top:1px solid rgba(255,255,255,.14);
-  color:color-mix(in srgb,#fff 55%, transparent) !important; }
-.footer .bottom .copyright{ position:static !important; inset:auto !important; opacity:1 !important; order:-1; }
-.footer .bottom .nav{ position:static !important; inset:auto !important;
-  display:flex !important; flex-direction:row !important; align-items:center; gap:2.4rem !important; }
-.footer .bottom .social, .footer .bottom .legal{ position:static !important; right:auto !important; display:inline-flex !important; }
-.footer .bottom .social .item:first-child, .footer .bottom .legal .item:first-child{ margin-left:0 !important; }
-.footer .bottom .exo-ape{ position:static !important; right:auto !important; opacity:1 !important; }
-/* large faint brand wordmark fills the space */
-.footer::after{ content:"NAAYA"; position:absolute; left:50%; bottom:-3.5rem; transform:translateX(-50%);
-  font-family:'Inter',system-ui,sans-serif; font-weight:700; font-size:clamp(9rem,23vw,38rem); line-height:.7;
-  letter-spacing:-.01em; color:rgba(255,255,255,.05); white-space:nowrap; pointer-events:none; z-index:0; }
+/* ---------- footer: COMPACT flat-black — now handled site-wide in css/naaya.css
+   (content-height footer, no 100svh canvas / parallax / bg photo). No per-page
+   override needed here anymore. -------- */
 
-/* ---------- S1 Banner (light) ---------- */
-.pj3-banner{ position:relative; background:var(--pj3-paper); color:var(--pj3-ink); min-height:100svh; display:flex; border-bottom:1px solid var(--pj3-line); }
-.pj3-banner-inner{ width:100%; max-width:152rem; margin:0 auto; padding:13rem 4rem 5rem;
-  display:flex; flex-direction:column; }
-.pj3-eyebrow{ display:flex; gap:2.4rem; font-size:1.2rem; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--pj3-faint); border-bottom:1px solid var(--pj3-line); padding-bottom:1.8rem; }
-.pj3-slogan{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
-  overflow:visible!important; margin:auto 0; font-weight:700; line-height:.9; letter-spacing:-.025em;
-  font-size:clamp(5rem,11.5vw,15rem); padding:5rem 0 3.5rem; color:var(--pj3-ink); }
-.pj3-slogan .dot{ display:inline-block; width:.13em; height:.13em; margin-left:.05em;
-  background:var(--pj3-ink); vertical-align:baseline; }
-.pj3-foot{ display:grid; grid-template-columns:1.05fr 1fr; gap:5rem; align-items:end;
-  border-top:1px solid var(--pj3-line); padding-top:3.4rem; }
-.pj3-stats{ display:grid; grid-template-columns:repeat(2,auto); gap:3rem 5rem; align-content:start; justify-content:start; }
-.pj3-stat .n{ font-size:clamp(3.2rem,4vw,5rem); font-weight:600; line-height:1; letter-spacing:-.02em; }
-.pj3-stat .l{ margin-top:.9rem; font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pj3-faint); }
-.pj3-lede{ font-size:1.45rem; line-height:1.72; color:var(--pj3-muted); max-width:60rem; margin:0; }
+/* ---------- S1 Hero (black, stacked title — exact Image #24 layout) ---------- */
+.pj3-banner{ position:relative; background:#000; color:#fff; min-height:100svh; display:flex; }
+.pj3-banner-inner{ width:100%; max-width:152rem; margin:0 auto; padding:16rem 4rem 7rem;
+  display:flex; flex-direction:column; justify-content:center; gap:4.5rem; }
+/* big / small / small / big stacked title, white, with a red square dot */
+.pj3-hero-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
+  overflow:visible!important; margin:0; font-weight:800; line-height:.88; letter-spacing:-.035em; color:#fff; }
+.pj3-hero-title span{ display:block; }
+.pj3-hero-title .lg{ font-size:clamp(6rem,13.5vw,17rem); }
+.pj3-hero-title .sm{ font-size:clamp(3.4rem,7.4vw,9.4rem); }
+.pj3-hero-title .dot{ display:inline-block; width:.17em; height:.17em; margin-left:.06em;
+  background:#e3261b; vertical-align:baseline; }
+.pj3-hero-lede{ font-size:clamp(1.5rem,1.7vw,1.9rem); line-height:1.65;
+  color:rgba(255,255,255,.62); max-width:62rem; margin:0; }
+/* bottom baseline (left brand / right index) */
+.pj3-baseline{ position:absolute; left:4rem; right:4rem; bottom:3rem; height:1px; background:rgba(255,255,255,.16);
+  display:flex; justify-content:space-between; align-items:center; }
+.pj3-baseline span{ font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:1rem; letter-spacing:.2em;
+  text-transform:uppercase; color:rgba(255,255,255,.45); transform:translateY(-1.6rem); background:#000; }
+.pj3-baseline span:first-child{ padding-right:1.2rem; }
+.pj3-baseline span:last-child{ padding-left:1.2rem; }
 
 /* ---------- generic section ---------- */
 .pj3-sec{ background:var(--pj3-paper); padding:9rem 0; }
@@ -359,6 +335,7 @@ main,.scroll{ transform:none!important; }
 
 /* ---------- filter (15 categories, no icon) ---------- */
 .pj3-filter{ display:flex; flex-wrap:wrap; gap:.8rem; margin:4rem 0 3.2rem; }
+.pj3-filter-break{ flex-basis:100%; height:0; }   /* force the chips into two balanced rows */
 .pj3-chip{ appearance:none; cursor:pointer; background:transparent; color:var(--pj3-muted);
   border:1px solid var(--pj3-line); border-radius:999px; padding:.85rem 1.6rem; font-size:1.25rem;
   font-weight:500; transition:all .25s; display:inline-flex; gap:.5rem; align-items:baseline; white-space:nowrap; }
@@ -370,14 +347,14 @@ main,.scroll{ transform:none!important; }
 /* ---------- grid (image-background case cards) ---------- */
 .pj3-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; }
 .pj3-card{ position:relative; display:block; overflow:hidden; text-decoration:none;
-  aspect-ratio:4/5; background:var(--pj3-mist); color:#fff; }
+  aspect-ratio:1/1; background:var(--pj3-mist); color:#fff; }
 .pj3-card.is-hidden{ display:none; }
 .pj3-card-img{ position:absolute; inset:0; }
 .pj3-card-img img{ width:100%; height:100%; object-fit:cover;
   transition:transform .9s cubic-bezier(.16,.84,.44,1); }
 .pj3-card:hover .pj3-card-img img{ transform:scale(1.06); }
 .pj3-card::after{ content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(to top, rgba(35,31,32,.93) 0%, rgba(35,31,32,.55) 34%, rgba(35,31,32,0) 64%, rgba(35,31,32,.18) 100%); }
+  background:linear-gradient(to top, rgba(20,18,18,.92) 0%, rgba(20,18,18,.45) 34%, rgba(20,18,18,0) 62%); }
 .pj3-card-body{ position:absolute; inset:0; z-index:2; padding:2.4rem; display:flex; flex-direction:column; justify-content:space-between; }
 .pj3-card-tag{ align-self:flex-start; display:inline-flex; align-items:center; gap:.7rem;
   font-size:1.1rem; letter-spacing:.1em; text-transform:uppercase; color:#fff;
@@ -385,9 +362,9 @@ main,.scroll{ transform:none!important; }
 .pj3-card-tag .pj3-ic{ width:1.6rem; height:1.6rem; flex:none; }
 .pj3-card h3{ font-size:2.05rem; font-weight:600; line-height:1.14; letter-spacing:-.01em; margin:0; }
 .pj3-card-loc{ margin:.8rem 0 0; font-size:1.25rem; letter-spacing:.03em; color:rgba(255,255,255,.68); }
-.pj3-card-go{ display:block; margin-top:1.5rem; font-size:1.15rem; letter-spacing:.08em; text-transform:uppercase;
-  color:#fff; opacity:0; transform:translateY(.6rem); transition:all .35s; }
-.pj3-card:hover .pj3-card-go{ opacity:1; transform:none; }
+.pj3-card-go{ display:inline-flex; align-items:center; gap:.6rem; margin-top:1.4rem; font-size:1.15rem;
+  letter-spacing:.08em; text-transform:uppercase; color:#fff; transition:gap .3s ease; }
+.pj3-card:hover .pj3-card-go{ gap:1.1rem; }
 
 /* ---------- S3 contact (black, static) ---------- */
 .pj3-contact{ background:var(--pj3-ink); color:#fff; }
@@ -405,8 +382,8 @@ main,.scroll{ transform:none!important; }
   color:#fff!important; text-decoration:none; font-family:var(--font-f-aeonik-mono);
   font-weight:600; font-size:1.2rem; letter-spacing:.08em; text-transform:uppercase;
   transition:background .3s ease, color .3s ease, border-color .3s ease; }
-.pj3-contact-info .pj3-cta:hover{ background:#fff; color:var(--pj3-ink)!important; border-color:#fff; }
-.pj3-contact-info .pj3-cta span{ display:inline-block; transform:translateY(.07em); }  /* optical centering: all-caps caps ride high, nudge down */
+.pj3-contact-info .pj3-cta:hover{ background:#fff; color:var(--pj3-ink)!important; border-color:#fff; opacity:1 !important; }
+.pj3-contact-info .pj3-cta span{ display:inline-block; transform:translateY(.07em); color:inherit !important; }  /* optical centering + follow button colour on hover (the shared `.pj3-contact-info span{color:#fff}` would otherwise keep the label white-on-white) */
 
 /* ---------- reveal (grid + heading only) ---------- */
 .pj3-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
@@ -416,33 +393,24 @@ main,.scroll{ transform:none!important; }
 /* ---------- responsive ---------- */
 @media(max-width:1100px){ .pj3-grid{ grid-template-columns:repeat(2,1fr); } }
 @media(max-width:900px){
-  .pj3-banner-inner{ padding:11rem 2.4rem 4rem; }
-  .pj3-foot{ grid-template-columns:1fr; gap:3.2rem; }
+  .pj3-banner-inner{ padding:13rem 2.4rem 5rem; gap:3.4rem; }
+  .pj3-baseline{ display:none; }
   .pj3-sec{ padding:6.5rem 0; } .pj3-wrap{ padding:0 2.4rem; }
   .pj3-contact-grid{ grid-template-columns:1fr; gap:3.4rem; align-items:start; }
 }
 @media(max-width:600px){
   .pj3-grid{ grid-template-columns:1fr; }
-  .pj3-stats{ grid-template-columns:repeat(2,1fr); gap:2.6rem 2rem; }
-  .pj3-card-go{ opacity:1; transform:none; }
-  .pj3-eyebrow{ flex-wrap:wrap; gap:1rem; }
-  .pj3-card{ aspect-ratio:3/4; }
+  .pj3-card{ aspect-ratio:1/1; }
+  /* filter: single swipeable row (horizontal scroll) instead of stacking 6 rows tall */
+  .pj3-filter{ flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; margin:3.2rem -2.4rem 2.8rem; padding:0 2.4rem;
+    scroll-snap-type:x proximity; }
+  .pj3-filter::-webkit-scrollbar{ display:none; }
+  .pj3-filter-break{ display:none; }            /* no two-row break — one continuous scroll row */
+  .pj3-chip{ flex:0 0 auto; scroll-snap-align:start; }
 }
 
-/* ---------- footer responsive ---------- */
-@media(max-width:900px){
-  .footer .container{ padding:7rem 2.4rem 3rem !important; }
-  .footer .footer-content{ grid-template-columns:1fr 1fr !important; gap:3.4rem 3rem !important; }
-  .footer .bottom{ padding:2.6rem 2.4rem 0 !important; }
-}
-@media(max-width:600px){
-  .footer .container{ padding:6rem 2rem 3rem !important; }
-  .footer .footer-content{ grid-template-columns:1fr !important; gap:3rem !important; padding-bottom:4rem !important; }
-  .footer .bottom{ flex-direction:column !important; align-items:flex-start !important; gap:1.6rem !important; padding:2.4rem 2rem 0 !important; }
-  .footer .bottom .nav{ flex-direction:column !important; align-items:flex-start !important; gap:1rem !important; }
-  .footer .bottom .social, .footer .bottom .legal{ flex-wrap:wrap !important; }
-  .footer::after{ font-size:7rem; bottom:-1rem; }
-}
+/* footer responsive: none — inherits index-4 / naaya.css footer behaviour */
 </style>
 </head>
 <body>
@@ -1091,21 +1059,13 @@ main,.scroll{ transform:none!important; }
 </div>
 <main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page">
 
-<!-- ===== S1 Banner ===== -->
-<section class="pj3-banner">
+<!-- ===== S1 Hero (black, stacked title) ===== -->
+<section class="home-header pj3-banner">
 <div class="pj3-banner-inner">
-<div class="pj3-eyebrow"><span>NAAYA — Projects</span><span>Selected works · 2026</span><span>14+ countries delivered</span></div>
-<h1 class="pj3-slogan">Sound Shapes<br>Inspired Spaces<span class="dot"></span></h1>
-<div class="pj3-foot">
-<div class="pj3-stats">
-<div class="pj3-stat"><div class="n">5000+</div><div class="l">Projects completed</div></div>
-<div class="pj3-stat"><div class="n">14+</div><div class="l">Countries</div></div>
-<div class="pj3-stat"><div class="n">38</div><div class="l">Patents &amp; systems</div></div>
-<div class="pj3-stat"><div class="n">100%</div><div class="l">Commissioned delivery</div></div>
+<h1 class="pj3-hero-title"><span class="lg">Sound</span><span class="sm">Shapes</span><span class="sm">Inspired</span><span class="lg">Spaces<span class="dot"></span></span></h1>
+<p class="pj3-hero-lede">NAAYA provides integrated acoustic design, engineering, materials and delivery solutions for global landmark projects across culture, hospitality, workplace and public spaces.</p>
 </div>
-<p class="pj3-lede">NAAYA delivers integrated acoustic design and engineering solutions across global building typologies — cultural performance venues, theatres, hotels, office environments, government facilities, exhibition spaces, sports arenas, educational institutions, healthcare environments, religious buildings, media production studios, residential projects and high-end private experience spaces. Our scope covers acoustic design, vibration and noise control, architectural sound insulation, acoustic simulation, interior engineering, material supply, installation and final commissioning — a fully integrated turnkey delivery system trusted by international architecture studios, developers and institutional clients worldwide.</p>
-</div>
-</div>
+<div class="pj3-baseline"><span>NAAYA Acoustic Group</span><span>01 &mdash; Projects</span></div>
 </section>
 
 <!-- ===== S2 Selected Projects ===== -->
@@ -1127,6 +1087,7 @@ main,.scroll{ transform:none!important; }
 <button class="pj3-chip" data-f="government" type="button">Government<sup>01</sup></button>
 <button class="pj3-chip" data-f="exhibition" type="button">Exhibition<sup>01</sup></button>
 <button class="pj3-chip" data-f="sports" type="button">Sports<sup>01</sup></button>
+<span class="pj3-filter-break"></span>
 <button class="pj3-chip" data-f="education" type="button">Education<sup>01</sup></button>
 <button class="pj3-chip" data-f="hospitals" type="button">Healthcare<sup>01</sup></button>
 <button class="pj3-chip" data-f="worship" type="button">Worship<sup>01</sup></button>
@@ -1170,10 +1131,9 @@ main,.scroll{ transform:none!important; }
 <p class="pj3-contact-sub">From concert halls to private listening rooms — tell us about your project and our acoustic team will respond within two business days.</p>
 </div>
 <div class="pj3-contact-info">
-<div><div class="k">Email</div><a href="mailto:info@naaya.com">info@naaya.com</a></div>
-<div><div class="k">Phone</div><a href="tel:+862088888888">+86 20 8888 8888</a></div>
+<div><div class="k">Email</div><a href="mailto:hello@naayaasia.com">hello@naayaasia.com</a></div>
 <div><div class="k">Studio</div><span>Guangzhou, China</span></div>
-<a class="pj3-cta" href="mailto:info@naaya.com"><span>Start a project →</span></a>
+<a class="pj3-cta" href="mailto:hello@naayaasia.com"><span>Start a project →</span></a>
 </div>
 </div>
 </div>
@@ -1184,8 +1144,7 @@ main,.scroll{ transform:none!important; }
 <div class="footer-col footer-col-brand">
 <img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="footer-brand-logo" style="height:2.4rem;width:auto;align-self:flex-start;margin-bottom:2rem">
 <address class="footer-addr">
-<a href="mailto:info@naaya.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>info@naaya.com</a>
-<a href="tel:+862088888888" class="footer-link"><span data-i18n="footer_phone_label">Phone</span><br>+86 20 8888 8888</a>
+<a href="mailto:hello@naayaasia.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>hello@naayaasia.com</a>
 <span class="footer-link"><span data-i18n="footer_addr_label">Address</span><br><span data-i18n="footer_addr">Guangzhou, China</span></span>
 </address>
 </div>
