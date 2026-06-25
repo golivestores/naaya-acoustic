@@ -304,9 +304,9 @@ main,.scroll{ transform:none!important; }
    override needed here anymore. -------- */
 
 /* ---------- S1 Hero (black, stacked title — exact Image #24 layout) ---------- */
-.pj3-banner{ position:relative; background:#000; color:#fff; min-height:100svh; display:flex; }
-.pj3-banner-inner{ width:100%; max-width:152rem; margin:0 auto; padding:16rem 4rem 7rem;
-  display:flex; flex-direction:column; justify-content:center; gap:4.5rem; }
+.pj3-banner{ position:relative; background:#000; color:#fff; min-height:100svh; display:flex; align-items:center; }
+.pj3-banner-inner{ width:100%; max-width:152rem; margin:0 auto; padding:16rem 4rem 8rem;
+  display:grid; grid-template-columns:1.32fr .68fr; align-items:end; gap:5rem; }
 /* big / small / small / big stacked title, white, with a red square dot */
 .pj3-hero-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
   overflow:visible!important; margin:0; font-weight:800; line-height:.88; letter-spacing:-.035em; color:#fff; }
@@ -315,15 +315,11 @@ main,.scroll{ transform:none!important; }
 .pj3-hero-title .sm{ font-size:clamp(3.4rem,7.4vw,9.4rem); }
 .pj3-hero-title .dot{ display:inline-block; width:.17em; height:.17em; margin-left:.06em;
   background:#e3261b; vertical-align:baseline; }
-.pj3-hero-lede{ font-size:clamp(1.5rem,1.7vw,1.9rem); line-height:1.65;
-  color:rgba(255,255,255,.62); max-width:62rem; margin:0; }
-/* bottom baseline (left brand / right index) */
-.pj3-baseline{ position:absolute; left:4rem; right:4rem; bottom:3rem; height:1px; background:rgba(255,255,255,.16);
-  display:flex; justify-content:space-between; align-items:center; }
-.pj3-baseline span{ font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:1rem; letter-spacing:.2em;
-  text-transform:uppercase; color:rgba(255,255,255,.45); transform:translateY(-1.6rem); background:#000; }
-.pj3-baseline span:first-child{ padding-right:1.2rem; }
-.pj3-baseline span:last-child{ padding-left:1.2rem; }
+/* lede — right column, bottom-aligned with the title baseline */
+.pj3-hero-lede{ align-self:end; max-width:40rem; margin:0 0 1.2rem; padding-left:.2rem;
+  font-size:clamp(1.5rem,1.5vw,1.75rem); line-height:1.72; color:rgba(255,255,255,.6); }
+.pj3-hero-lede::before{ content:""; display:block; width:4.2rem; height:2px; background:#e3261b;
+  margin:0 0 2.2rem; }
 
 /* ---------- generic section ---------- */
 .pj3-sec{ background:var(--pj3-paper); padding:9rem 0; }
@@ -344,8 +340,8 @@ main,.scroll{ transform:none!important; }
 .pj3-chip.is-active{ background:var(--pj3-ink); border-color:var(--pj3-ink); color:#fff; }
 .pj3-chip.is-active sup{ color:rgba(255,255,255,.55); }
 
-/* ---------- grid (image-background case cards) ---------- */
-.pj3-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; }
+/* ---------- grid (image-background case cards — 4-up) ---------- */
+.pj3-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; }
 .pj3-card{ position:relative; display:block; overflow:hidden; text-decoration:none;
   aspect-ratio:1/1; background:var(--pj3-mist); color:#fff; }
 .pj3-card.is-hidden{ display:none; }
@@ -354,36 +350,36 @@ main,.scroll{ transform:none!important; }
   transition:transform .9s cubic-bezier(.16,.84,.44,1); }
 .pj3-card:hover .pj3-card-img img{ transform:scale(1.06); }
 .pj3-card::after{ content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(to top, rgba(20,18,18,.92) 0%, rgba(20,18,18,.45) 34%, rgba(20,18,18,0) 62%); }
-.pj3-card-body{ position:absolute; inset:0; z-index:2; padding:2.4rem; display:flex; flex-direction:column; justify-content:space-between; }
-.pj3-card-tag{ align-self:flex-start; display:inline-flex; align-items:center; gap:.7rem;
-  font-size:1.1rem; letter-spacing:.1em; text-transform:uppercase; color:#fff;
-  border:1px solid rgba(255,255,255,.42); border-radius:999px; padding:.5rem 1.1rem .5rem .9rem; }
-.pj3-card-tag .pj3-ic{ width:1.6rem; height:1.6rem; flex:none; }
-.pj3-card h3{ font-size:2.05rem; font-weight:600; line-height:1.14; letter-spacing:-.01em; margin:0; }
-.pj3-card-loc{ margin:.8rem 0 0; font-size:1.25rem; letter-spacing:.03em; color:rgba(255,255,255,.68); }
-.pj3-card-go{ display:inline-flex; align-items:center; gap:.6rem; margin-top:1.4rem; font-size:1.15rem;
+  background:linear-gradient(to top, rgba(20,18,18,.92) 0%, rgba(20,18,18,.42) 36%, rgba(20,18,18,0) 64%); }
+.pj3-card-body{ position:absolute; inset:0; z-index:2; padding:1.9rem; display:flex; flex-direction:column; justify-content:space-between; }
+.pj3-card-tag{ align-self:flex-start; display:inline-flex; align-items:center; gap:.55rem;
+  font-size:.98rem; letter-spacing:.1em; text-transform:uppercase; color:#fff;
+  border:1px solid rgba(255,255,255,.42); border-radius:999px; padding:.45rem 1rem .45rem .8rem; }
+.pj3-card-tag .pj3-ic{ width:1.4rem; height:1.4rem; flex:none; }
+.pj3-card h3{ font-size:1.72rem; font-weight:600; line-height:1.16; letter-spacing:-.01em; margin:0; }
+.pj3-card-loc{ margin:.6rem 0 0; font-size:1.12rem; letter-spacing:.03em; color:rgba(255,255,255,.68); }
+.pj3-card-go{ display:inline-flex; align-items:center; gap:.55rem; margin-top:1.1rem; font-size:1.02rem;
   letter-spacing:.08em; text-transform:uppercase; color:#fff; transition:gap .3s ease; }
-.pj3-card:hover .pj3-card-go{ gap:1.1rem; }
+.pj3-card:hover .pj3-card-go{ gap:1rem; }
 
 /* ---------- S3 contact (black, static) ---------- */
 .pj3-contact{ background:var(--pj3-ink); color:#fff; }
 .pj3-contact-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:5rem; align-items:end; }
 .pj3-contact-mark{ font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.45); }
-.pj3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1; margin:1.6rem 0 0; }
-.pj3-contact h2 .dot{ color:#fff; }
-.pj3-contact-sub{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); max-width:44rem; margin:2.2rem 0 0; }
+.pj3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:0; }
+.pj3-contact h2 .dot{ color:#e3261b; }
+.pj3-contact-sub{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); max-width:44rem; margin:2.6rem 0 0; }
 .pj3-contact-info{ display:flex; flex-direction:column; gap:1.8rem; }
 .pj3-contact-info .k{ font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:.4rem; }
 .pj3-contact-info a, .pj3-contact-info span{ color:#fff; text-decoration:none; font-size:1.6rem; display:block; transition:opacity .25s; }
 .pj3-contact-info a:hover{ opacity:.6; }
-.pj3-contact-info .pj3-cta{ display:inline-flex; align-items:center; gap:1rem; margin-top:1rem; align-self:flex-start;
+.pj3-contact .pj3-cta{ display:inline-flex; align-items:center; gap:1rem; margin-top:3.4rem; align-self:flex-start;
   height:4.6rem; padding:0 2.2rem; line-height:1; border:1px solid rgba(255,255,255,.4); background:transparent;
   color:#fff!important; text-decoration:none; font-family:var(--font-f-aeonik-mono);
   font-weight:600; font-size:1.2rem; letter-spacing:.08em; text-transform:uppercase;
   transition:background .3s ease, color .3s ease, border-color .3s ease; }
-.pj3-contact-info .pj3-cta:hover{ background:#fff; color:var(--pj3-ink)!important; border-color:#fff; opacity:1 !important; }
-.pj3-contact-info .pj3-cta span{ display:inline-block; transform:translateY(.07em); color:inherit !important; }  /* optical centering + follow button colour on hover (the shared `.pj3-contact-info span{color:#fff}` would otherwise keep the label white-on-white) */
+.pj3-contact .pj3-cta:hover{ background:#fff; color:var(--pj3-ink)!important; border-color:#fff; opacity:1 !important; }
+.pj3-contact .pj3-cta span{ display:inline-block; transform:translateY(.07em); color:inherit !important; }  /* optical centering */
 
 /* ---------- reveal (grid + heading only) ---------- */
 .pj3-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
@@ -391,10 +387,13 @@ main,.scroll{ transform:none!important; }
 .pj3-rise.d1{ transition-delay:.07s } .pj3-rise.d2{ transition-delay:.14s } .pj3-rise.d3{ transition-delay:.21s }
 
 /* ---------- responsive ---------- */
-@media(max-width:1100px){ .pj3-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:1280px){ .pj3-grid{ grid-template-columns:repeat(3,1fr); } }
+@media(max-width:960px){ .pj3-grid{ grid-template-columns:repeat(2,1fr); } }
 @media(max-width:900px){
-  .pj3-banner-inner{ padding:13rem 2.4rem 5rem; gap:3.4rem; }
-  .pj3-baseline{ display:none; }
+  .pj3-banner-inner{ padding:13rem 2.4rem 5rem; gap:2.6rem;
+    grid-template-columns:1fr; align-items:start; }
+  .pj3-hero-lede{ align-self:start; max-width:54rem; margin:0; }
+  .pj3-hero-lede::before{ margin-bottom:1.8rem; }
   .pj3-sec{ padding:6.5rem 0; } .pj3-wrap{ padding:0 2.4rem; }
   .pj3-contact-grid{ grid-template-columns:1fr; gap:3.4rem; align-items:start; }
 }
@@ -1065,7 +1064,6 @@ main,.scroll{ transform:none!important; }
 <h1 class="pj3-hero-title"><span class="lg">Sound</span><span class="sm">Shapes</span><span class="sm">Inspired</span><span class="lg">Spaces<span class="dot"></span></span></h1>
 <p class="pj3-hero-lede">NAAYA provides integrated acoustic design, engineering, materials and delivery solutions for global landmark projects across culture, hospitality, workplace and public spaces.</p>
 </div>
-<div class="pj3-baseline"><span>NAAYA Acoustic Group</span><span>01 &mdash; Projects</span></div>
 </section>
 
 <!-- ===== S2 Selected Projects ===== -->
@@ -1126,14 +1124,12 @@ main,.scroll{ transform:none!important; }
 <div class="pj3-wrap">
 <div class="pj3-contact-grid">
 <div>
-<div class="pj3-contact-mark">Get in touch</div>
-<h2>Let&rsquo;s shape your space<span class="dot">.</span></h2>
-<p class="pj3-contact-sub">From concert halls to private listening rooms — tell us about your project and our acoustic team will respond within two business days.</p>
+<h2>Better acoustics.<br>Better spaces<span class="dot">.</span></h2>
+<p class="pj3-contact-sub">From auditoriums and studios to hospitality, workplace and cultural spaces — share your project with us, get your tailored solutions.</p>
+<a class="pj3-cta" href="mailto:hello@naayaasia.com"><span>Start a project →</span></a>
 </div>
 <div class="pj3-contact-info">
 <div><div class="k">Email</div><a href="mailto:hello@naayaasia.com">hello@naayaasia.com</a></div>
-<div><div class="k">Studio</div><span>Guangzhou, China</span></div>
-<a class="pj3-cta" href="mailto:hello@naayaasia.com"><span>Start a project →</span></a>
 </div>
 </div>
 </div>

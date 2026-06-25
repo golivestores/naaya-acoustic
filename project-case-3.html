@@ -378,13 +378,19 @@ main,.scroll{ transform:none!important; }
 .pc3-step-media{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--pc3-mist); }
 .pc3-step-media img{ width:100%; height:100%; object-fit:cover; }
 .pc3-step.rev{ direction:rtl; } .pc3-step.rev > *{ direction:ltr; }
-/* step 01 — metrics panel (no photo) */
-.pc3-metrics{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--pc3-line);
-  border:1px solid var(--pc3-line); }
-.pc3-metric{ background:var(--pc3-paper); padding:2.8rem; display:flex; flex-direction:column; gap:.8rem; }
-.pc3-metric .mk{ font-family:var(--pc3-mono); font-size:1.05rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pc3-faint); }
-.pc3-metric .mv{ font-size:clamp(2.8rem,3.4vw,3.8rem); font-weight:600; letter-spacing:-.02em; line-height:1; }
-.pc3-metric .mu{ font-size:1.3rem; color:var(--pc3-muted); }
+/* step 01 — metrics panel (no photo, redesigned: red index tick + big numerals;
+   min-height matches a typical image step so the section reads full + consistent) */
+.pc3-metrics{ display:grid; grid-template-columns:1fr 1fr; column-gap:5rem; row-gap:0; }
+.pc3-metric{ position:relative; min-height:21rem; padding:3.4rem 0 3.6rem; border-top:1px solid var(--pc3-line);
+  display:flex; flex-direction:column; }
+.pc3-metric::before{ content:""; position:absolute; top:-1px; left:0; width:3.6rem; height:2px; background:var(--pc3-red); }
+.pc3-metric .mi{ position:absolute; top:3.4rem; right:0; font-family:var(--pc3-mono); font-size:1.05rem;
+  letter-spacing:.1em; color:var(--pc3-faint); }
+.pc3-metric .mk{ display:block; font-family:var(--pc3-mono); font-size:1.05rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--pc3-faint); padding-right:3rem; }
+.pc3-metric .mv{ display:block; margin-top:auto; font-size:clamp(3.4rem,4.4vw,4.8rem); font-weight:600; letter-spacing:-.03em; line-height:.95; }
+.pc3-metric .mv .mu{ font-size:.36em; font-weight:500; letter-spacing:0; color:var(--pc3-muted); margin-left:.12em; }
+.pc3-metric .md{ display:block; font-size:1.35rem; line-height:1.5; color:var(--pc3-muted); margin-top:1.4rem; }
 /* step 06 — data table under the image */
 .pc3-data{ margin-top:1.8rem; border:1px solid var(--pc3-line); }
 .pc3-data-row{ display:grid; grid-template-columns:1.6fr 1fr 1fr; }
@@ -395,43 +401,53 @@ main,.scroll{ transform:none!important; }
   text-transform:uppercase; color:var(--pc3-faint); background:var(--pc3-mist); }
 .pc3-data-row b{ font-weight:600; }
 .pc3-data-row .ok{ color:var(--pc3-red); }
+/* step 04 — material modules (graphic + name, no photos) */
+.pc3-mats{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--pc3-line);
+  border:1px solid var(--pc3-line); }
+.pc3-mat{ background:var(--pc3-paper); color:var(--pc3-ink); padding:2.6rem 2.4rem 2.4rem;
+  display:flex; flex-direction:column; gap:1.6rem; min-height:13rem; transition:background .35s ease, color .35s ease; }
+.pc3-mat-fig{ display:flex; align-items:center; height:3.6rem; color:var(--pc3-ink); }
+.pc3-mat-svg{ width:4.8rem; height:3.6rem; }
+.pc3-mat-name{ margin-top:auto; font-size:1.45rem; font-weight:600; letter-spacing:-.01em; line-height:1.2; }
+.pc3-mat:hover{ background:var(--pc3-ink); color:#fff; }
+.pc3-mat:hover .pc3-mat-fig{ color:var(--pc3-red); }
 
-/* ================= S5 Related projects (identical to projects-3 .pj3-card) ================= */
-.pc3-rel-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; margin-top:4rem; }
+/* ================= S5 Related projects (4-up square — matches projects-3 .pj3-card) ================= */
+.pc3-rel-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; margin-top:4rem; }
 .pc3-card{ position:relative; display:block; overflow:hidden; text-decoration:none; aspect-ratio:1/1; background:var(--pc3-mist); color:#fff; }
 .pc3-card-img{ position:absolute; inset:0; }
 .pc3-card-img img{ width:100%; height:100%; object-fit:cover; transition:transform .9s cubic-bezier(.16,.84,.44,1); }
 .pc3-card:hover .pc3-card-img img{ transform:scale(1.06); }
 .pc3-card::after{ content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(to top, rgba(20,18,18,.92) 0%, rgba(20,18,18,.45) 34%, rgba(20,18,18,0) 62%); }
-.pc3-card-body{ position:absolute; inset:0; z-index:2; padding:2.4rem; display:flex; flex-direction:column; justify-content:space-between; }
-.pc3-card-tag{ align-self:flex-start; display:inline-flex; align-items:center; gap:.7rem;
-  font-size:1.1rem; letter-spacing:.1em; text-transform:uppercase; color:#fff;
-  border:1px solid rgba(255,255,255,.42); border-radius:999px; padding:.5rem 1.1rem .5rem .9rem; }
-.pc3-card-tag .pc3-ic{ width:1.6rem; height:1.6rem; flex:none; }
-.pc3-card h3{ font-size:2.05rem; font-weight:600; line-height:1.14; letter-spacing:-.01em; margin:0; }
-.pc3-card-loc{ margin:.8rem 0 0; font-size:1.25rem; letter-spacing:.03em; color:rgba(255,255,255,.68); }
-.pc3-card-go{ display:inline-flex; align-items:center; gap:.6rem; margin-top:1.4rem; font-size:1.15rem;
+  background:linear-gradient(to top, rgba(20,18,18,.92) 0%, rgba(20,18,18,.42) 36%, rgba(20,18,18,0) 64%); }
+.pc3-card-body{ position:absolute; inset:0; z-index:2; padding:1.9rem; display:flex; flex-direction:column; justify-content:space-between; }
+.pc3-card-tag{ align-self:flex-start; display:inline-flex; align-items:center; gap:.55rem;
+  font-size:.98rem; letter-spacing:.1em; text-transform:uppercase; color:#fff;
+  border:1px solid rgba(255,255,255,.42); border-radius:999px; padding:.45rem 1rem .45rem .8rem; }
+.pc3-card-tag .pc3-ic{ width:1.4rem; height:1.4rem; flex:none; }
+.pc3-card h3{ font-size:1.72rem; font-weight:600; line-height:1.16; letter-spacing:-.01em; margin:0; }
+.pc3-card-loc{ margin:.6rem 0 0; font-size:1.12rem; letter-spacing:.03em; color:rgba(255,255,255,.68); }
+.pc3-card-go{ display:inline-flex; align-items:center; gap:.55rem; margin-top:1.1rem; font-size:1.02rem;
   letter-spacing:.08em; text-transform:uppercase; color:#fff; transition:gap .3s ease; }
-.pc3-card:hover .pc3-card-go{ gap:1.1rem; }
+.pc3-card:hover .pc3-card-go{ gap:1rem; }
 
 /* ================= S6 Get in touch (pc3-contact) ================= */
 .pc3-contact{ background:var(--pc3-ink); color:#fff; }
 .pc3-contact-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:5rem; align-items:end; }
 .pc3-contact-mark{ font-family:var(--pc3-mono); font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.45); }
-.pc3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1; margin:1.6rem 0 0; }
+.pc3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:0; }
 .pc3-contact h2 .dot{ color:var(--pc3-red); }
-.pc3-contact-sub{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); max-width:44rem; margin:2.2rem 0 0; }
+.pc3-contact-sub{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); max-width:44rem; margin:2.6rem 0 0; }
 .pc3-contact-info{ display:flex; flex-direction:column; gap:1.8rem; }
 .pc3-contact-info .k{ font-family:var(--pc3-mono); font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:.4rem; }
 .pc3-contact-info a, .pc3-contact-info span{ color:#fff; text-decoration:none; font-size:1.6rem; display:block; transition:opacity .25s; }
 .pc3-contact-info a:hover{ opacity:.6; }
-.pc3-contact-info .pc3-cta{ display:inline-flex; align-items:center; gap:1rem; margin-top:1rem; align-self:flex-start;
+.pc3-contact .pc3-cta{ display:inline-flex; align-items:center; gap:1rem; margin-top:3.4rem; align-self:flex-start;
   height:4.6rem; padding:0 2.2rem; line-height:1; border:1px solid rgba(255,255,255,.4); background:transparent;
   color:#fff!important; text-decoration:none; font-family:var(--pc3-mono); font-weight:600; font-size:1.2rem;
   letter-spacing:.08em; text-transform:uppercase; transition:background .3s, color .3s, border-color .3s; }
-.pc3-contact-info .pc3-cta:hover{ background:#fff; color:var(--pc3-ink)!important; border-color:#fff; opacity:1!important; }
-.pc3-contact-info .pc3-cta span{ display:inline-block; transform:translateY(.07em); color:inherit!important; }
+.pc3-contact .pc3-cta:hover{ background:#fff; color:var(--pc3-ink)!important; border-color:#fff; opacity:1!important; }
+.pc3-contact .pc3-cta span{ display:inline-block; transform:translateY(.07em); color:inherit!important; }
 
 /* ---------- reveal ---------- */
 .pc3-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
@@ -439,7 +455,9 @@ main,.scroll{ transform:none!important; }
 .pc3-rise.d1{ transition-delay:.08s } .pc3-rise.d2{ transition-delay:.16s } .pc3-rise.d3{ transition-delay:.24s }
 
 /* ---------- responsive ---------- */
-@media(max-width:1100px){ .pc3-gallery,.pc3-rel-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:1280px){ .pc3-rel-grid{ grid-template-columns:repeat(3,1fr); } }
+@media(max-width:1100px){ .pc3-gallery{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:960px){ .pc3-rel-grid{ grid-template-columns:repeat(2,1fr); } }
 @media(max-width:900px){
   .pc3-sec{ padding:7rem 0; } .pc3-wrap{ padding:0 2.4rem; }
   .pc3-hero-inner{ padding:0 2.4rem 11rem; }
@@ -455,7 +473,9 @@ main,.scroll{ transform:none!important; }
 @media(max-width:600px){
   .pc3-gallery,.pc3-rel-grid{ grid-template-columns:1fr; }
   .pc3-meta{ grid-template-columns:1fr; }
-  .pc3-metrics{ grid-template-columns:1fr; }
+  .pc3-metrics{ grid-template-columns:1fr; column-gap:0; }
+  .pc3-metric{ min-height:auto; }
+  .pc3-mats{ grid-template-columns:1fr; }
   .pc3-scrollcue{ display:none; }
 }
 
@@ -1169,14 +1189,14 @@ main,.scroll{ transform:none!important; }
 <p>From design metric to commissioning report, every stage of the OPPO headquarters was simulated, specified and verified against the same acoustic targets.</p>
 </div>
 <div class="pc3-step pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">01</div><h3 class="pc3-step-title">Design targets</h3><p class="pc3-step-desc">We anchored the brief in measurable acoustic criteria — background noise, reverberation time, equipment noise reduction and building sound insulation — agreed per space before any design began.</p></div><div class="pc3-step-right"><div class="pc3-metrics">
-<div class="pc3-metric"><span class="mk">Background noise</span><span class="mv">NC&#8209;35</span><span class="mu">Open office criterion</span></div>
-<div class="pc3-metric"><span class="mk">Reverberation time</span><span class="mv">&le; 0.6<span class="mu"> s</span></span><span class="mu">RT&#8323;&#8320; mid-band</span></div>
-<div class="pc3-metric"><span class="mk">Equipment noise reduction</span><span class="mv">&ge; 25<span class="mu"> dB</span></span><span class="mu">MEP source attenuation</span></div>
-<div class="pc3-metric"><span class="mk">Building sound insulation</span><span class="mv">Rw 50</span><span class="mu">Meeting-room partitions</span></div>
+<div class="pc3-metric"><span class="mi">01</span><span class="mk">Background noise</span><span class="mv">NC&#8209;35</span><span class="md">Open office criterion</span></div>
+<div class="pc3-metric"><span class="mi">02</span><span class="mk">Reverberation time</span><span class="mv">&le;&#8202;0.6<span class="mu">s</span></span><span class="md">RT&#8323;&#8320; mid-band</span></div>
+<div class="pc3-metric"><span class="mi">03</span><span class="mk">Equipment noise reduction</span><span class="mv">&ge;&#8202;25<span class="mu">dB</span></span><span class="md">MEP source attenuation</span></div>
+<div class="pc3-metric"><span class="mi">04</span><span class="mk">Building sound insulation</span><span class="mv">Rw&#8202;50</span><span class="md">Meeting-room partitions</span></div>
 </div></div></div>
 <div class="pc3-step rev pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">02</div><h3 class="pc3-step-title">MEP vibration &amp; noise control</h3><p class="pc3-step-desc">Mechanical, electrical and plumbing systems were modelled as noise sources. We specified vibration isolation, duct silencers and plant-room treatment to keep equipment noise below target at every occupied space.</p></div><div class="pc3-step-right"><div class="pc3-step-media"><img src="assets/case3/mep.webp" alt="MEP noise control engineering" loading="lazy"></div></div></div>
 <div class="pc3-step pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">03</div><h3 class="pc3-step-title">Indoor acoustic simulation</h3><p class="pc3-step-desc">Each critical space was simulated in ODEON — ray-traced sound fields, reverberation decay and speech-clarity mapping — so the design could be tuned and verified before a single panel was ordered.</p></div><div class="pc3-step-right"><div class="pc3-step-media"><img src="assets/services/sim.webp" alt="ODEON acoustic simulation model" loading="lazy"></div></div></div>
-<div class="pc3-step rev pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">04</div><h3 class="pc3-step-title">Materials &amp; supply</h3><p class="pc3-step-desc">Simulated requirements were translated into a concrete material specification, then supplied from NAAYA's own acoustic systems — matched to each surface for performance, finish and fire rating.</p><a class="pc3-step-link" href="product-vega-3.html"><span>View product details</span><span>&rarr;</span></a></div><div class="pc3-step-right"><div class="pc3-step-media"><img src="assets/products/vega/scene-1.webp" alt="NAAYA Vega acoustic wood panels in situ" loading="lazy"></div></div></div>
+<div class="pc3-step rev pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">04</div><h3 class="pc3-step-title">Materials &amp; supply</h3><p class="pc3-step-desc">Simulated requirements were translated into a concrete material specification, then supplied from NAAYA's own acoustic systems — matched to each surface for performance, finish and fire rating.</p></div><div class="pc3-step-right"><div class="pc3-mats"><div class="pc3-mat"><span class="pc3-mat-fig"><svg class="pc3-mat-svg" viewBox="0 0 48 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 7v22M16 7v22M22 7v22M28 7v22M34 7v22M40 7v22"/></svg></span><span class="pc3-mat-name">Grooved Acoustic Panel</span></div><div class="pc3-mat"><span class="pc3-mat-fig"><svg class="pc3-mat-svg" viewBox="0 0 48 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h30M9 18h30M9 24h30M15 8v20M24 8v20M33 8v20"/></svg></span><span class="pc3-mat-name">Fabric Acoustic Panel</span></div><div class="pc3-mat"><span class="pc3-mat-fig"><svg class="pc3-mat-svg" viewBox="0 0 48 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11h32M8 18h32M8 25h32"/><circle cx="17" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="31" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="24" cy="21.5" r="1.1" fill="currentColor" stroke="none"/></svg></span><span class="pc3-mat-name">Seamless Acoustic Ceiling</span></div><div class="pc3-mat"><span class="pc3-mat-fig"><svg class="pc3-mat-svg" viewBox="0 0 48 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10h30M9 26h30"/><path d="M18 14l4 4-4 4M27 14l4 4-4 4"/></svg></span><span class="pc3-mat-name">Duct Silencer</span></div><div class="pc3-mat"><span class="pc3-mat-fig"><svg class="pc3-mat-svg" viewBox="0 0 48 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="7" width="15" height="22" rx=".6"/><circle cx="22.5" cy="18" r="1" fill="currentColor" stroke="none"/><path d="M31 13a7 7 0 0 1 0 10M35.5 10a12 12 0 0 1 0 16"/></svg></span><span class="pc3-mat-name">Sound Insulation Door</span></div><div class="pc3-mat"><span class="pc3-mat-fig"><svg class="pc3-mat-svg" viewBox="0 0 48 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 27h32"/><path d="M11 27v-6M15 27v-8M19 27v-5M23 27v-7M27 27v-8M31 27v-5M35 27v-7M39 27v-6"/></svg></span><span class="pc3-mat-name">Carpet</span></div></div></div></div>
 <div class="pc3-step pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">05</div><h3 class="pc3-step-title">Construction guidance &amp; service</h3><p class="pc3-step-desc">Our team guided on-site installation — detailing, sequencing and quality checks — so the as-built result matched the modelled design and the agreed acoustic targets.</p></div><div class="pc3-step-right"><div class="pc3-step-media"><img src="assets/case3/construction.webp" alt="On-site acoustic panel installation" loading="lazy"></div></div></div>
 <div class="pc3-step rev pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">06</div><h3 class="pc3-step-title">Testing &amp; commissioning</h3><p class="pc3-step-desc">Completed spaces were measured against the original criteria. Every key metric met or exceeded its target, documented in a signed commissioning report.</p><div class="pc3-data">
 <div class="pc3-data-row h"><span>Metric</span><span>Target</span><span>Measured</span></div>
@@ -1199,6 +1219,7 @@ main,.scroll{ transform:none!important; }
 <a class="pc3-card pc3-rise" href="project-case-2.html"><div class="pc3-card-img"><img src="assets/projects/case-opera.webp" alt="Metropolitan Opera House" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.6h18"/><path d="M6 4.6c-1.2 3.6-1.2 8.3 0 11.9"/><path d="M9.4 4.6c1 3.6 1 8.3 0 11.9"/><path d="M14.6 4.6c-1 3.6-1 8.3 0 11.9"/><path d="M18 4.6c1.2 3.6 1.2 8.3 0 11.9"/><path d="M3 20.4h18"/></svg>Theatres</span><div class="pc3-card-bottom"><h3>Metropolitan Opera House</h3><p class="pc3-card-loc">Vienna, AT &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
 <a class="pc3-card pc3-rise d1" href="project-case.html"><div class="pc3-card-img"><img src="assets/projects/case-golden.webp" alt="The Golden Ballroom" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pc3-card-bottom"><h3>The Golden Ballroom</h3><p class="pc3-card-loc">Dubai, AE &middot; 2025</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
 <a class="pc3-card pc3-rise d2" href="project-case.html"><div class="pc3-card-img"><img src="assets/projects/case-hall.webp" alt="Riverside Grand Auditorium" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums</span><div class="pc3-card-bottom"><h3>Riverside Grand Auditorium</h3><p class="pc3-card-loc">Shenzhen, CN &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
+<a class="pc3-card pc3-rise d3" href="project-case-2.html"><div class="pc3-card-img"><img src="assets/projects/case-hero.webp" alt="Helix Headquarters" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pc3-card-bottom"><h3>Helix Headquarters</h3><p class="pc3-card-loc">Amsterdam, NL &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
 </div>
 </div>
 </section>
@@ -1208,14 +1229,12 @@ main,.scroll{ transform:none!important; }
 <div class="pc3-wrap">
 <div class="pc3-contact-grid">
 <div>
-<div class="pc3-contact-mark">Get in touch</div>
-<h2>Let&rsquo;s shape your space<span class="dot">.</span></h2>
-<p class="pc3-contact-sub">From corporate campuses to concert halls &mdash; tell us about your project and our acoustic team will respond within two business days.</p>
+<h2>Tailored acoustics<br>for your project<span class="dot">.</span></h2>
+<p class="pc3-contact-sub">Tell us about your space, and our acoustic team will develop a solution shaped around its purpose, performance and design needs.</p>
+<a class="pc3-cta" href="mailto:hello@naayaasia.com"><span>Start a project &rarr;</span></a>
 </div>
 <div class="pc3-contact-info">
 <div><div class="k">Email</div><a href="mailto:hello@naayaasia.com">hello@naayaasia.com</a></div>
-<div><div class="k">Studio</div><span>Guangzhou, China</span></div>
-<a class="pc3-cta" href="mailto:hello@naayaasia.com"><span>Start a project &rarr;</span></a>
 </div>
 </div>
 </div>
