@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand — NAAYA Acoustic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/naaya.css">
+<style>
+  /* ============================================
+     index-4 ONLY skin — Inter + White × #231f20
+     (overrides the shared naaya.css; does not touch
+      index-1/2/3 which share the same stylesheet)
+     ============================================ */
+
+  /* --- Typeface: single typeface (Inter) across the whole page,
+         à la Kvadrat. Remaps the shared --font-f-aeonik-* vars. --- */
+  :root{
+    --font-f-aeonik-pro:  'Inter', system-ui, -apple-system, sans-serif;
+    --font-f-aeonik-mono: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  html, body, body *:not(i):not([class*="fa-"]):not([class*="glyphicon"]){
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* --- Color skin: pure white canvas, single warm-near-black ink --- */
+  :root{
+    --color-cream: #ffffff;   /* page background */
+    --color-black: #231f20;   /* primary ink / text */
+    --color-grey:  #231f20;
+  }
+  html, body{ background:#ffffff; color:#231f20; }
+  main, .main{ background:#ffffff; }
+
+  /* --- Remove the arrow-diamond icon from all buttons/links --- */
+  .site-nav-cta-arrow, .arrow-svg{ display:none !important; }
+
+  /* --- Product Collection: prev/next arrows on the sides, centred on the image band --- */
+  .collection-track-wrap > .collection-nav-btn{
+    position:absolute;
+    top:17.3rem;                 /* centre of a 26rem card's 3/4 image */
+    transform:translateY(-50%);
+    z-index:5;
+    background:#ffffff;
+    border-color:color-mix(in srgb, var(--color-black) 12%, transparent);
+    box-shadow:0 .4rem 1.6rem rgba(0,0,0,.14);
+  }
+  .collection-track-wrap > .collection-nav-btn.prev{ left:1.6rem; }
+  .collection-track-wrap > .collection-nav-btn.next{ right:1.6rem; }
+  @media(max-width:900px){
+    .collection-track-wrap > .collection-nav-btn{ top:14.7rem; }  /* 22rem card */
+  }
+  @media(max-width:600px){
+    .collection-track-wrap > .collection-nav-btn{ display:none; } /* swipe on mobile */
+  }
+  .collection-nav-count{ margin-left:0; }
+
+  /* --- Footer: solid colour, no background photo --- */
+  .footer .background[data-v-b5a28948]{ display:none; }
+  .footer[data-v-b5a28948]{ background:#231f20; }          /* SCHEME A — Deep Ink */
+  @media(min-width:1101px){
+    .footer-content{ grid-template-columns:1.6fr 1fr 1fr 1.4fr; }  /* 4 cols (Resources removed) */
+  }
+
+  /* --- Product Collection: material label removed → keep the model count right-aligned --- */
+  .cat-card-top{ justify-content:flex-end; }
+
+  /* --- Brand logo: nav swaps white(over hero) / black(scrolled on white) --- */
+  .site-nav-logo{ display:inline-flex; align-items:center; }
+  /* default (inline) = black logo shown; over the hero (not scrolled) swap to white */
+  .site-nav:not(.is-scrolled) .logo-light{ display:block !important; }
+  .site-nav:not(.is-scrolled) .logo-dark{ display:none !important; }
+  /* footer mark: small, natural aspect (defeat global img{width:100%}) --- */
+  .footer-brand-logo{ height:2.4rem !important; width:auto !important; display:block; margin-bottom:2rem; }
+
+  /* --- Calculator footnote: longer sentence copy, readable (not uppercase) --- */
+  .calc-foot{
+    text-transform:none;
+    letter-spacing:0;
+    font-size:1.25rem;
+    line-height:1.5;
+    max-width:42rem;
+    margin-top:1.4rem;
+  }
+
+  /* --- About mosaic: 5 images, Direction C (two-row balanced filmstrip) --- */
+  .about-mosaic-grid{
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-rows:23rem 18rem;
+    grid-template-areas:
+      "m1 m1 m2 m2"
+      "m3 m4 m4 m5";
+  }
+
+  /* ============================================
+     Mega menu — 16 Naaya Collections + spec tags
+     (index-4 only; overrides shared naaya.css)
+     ============================================ */
+  /* Left list: 16 compact rows, internal scroll on short viewports */
+  .mega-cats-v2 .mcat-list{
+    gap:0;
+    max-height:min(58rem, 74vh);
+    overflow-y:auto;
+    padding-right:.9rem;
+  }
+  .mega-cats-v2 .mcat-list::-webkit-scrollbar{ width:4px; }
+  .mega-cats-v2 .mcat-list::-webkit-scrollbar-thumb{
+    background:color-mix(in srgb, var(--color-black) 18%, transparent); border-radius:2px;
+  }
+  .mega-cats-v2 .mcat-item{ padding:.6rem 0; }
+  .mega-cats-v2 .mcat-name{ font-size:1.45rem; }
+  .mega-cats-v2 .mcat-all{ margin-top:1rem; padding-top:1.1rem; }
+
+  /* Right detail: a touch taller so specs + thumbs never clip */
+  .mega-cats-v2 .mcat-detail{ min-height:46rem; }
+
+  /* Spec tags — 2×2 grid, icon + label + value */
+  .mcat-specs{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:1.4rem 2.6rem; margin-top:.2rem; max-width:48rem;
+  }
+  .mcat-spec{ display:flex; align-items:center; gap:1.1rem; }
+  .mcat-spec svg{
+    width:2.2rem; height:2.2rem; flex:none;
+    color:var(--color-black); opacity:.82;
+  }
+  .ms-text{ display:flex; flex-direction:column; line-height:1.18; }
+  .ms-label{
+    font-family:var(--font-f-aeonik-mono);
+    font-size:1rem; letter-spacing:.12em; text-transform:uppercase;
+    color:color-mix(in srgb, var(--color-black) 45%, transparent);
+  }
+  .ms-val{
+    font-size:1.5rem; font-weight:500; letter-spacing:-.01em;
+    color:var(--color-black);
+  }
+
+  /* Thumbs: 2 up, sized down to sit beside the specs */
+  .mega-cats-v2 .mcat-pane-thumbs{
+    grid-template-columns:repeat(2, 1fr);
+    max-width:38rem; gap:1.2rem;
+  }
+
+  @media(max-width:1100px){
+    .mega-cats-v2 .mcat-list{ max-height:none; overflow:visible; }
+    .mega-cats-v2 .mcat-detail{ min-height:0; }
+    .mcat-specs{ max-width:none; }
+    .mega-cats-v2 .mcat-pane-thumbs{ max-width:none; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+
+
+<style id="cl-skin">
+/* ============================================================
+   Product collection page — catalogue index. Type-first head,
+   hairline spec-dense series cards, selector + finishes +
+   certifications. .cl-* unique. 1rem ~ 10px @1600.
+   ============================================================ */
+main,.scroll{ transform:none!important; }
+
+/* ---- scroll-reveal motion (shared util) ---- */
+.ab-rise{ opacity:0; transform:translateY(2.6rem); transition:opacity .9s ease, transform .9s cubic-bezier(.16,1,.3,1); will-change:opacity,transform; }
+.ab-rise.in{ opacity:1; transform:none; }
+.ab-rise-img img{ transform:scale(1.06); transition:transform 1.4s cubic-bezier(.16,1,.3,1); }
+.ab-rise-img.in img{ transform:scale(1); }
+@media(prefers-reduced-motion:reduce){
+  .ab-rise,.ab-rise.in{ opacity:1; transform:none; transition:none; }
+  .ab-rise-img img,.ab-rise-img.in img{ transform:none; transition:none; }
+}
+
+:root{
+  --cl-muted:color-mix(in srgb,var(--color-black) 64%,transparent);
+  --cl-faint:color-mix(in srgb,var(--color-black) 44%,transparent);
+  --cl-hair:color-mix(in srgb,var(--color-black) 12%,transparent);
+}
+.cl-wrap{ max-width:164rem; margin:0 auto; padding:0 5rem; }
+@media(max-width:900px){ .cl-wrap{ padding:0 3.4rem; } }
+@media(max-width:600px){ .cl-wrap{ padding:0 2rem; } }
+.cl-mono{ font-family:var(--font-f-aeonik-mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; }
+.cl-sec{ margin:13rem 0; }
+@media(max-width:600px){ .cl-sec{ margin:7rem 0; } }
+.cl-secmark{ font-family:var(--font-f-aeonik-mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; color:var(--cl-faint); margin-bottom:3.2rem; }
+.cl-lead{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:clamp(2.4rem,2.4vw,3.8rem); letter-spacing:-.025em; line-height:1.25; color:var(--color-black); margin:0; max-width:30ch; }
+
+/* ---- S1 Hero — full-bleed product texture ---- */
+.cl-hero{ position:relative; min-height:84svh; display:flex; flex-direction:column; background:#0e0c0c; overflow:hidden; }
+.cl-hero-bg{ position:absolute; inset:0; z-index:0; }
+.cl-hero-bg img{ width:100%; height:100%; object-fit:cover; opacity:.88; display:block; }
+.cl-hero-bg::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,8,8,.52) 0%,rgba(10,8,8,.16) 45%,rgba(10,8,8,.84) 100%); }
+.cl-hero-inner{ position:relative; z-index:2; margin-top:auto; width:100%; max-width:164rem; margin-left:auto; margin-right:auto; padding:16rem 5rem 6rem; }
+.cl-meta{ display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; color:rgba(255,255,255,.62); margin-bottom:4.2rem; }
+.cl-title{ font-family:var(--font-f-aeonik-pro); font-weight:400; letter-spacing:-.04em; line-height:.98; font-size:clamp(5rem,7vw,11.8rem); color:#fff; margin:0; max-width:12ch; }
+.cl-sub{ display:flex; justify-content:space-between; align-items:flex-end; gap:5rem; margin-top:4rem; flex-wrap:wrap; }
+.cl-sub > p{ font-family:var(--font-f-aeonik-pro); font-size:1.7rem; line-height:1.6; color:rgba(255,255,255,.78); max-width:46rem; margin:0; }
+.cl-facts{ display:flex; gap:4.2rem; flex-wrap:wrap; }
+@media(max-width:600px){ .cl-facts{ display:grid; grid-template-columns:1fr 1fr; gap:2.6rem 2.4rem; width:100%; } .cl-fact:last-child{ grid-column:1/-1; } }
+.cl-fact .k{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.55); margin-bottom:.7rem; }
+.cl-fact .v{ font-family:var(--font-f-aeonik-pro); font-size:1.5rem; font-weight:500; letter-spacing:-.01em; color:#fff; }
+@media(max-width:900px){ .cl-hero-inner{ padding:14rem 3.4rem 5rem; } }
+@media(max-width:600px){ .cl-hero-inner{ padding:12rem 2rem 4.2rem; } .cl-meta{ margin-bottom:3rem; } .cl-meta span:last-child{ display:none; } }
+@media(max-height:700px) and (max-width:600px){ .cl-hero-inner{ padding-bottom:2.6rem; } .cl-sub{ margin-top:2.6rem; } }
+
+/* ---- S2 Index : filter ---- */
+.cl-filter{ display:flex; flex-wrap:wrap; gap:.8rem; margin:5rem 0 0; }
+@media(max-width:600px){
+  .cl-filter{ margin-top:3.4rem; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin-left:-2rem; margin-right:-2rem; padding:0 2rem; }
+  .cl-filter::-webkit-scrollbar{ display:none; }
+  .cl-chip{ white-space:nowrap; flex:0 0 auto; }
+}
+.cl-chip{ appearance:none; -webkit-appearance:none; background:transparent; cursor:pointer; font-family:var(--font-f-aeonik-mono); font-size:1.2rem; letter-spacing:.08em; text-transform:uppercase; color:color-mix(in srgb,var(--color-black) 62%,transparent); border:1px solid color-mix(in srgb,var(--color-black) 22%,transparent); padding:1rem 1.6rem; transition:color .25s ease, border-color .25s ease, background .25s ease; }
+.cl-chip sup{ font-size:.9rem; margin-left:.5rem; color:color-mix(in srgb,var(--color-black) 38%,transparent); }
+.cl-chip:hover{ color:var(--color-black); border-color:color-mix(in srgb,var(--color-black) 50%,transparent); }
+.cl-chip.is-active{ background:var(--color-black); color:var(--color-white); border-color:var(--color-black); }
+.cl-chip.is-active sup{ color:rgba(255,255,255,.6); }
+
+/* ---- S2 Index : series cards ---- */
+.cl-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:5.4rem 1.6rem; margin-top:5.6rem; }
+@media(max-width:1280px){ .cl-grid{ grid-template-columns:repeat(3,1fr); } }
+@media(max-width:1100px){ .cl-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:600px){ .cl-grid{ grid-template-columns:1fr; gap:0; margin-top:4rem; } }
+.cl-card{ display:block; text-decoration:none; color:inherit; border-top:1px solid var(--cl-hair); padding-top:1.3rem; }
+.cl-card-bar{ display:flex; justify-content:space-between; gap:1rem 2rem; flex-wrap:wrap; font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.1em; text-transform:uppercase; color:var(--cl-faint); margin-bottom:1.3rem; }
+.cl-card-img{ overflow:hidden; background:#f4f2f0; }
+.cl-card-img img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; transition:transform 1.1s cubic-bezier(.16,1,.3,1); }
+.cl-card:hover .cl-card-img img{ transform:scale(1.04); }
+.cl-card h3{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:2.3rem; letter-spacing:-.01em; color:var(--color-black); margin:1.6rem 0 .8rem; }
+.cl-card .d{ font-family:var(--font-f-aeonik-pro); font-size:1.45rem; line-height:1.55; color:var(--cl-muted); margin:0; }
+.cl-card .s{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--cl-faint); margin-top:1.4rem; }
+.cl-card .f{ display:inline-block; margin-top:1.4rem; font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-black); border-bottom:1px solid color-mix(in srgb,var(--color-black) 35%,transparent); padding-bottom:.3rem; transition:border-color .25s ease; }
+.cl-card:hover .f{ border-bottom-color:var(--color-black); }
+/* mobile: compact thumb-row catalogue */
+@media(max-width:600px){
+  .cl-card{ display:grid; grid-template-columns:10.4rem 1fr; gap:0 1.8rem; padding:2rem 0; }
+  .cl-card-bar{ grid-column:2; order:1; margin-bottom:.6rem; }
+  .cl-card-img{ grid-column:1; grid-row:1 / span 4; align-self:start; }
+  .cl-card-img img{ aspect-ratio:1/1; }
+  .cl-card h3{ grid-column:2; order:2; font-size:1.9rem; margin:0 0 .5rem; }
+  .cl-card .d{ grid-column:2; order:3; font-size:1.35rem; }
+  .cl-card .s{ grid-column:2; order:4; margin-top:1rem; }
+  .cl-card .f{ grid-column:2; order:5; justify-self:start; margin-top:1rem; }
+}
+
+/* ---- S3 By need : 4 quiet tiles ---- */
+.cl-need{ display:grid; grid-template-columns:repeat(4,1fr); gap:4.8rem; margin-top:5.2rem; }
+@media(max-width:980px){ .cl-need{ grid-template-columns:1fr 1fr; gap:4rem; } }
+@media(max-width:560px){ .cl-need{ grid-template-columns:1fr; gap:3.2rem; } }
+.cl-need-item .n{ font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.12em; color:var(--cl-faint); }
+.cl-need-item h3{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:2.1rem; letter-spacing:-.01em; color:var(--color-black); margin:1.4rem 0 1rem; }
+.cl-need-item p{ font-family:var(--font-f-aeonik-pro); font-size:1.45rem; line-height:1.6; color:var(--cl-muted); margin:0 0 1.4rem; }
+.cl-need-item .ls{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-black); line-height:2; }
+
+/* ---- S4 Finishes ---- */
+.cl-fin{ display:grid; grid-template-columns:repeat(4,1fr); gap:4.8rem; margin-top:5.2rem; }
+@media(max-width:980px){ .cl-fin{ grid-template-columns:1fr 1fr; gap:4rem; } }
+@media(max-width:560px){ .cl-fin{ grid-template-columns:1fr; gap:3.2rem; } }
+.cl-fin-col{ border-top:1px solid var(--cl-hair); padding-top:1.6rem; }
+.cl-fin-col .k{ display:flex; justify-content:space-between; gap:2rem; font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-black); }
+.cl-fin-col .k em{ font-style:normal; color:var(--cl-faint); }
+.cl-fin-col p{ font-family:var(--font-f-aeonik-pro); font-size:1.4rem; line-height:1.65; color:var(--cl-muted); margin:1.2rem 0 0; }
+
+/* ---- S5 Certifications ---- */
+.cl-certs{ border-top:1px solid var(--cl-hair); margin-top:5.2rem; }
+.cl-cert{ display:grid; grid-template-columns:16rem 1fr auto; gap:3rem; padding:2rem 0; border-bottom:1px solid var(--cl-hair); align-items:baseline; }
+@media(max-width:700px){ .cl-cert{ grid-template-columns:1fr; gap:.5rem; padding:1.8rem 0; } }
+.cl-cert .c{ font-family:var(--font-f-aeonik-mono); font-size:1.2rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-black); }
+.cl-cert .w{ font-family:var(--font-f-aeonik-pro); font-size:1.5rem; color:var(--cl-muted); }
+.cl-cert .x{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--cl-faint); }
+
+/* ---- S6 CTA ---- */
+.cl-cta{ display:flex; justify-content:space-between; align-items:center; gap:3rem; flex-wrap:wrap; margin-top:6.4rem; padding-top:6.4rem; border-top:1px solid var(--cl-hair); }
+.cl-cta p{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:clamp(2.4rem,2.6vw,3.8rem); letter-spacing:-.025em; margin:0; max-width:22ch; }
+.cl-cta-btns{ display:flex; gap:1.2rem; flex-wrap:wrap; }
+.cl-btn{ font-family:var(--font-f-aeonik-mono); font-size:1.3rem; letter-spacing:.06em; text-transform:uppercase; padding:1.6rem 2.8rem; text-decoration:none; border:1px solid var(--color-black); color:var(--color-black); }
+.cl-btn.solid{ background:var(--color-black); color:#fff; }
+.cl-end{ height:13rem; }
+@media(max-width:600px){ .cl-end{ height:7rem; } }
+</style>
+
+
+
+<style id="bd">
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap');
+/* ============================================
+   brand.html — brand page (.bd-*) · tokens & type match index-4
+   ============================================ */
+:root{
+  --bd-ink:#231f20; --bd-paper:#fff; --bd-mist:color-mix(in srgb, #231f20 4%, #fff);
+  --bd-line:rgba(35,31,32,.13); --bd-muted:rgba(35,31,32,.58); --bd-faint:rgba(35,31,32,.4);
+  --bd-red:#e3261b; --bd-mono:ui-monospace,'SF Mono',Menlo,monospace;
+}
+
+/* ================= S1 Hero — Editorial split (image <=68vh / text) ================= */
+.bd-hero{ min-height:100svh; display:grid; align-items:center; background:var(--bd-paper);
+  color:var(--bd-ink); padding:10rem 0 4rem; }
+.bd-wrap{ width:100%; max-width:152rem; margin:0 auto; padding:0 4rem; }
+.bd-grid{ display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:center; }
+.bd-grid > *{ min-width:0; }
+
+.bd-fig{ height:min(68svh,640px); overflow:hidden; background:var(--bd-mist); margin:0; }
+.bd-fig img{ width:100%; height:100%; object-fit:cover; }
+
+.bd-eye{ display:inline-flex; align-items:center; gap:1.1rem; font-family:var(--bd-mono);
+  font-size:1.15rem; letter-spacing:.22em; text-transform:uppercase; color:var(--bd-red); margin-bottom:2.6rem; }
+.bd-eye::before{ content:""; width:2.6rem; height:1px; background:var(--bd-red); }
+.bd-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
+  overflow:visible!important; margin:0; font-weight:800; line-height:1; letter-spacing:-.03em;
+  font-size:clamp(3rem,3.9vw,4.8rem); color:var(--bd-ink); }
+.bd-title .dot{ color:var(--bd-red); }
+.bd-lede{ font-size:clamp(1.55rem,1.6vw,1.85rem); line-height:1.58; color:var(--bd-muted);
+  max-width:46rem; margin:2.6rem 0 0; }
+
+.bd-services{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.6rem; margin-top:4rem;
+  padding-top:2.8rem; border-top:1px solid var(--bd-line); }
+.bd-s .n{ font-family:var(--bd-mono); font-size:1.05rem; color:var(--bd-red); }
+.bd-s .k{ font-size:1.35rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--bd-ink); margin:.9rem 0 .7rem; }
+.bd-s .d{ font-size:1.3rem; line-height:1.48; color:var(--bd-muted); }
+
+/* ---------- reveal ---------- */
+.bd-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
+.bd-rise.in{ opacity:1; transform:none; }
+.bd-rise.d1{ transition-delay:.1s } .bd-rise.d2{ transition-delay:.2s }
+
+/* ---------- responsive ---------- */
+@media(max-width:900px){
+  .bd-hero{ min-height:auto; display:block; padding:13rem 0 6rem; }
+  .bd-wrap{ padding:0 2.4rem; }
+  .bd-grid{ grid-template-columns:1fr; gap:3.4rem; }
+  .bd-fig{ height:46svh; }
+}
+@media(max-width:600px){
+  .bd-services{ grid-template-columns:1fr; gap:2.4rem; }
+  .bd-fig{ height:auto; aspect-ratio:16/11; }
+}
+
+/* ================= shared (S2/S3) ================= */
+.bd-sec{ background:var(--bd-paper); color:var(--bd-ink); padding:13rem 0; }
+.bd-eyebrow{ display:inline-block; font-family:var(--bd-mono); font-size:1.3rem; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--bd-red); margin:0 0 2.8rem; }
+.bd-display{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
+  overflow:visible!important; margin:0; font-weight:800; font-size:clamp(3.4rem,4.8vw,6rem);
+  line-height:.98; letter-spacing:-.03em; color:var(--bd-ink); }
+.bd-display .dot{ color:var(--bd-red); }
+
+/* ================= S2 · Who we are ================= */
+.bd-who-grid{ display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:start; }
+.bd-who-grid > *{ min-width:0; }
+.bd-lead{ font-size:clamp(1.9rem,2.1vw,2.6rem); line-height:1.34; letter-spacing:-.012em; color:var(--bd-ink); margin:0; }
+.bd-body{ font-size:1.6rem; line-height:1.62; color:var(--bd-muted); margin:2.8rem 0 0; }
+.bd-statement{ display:flex; gap:2.2rem; margin:3.8rem 0 0; }
+.bd-statement::before{ content:""; flex:none; width:3px; background:var(--bd-red); align-self:stretch; }
+.bd-statement p{ font-size:clamp(1.9rem,2vw,2.4rem); font-weight:700; line-height:1.28; letter-spacing:-.015em; color:var(--bd-ink); margin:0; }
+
+/* ================= S3 · What we do ================= */
+.bd-what-top{ display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:start; margin-bottom:5.5rem; }
+.bd-what-top > *{ min-width:0; }
+.bd-what-intro{ font-size:clamp(1.8rem,2vw,2.4rem); line-height:1.42; letter-spacing:-.01em; color:var(--bd-ink); margin:0; }
+.bd-grid8{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--bd-line); border:1px solid var(--bd-line); }
+.bd-cell{ background:var(--bd-paper); padding:3.4rem 2.8rem 4rem; transition:background .35s ease; }
+.bd-cell .num{ font-family:var(--bd-mono); font-size:1.2rem; letter-spacing:.1em; color:var(--bd-faint); transition:color .35s ease; }
+.bd-cell .t{ font-size:1.9rem; font-weight:700; letter-spacing:-.012em; line-height:1.12; margin:3.4rem 0 1.5rem; color:var(--bd-ink); transition:color .35s ease; }
+.bd-cell .d{ font-size:1.45rem; line-height:1.55; color:var(--bd-muted); transition:color .35s ease; }
+.bd-cell:hover{ background:var(--bd-ink); }
+.bd-cell:hover .num{ color:var(--bd-red); }
+.bd-cell:hover .t{ color:#fff; }
+.bd-cell:hover .d{ color:rgba(255,255,255,.66); }
+
+@media(max-width:1100px){ .bd-grid8{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:900px){
+  .bd-sec{ padding:8rem 0; }
+  .bd-who-grid,.bd-what-top{ grid-template-columns:1fr; gap:3rem; }
+  .bd-what-top{ margin-bottom:4rem; }
+}
+@media(max-width:600px){ .bd-grid8{ grid-template-columns:1fr; } }
+
+/* ================= S4 · Simulations & Analysis ================= */
+.bd-sim-grid{ display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:stretch; }
+.bd-sim-grid > *{ min-width:0; }
+.bd-sim-lead{ font-size:clamp(1.85rem,2.05vw,2.5rem); line-height:1.36; letter-spacing:-.012em; color:var(--bd-ink); margin:3rem 0 0; }
+.bd-sim-body{ font-size:1.55rem; line-height:1.6; color:var(--bd-muted); margin:2.4rem 0 0; }
+.bd-tools{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--bd-line);
+  border:1px solid var(--bd-line); margin-top:3.4rem; }
+.bd-tool{ background:var(--bd-paper); aspect-ratio:8/5; display:flex; align-items:center; justify-content:center; padding:1.9rem 1.7rem; }
+.bd-tool img{ width:auto!important; height:auto; max-width:100%; max-height:100%; object-fit:contain;
+  filter:grayscale(1); opacity:.5; transition:filter .35s ease, opacity .35s ease; }
+.bd-tool:hover img{ filter:none; opacity:1; }
+.bd-sim-fig{ position:relative; min-height:46rem; overflow:hidden; background:var(--bd-mist); }
+.bd-sim-fig img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+@media(max-width:900px){
+  .bd-sim-grid{ grid-template-columns:1fr; gap:3.4rem; }
+  .bd-sim-fig{ min-height:0; aspect-ratio:16/11; }
+  .bd-tools{ grid-template-columns:repeat(3,1fr); }
+}
+@media(max-width:600px){ .bd-tools{ grid-template-columns:repeat(2,1fr); } }
+
+/* ================= S5 · How we work (dark) ================= */
+.bd-dark{ background:#141312; color:#fff; }
+.bd-dark .bd-display{ color:#fff; }
+.bd-flow-intro{ font-size:clamp(1.6rem,1.7vw,2rem); line-height:1.55; color:rgba(255,255,255,.6); max-width:64rem; margin:3rem 0 0; }
+.bd-flow{ margin-top:7rem; }
+.bd-flow-track{ display:grid; grid-template-columns:repeat(6,1fr); gap:2.4rem; position:relative; }
+.bd-flow-track::before{ content:""; position:absolute; left:4.2rem; right:0; top:4.2rem; height:1px; background:rgba(255,255,255,.18); z-index:0; }
+.bd-step{ position:relative; }
+.bd-step-c{ width:8.4rem; height:8.4rem; border-radius:50%; border:1px solid rgba(255,255,255,.28);
+  background:#141312; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
+.bd-step-c span{ font-family:var(--bd-mono); font-size:1.35rem; letter-spacing:.06em; color:#fff; }
+.bd-step-t{ font-size:1.7rem; font-weight:700; line-height:1.14; letter-spacing:-.01em; margin:2.6rem 0 0; color:#fff; }
+.bd-step-d{ font-size:1.4rem; line-height:1.5; color:rgba(255,255,255,.55); margin:1.4rem 0 0; }
+@media(max-width:900px){
+  .bd-flow{ margin-top:5rem; }
+  .bd-flow-track{ grid-template-columns:repeat(2,1fr); gap:3.6rem 2.4rem; }
+  .bd-flow-track::before{ display:none; }
+}
+@media(max-width:600px){ .bd-flow-track{ grid-template-columns:1fr; } }
+
+/* ================= S6 · Who we served (logo grid — spec-sheet) ================= */
+.bd-served-head{ max-width:66rem; }
+.bd-served-grid{ margin-top:5rem; display:grid; grid-template-columns:repeat(9,1fr); gap:1px;
+  background:var(--bd-line); border:1px solid var(--bd-line); }
+.bd-served-cell{ background:var(--bd-paper); aspect-ratio:3/2; display:flex; align-items:center;
+  justify-content:center; padding:1.7rem 1.9rem; }
+.bd-served-cell img{ max-width:100%; max-height:100%; object-fit:contain; filter:grayscale(1); opacity:.62;
+  transition:filter .35s ease, opacity .35s ease; }
+.bd-served-cell:hover img{ filter:none; opacity:1; }
+@media(max-width:1100px){ .bd-served-grid{ grid-template-columns:repeat(6,1fr); } }
+/* mobile: one-screen-height horizontal swipe (rows fixed, columns overflow) */
+@media(max-width:600px){
+  .bd-served-grid{ margin-top:3rem; grid-template-columns:none; grid-template-rows:repeat(5,1fr);
+    grid-auto-flow:column; grid-auto-columns:34%; height:min(58svh,40rem);
+    overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity; scrollbar-width:none; }
+  .bd-served-grid::-webkit-scrollbar{ display:none; }
+  .bd-served-cell{ aspect-ratio:auto; scroll-snap-align:start; padding:1.4rem 1.5rem; }
+}
+
+/* ================= S7 · Manufacturing capability ================= */
+.bd-mfg-top{ display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:start; margin-bottom:5rem; }
+.bd-mfg-top > *{ min-width:0; }
+.bd-mfg-intro{ font-size:clamp(1.7rem,1.85vw,2.2rem); line-height:1.5; letter-spacing:-.01em; color:var(--bd-ink); margin:0; }
+.bd-fac{ display:grid; grid-template-columns:repeat(6,1fr); gap:1.6rem; }
+.bd-fac-tile{ position:relative; aspect-ratio:3/2; overflow:hidden; background:var(--bd-mist); margin:0; }
+.bd-fac-tile img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:grayscale(1); transition:filter .45s ease, transform .6s cubic-bezier(.16,.84,.44,1); }
+.bd-fac-tile:hover img{ filter:none; transform:scale(1.05); }
+.bd-fac-tile figcaption{ position:absolute; left:0; bottom:0; z-index:2; margin:0; font-family:var(--bd-mono);
+  font-size:1.05rem; letter-spacing:.06em; color:#fff; background:rgba(20,18,18,.74); padding:.7rem 1rem;
+  opacity:0; transform:translateY(.6rem); transition:opacity .35s ease, transform .35s ease; }
+.bd-fac-tile:hover figcaption{ opacity:1; transform:none; }
+@media(max-width:1100px){ .bd-mfg-top{ grid-template-columns:1fr; gap:3rem; } .bd-fac{ grid-template-columns:repeat(4,1fr); } }
+@media(max-width:600px){ .bd-fac{ grid-template-columns:repeat(2,1fr); gap:1rem; } }
+
+/* ================= S8 · Contact us (Sound/Shapes/Inspired/Spaces) ================= */
+.bd-contact{ background:#000; color:#fff; }
+.bd-cu-grid{ display:grid; grid-template-columns:1.12fr .88fr; gap:6rem; align-items:center; margin-top:1.2rem; }
+.bd-cu-grid > *{ min-width:0; }
+.bd-cu-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important; overflow:visible!important;
+  margin:0; font-weight:800; line-height:.9; letter-spacing:-.035em; color:#fff; }
+.bd-cu-title span{ display:block; }
+.bd-cu-title .lg{ font-size:clamp(4rem,8.6vw,11.5rem); }
+.bd-cu-title .sm{ font-size:clamp(2.3rem,4.8vw,6.2rem); }
+.bd-cu-title .dot{ display:inline-block; width:.16em; height:.16em; margin-left:.06em; background:var(--bd-red); vertical-align:baseline; }
+.bd-cu-invite{ font-size:clamp(1.6rem,1.7vw,2rem); line-height:1.55; color:rgba(255,255,255,.66); margin:0 0 3.2rem; max-width:42rem; }
+.bd-cu-row{ padding:1.9rem 0; border-top:1px solid rgba(255,255,255,.16); }
+.bd-cu-row:last-of-type{ border-bottom:1px solid rgba(255,255,255,.16); }
+.bd-cu-k{ font-family:var(--bd-mono); font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); }
+.bd-cu-row a, .bd-cu-row span.v{ display:block; margin-top:.7rem; color:#fff; text-decoration:none; font-size:clamp(1.8rem,2vw,2.3rem); letter-spacing:-.01em; transition:opacity .25s; }
+.bd-cu-row a:hover{ opacity:.6; }
+.bd-cu-social{ display:flex; gap:2.4rem; margin-top:.9rem; }
+.bd-cu-social a{ font-size:1.45rem; letter-spacing:.02em; color:rgba(255,255,255,.75); margin-top:0; }
+.bd-cu-btn{ display:inline-flex; align-items:center; gap:1rem; margin-top:3.4rem; height:5rem; padding:0 2.6rem;
+  background:var(--bd-red); color:#fff!important; text-decoration:none; font-family:var(--bd-mono); font-weight:600;
+  font-size:1.25rem; letter-spacing:.08em; text-transform:uppercase; transition:transform .3s ease, background .3s ease, color .3s ease; }
+.bd-cu-btn:hover{ background:#fff; color:#000!important; }
+@media(max-width:900px){ .bd-cu-grid{ grid-template-columns:1fr; gap:3.4rem; align-items:start; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="mcS" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l2.5-6 4 16 4-19 2.5 9H22"/></symbol>
+<symbol id="mcT" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+<symbol id="mcF" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.4 3.8 5.2 5.2 5.2 9.2A5.2 5.2 0 0 1 6.8 12.2c0-1.7.8-3 1.9-4 .4 2.1 2.1 2.2 2.1.2 0-2 .2-3.6 1.2-5.4z"/></symbol>
+<symbol id="mcE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></symbol>
+</defs></svg>
+<div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
+<a href="/" class="site-nav-logo" aria-label="NAAYA Home">
+<img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="site-nav-logo-img logo-light" style="height:2.2rem;width:auto;display:none">
+<img src="assets/brand/naaya-logo.webp" alt="" aria-hidden="true" class="site-nav-logo-img logo-dark" style="height:2.2rem;width:auto;display:block">
+</a>
+<nav class="site-nav-links" aria-label="Primary">
+<a href="/about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="/collection/" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-cats-v2" aria-hidden="true">
+<div class="mcat-inner">
+
+<div class="mcat-list">
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item is-active" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="/collection/" class="mcat-all">All models →</a>
+</div>
+
+<div class="mcat-detail">
+
+<div class="mcat-pane is-active" data-pane="classic">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Classic Series</h3>
+<p class="mcat-pane-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="perfo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Perfo Series</h3>
+<p class="mcat-pane-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="micro">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Micro Series</h3>
+<p class="mcat-pane-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation. Includes Micro Classic and Micro Art geometries.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="curve">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Curve Series</h3>
+<p class="mcat-pane-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces for effective absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Art Acoustic Series</h3>
+<p class="mcat-pane-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="phonex">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Phonex Metal Series</h3>
+<p class="mcat-pane-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.70–0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="uniseam">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Uniseam Series</h3>
+<p class="mcat-pane-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.75+</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12 / 30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="cleaneo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Cleaneo Series</h3>
+<p class="mcat-pane-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12.5 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acouspray">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acouspray Series</h3>
+<p class="mcat-pane-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.95</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acona">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Classic Series</h3>
+<p class="mcat-pane-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 / 20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="aconaart">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Art Series</h3>
+<p class="mcat-pane-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25 / 40 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Fabricoustic Series</h3>
+<p class="mcat-pane-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25–60 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="pet">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Polyester (PET) Series</h3>
+<p class="mcat-pane-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">9 / 12 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="woodwool">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Wool Series</h3>
+<p class="mcat-pane-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.60</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15–25 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="diffuser">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Diffuser Series</h3>
+<p class="mcat-pane-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">Scattering</span><span class="ms-val">ISO 17497</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Depth</span><span class="ms-val">Custom</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="door">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Soundproofed Door Series</h3>
+<p class="mcat-pane-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">STC</span><span class="ms-val">35–45 dB</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">50–100 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<a href="/projects/" data-i18n="nav_projects">Projects</a>
+<a href="/process" data-i18n="nav_process">Process</a>
+<a href="/contact" data-i18n="nav_contact">Contact</a>
+</nav>
+<div class="site-nav-right">
+<a href="/contact" class="site-nav-cta">
+<span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+</a>
+</div>
+</header>
+<button class="site-nav-burger" aria-label="Open menu" id="siteNavBurger"><span></span><span></span><span></span></button>
+<div class="site-nav-mobile" id="siteNavMobile" aria-hidden="true">
+<nav class="site-nav-mobile-links">
+<a href="/about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="/collection/" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-cats-v2" aria-hidden="true">
+<div class="mcat-inner">
+
+<div class="mcat-list">
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item is-active" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="/collection/" class="mcat-all">All models →</a>
+</div>
+
+<div class="mcat-detail">
+
+<div class="mcat-pane is-active" data-pane="classic">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Classic Series</h3>
+<p class="mcat-pane-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="perfo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Perfo Series</h3>
+<p class="mcat-pane-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="micro">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Micro Series</h3>
+<p class="mcat-pane-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation. Includes Micro Classic and Micro Art geometries.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="curve">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Curve Series</h3>
+<p class="mcat-pane-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces for effective absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Art Acoustic Series</h3>
+<p class="mcat-pane-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="phonex">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Phonex Metal Series</h3>
+<p class="mcat-pane-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.70–0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="uniseam">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Uniseam Series</h3>
+<p class="mcat-pane-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.75+</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12 / 30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="cleaneo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Cleaneo Series</h3>
+<p class="mcat-pane-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12.5 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acouspray">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acouspray Series</h3>
+<p class="mcat-pane-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.95</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acona">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Classic Series</h3>
+<p class="mcat-pane-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 / 20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="aconaart">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Art Series</h3>
+<p class="mcat-pane-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25 / 40 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Fabricoustic Series</h3>
+<p class="mcat-pane-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25–60 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="pet">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Polyester (PET) Series</h3>
+<p class="mcat-pane-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">9 / 12 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="woodwool">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Wool Series</h3>
+<p class="mcat-pane-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.60</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15–25 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="diffuser">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Diffuser Series</h3>
+<p class="mcat-pane-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">Scattering</span><span class="ms-val">ISO 17497</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Depth</span><span class="ms-val">Custom</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="door">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Soundproofed Door Series</h3>
+<p class="mcat-pane-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">STC</span><span class="ms-val">35–45 dB</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">50–100 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<a href="/projects/" data-i18n="nav_projects">Projects</a>
+<a href="/process" data-i18n="nav_process">Process</a>
+<a href="/contact" data-i18n="nav_contact">Contact</a>
+</nav>
+</div>
+<main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page">
+
+<!-- ===== S1 Hero ===== -->
+<section class="bd-hero">
+<div class="bd-wrap">
+<div class="bd-grid">
+<figure class="bd-fig bd-rise"><img src="assets/brand/hero.webp" alt="Urban acoustic noise-mapping simulation over a city skyline"></figure>
+<div class="bd-text">
+<span class="bd-eye bd-rise">Acoustic design &middot; Engineering &middot; Delivery</span>
+<h1 class="bd-title bd-rise d1">Integrated acoustic environments for architecture<span class="dot">.</span></h1>
+<p class="bd-lede bd-rise d1">NAAYA partners with architects, developers and contractors to deliver complete acoustic solutions &mdash; from design and simulation through to manufacturing and on-site commissioning.</p>
+<div class="bd-services bd-rise d2">
+<div class="bd-s"><div class="n">01</div><div class="k">Design</div><div class="d">Acoustic criteria, planning and consultancy.</div></div>
+<div class="bd-s"><div class="n">02</div><div class="k">Build</div><div class="d">Material systems, fit-out and site support.</div></div>
+<div class="bd-s"><div class="n">03</div><div class="k">Verify</div><div class="d">Testing, tuning and commissioning.</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== S2 Who we are ===== -->
+<section class="bd-sec">
+<div class="bd-wrap">
+<div class="bd-who-grid">
+<div>
+<span class="bd-eyebrow bd-rise">Who we are</span>
+<h2 class="bd-display bd-rise">A specialist partner for sound-critical spaces<span class="dot">.</span></h2>
+</div>
+<div>
+<p class="bd-lead bd-rise">NAAYA is a multidisciplinary acoustic engineering and interior solutions company serving international projects where sound performance, spatial quality and delivery reliability must work together.</p>
+<p class="bd-body bd-rise">We are not positioned as a traditional material supplier. Our work begins with understanding how a space will be used, defining acoustic targets, coordinating with architecture and MEP systems, engineering the right material solution, supporting construction, and validating the final result on site.</p>
+<div class="bd-statement bd-rise"><p>One team. One responsibility. Complete acoustic delivery from concept to commissioning.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== S3 What we do ===== -->
+<section class="bd-sec">
+<div class="bd-wrap">
+<div class="bd-what-top">
+<div>
+<span class="bd-eyebrow bd-rise">What we do</span>
+<h2 class="bd-display bd-rise">Integrated expertise across design, engineering and delivery<span class="dot">.</span></h2>
+</div>
+<p class="bd-what-intro bd-rise">Our service platform allows clients to work with one coordinated partner for acoustic consultancy, simulation, manufacturing, specialist construction support, furniture systems and performance verification.</p>
+</div>
+<div class="bd-grid8 bd-rise">
+<div class="bd-cell"><div class="num">01</div><div class="t">Acoustic Consultancy</div><div class="d">Performance criteria definition, room acoustic strategy, design standards and specialist project advisory services.</div></div>
+<div class="bd-cell"><div class="num">02</div><div class="t">Noise &amp; Vibration Control</div><div class="d">Environmental, architectural and building services noise mitigation strategies for complex and high-performance environments.</div></div>
+<div class="bd-cell"><div class="num">03</div><div class="t">Simulations, Analysis &amp; Solutions</div><div class="d">3D acoustic modelling, prediction, ray tracing, noise mapping and design optimisation using industry-standard simulation tools.</div></div>
+<div class="bd-cell"><div class="num">04</div><div class="t">Tender Documentation Support</div><div class="d">Tender-stage acoustic design coordination, technical specification development, material performance documentation, and construction bidding support for consultants, contractors and developers.</div></div>
+<div class="bd-cell"><div class="num">05</div><div class="t">Material Engineering</div><div class="d">Custom acoustic wall, ceiling and interior systems developed around measurable performance requirements and architectural integration.</div></div>
+<div class="bd-cell"><div class="num">06</div><div class="t">Manufacturing</div><div class="d">Factory-direct production, prototyping, quality control and international supply chain support ensuring consistent engineering quality and delivery reliability.</div></div>
+<div class="bd-cell"><div class="num">07</div><div class="t">Interior Fit-Out</div><div class="d">Specialist fully integrated FF&amp;E and acoustic construction support, detailing, installation guidance and on-site coordination for architectural and performance environments.</div></div>
+<div class="bd-cell"><div class="num">08</div><div class="t">Testing &amp; Commissioning</div><div class="d">On-site acoustic measurement, performance verification, system tuning and final acceptance testing to ensure compliance with design intent and international standards.</div></div>
+</div>
+</div>
+</section>
+
+<!-- ===== S4 Simulations & Analysis ===== -->
+<section class="bd-sec">
+<div class="bd-wrap">
+<div class="bd-sim-grid">
+<div class="bd-sim-left">
+<span class="bd-eyebrow bd-rise">Technical capability</span>
+<h2 class="bd-display bd-rise">Simulations &amp; Analysis</h2>
+<p class="bd-sim-lead bd-rise">We model and analyse acoustic performance before construction begins &mdash; reducing risk and giving architects, consultants and contractors the evidence to make better decisions early.</p>
+<p class="bd-sim-body bd-rise">Workflows span room-acoustic modelling, ray tracing, reverberation analysis, environmental noise mapping, MEP noise review and sound-insulation assessment &mdash; delivered with industry-standard simulation tools:</p>
+<div class="bd-tools bd-rise">
+<div class="bd-tool"><img src="assets/brand/tools/odeon.webp" alt="Odeon"></div>
+<div class="bd-tool"><img src="assets/brand/tools/catt.webp" alt="CATT"></div>
+<div class="bd-tool"><img src="assets/brand/tools/cadnaa.webp" alt="CadnaA"></div>
+<div class="bd-tool"><img src="assets/brand/tools/insul.webp" alt="INSUL"></div>
+<div class="bd-tool"><img src="assets/brand/tools/soundplan.webp" alt="SoundPLAN"></div>
+<div class="bd-tool"><img src="assets/brand/tools/comsol.webp" alt="COMSOL"></div>
+<div class="bd-tool"><img src="assets/brand/tools/ansys.webp" alt="Ansys"></div>
+<div class="bd-tool"><img src="assets/brand/tools/rhino.webp" alt="Rhinoceros"></div>
+<div class="bd-tool"><img src="assets/brand/tools/grasshopper.webp" alt="Grasshopper"></div>
+<div class="bd-tool"><img src="assets/brand/tools/dante.webp" alt="Dante Controller"></div>
+<div class="bd-tool"><img src="assets/brand/tools/dirac.webp" alt="DIRAC"></div>
+<div class="bd-tool"><img src="assets/brand/tools/virtuallab.webp" alt="Virtual.Lab"></div>
+</div>
+</div>
+<figure class="bd-sim-fig bd-rise" style="margin:0;"><img src="assets/brand/sim.webp" alt="Environmental traffic-noise simulation over a city skyline"></figure>
+</div>
+</div>
+</section>
+
+<!-- ===== S5 How we work ===== -->
+<section class="bd-sec bd-dark">
+<div class="bd-wrap">
+<span class="bd-eyebrow bd-rise">How we work</span>
+<h2 class="bd-display bd-rise">A clear delivery process from brief to verified performance<span class="dot">.</span></h2>
+<p class="bd-flow-intro bd-rise">Each project follows a structured sequence that connects client requirements, technical analysis, material development, construction coordination and final commissioning.</p>
+<div class="bd-flow bd-rise">
+<div class="bd-flow-track">
+<div class="bd-step"><div class="bd-step-c"><span>01</span></div><h3 class="bd-step-t">Brief</h3><p class="bd-step-d">Understand use, operation, design intent and project constraints.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>02</span></div><h3 class="bd-step-t">Criteria Development</h3><p class="bd-step-d">Define acoustic targets, standards and measurable benchmarks.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>03</span></div><h3 class="bd-step-t">Acoustic Analysis &amp; Simulations</h3><p class="bd-step-d">Model, test assumptions and optimise spatial performance.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>04</span></div><h3 class="bd-step-t">Material Engineering &amp; Manufacturing</h3><p class="bd-step-d">Develop buildable systems with controlled quality and finishes.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>05</span></div><h3 class="bd-step-t">Construction Support</h3><p class="bd-step-d">Coordinate details, installation guidance and site implementation.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>06</span></div><h3 class="bd-step-t">Testing &amp; Commissioning</h3><p class="bd-step-d">Measure, verify and tune the final acoustic result.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== S6 Who we served ===== -->
+<section class="bd-sec">
+<div class="bd-wrap">
+<div class="bd-served-head bd-rise">
+<span class="bd-eyebrow">Who we served</span>
+<h2 class="bd-display">Trusted by leading architects, engineers and developers<span class="dot">.</span></h2>
+</div>
+<div class="bd-served-grid bd-rise">
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c00.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c01.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c02.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c03.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c04.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c05.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c06.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c07.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c08.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c09.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c10.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c11.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c12.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c13.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c14.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c15.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c16.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c17.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c18.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c19.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c20.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c21.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c22.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c23.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r0_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r1_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r1_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c1.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c3.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c4.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c1.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c3.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c4.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c5.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c6.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c1.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c3.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c4.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c5.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c6.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c1.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c3.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c4.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c5.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c6.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c1.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c3.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c4.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c5.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c6.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c1.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c3.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c4.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c5.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c6.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"></div>
+<div class="bd-served-cell"></div>
+<div class="bd-served-cell"></div>
+<div class="bd-served-cell"></div>
+<div class="bd-served-cell"></div>
+</div>
+</div>
+</section>
+
+<!-- ===== S7 Manufacturing capability ===== -->
+<section class="bd-sec">
+<div class="bd-wrap">
+<div class="bd-mfg-top">
+<div>
+<span class="bd-eyebrow bd-rise">Manufacturing capability</span>
+<h2 class="bd-display bd-rise">Engineering backed by controlled production<span class="dot">.</span></h2>
+</div>
+<p class="bd-mfg-intro bd-rise">Our manufacturing platform supports acoustic materials, custom finishes, mock-ups, quality inspection, packaging and international logistics.</p>
+</div>
+<div class="bd-fac bd-rise">
+<figure class="bd-fac-tile"><img src="assets/brand/factory/01.webp" alt="Wood Veneer Workshop" loading="lazy"><figcaption>Wood Veneer Workshop</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/02.webp" alt="CNC Machining" loading="lazy"><figcaption>CNC Machining</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/03.webp" alt="Acoustic Lab" loading="lazy"><figcaption>Acoustic Lab</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/04.webp" alt="Material Finishing" loading="lazy"><figcaption>Material Finishing</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/05.webp" alt="Mock-up Studio" loading="lazy"><figcaption>Mock-up Studio</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/06.webp" alt="Quality Inspection" loading="lazy"><figcaption>Quality Inspection</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/07.webp" alt="Assembly Line" loading="lazy"><figcaption>Assembly Line</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/08.webp" alt="Surface Treatment" loading="lazy"><figcaption>Surface Treatment</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/09.webp" alt="Panel Production" loading="lazy"><figcaption>Panel Production</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/10.webp" alt="Packaging" loading="lazy"><figcaption>Packaging</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/11.webp" alt="Warehouse" loading="lazy"><figcaption>Warehouse</figcaption></figure>
+<figure class="bd-fac-tile"><img src="assets/brand/factory/12.webp" alt="Logistics" loading="lazy"><figcaption>Logistics</figcaption></figure>
+</div>
+</div>
+</section>
+
+<!-- ===== S8 Contact us ===== -->
+<section class="bd-sec bd-contact">
+<div class="bd-wrap">
+<span class="bd-eyebrow bd-rise">Contact us</span>
+<div class="bd-cu-grid">
+<h2 class="bd-cu-title bd-rise"><span class="lg">Sound</span><span class="sm">Shapes</span><span class="sm">Inspired</span><span class="lg">Spaces<span class="dot"></span></span></h2>
+<div class="bd-cu-panel bd-rise">
+<p class="bd-cu-invite">Tell us about your project &mdash; acoustic design, engineering, materials or full delivery. Our team replies within two business days.</p>
+<div class="bd-cu-row"><span class="bd-cu-k">Email</span><a href="mailto:hello@naayaasia.com">hello@naayaasia.com</a></div>
+<div class="bd-cu-row"><span class="bd-cu-k">Follow</span><div class="bd-cu-social"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">YouTube</a></div></div>
+<a class="bd-cu-btn" href="mailto:hello@naayaasia.com">Start a project &rarr;</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="footer" data-v-b5a28948><div class="container" data-v-b5a28948><a aria-current="page" href="/" class="is-active is-exact-active logo" data-v-b5a28948><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-b5a28948><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg></a><div class="footer-content">
+
+<div class="footer-col footer-col-brand">
+<img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="footer-brand-logo" style="height:2.4rem;width:auto;align-self:flex-start;margin-bottom:2rem">
+<address class="footer-addr">
+<a href="mailto:hello@naayaasia.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>hello@naayaasia.com</a>
+<span class="footer-link"><span data-i18n="footer_addr_label">Address</span><br><span data-i18n="footer_addr">Guangzhou, China</span></span>
+</address>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_products">Products</h4>
+<a href="/collection/?cat=wood" data-i18n="footer_p_wood">Wood Panels</a>
+<a href="/collection/?cat=ceiling" data-i18n="footer_p_ceiling">Ceiling Systems</a>
+<a href="/collection/?cat=metal" data-i18n="footer_p_metal">Metal Acoustic</a>
+<a href="/collection/?cat=fabric" data-i18n="footer_p_fabric">Fabric &amp; Eco</a>
+<a href="/collection/?cat=specialty" data-i18n="footer_p_specialty">Diffusers &amp; Doors</a>
+<a href="/collection/" data-i18n="footer_p_all">All series →</a>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title">Company</h4>
+<a href="/about">About NAAYA</a>
+<a href="/projects/">Project references</a>
+<a href="/process">Process</a>
+<a href="/contact">Contact</a>
+</div>
+
+<div class="footer-col footer-col-cta">
+<h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
+<p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
+<a href="/contact" class="footer-cta-btn">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="cta_button">Get in touch</span>
+</a>
+<form class="footer-newsletter" onsubmit="return false">
+<label class="footer-newsletter-label" data-i18n="footer_newsletter">Subscribe to our newsletter</label>
+<div class="footer-newsletter-row">
+<input type="email" placeholder="you@example.com" class="footer-newsletter-input" aria-label="Email">
+<button type="submit" class="footer-newsletter-btn" aria-label="Subscribe">→</button>
+</div>
+</form>
+</div>
+
+</div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2014, NAAYA™</div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
+
+<script src="js/naaya.js"></script>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.bd-rise').forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+<script>
+/* Scroll-reveal motion for text & images */
+(function(){
+  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var STEP=90;
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}})},{threshold:0.12,rootMargin:'0px 0px -5% 0px'});
+  function R(el,d,img){ if(!el)return; el.classList.add('ab-rise'); if(img)el.classList.add('ab-rise-img'); if(d)el.style.transitionDelay=(d*STEP)+'ms'; obs.observe(el); }
+  function each(p,sel,fn){ Array.prototype.forEach.call((p||document).querySelectorAll(sel),fn); }
+  // head
+  R(document.querySelector('.cl-meta'),0);
+  R(document.querySelector('.cl-title'),1);
+  R(document.querySelector('.cl-sub > p'),2);
+  each(document,'.cl-fact',function(el,i){ R(el,i+3); });
+  // section marks + leads
+  each(document,'.cl-secmark',function(el){ R(el,0); });
+  each(document,'.cl-lead',function(el){ R(el,1); });
+  // filter + cards
+  R(document.querySelector('.cl-filter'),2);
+  each(document,'.cl-grid .cl-card',function(el,i){ R(el,(i%4),true); });
+  // need tiles / finishes / certs
+  each(document,'.cl-need-item',function(el,i){ R(el,i); });
+  each(document,'.cl-fin-col',function(el,i){ R(el,i); });
+  each(document,'.cl-cert',function(el,i){ R(el,Math.min(i,3)); });
+  // cta
+  R(document.querySelector('.cl-cta'),1);
+})();
+</script>
+<script>
+/* Material family filter */
+(function(){
+  var chips=document.querySelectorAll('.cl-chip');
+  var cards=document.querySelectorAll('.cl-card[data-cat]');
+  Array.prototype.forEach.call(chips,function(chip){
+    chip.addEventListener('click',function(){
+      Array.prototype.forEach.call(chips,function(c){ c.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+      var f=chip.getAttribute('data-f');
+      Array.prototype.forEach.call(cards,function(card){
+        card.style.display=(f==='all'||card.getAttribute('data-cat')===f)?'':'none';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
