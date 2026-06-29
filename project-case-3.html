@@ -384,8 +384,6 @@ main,.scroll{ transform:none!important; }
 .pc3-metric{ position:relative; min-height:21rem; padding:3.4rem 0 3.6rem; border-top:1px solid var(--pc3-line);
   display:flex; flex-direction:column; }
 .pc3-metric::before{ content:""; position:absolute; top:-1px; left:0; width:3.6rem; height:2px; background:var(--pc3-red); }
-.pc3-metric .mi{ position:absolute; top:3.4rem; right:0; font-family:var(--pc3-mono); font-size:1.05rem;
-  letter-spacing:.1em; color:var(--pc3-faint); }
 .pc3-metric .mk{ display:block; font-family:var(--pc3-mono); font-size:1.05rem; letter-spacing:.14em;
   text-transform:uppercase; color:var(--pc3-faint); padding-right:3rem; }
 .pc3-metric .mv{ display:block; margin-top:auto; font-size:clamp(3.4rem,4.4vw,4.8rem); font-weight:600; letter-spacing:-.03em; line-height:.95; }
@@ -433,7 +431,7 @@ main,.scroll{ transform:none!important; }
 
 /* ================= S6 Get in touch (pc3-contact) ================= */
 .pc3-contact{ background:var(--pc3-ink); color:#fff; }
-.pc3-contact-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:5rem; align-items:end; }
+.pc3-contact-grid{ max-width:62rem; }
 .pc3-contact-mark{ font-family:var(--pc3-mono); font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.45); }
 .pc3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:0; }
 .pc3-contact h2 .dot{ color:var(--pc3-red); }
@@ -443,8 +441,8 @@ main,.scroll{ transform:none!important; }
 .pc3-contact-info a, .pc3-contact-info span{ color:#fff; text-decoration:none; font-size:1.6rem; display:block; transition:opacity .25s; }
 .pc3-contact-info a:hover{ opacity:.6; }
 .pc3-contact .pc3-cta{ display:inline-flex; align-items:center; gap:1rem; margin-top:3.4rem; align-self:flex-start;
-  height:4.6rem; padding:0 2.2rem; line-height:1; border:1px solid rgba(255,255,255,.4); background:transparent;
-  color:#fff!important; text-decoration:none; font-family:var(--pc3-mono); font-weight:600; font-size:1.2rem;
+  height:4.6rem; padding:0 2.2rem; line-height:1; border:1px solid var(--pc3-red); background:var(--pc3-red);
+  color:#fff!important; text-decoration:none; font-family:var(--font-f-aeonik-mono); font-weight:600; font-size:1.2rem;
   letter-spacing:.08em; text-transform:uppercase; transition:background .3s, color .3s, border-color .3s; }
 .pc3-contact .pc3-cta:hover{ background:#fff; color:var(--pc3-ink)!important; border-color:#fff; opacity:1!important; }
 .pc3-contact .pc3-cta span{ display:inline-block; transform:translateY(.07em); color:inherit!important; }
@@ -1189,10 +1187,10 @@ main,.scroll{ transform:none!important; }
 <p>From design metric to commissioning report, every stage of the OPPO headquarters was simulated, specified and verified against the same acoustic targets.</p>
 </div>
 <div class="pc3-step pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">01</div><h3 class="pc3-step-title">Design targets</h3><p class="pc3-step-desc">We anchored the brief in measurable acoustic criteria — background noise, reverberation time, equipment noise reduction and building sound insulation — agreed per space before any design began.</p></div><div class="pc3-step-right"><div class="pc3-metrics">
-<div class="pc3-metric"><span class="mi">01</span><span class="mk">Background noise</span><span class="mv">NC&#8209;35</span><span class="md">Open office criterion</span></div>
-<div class="pc3-metric"><span class="mi">02</span><span class="mk">Reverberation time</span><span class="mv">&le;&#8202;0.6<span class="mu">s</span></span><span class="md">RT&#8323;&#8320; mid-band</span></div>
-<div class="pc3-metric"><span class="mi">03</span><span class="mk">Equipment noise reduction</span><span class="mv">&ge;&#8202;25<span class="mu">dB</span></span><span class="md">MEP source attenuation</span></div>
-<div class="pc3-metric"><span class="mi">04</span><span class="mk">Building sound insulation</span><span class="mv">Rw&#8202;50</span><span class="md">Meeting-room partitions</span></div>
+<div class="pc3-metric"><span class="mk">Background noise</span><span class="mv">NC&#8209;35</span><span class="md">Open office criterion</span></div>
+<div class="pc3-metric"><span class="mk">Reverberation time</span><span class="mv">&le;&#8202;0.6<span class="mu">s</span></span><span class="md">RT&#8323;&#8320; mid-band</span></div>
+<div class="pc3-metric"><span class="mk">Equipment noise reduction</span><span class="mv">&ge;&#8202;25<span class="mu">dB</span></span><span class="md">MEP source attenuation</span></div>
+<div class="pc3-metric"><span class="mk">Building sound insulation</span><span class="mv">Rw&#8202;50</span><span class="md">Meeting-room partitions</span></div>
 </div></div></div>
 <div class="pc3-step rev pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">02</div><h3 class="pc3-step-title">MEP vibration &amp; noise control</h3><p class="pc3-step-desc">Mechanical, electrical and plumbing systems were modelled as noise sources. We specified vibration isolation, duct silencers and plant-room treatment to keep equipment noise below target at every occupied space.</p></div><div class="pc3-step-right"><div class="pc3-step-media"><img src="assets/case3/mep.webp" alt="MEP noise control engineering" loading="lazy"></div></div></div>
 <div class="pc3-step pc3-rise"><div class="pc3-step-text"><div class="pc3-step-no">03</div><h3 class="pc3-step-title">Indoor acoustic simulation</h3><p class="pc3-step-desc">Each critical space was simulated in ODEON — ray-traced sound fields, reverberation decay and speech-clarity mapping — so the design could be tuned and verified before a single panel was ordered.</p></div><div class="pc3-step-right"><div class="pc3-step-media"><img src="assets/services/sim.webp" alt="ODEON acoustic simulation model" loading="lazy"></div></div></div>
@@ -1232,9 +1230,6 @@ main,.scroll{ transform:none!important; }
 <h2>Tailored acoustics<br>for your project<span class="dot">.</span></h2>
 <p class="pc3-contact-sub">Tell us about your space, and our acoustic team will develop a solution shaped around its purpose, performance and design needs.</p>
 <a class="pc3-cta" href="mailto:hello@naayaasia.com"><span>Start a project &rarr;</span></a>
-</div>
-<div class="pc3-contact-info">
-<div><div class="k">Email</div><a href="mailto:hello@naayaasia.com">hello@naayaasia.com</a></div>
 </div>
 </div>
 </div>
