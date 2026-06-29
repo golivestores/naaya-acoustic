@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materials &amp; supply — 5 styles · NAAYA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{ box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --ink:#231f20; --paper:#fff; --mist:#f5f4f3;
+  --line:rgba(35,31,32,.13); --muted:rgba(35,31,32,.56); --faint:rgba(35,31,32,.4); --red:#e3261b;
+  --mono:ui-monospace,'SF Mono',Menlo,monospace;
+}
+html{ font-size:62.5%; }
+body{ font-family:'Inter',system-ui,sans-serif; color:var(--ink); background:var(--paper); -webkit-font-smoothing:antialiased; }
+
+.pick{ position:sticky; top:0; z-index:20; background:var(--ink); color:#fff; padding:1.4rem 4rem;
+  font-family:var(--mono); font-size:1.2rem; letter-spacing:.08em; display:flex; gap:2rem; align-items:center; }
+.pick b{ color:#fff; } .pick span{ color:rgba(255,255,255,.6); }
+
+.opt{ border-top:1px solid var(--line); padding:8rem 0; }
+.opt:first-of-type{ border-top:none; }
+.wrap{ max-width:132rem; margin:0 auto; padding:0 4rem; }
+.optname{ font-family:var(--mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--faint); margin-bottom:4rem; }
+
+/* shared left text column */
+.mat-demo{ display:grid; grid-template-columns:1fr 1.12fr; gap:7rem; align-items:start; }
+.mat-demo > *{ min-width:0; }
+.step-no{ font-family:var(--mono); color:var(--red); font-size:1.2rem; letter-spacing:.12em; }
+.mat-h{ font-size:clamp(2.8rem,3.6vw,4.4rem); font-weight:600; letter-spacing:-.025em; line-height:1.04; margin:1.3rem 0 0; }
+.mat-p{ font-size:1.6rem; line-height:1.62; color:var(--muted); max-width:42rem; margin:2.4rem 0 0; }
+
+/* shared icon */
+.ic{ fill:none; stroke:currentColor; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; display:block; }
+
+/* ============ STYLE D — sweep-fill list (ink wipe + icon slide-in) ============ */
+.d-list{ border-top:1px solid var(--line); }
+.d-row{ position:relative; overflow:hidden; display:flex; align-items:center; gap:2.2rem; padding:2.4rem 2.2rem;
+  border-bottom:1px solid var(--line); color:var(--ink); transition:color .4s ease; }
+.d-row::before{ content:""; position:absolute; inset:0; background:var(--ink); transform:scaleX(0); transform-origin:left;
+  transition:transform .45s cubic-bezier(.16,.84,.44,1); z-index:0; }
+.d-row > *{ position:relative; z-index:1; }
+.d-row:hover{ color:#fff; }
+.d-row:hover::before{ transform:scaleX(1); }
+.d-no{ font-family:var(--mono); font-size:1.1rem; color:var(--faint); width:2.2rem; flex:none; transition:color .4s ease; }
+.d-row:hover .d-no{ color:rgba(255,255,255,.55); }
+.d-name{ font-size:1.7rem; font-weight:600; letter-spacing:-.015em; }
+.d-fig{ margin-left:auto; transform:translateX(1.4rem); opacity:0; transition:transform .4s ease, opacity .4s ease; }
+.d-fig .ic{ width:4.2rem; height:3.2rem; color:var(--red); }
+.d-row:hover .d-fig{ transform:none; opacity:1; }
+
+/* ============ STYLE E — ghost-number cards (oversized faint numeral) ============ */
+.e-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+.e-cell{ position:relative; overflow:hidden; background:var(--paper); padding:2.8rem 2.6rem 2.6rem; min-height:15rem;
+  display:flex; flex-direction:column; }
+.e-ghost{ position:absolute; top:-1.6rem; right:.4rem; z-index:0; pointer-events:none; font-weight:800;
+  font-size:8.4rem; line-height:1; letter-spacing:-.05em; color:var(--mist); transition:color .35s ease; }
+.e-fig{ position:relative; z-index:1; height:3.4rem; display:flex; align-items:center; color:var(--ink); transition:color .35s ease; }
+.e-fig .ic{ width:4.6rem; height:3.4rem; }
+.e-name{ position:relative; z-index:1; margin-top:auto; padding-top:2.4rem; font-size:1.5rem; font-weight:600;
+  letter-spacing:-.01em; line-height:1.2; }
+.e-cell:hover .e-ghost{ color:rgba(227,38,27,.13); }
+.e-cell:hover .e-fig{ color:var(--red); }
+
+/* ============ STYLE F — floating chip cloud (organic scatter + drift) ============ */
+.f-cloud{ position:relative; min-height:40rem; }
+/* outer = absolute placement + autonomous float; inner pill = hover lift (kept separate so both compose) */
+.f-chip{ position:absolute; animation:f-float 7s ease-in-out infinite; will-change:transform; }
+.f-pill{ display:inline-flex; align-items:center; gap:1rem; padding:1.2rem 2rem 1.2rem 1.4rem; cursor:default;
+  border:1px solid var(--line); border-radius:999px; background:var(--paper); color:var(--ink);
+  box-shadow:0 1px 2px rgba(35,31,32,.04);
+  transition:transform .35s ease, background .3s ease, color .3s ease, border-color .3s ease, box-shadow .35s ease; }
+.f-pill .ic{ width:3rem; height:2.3rem; color:var(--muted); flex:none; transition:color .3s ease; }
+.f-name{ font-size:1.45rem; font-weight:600; letter-spacing:-.01em; }
+.f-pill:hover{ background:var(--ink); color:#fff; border-color:var(--ink); transform:translateY(-.6rem);
+  box-shadow:0 1.6rem 3.4rem rgba(35,31,32,.18); }
+.f-pill:hover .ic{ color:var(--red); }
+/* organic scatter (vertical + horizontal offsets) and de-synced drift per chip */
+.f-chip:nth-child(1){ top:0;       left:2%;   animation-duration:6.6s; animation-delay:-2.1s; }
+.f-chip:nth-child(2){ top:6.6rem;  right:0;   animation-duration:8.1s; animation-delay:-4.4s; }
+.f-chip:nth-child(3){ top:14.8rem; left:7%;   animation-duration:7.2s; animation-delay:-0.8s; }
+.f-chip:nth-child(4){ top:13.4rem; right:11%; animation-duration:6.9s; animation-delay:-3.3s; }
+.f-chip:nth-child(5){ top:25.2rem; left:16%;  animation-duration:7.9s; animation-delay:-1.5s; }
+.f-chip:nth-child(6){ top:29.6rem; right:18%; animation-duration:6.3s; animation-delay:-5.2s; }
+@keyframes f-float{
+  0%   { transform:translate(0, 0)        rotate(-.4deg); }
+  50%  { transform:translate(.4rem, -1.1rem) rotate(.5deg); }
+  100% { transform:translate(0, 0)        rotate(-.4deg); }
+}
+@media (prefers-reduced-motion:reduce){ .f-chip{ animation:none; } }
+
+/* ============ STYLE B — numbered index list ============ */
+.b-list{ border-top:1px solid var(--line); }
+.b-row{ position:relative; display:flex; align-items:center; gap:2.2rem; padding:2.3rem 0 2.3rem 1.8rem;
+  border-bottom:1px solid var(--line); transition:padding .3s ease; }
+.b-row::before{ content:""; position:absolute; left:0; top:50%; width:0; height:2px; background:var(--red);
+  transform:translateY(-50%); transition:width .3s ease; }
+.b-row:hover::before{ width:1rem; }
+.b-no{ font-family:var(--mono); font-size:1.1rem; color:var(--faint); width:2.2rem; flex:none; }
+.b-name{ font-size:1.75rem; font-weight:600; letter-spacing:-.015em; transition:transform .3s ease; }
+.b-fig{ margin-left:auto; color:var(--muted); transition:color .3s ease; }
+.b-fig .ic{ width:4.4rem; height:3.3rem; }
+.b-row:hover{ padding-left:2.6rem; }
+.b-row:hover .b-fig{ color:var(--red); }
+
+/* ============ STYLE C — boxed-icon rows (2-col) ============ */
+.c-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+.c-item{ display:flex; align-items:center; gap:1.8rem; padding:1.8rem; background:var(--mist);
+  border:1px solid transparent; transition:background .3s ease, border-color .3s ease; }
+.c-box{ flex:none; width:6rem; height:6rem; display:flex; align-items:center; justify-content:center;
+  background:var(--paper); border:1px solid var(--line); color:var(--ink); transition:border-color .3s ease, color .3s ease; }
+.c-box .ic{ width:3.6rem; height:2.7rem; }
+.c-name{ font-size:1.5rem; font-weight:600; letter-spacing:-.01em; line-height:1.25; }
+.c-item:hover{ background:var(--paper); border-color:var(--ink); }
+.c-item:hover .c-box{ border-color:var(--red); color:var(--red); }
+
+/* divider band between the two parts */
+.band{ background:var(--ink); color:#fff; }
+.band .wrap{ padding-top:3.4rem; padding-bottom:3.4rem; }
+.band-k{ font-family:var(--mono); font-size:1.2rem; letter-spacing:.16em; color:rgba(255,255,255,.55); }
+.band-h{ font-size:clamp(2rem,2.4vw,2.8rem); font-weight:700; letter-spacing:-.02em; margin-top:.8rem; }
+.band-h em{ font-style:normal; color:var(--red); }
+
+/* ============ STYLE G — beat-the-target ledger ============ */
+.g-list{ border-top:1px solid var(--line); }
+.g-row{ padding:2.1rem 1.4rem; border-bottom:1px solid var(--line); display:flex; flex-direction:column; gap:1rem;
+  transition:background .3s ease, padding-left .3s ease; }
+.g-row:hover{ background:var(--mist); padding-left:2rem; }
+.g-top{ display:flex; align-items:center; justify-content:space-between; gap:1.6rem; }
+.g-metric{ font-size:1.5rem; font-weight:600; letter-spacing:-.01em; }
+.g-pass{ display:inline-flex; align-items:center; gap:.5rem; font-family:var(--mono); font-size:1rem;
+  letter-spacing:.1em; color:var(--red); border:1px solid rgba(227,38,27,.4); border-radius:999px; padding:.35rem .9rem; flex:none; }
+.g-vals{ display:flex; align-items:baseline; gap:1.3rem; }
+.g-target{ font-family:var(--mono); font-size:1.45rem; color:var(--muted); }
+.g-arrow{ color:var(--faint); font-size:1.5rem; }
+.g-measured{ font-size:2.4rem; font-weight:600; letter-spacing:-.025em; color:var(--red); line-height:1; }
+
+/* ============ STYLE H — result stat cards (2×2 + check) ============ */
+.h-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+.h-card{ position:relative; background:var(--paper); padding:2.6rem 2.4rem 2.4rem; min-height:14.5rem;
+  display:flex; flex-direction:column; transition:background .3s ease; }
+.h-target{ font-family:var(--mono); font-size:1.1rem; letter-spacing:.06em; color:var(--faint); }
+.h-measured{ font-size:clamp(2.8rem,3.4vw,3.8rem); font-weight:600; letter-spacing:-.03em; color:var(--red);
+  margin-top:.7rem; line-height:1; }
+.h-name{ margin-top:auto; padding-top:2rem; font-size:1.3rem; color:var(--muted); line-height:1.35; max-width:22ch; }
+.h-check{ position:absolute; top:2.3rem; right:2.3rem; width:2.6rem; height:2.6rem; border-radius:50%;
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--muted);
+  transition:background .3s ease, color .3s ease, border-color .3s ease; }
+.h-check svg{ width:1.3rem; height:1.3rem; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+.h-card:hover{ background:var(--mist); }
+.h-card:hover .h-check{ background:var(--red); border-color:var(--red); color:#fff; }
+
+/* ============ STYLE I — target vs measured gauge bars ============ */
+.i-list{ display:flex; flex-direction:column; gap:2.9rem; }
+.i-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1.6rem; margin-bottom:1.2rem; }
+.i-name{ font-size:1.45rem; font-weight:600; letter-spacing:-.01em; }
+.i-meta{ display:flex; align-items:baseline; gap:1.3rem; }
+.i-tgt{ font-family:var(--mono); font-size:1.15rem; color:var(--faint); }
+.i-val{ font-family:var(--mono); font-size:1.65rem; font-weight:600; color:var(--red); }
+.i-track{ position:relative; height:.7rem; background:var(--mist); border-radius:999px; }
+.i-fill{ position:absolute; left:0; top:0; height:100%; background:var(--red); border-radius:999px;
+  width:var(--w); animation:i-grow 1.15s cubic-bezier(.16,.84,.44,1) both; }
+.i-tick{ position:absolute; top:50%; left:var(--t); transform:translate(-50%,-50%); width:2px; height:1.7rem;
+  background:var(--ink); }
+@keyframes i-grow{ from{ width:0; } to{ width:var(--w); } }
+
+/* ============ STYLE J — ring dials (2×2, animated draw-in) ============ */
+.j-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+.j-card{ background:var(--paper); padding:3rem 2rem 2.6rem; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.j-ringwrap{ position:relative; width:10rem; height:10rem; }
+.j-ring{ width:100%; height:100%; transform:rotate(-90deg); }
+.j-ring circle{ fill:none; stroke-width:7; }
+.j-bg{ stroke:var(--mist); }
+.j-fg{ stroke:var(--red); stroke-linecap:round; stroke-dasharray:264; animation:j-draw 1.2s cubic-bezier(.16,.84,.44,1) both; }
+.j-center{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.j-val{ font-size:1.65rem; font-weight:600; letter-spacing:-.02em; color:var(--ink); }
+.j-cap{ margin-top:1.6rem; font-family:var(--mono); font-size:1.05rem; letter-spacing:.06em; color:var(--faint); }
+.j-name{ margin-top:.6rem; font-size:1.3rem; color:var(--muted); line-height:1.3; max-width:22ch; }
+@keyframes j-draw{ from{ stroke-dashoffset:264; } }
+
+/* ============ STYLE K — twin-column bar chart ============ */
+.k-chart{ display:flex; align-items:stretch; gap:1.6rem; height:24rem; }
+.k-group{ flex:1; display:flex; flex-direction:column; height:100%; }
+.k-cols{ flex:1; display:flex; align-items:flex-end; justify-content:center; gap:.7rem; border-bottom:1px solid var(--ink); }
+.k-col{ width:2rem; position:relative; border-radius:3px 3px 0 0; animation:k-grow 1s cubic-bezier(.16,.84,.44,1) both; }
+.k-col.t{ background:var(--line); }
+.k-col.m{ background:var(--red); }
+.k-num{ position:absolute; top:-2.1rem; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:1rem; white-space:nowrap; }
+.k-col.m .k-num{ color:var(--red); font-weight:600; }
+.k-col.t .k-num{ color:var(--faint); }
+.k-glabel{ margin-top:1.2rem; font-size:1.1rem; color:var(--muted); text-align:center; line-height:1.25; }
+@keyframes k-grow{ from{ height:0; } }
+.k-legend{ display:flex; gap:2.4rem; margin-top:2rem; font-family:var(--mono); font-size:1.05rem; color:var(--muted); }
+.k-legend span{ display:inline-flex; align-items:center; }
+.k-legend i{ width:1.2rem; height:1.2rem; border-radius:2px; margin-right:.7rem; }
+
+/* ============ STYLE L — scoreboard readout (LED box + PASS stamp) ============ */
+.l-list{ display:flex; flex-direction:column; gap:1.2rem; }
+.l-row{ display:flex; align-items:center; gap:1.8rem; padding:1.6rem 1.8rem; border:1px solid var(--line);
+  transition:border-color .3s ease; }
+.l-row:hover{ border-color:var(--ink); }
+.l-info{ flex:1; min-width:0; }
+.l-name{ font-size:1.45rem; font-weight:600; letter-spacing:-.01em; }
+.l-tgt{ font-family:var(--mono); font-size:1.1rem; color:var(--faint); margin-top:.4rem; }
+.l-readout{ font-family:var(--mono); font-size:2.1rem; font-weight:600; color:var(--red); letter-spacing:.02em;
+  padding:.7rem 1.4rem; background:#1a1817; border-radius:.4rem; flex:none; }
+.l-stamp{ font-family:var(--mono); font-size:1rem; letter-spacing:.14em; color:var(--red);
+  border:1.5px solid var(--red); border-radius:.3rem; padding:.45rem .7rem; transform:rotate(-4deg); flex:none; }
+
+@media(max-width:900px){
+  .wrap{ padding:0 2.4rem; }
+  .mat-demo{ grid-template-columns:1fr; gap:3.4rem; }
+  .c-grid{ grid-template-columns:1fr; }
+  .h-grid{ grid-template-columns:1fr; }
+  .j-grid{ grid-template-columns:1fr; }
+  /* cloud → simple centered flow on small screens */
+  .f-cloud{ position:static; min-height:0; display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem; }
+  .f-chip{ position:static; animation:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- shared icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="m1" viewBox="0 0 48 36"><path d="M10 7v22M16 7v22M22 7v22M28 7v22M34 7v22M40 7v22"/></symbol>
+<symbol id="m2" viewBox="0 0 48 36"><path d="M9 12h30M9 18h30M9 24h30M15 8v20M24 8v20M33 8v20"/></symbol>
+<symbol id="m3" viewBox="0 0 48 36"><path d="M8 11h32M8 18h32M8 25h32"/><circle cx="17" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="31" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="24" cy="21.5" r="1.1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="m4" viewBox="0 0 48 36"><path d="M9 10h30M9 26h30"/><path d="M18 14l4 4-4 4M27 14l4 4-4 4"/></symbol>
+<symbol id="m5" viewBox="0 0 48 36"><rect x="11" y="7" width="15" height="22" rx=".6"/><circle cx="22.5" cy="18" r="1" fill="currentColor" stroke="none"/><path d="M31 13a7 7 0 0 1 0 10M35.5 10a12 12 0 0 1 0 16"/></symbol>
+<symbol id="m6" viewBox="0 0 48 36"><path d="M8 27h32"/><path d="M11 27v-6M15 27v-8M19 27v-5M23 27v-7M27 27v-8M31 27v-5M35 27v-7M39 27v-6"/></symbol>
+</defs></svg>
+
+<div class="pick"><b>Case-3 blocks — style options</b><span>Part 1 Materials (B/C/D/E/F) &nbsp;·&nbsp; Part 2 Testing (G/H/I) &nbsp;·&nbsp; pick one of each</span></div>
+
+<!-- ===== Style B ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style B &mdash; Numbered index list (editorial)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">04</span>
+<h2 class="mat-h">Materials &amp; supply</h2>
+<p class="mat-p">Simulated requirements were translated into a concrete material specification, then supplied from NAAYA&rsquo;s own acoustic systems &mdash; matched to each surface for performance, finish and fire rating.</p>
+</div>
+<div class="b-list">
+<div class="b-row"><span class="b-no">01</span><span class="b-name">Grooved Acoustic Panel</span><span class="b-fig"><svg class="ic"><use href="#m1"/></svg></span></div>
+<div class="b-row"><span class="b-no">02</span><span class="b-name">Fabric Acoustic Panel</span><span class="b-fig"><svg class="ic"><use href="#m2"/></svg></span></div>
+<div class="b-row"><span class="b-no">03</span><span class="b-name">Seamless Acoustic Ceiling</span><span class="b-fig"><svg class="ic"><use href="#m3"/></svg></span></div>
+<div class="b-row"><span class="b-no">04</span><span class="b-name">Duct Silencer</span><span class="b-fig"><svg class="ic"><use href="#m4"/></svg></span></div>
+<div class="b-row"><span class="b-no">05</span><span class="b-name">Sound Insulation Door</span><span class="b-fig"><svg class="ic"><use href="#m5"/></svg></span></div>
+<div class="b-row"><span class="b-no">06</span><span class="b-name">Carpet</span><span class="b-fig"><svg class="ic"><use href="#m6"/></svg></span></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style C ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style C &mdash; Boxed-icon rows (2-col, soft fill)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">04</span>
+<h2 class="mat-h">Materials &amp; supply</h2>
+<p class="mat-p">Simulated requirements were translated into a concrete material specification, then supplied from NAAYA&rsquo;s own acoustic systems &mdash; matched to each surface for performance, finish and fire rating.</p>
+</div>
+<div class="c-grid">
+<div class="c-item"><span class="c-box"><svg class="ic"><use href="#m1"/></svg></span><span class="c-name">Grooved Acoustic Panel</span></div>
+<div class="c-item"><span class="c-box"><svg class="ic"><use href="#m2"/></svg></span><span class="c-name">Fabric Acoustic Panel</span></div>
+<div class="c-item"><span class="c-box"><svg class="ic"><use href="#m3"/></svg></span><span class="c-name">Seamless Acoustic Ceiling</span></div>
+<div class="c-item"><span class="c-box"><svg class="ic"><use href="#m4"/></svg></span><span class="c-name">Duct Silencer</span></div>
+<div class="c-item"><span class="c-box"><svg class="ic"><use href="#m5"/></svg></span><span class="c-name">Sound Insulation Door</span></div>
+<div class="c-item"><span class="c-box"><svg class="ic"><use href="#m6"/></svg></span><span class="c-name">Carpet</span></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style D ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style D &mdash; Sweep-fill list (ink wipe + icon slides in)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">04</span>
+<h2 class="mat-h">Materials &amp; supply</h2>
+<p class="mat-p">Simulated requirements were translated into a concrete material specification, then supplied from NAAYA&rsquo;s own acoustic systems &mdash; matched to each surface for performance, finish and fire rating.</p>
+</div>
+<div class="d-list">
+<div class="d-row"><span class="d-no">01</span><span class="d-name">Grooved Acoustic Panel</span><span class="d-fig"><svg class="ic"><use href="#m1"/></svg></span></div>
+<div class="d-row"><span class="d-no">02</span><span class="d-name">Fabric Acoustic Panel</span><span class="d-fig"><svg class="ic"><use href="#m2"/></svg></span></div>
+<div class="d-row"><span class="d-no">03</span><span class="d-name">Seamless Acoustic Ceiling</span><span class="d-fig"><svg class="ic"><use href="#m3"/></svg></span></div>
+<div class="d-row"><span class="d-no">04</span><span class="d-name">Duct Silencer</span><span class="d-fig"><svg class="ic"><use href="#m4"/></svg></span></div>
+<div class="d-row"><span class="d-no">05</span><span class="d-name">Sound Insulation Door</span><span class="d-fig"><svg class="ic"><use href="#m5"/></svg></span></div>
+<div class="d-row"><span class="d-no">06</span><span class="d-name">Carpet</span><span class="d-fig"><svg class="ic"><use href="#m6"/></svg></span></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style E ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style E &mdash; Ghost-number cards (oversized faint numeral)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">04</span>
+<h2 class="mat-h">Materials &amp; supply</h2>
+<p class="mat-p">Simulated requirements were translated into a concrete material specification, then supplied from NAAYA&rsquo;s own acoustic systems &mdash; matched to each surface for performance, finish and fire rating.</p>
+</div>
+<div class="e-grid">
+<div class="e-cell"><span class="e-ghost">01</span><span class="e-fig"><svg class="ic"><use href="#m1"/></svg></span><span class="e-name">Grooved Acoustic Panel</span></div>
+<div class="e-cell"><span class="e-ghost">02</span><span class="e-fig"><svg class="ic"><use href="#m2"/></svg></span><span class="e-name">Fabric Acoustic Panel</span></div>
+<div class="e-cell"><span class="e-ghost">03</span><span class="e-fig"><svg class="ic"><use href="#m3"/></svg></span><span class="e-name">Seamless Acoustic Ceiling</span></div>
+<div class="e-cell"><span class="e-ghost">04</span><span class="e-fig"><svg class="ic"><use href="#m4"/></svg></span><span class="e-name">Duct Silencer</span></div>
+<div class="e-cell"><span class="e-ghost">05</span><span class="e-fig"><svg class="ic"><use href="#m5"/></svg></span><span class="e-name">Sound Insulation Door</span></div>
+<div class="e-cell"><span class="e-ghost">06</span><span class="e-fig"><svg class="ic"><use href="#m6"/></svg></span><span class="e-name">Carpet</span></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style F ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style F &mdash; Floating chip cloud (organic scatter + drift, hover lift)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">04</span>
+<h2 class="mat-h">Materials &amp; supply</h2>
+<p class="mat-p">Simulated requirements were translated into a concrete material specification, then supplied from NAAYA&rsquo;s own acoustic systems &mdash; matched to each surface for performance, finish and fire rating.</p>
+</div>
+<div class="f-cloud">
+<span class="f-chip"><span class="f-pill"><svg class="ic"><use href="#m1"/></svg><span class="f-name">Grooved Acoustic Panel</span></span></span>
+<span class="f-chip"><span class="f-pill"><svg class="ic"><use href="#m2"/></svg><span class="f-name">Fabric Acoustic Panel</span></span></span>
+<span class="f-chip"><span class="f-pill"><svg class="ic"><use href="#m3"/></svg><span class="f-name">Seamless Acoustic Ceiling</span></span></span>
+<span class="f-chip"><span class="f-pill"><svg class="ic"><use href="#m4"/></svg><span class="f-name">Duct Silencer</span></span></span>
+<span class="f-chip"><span class="f-pill"><svg class="ic"><use href="#m5"/></svg><span class="f-name">Sound Insulation Door</span></span></span>
+<span class="f-chip"><span class="f-pill"><svg class="ic"><use href="#m6"/></svg><span class="f-name">Carpet</span></span></span>
+</div>
+</div>
+</div></section>
+
+<!-- ============ PART 2 divider ============ -->
+<section class="band"><div class="wrap">
+<div class="band-k">PART 2</div>
+<div class="band-h">Testing &amp; commissioning &mdash; <em>3 styles below</em></div>
+</div></section>
+
+<!-- ===== Style G ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style G &mdash; Beat-the-target ledger (target &rarr; measured, MET badge)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">06</span>
+<h2 class="mat-h">Testing &amp; commissioning</h2>
+<p class="mat-p">Completed spaces were measured against the original criteria. Every key metric met or exceeded its target, documented in a signed commissioning report.</p>
+</div>
+<div class="g-list">
+<div class="g-row"><div class="g-top"><span class="g-metric">Open office &mdash; background noise</span><span class="g-pass">&#10003;&nbsp;MET</span></div><div class="g-vals"><span class="g-target">NC&#8209;35</span><span class="g-arrow">&rarr;</span><span class="g-measured">NC&#8209;33</span></div></div>
+<div class="g-row"><div class="g-top"><span class="g-metric">Meeting room &mdash; RT&#8323;&#8320;</span><span class="g-pass">&#10003;&nbsp;MET</span></div><div class="g-vals"><span class="g-target">&le;&nbsp;0.6&nbsp;s</span><span class="g-arrow">&rarr;</span><span class="g-measured">0.52&nbsp;s</span></div></div>
+<div class="g-row"><div class="g-top"><span class="g-metric">Partition insulation &mdash; Rw</span><span class="g-pass">&#10003;&nbsp;MET</span></div><div class="g-vals"><span class="g-target">&ge;&nbsp;50&nbsp;dB</span><span class="g-arrow">&rarr;</span><span class="g-measured">52&nbsp;dB</span></div></div>
+<div class="g-row"><div class="g-top"><span class="g-metric">MEP equipment noise</span><span class="g-pass">&#10003;&nbsp;MET</span></div><div class="g-vals"><span class="g-target">&le;&nbsp;25&nbsp;dB(A)</span><span class="g-arrow">&rarr;</span><span class="g-measured">22&nbsp;dB(A)</span></div></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style H ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style H &mdash; Result stat cards (2&times;2, big measured value + check)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">06</span>
+<h2 class="mat-h">Testing &amp; commissioning</h2>
+<p class="mat-p">Completed spaces were measured against the original criteria. Every key metric met or exceeded its target, documented in a signed commissioning report.</p>
+</div>
+<div class="h-grid">
+<div class="h-card"><span class="h-check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span class="h-target">Target NC&#8209;35</span><span class="h-measured">NC&#8209;33</span><span class="h-name">Open office &mdash; background noise</span></div>
+<div class="h-card"><span class="h-check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span class="h-target">Target &le;&nbsp;0.6&nbsp;s</span><span class="h-measured">0.52&nbsp;s</span><span class="h-name">Meeting room &mdash; RT&#8323;&#8320;</span></div>
+<div class="h-card"><span class="h-check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span class="h-target">Target &ge;&nbsp;50&nbsp;dB</span><span class="h-measured">52&nbsp;dB</span><span class="h-name">Partition insulation &mdash; Rw</span></div>
+<div class="h-card"><span class="h-check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span class="h-target">Target &le;&nbsp;25&nbsp;dB(A)</span><span class="h-measured">22&nbsp;dB(A)</span><span class="h-name">MEP equipment noise</span></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style I ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style I &mdash; Target vs measured gauge bars (animated draw-in)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">06</span>
+<h2 class="mat-h">Testing &amp; commissioning</h2>
+<p class="mat-p">Completed spaces were measured against the original criteria. Every key metric met or exceeded its target, documented in a signed commissioning report.</p>
+</div>
+<div class="i-list">
+<div class="i-item"><div class="i-head"><span class="i-name">Open office &mdash; background noise</span><span class="i-meta"><span class="i-tgt">NC&#8209;35</span><span class="i-val">NC&#8209;33</span></span></div><div class="i-track"><div class="i-fill" style="--w:80%"></div><span class="i-tick" style="--t:92%"></span></div></div>
+<div class="i-item"><div class="i-head"><span class="i-name">Meeting room &mdash; RT&#8323;&#8320;</span><span class="i-meta"><span class="i-tgt">&le;&nbsp;0.6&nbsp;s</span><span class="i-val">0.52&nbsp;s</span></span></div><div class="i-track"><div class="i-fill" style="--w:78%"></div><span class="i-tick" style="--t:92%"></span></div></div>
+<div class="i-item"><div class="i-head"><span class="i-name">Partition insulation &mdash; Rw</span><span class="i-meta"><span class="i-tgt">&ge;&nbsp;50&nbsp;dB</span><span class="i-val">52&nbsp;dB</span></span></div><div class="i-track"><div class="i-fill" style="--w:92%"></div><span class="i-tick" style="--t:84%"></span></div></div>
+<div class="i-item"><div class="i-head"><span class="i-name">MEP equipment noise</span><span class="i-meta"><span class="i-tgt">&le;&nbsp;25&nbsp;dB(A)</span><span class="i-val">22&nbsp;dB(A)</span></span></div><div class="i-track"><div class="i-fill" style="--w:76%"></div><span class="i-tick" style="--t:92%"></span></div></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style J ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style J &mdash; Ring dials (2&times;2, animated draw-in)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">06</span>
+<h2 class="mat-h">Testing &amp; commissioning</h2>
+<p class="mat-p">Completed spaces were measured against the original criteria. Every key metric met or exceeded its target, documented in a signed commissioning report.</p>
+</div>
+<div class="j-grid">
+<div class="j-card"><div class="j-ringwrap"><svg class="j-ring" viewBox="0 0 100 100"><circle class="j-bg" cx="50" cy="50" r="42"/><circle class="j-fg" cx="50" cy="50" r="42" style="stroke-dashoffset:53;animation-delay:0s"/></svg><div class="j-center"><span class="j-val">NC&#8209;33</span></div></div><div class="j-cap">Target NC&#8209;35</div><div class="j-name">Open office &mdash; background noise</div></div>
+<div class="j-card"><div class="j-ringwrap"><svg class="j-ring" viewBox="0 0 100 100"><circle class="j-bg" cx="50" cy="50" r="42"/><circle class="j-fg" cx="50" cy="50" r="42" style="stroke-dashoffset:58;animation-delay:.12s"/></svg><div class="j-center"><span class="j-val">0.52&nbsp;s</span></div></div><div class="j-cap">Target &le;&nbsp;0.6&nbsp;s</div><div class="j-name">Meeting room &mdash; RT&#8323;&#8320;</div></div>
+<div class="j-card"><div class="j-ringwrap"><svg class="j-ring" viewBox="0 0 100 100"><circle class="j-bg" cx="50" cy="50" r="42"/><circle class="j-fg" cx="50" cy="50" r="42" style="stroke-dashoffset:21;animation-delay:.24s"/></svg><div class="j-center"><span class="j-val">52&nbsp;dB</span></div></div><div class="j-cap">Target &ge;&nbsp;50&nbsp;dB</div><div class="j-name">Partition insulation &mdash; Rw</div></div>
+<div class="j-card"><div class="j-ringwrap"><svg class="j-ring" viewBox="0 0 100 100"><circle class="j-bg" cx="50" cy="50" r="42"/><circle class="j-fg" cx="50" cy="50" r="42" style="stroke-dashoffset:63;animation-delay:.36s"/></svg><div class="j-center"><span class="j-val">22&nbsp;dB(A)</span></div></div><div class="j-cap">Target &le;&nbsp;25&nbsp;dB(A)</div><div class="j-name">MEP equipment noise</div></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style K ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style K &mdash; Twin-column bar chart (target vs measured)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">06</span>
+<h2 class="mat-h">Testing &amp; commissioning</h2>
+<p class="mat-p">Completed spaces were measured against the original criteria. Every key metric met or exceeded its target, documented in a signed commissioning report.</p>
+</div>
+<div>
+<div class="k-chart">
+<div class="k-group"><div class="k-cols"><div class="k-col t" style="height:90%"><span class="k-num">NC&#8209;35</span></div><div class="k-col m" style="height:85%;animation-delay:.1s"><span class="k-num">NC&#8209;33</span></div></div><div class="k-glabel">Open office</div></div>
+<div class="k-group"><div class="k-cols"><div class="k-col t" style="height:90%"><span class="k-num">0.6</span></div><div class="k-col m" style="height:78%;animation-delay:.18s"><span class="k-num">0.52</span></div></div><div class="k-glabel">Meeting room</div></div>
+<div class="k-group"><div class="k-cols"><div class="k-col t" style="height:78%"><span class="k-num">50</span></div><div class="k-col m" style="height:90%;animation-delay:.26s"><span class="k-num">52</span></div></div><div class="k-glabel">Partition Rw</div></div>
+<div class="k-group"><div class="k-cols"><div class="k-col t" style="height:90%"><span class="k-num">25</span></div><div class="k-col m" style="height:79%;animation-delay:.34s"><span class="k-num">22</span></div></div><div class="k-glabel">MEP noise</div></div>
+</div>
+<div class="k-legend"><span><i style="background:var(--line)"></i>Target</span><span><i style="background:var(--red)"></i>Measured</span></div>
+</div>
+</div>
+</div></section>
+
+<!-- ===== Style L ===== -->
+<section class="opt"><div class="wrap">
+<div class="optname">Style L &mdash; Scoreboard readout (LED box + PASS stamp)</div>
+<div class="mat-demo">
+<div class="mat-text">
+<span class="step-no">06</span>
+<h2 class="mat-h">Testing &amp; commissioning</h2>
+<p class="mat-p">Completed spaces were measured against the original criteria. Every key metric met or exceeded its target, documented in a signed commissioning report.</p>
+</div>
+<div class="l-list">
+<div class="l-row"><div class="l-info"><div class="l-name">Open office &mdash; background noise</div><div class="l-tgt">Target NC&#8209;35</div></div><span class="l-readout">NC&#8209;33</span><span class="l-stamp">PASS</span></div>
+<div class="l-row"><div class="l-info"><div class="l-name">Meeting room &mdash; RT&#8323;&#8320;</div><div class="l-tgt">Target &le;&nbsp;0.6&nbsp;s</div></div><span class="l-readout">0.52&nbsp;s</span><span class="l-stamp">PASS</span></div>
+<div class="l-row"><div class="l-info"><div class="l-name">Partition insulation &mdash; Rw</div><div class="l-tgt">Target &ge;&nbsp;50&nbsp;dB</div></div><span class="l-readout">52&nbsp;dB</span><span class="l-stamp">PASS</span></div>
+<div class="l-row"><div class="l-info"><div class="l-name">MEP equipment noise</div><div class="l-tgt">Target &le;&nbsp;25&nbsp;dB(A)</div></div><span class="l-readout">22&nbsp;dB(A)</span><span class="l-stamp">PASS</span></div>
+</div>
+</div>
+</div></section>
+
+</body>
+</html>
