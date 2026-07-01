@@ -630,11 +630,27 @@
   .ov-dl .nm{ font-size:1.5rem; font-weight:600; line-height:1.2; }
   .ov-dl .meta{ font-family:var(--pv-mono); font-size:1.05rem; color:var(--pv-faint); letter-spacing:.06em; text-transform:uppercase; }
 
-  /* 5 · specifications */
-  .ov-spec{ display:grid; grid-template-columns:1fr 1fr; gap:0 6rem; }
-  .ov-spec .row{ display:grid; grid-template-columns:15rem 1fr; gap:2rem; padding:1.5rem 0; border-top:1px solid var(--pv-line); }
-  .ov-spec .row .k{ font-family:var(--pv-mono); font-size:1.12rem; letter-spacing:.08em; text-transform:uppercase; color:var(--pv-faint); padding-top:.3rem; }
-  .ov-spec .row .v{ font-size:1.55rem; font-weight:500; line-height:1.4; }
+  /* 4 · materials & finishes (swatch wall) */
+  .mf{ display:grid; grid-template-columns:.85fr 1.15fr; gap:5.6rem; align-items:start; }
+  .mf .ov-h2{ margin:1.4rem 0 0; }
+  .mf-blk{ margin-top:3rem; }
+  .mf-lab{ display:block; font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.2em; text-transform:uppercase; color:var(--pv-faint); margin-bottom:1.6rem; }
+  .mf-item{ display:flex; align-items:center; gap:1.2rem; padding:1.1rem 0; border-bottom:1px solid var(--pv-hair); }
+  .mf-item .sq{ width:2.2rem; height:2.2rem; flex:none; border:1px solid var(--pv-line); }
+  .mf-item .nm{ font-size:1.6rem; font-weight:500; }
+  .mf-item .mf-badge{ margin-left:auto; }
+  .mf-badge{ font-family:var(--pv-mono); font-size:.95rem; letter-spacing:.08em; text-transform:uppercase; padding:.32rem .72rem; border:1px solid var(--pv-line); white-space:nowrap; color:var(--pv-faint); }
+  .mf-badge.a{ background:var(--pv-accent); color:#fff; border-color:var(--pv-accent); }
+  .mf-fam{ display:flex; justify-content:space-between; align-items:baseline; padding:1.05rem 0; border-bottom:1px solid var(--pv-hair); font-size:1.6rem; font-weight:500; }
+  .mf-fam .cn{ font-family:var(--pv-mono); font-size:1.1rem; font-weight:400; color:var(--pv-faint); letter-spacing:.04em; text-transform:none; }
+  .mf-msg{ font-size:1.7rem; line-height:1.55; color:var(--pv-muted); margin-top:2.6rem; font-weight:350; }
+  .mf-msg b{ color:var(--pv-ink); font-weight:600; }
+  .mf-wall{ display:grid; grid-template-columns:repeat(6,1fr); gap:1rem; }
+  .mf-wall img{ aspect-ratio:1; object-fit:cover; border:1px solid var(--pv-hair); transition:transform .25s; }
+  .mf-wall img:hover{ transform:scale(1.06); outline:2px solid var(--pv-ink); position:relative; z-index:2; }
+  .mf-count{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pv-faint); text-align:right; margin-top:1.4rem; }
+  @media(max-width:900px){ .mf{ grid-template-columns:1fr; gap:3.4rem; } }
+  @media(max-width:600px){ .mf-wall{ grid-template-columns:repeat(5,1fr); gap:.7rem; } }
 
   /* 6/7 · icon grids */
   .ov-icons{ display:grid; gap:1.6rem; }
@@ -678,76 +694,85 @@
     .ov-situ{ aspect-ratio:4/3; }
   }
 
-  /* ===== v2 hero — gallery (thumb rail left + main) + text right (Variant 1) ===== */
-  .ovh{ display:grid; grid-template-columns:1.15fr 1fr; gap:5.6rem; align-items:stretch; min-height:80vh; margin-top:2rem; }
-  .ovh-gal{ display:grid; grid-template-columns:8.6rem 1fr; gap:1.4rem; }
-  .ovh-rail{ display:flex; flex-direction:column; gap:1.2rem; }
+  /* ===== v2 hero — Style 2 tabular: sticky gallery 45% (main + thumb row) / dense info 55% ===== */
+  .ovh2{ display:grid; grid-template-columns:45% 55%; gap:5.2rem; align-items:start; margin-top:2rem; }
+  .ovh2-gal{ align-self:start; }
+  .ovh2-main{ background:var(--pv-mist); overflow:hidden; aspect-ratio:1/1; }
+  .ovh2-main img{ width:100%; height:100%; object-fit:cover; }
+  .ovh2-row{ display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-top:1rem; }
   .ovh-thumb{ aspect-ratio:1; border:1px solid var(--pv-line); overflow:hidden; cursor:pointer; background:var(--pv-mist); position:relative; transition:border-color .2s; }
   .ovh-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .4s; }
   .ovh-thumb:hover img{ transform:scale(1.06); }
   .ovh-thumb.on{ border-color:var(--pv-ink); }
   .ovh-thumb.on::after{ content:""; position:absolute; inset:0; border:2px solid #fff; box-shadow:0 0 0 1px var(--pv-ink) inset; }
-  .ovh-main{ background:var(--pv-mist); overflow:hidden; position:relative; }
-  .ovh-main img{ width:100%; height:100%; object-fit:cover; }
-  .ovh-main .tagline{ position:absolute; left:2.2rem; bottom:1.8rem; color:#fff; font-family:var(--pv-mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; text-shadow:0 1px 10px rgba(0,0,0,.5); }
-  .ovh-txt{ display:flex; flex-direction:column; justify-content:center; }
-  .ovh-title{ position:static; width:auto; height:auto; overflow:visible; clip:auto; clip-path:none; padding:0; font-size:clamp(4.8rem,5.4vw,8rem); line-height:.92; letter-spacing:-.03em; font-weight:600; margin:1.4rem 0 0; }
-  .ovh-lede{ font-size:1.8rem; line-height:1.55; color:var(--pv-muted); margin:1.9rem 0 0; max-width:38rem; font-weight:350; }
-  .ovh-card{ background:var(--pv-paper); border:1px solid var(--pv-line); padding:2.8rem; margin-top:2.8rem; }
-  .ovh-specs .r{ display:grid; grid-template-columns:13rem 1fr; gap:1.6rem; padding:1.1rem 0; border-top:1px solid var(--pv-line); font-size:1.5rem; }
-  .ovh-specs .r:first-child{ border-top:0; }
-  .ovh-specs .k{ color:var(--pv-muted); } .ovh-specs .v{ font-weight:500; }
-  .ovh-fin{ display:flex; gap:.8rem; margin-top:2.4rem; align-items:center; flex-wrap:wrap; }
-  .ovh-fin .l{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pv-faint); margin-right:.6rem; }
-  .ovh-fin .sw{ width:3.4rem; height:3.4rem; border:1px solid var(--pv-line); overflow:hidden; } .ovh-fin .sw img{ width:100%; height:100%; object-fit:cover; }
-  .ovh-cta{ display:flex; gap:1.4rem; flex-wrap:wrap; margin-top:2.8rem; }
+  .ovh2-title{ position:static; width:auto; height:auto; overflow:visible; clip:auto; clip-path:none; padding:0; margin:1.4rem 0 0; font-size:clamp(4.2rem,4.8vw,6.8rem); line-height:.92; letter-spacing:-.03em; font-weight:600; }
+  .ovh2-lede{ font-size:1.75rem; line-height:1.55; color:var(--pv-muted); margin:1.6rem 0 0; max-width:42rem; font-weight:350; }
+  .ovh2-table{ margin-top:2.8rem; border-top:1px solid var(--pv-ink); border-bottom:1px solid var(--pv-ink); }
+  .ovh2-table .r{ display:grid; grid-template-columns:13rem 1fr auto; gap:1.6rem; align-items:baseline; padding:1.15rem 0; border-bottom:1px solid var(--pv-hair); }
+  .ovh2-table .r:last-child{ border-bottom:0; }
+  .ovh2-table .k{ font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.05em; text-transform:uppercase; color:var(--pv-faint); }
+  .ovh2-table .v{ font-size:1.5rem; font-weight:500; }
+  .ovh2-table .s{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.03em; color:var(--pv-accent); text-align:right; white-space:nowrap; }
+  .ovh2-cols{ display:grid; grid-template-columns:1.15fr 1fr; gap:3rem 3.4rem; margin-top:2.8rem; }
+  .ovh2-lab{ display:block; font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.2em; text-transform:uppercase; color:var(--pv-faint); margin-bottom:1.4rem; }
+  .ovh2-apps{ display:flex; flex-wrap:wrap; gap:.8rem; }
+  .ovh2-apps span{ display:inline-flex; align-items:center; gap:.7rem; border:1px solid var(--pv-line); padding:.75rem 1.3rem; font-size:1.3rem; font-weight:500; }
+  .ovh2-apps svg{ width:1.8rem; height:1.8rem; color:var(--pv-accent); stroke:currentColor; fill:none; stroke-width:1.6; flex:none; }
+  .ovh2-qual{ display:grid; grid-template-columns:1fr 1fr; gap:.95rem 1.6rem; }
+  .ovh2-qual span{ font-size:1.35rem; color:var(--pv-muted); display:flex; align-items:center; gap:.7rem; }
+  .ovh2-qual span::before{ content:""; width:.6rem; height:.6rem; border-radius:50%; background:var(--pv-accent); flex:none; }
+  .ovh2-cta{ display:flex; gap:1.4rem; flex-wrap:wrap; margin-top:3rem; }
   @media(max-width:900px){
-    .ovh{ grid-template-columns:1fr; gap:3rem; min-height:0; }
-    .ovh-gal{ grid-template-columns:7.2rem 1fr; }
-    .ovh-main{ aspect-ratio:4/3; }
+    .ovh2{ grid-template-columns:1fr; gap:3rem; }
+    .ovh2-main{ aspect-ratio:1/1; }
   }
-  @media(max-width:600px){ .ovh-gal{ grid-template-columns:6rem 1fr; } }
 
   /* 2 · in-situ showcase — heading + horizontal swipe rail of large interiors */
   .ov-sc-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:3rem; flex-wrap:wrap; margin-bottom:3.6rem; }
   .ov-sc-head h2{ font-size:clamp(2.6rem,3.2vw,3.9rem); line-height:1.05; letter-spacing:-.02em; font-weight:600; margin-top:0; }
   .ov-sc-head .sub{ font-size:1.6rem; line-height:1.55; color:var(--pv-muted); max-width:32rem; }
-  .ov-sc-rail{ display:flex; gap:1.6rem; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding-bottom:1rem; }
-  .ov-sc-rail::-webkit-scrollbar{ display:none; }
-  .ov-sc-rail figure{ flex:none; height:52vh; min-height:40rem; max-height:62rem; margin:0; position:relative; overflow:hidden; background:var(--pv-mist); scroll-snap-align:start; }
-  .ov-sc-rail figure img{ height:100%; width:auto; display:block; }
-  .ov-sc-rail figure::after{ content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(20,15,13,.5),transparent 50%); }
-  .ov-sc-rail .cap{ position:absolute; left:2rem; bottom:1.8rem; color:#fff; z-index:2; text-shadow:0 1px 12px rgba(0,0,0,.5); }
-  .ov-sc-rail .cap .t{ font-size:1.9rem; font-weight:600; }
-  .ov-sc-rail .cap .s{ font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.12em; text-transform:uppercase; opacity:.85; margin-top:.3rem; }
-  @media(max-width:900px){ .ov-sc-rail figure{ height:42vh; min-height:30rem; } }
-  @media(max-width:600px){ .ov-sc-rail figure{ height:40vh; min-height:26rem; } }
+  .ov-sc-row{ display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:1.6rem; }
+  .ov-sc-row figure{ position:relative; margin:0; overflow:hidden; background:var(--pv-mist); height:56vh; min-height:42rem; max-height:60rem; }
+  .ov-sc-row figure img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.16,1,.3,1); }
+  .ov-sc-row figure:hover img{ transform:scale(1.04); }
+  .ov-sc-row figure::after{ content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(20,15,13,.5),transparent 50%); }
+  .ov-sc-row .cap{ position:absolute; left:2rem; bottom:1.8rem; color:#fff; z-index:2; text-shadow:0 1px 12px rgba(0,0,0,.5); }
+  .ov-sc-row .cap .t{ font-size:1.9rem; font-weight:600; }
+  .ov-sc-row .cap .s{ font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.12em; text-transform:uppercase; opacity:.85; margin-top:.3rem; }
+  @media(max-width:900px){
+    .ov-sc-row{ grid-template-columns:1fr 1fr; }
+    .ov-sc-row figure{ height:auto; aspect-ratio:4/3; min-height:0; max-height:none; }
+    .ov-sc-row figure:first-child{ grid-column:1 / -1; aspect-ratio:16/9; }
+  }
+  @media(max-width:600px){
+    .ov-sc-row{ grid-template-columns:1fr; }
+    .ov-sc-row figure, .ov-sc-row figure:first-child{ aspect-ratio:16/10; }
+  }
 
-  /* 3 · acoustic performance chart */
+  /* 3 · acoustic performance chart (vega-3 bordered-box style, single line) */
   .ov-perf-intro{ max-width:78rem; }
-  .ov-perf-lead{ font-size:1.65rem; line-height:1.62; color:var(--pv-muted); margin-top:1.8rem; }
-  .ov-perf-lead b{ color:var(--pv-ink); font-weight:600; }
-  .ov-chart-wrap{ margin-top:5rem; border:1px solid var(--pv-line); background:var(--pv-paper); padding:3rem 3.2rem 2.2rem; }
-  .ov-legend{ display:flex; gap:2.6rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.4rem; }
-  .ov-legend span{ display:inline-flex; align-items:center; gap:.9rem; font-size:1.35rem; font-weight:600; }
-  .ov-legend em{ color:var(--pv-faint); font-weight:400; font-style:normal; margin-left:.3rem; }
-  .ov-legend i{ width:2.6rem; height:.4rem; border-radius:2px; flex:none; }
-  .ov-chart svg{ width:100%; height:auto; display:block; }
-  @media(max-width:600px){ .ov-chart-wrap{ padding:2rem 1.4rem 1.4rem; } .ov-legend{ gap:1.4rem; } .ov-legend span{ font-size:1.2rem; } }
+  .tv-perf{ display:grid; grid-template-columns:1.7fr 1fr; border:1px solid var(--pv-ink); margin-top:4.5rem; }
+  .tv-perf-chart{ border-right:1px solid var(--pv-ink); padding:2.6rem 2.8rem; }
+  .tv-perf-chart svg{ width:100%; height:auto; display:block; }
+  .tv-perf-side{ padding:2.6rem 2.8rem; display:flex; flex-direction:column; }
+  .tv-perf-side .lede{ font-size:1.45rem; line-height:1.6; color:var(--pv-muted); }
+  .tv-perf-side .lede b{ color:var(--pv-ink); }
+  .tv-legend{ display:flex; flex-direction:column; gap:.8rem; margin:2.2rem 0; }
+  .tv-legend span{ display:flex; align-items:center; gap:1rem; font-size:1.3rem; font-weight:500; }
+  .tv-legend i{ width:2.4rem; height:.4rem; flex:none; }
+  .tv-aptable{ margin-top:auto; width:100%; border-collapse:collapse; font-family:var(--pv-mono); }
+  .tv-aptable td,.tv-aptable th{ border:1px solid var(--pv-line); padding:.8rem .4rem; text-align:center; font-size:1.15rem; }
+  .tv-aptable th{ color:var(--pv-faint); font-weight:500; }
+  .tv-aptable td{ font-weight:600; }
+  @media(max-width:900px){ .tv-perf{ grid-template-columns:1fr; } .tv-perf-chart{ border-right:0; border-bottom:1px solid var(--pv-ink); } }
+  @media(max-width:600px){
+    .tv-perf-chart{ overflow-x:auto; scrollbar-width:none; padding:1.8rem; }
+    .tv-perf-chart::-webkit-scrollbar{ display:none; }
+    .tv-perf-chart svg{ min-width:520px; }
+    .tv-perf-side{ padding:2.2rem 1.8rem; }
+  }
 
   /* 5 · applications + characteristics merged (editorial split) */
-  .ov-mg{ display:grid; grid-template-columns:1fr 1.4fr; gap:5.6rem; align-items:start; }
-  .ov-mg-lede{ font-size:1.6rem; line-height:1.6; color:var(--pv-muted); margin:1.8rem 0 2.8rem; max-width:30rem; }
-  .ov-mg-sublabel{ font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.2em; text-transform:uppercase; color:var(--pv-faint); font-weight:600; margin-bottom:1.8rem; }
-  .ov-mg-pills{ display:flex; flex-wrap:wrap; gap:1rem; }
-  .ov-mg-pill{ display:inline-flex; align-items:center; gap:.9rem; border:1px solid var(--pv-line); border-radius:100px; padding:1rem 1.7rem; font-size:1.4rem; font-weight:500; }
-  .ov-mg-pill svg{ width:1.9rem; height:1.9rem; color:var(--pv-accent); stroke:currentColor; fill:none; stroke-width:1.6; flex:none; }
-  .ov-mg-clist{ display:grid; grid-template-columns:1fr 1fr; gap:0 3.6rem; }
-  .ov-mg-crow{ display:flex; align-items:center; gap:1.4rem; padding:1.6rem 0; border-top:1px solid var(--pv-line); }
-  .ov-mg-crow svg{ width:2.5rem; height:2.5rem; color:var(--pv-accent); stroke:currentColor; fill:none; stroke-width:1.5; flex:none; }
-  .ov-mg-crow .t{ font-size:1.5rem; font-weight:500; }
-  .ov-mg-crow .s{ font-family:var(--pv-mono); font-size:1.1rem; color:var(--pv-faint); margin-left:auto; }
-  @media(max-width:900px){ .ov-mg{ grid-template-columns:1fr; gap:3.6rem; } .ov-mg-clist{ grid-template-columns:1fr; } }
 
   /* 6 · download datasheet band (dark CTA) */
   .ov-dlband{ background:var(--pv-ink); color:#f3efe9; }
@@ -765,28 +790,37 @@
   @media(max-width:760px){ .ov-dlband-grid{ grid-template-columns:1fr; gap:3rem; } .ov-dlcard{ flex-wrap:wrap; } .ov-dlcard .dlbtn{ margin-left:0; width:100%; justify-content:space-between; } }
 
   /* 5 · models family — compact, real product photos */
-  .ov-fam{ display:grid; grid-template-columns:1fr 1fr; gap:3.6rem; }
-  .ov-fam-item figure{ margin:0; aspect-ratio:16/5.6; background:var(--pv-mist); overflow:hidden; }
-  .ov-fam-item img{ width:100%; height:100%; object-fit:cover; }
-  .ov-fam-meta{ display:flex; justify-content:space-between; align-items:baseline; gap:1.5rem; margin-top:1.5rem; padding-bottom:1.4rem; border-bottom:1px solid var(--pv-line); }
-  .ov-fam-meta h3{ font-size:1.9rem; font-weight:600; letter-spacing:-.01em; }
-  .ov-fam-meta h3 .badge{ font-family:var(--pv-mono); font-size:1rem; letter-spacing:.12em; text-transform:uppercase; color:var(--pv-accent); margin-left:1rem; font-weight:500; }
-  .ov-fam-meta .sp{ font-family:var(--pv-mono); font-size:1.2rem; color:var(--pv-faint); text-align:right; white-space:nowrap; }
-  @media(max-width:760px){ .ov-fam{ grid-template-columns:1fr; gap:2.8rem; } .ov-fam-meta .sp{ font-size:1.05rem; } }
+  .ov-fam{ display:grid; grid-template-columns:repeat(5,1fr); gap:1.4rem; }
+  .ov-fam-item{ border:1px solid var(--pv-line); transition:border-color .25s; }
+  .ov-fam-item:hover{ border-color:var(--pv-ink); }
+  .ov-fam-item figure{ margin:0; aspect-ratio:3/4; background:var(--pv-mist); overflow:hidden; }
+  .ov-fam-item img{ width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+  .ov-fam-item:hover img{ transform:scale(1.04); }
+  .ov-fam-meta{ display:flex; justify-content:space-between; align-items:baseline; gap:.8rem; padding:1.2rem 1.3rem; }
+  .ov-fam-meta h3{ font-size:1.5rem; font-weight:600; letter-spacing:-.01em; }
+  .ov-fam-meta .sp{ font-family:var(--pv-mono); font-size:1rem; letter-spacing:.03em; color:var(--pv-faint); text-align:right; white-space:nowrap; }
+  .ov-fam-all{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.3rem; text-align:center; padding:1.5rem; background:var(--pv-mist); border:1px solid var(--pv-line); transition:border-color .25s; }
+  .ov-fam-all:hover{ border-color:var(--pv-ink); }
+  .ov-fam-all .ar{ width:4.6rem; height:4.6rem; border:1px solid var(--pv-ink); border-radius:50%; display:grid; place-items:center; font-size:1.7rem; transition:.25s; }
+  .ov-fam-all:hover .ar{ background:var(--pv-ink); color:#fff; }
+  .ov-fam-all .t{ font-size:1.5rem; font-weight:600; }
+  .ov-fam-all .s{ font-family:var(--pv-mono); font-size:.95rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pv-faint); }
+  @media(max-width:900px){ .ov-fam{ grid-template-columns:repeat(3,1fr); } }
 
   /* ===== consolidated mobile optimization (≤600) — last so it wins ===== */
   @media(max-width:600px){
-    /* hero gallery: big main on top, thumbnails as a horizontal swipe row below */
-    .ovh-gal{ display:flex; flex-direction:column; gap:1rem; grid-template-columns:none; }
-    .ovh-main{ order:-1; aspect-ratio:4/3; }
-    .ovh-rail{ flex-direction:row; overflow-x:auto; gap:.8rem; padding-bottom:.4rem; scroll-snap-type:x mandatory; scrollbar-width:none; }
-    .ovh-rail::-webkit-scrollbar{ display:none; }
-    .ovh-rail .ovh-thumb{ flex:0 0 19%; aspect-ratio:1; scroll-snap-align:start; }
+    /* hero: square main + 5-up thumbnail row already stacks; condense the spec table + columns */
+    .ovh2-table .r{ grid-template-columns:1fr auto; gap:.3rem 1.2rem; }
+    .ovh2-table .k{ grid-column:1 / -1; margin-bottom:.1rem; }
+    .ovh2-cols{ grid-template-columns:1fr; gap:2.4rem; }
+    .ovh2-qual{ grid-template-columns:1fr; }
 
-    /* The Classic family -> horizontal swipe */
-    .ov-fam{ display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:1.6rem; scrollbar-width:none; grid-template-columns:none; padding-bottom:.6rem; }
-    .ov-fam::-webkit-scrollbar{ display:none; }
-    .ov-fam-item{ flex:0 0 84%; scroll-snap-align:center; }
+    /* The Classic family -> 2-up grid; view-all becomes a full-width bar */
+    .ov-fam{ grid-template-columns:repeat(2,1fr); gap:1rem; }
+    .ov-fam-all{ grid-column:1 / -1; flex-direction:row; align-items:center; justify-content:center; gap:1.1rem; padding:1.7rem; }
+    .ov-fam-all .ar{ width:3.6rem; height:3.6rem; font-size:1.5rem; }
+    .ov-fam-all .t{ font-size:1.45rem; }
+    .ov-fam-all .s::before{ content:"\00b7\00a0"; }
 
     /* specifications: narrower label column so values fit */
     .ov-spec .row{ grid-template-columns:10rem 1fr; gap:1.2rem; }
@@ -1462,30 +1496,53 @@
     <a href="index-4.html">Classic</a><span class="sep">/</span>
     <span class="cur">Vega</span>
   </nav>
-  <div class="ovh pv-rise">
-    <div class="ovh-gal" id="ovhGal">
-      <div class="ovh-rail">
+  <div class="ovh2">
+    <div class="ovh2-gal" id="ovhGal">
+      <div class="ovh2-main pv-rise"><img id="ovhMain" src="assets/products/vega/array-front.webp" alt="Vega"></div>
+      <div class="ovh2-row pv-rise d1">
         <div class="ovh-thumb on" data-src="assets/products/vega/array-front.webp"><img src="assets/products/vega/array-front.webp" alt="Vega tiled face"></div>
         <div class="ovh-thumb" data-src="assets/products/vega/panel-front.webp"><img src="assets/products/vega/panel-front.webp" alt="Vega single face"></div>
         <div class="ovh-thumb" data-src="assets/products/vega/panel-3d.png"><img src="assets/products/vega/panel-3d.png" alt="Vega profile"></div>
         <div class="ovh-thumb" data-src="assets/products/vega/array-3d.png"><img src="assets/products/vega/array-3d.png" alt="Vega depth"></div>
         <div class="ovh-thumb" data-src="assets/products/vega/detail.webp"><img src="assets/products/vega/detail.webp" alt="Vega texture"></div>
       </div>
-      <div class="ovh-main"><img id="ovhMain" src="assets/products/vega/array-front.webp" alt="Vega"></div>
     </div>
-    <div class="ovh-txt">
-      <span class="ov-eyebrow">NAAYA Classic</span>
-      <h1 class="ovh-title">Vega</h1>
-      <p class="ovh-lede">A grooved acoustic panel that reads as joinery &mdash; a clean linear rhythm engineered for the mid and low frequencies most rooms struggle with.</p>
-      <div class="ovh-card">
-        <div class="ovh-specs">
-          <div class="r"><div class="k">Finishes</div><div class="v">30 &middot; Melamine / HPL / Veneer</div></div>
-          <div class="r"><div class="k">Module</div><div class="v">133 / 197 &times; 2430 mm</div></div>
-          <div class="r"><div class="k">Thickness</div><div class="v">15 mm</div></div>
-          <div class="r"><div class="k">Acoustic</div><div class="v">NRC &le; 0.80 &middot; ISO 354</div></div>
+    <div class="ovh2-info">
+      <span class="ov-eyebrow pv-rise">NAAYA Classic</span>
+      <h1 class="ovh2-title pv-rise d1">Vega</h1>
+      <p class="ovh2-lede pv-rise d1">A grooved acoustic panel that reads as joinery &mdash; a clean linear rhythm engineered for the mid and low frequencies most rooms struggle with.</p>
+
+      <div class="ovh2-table pv-rise d2">
+        <div class="r"><span class="k">Finishes</span><span class="v">30 &middot; Melamine / HPL / Veneer</span><span class="s"></span></div>
+        <div class="r"><span class="k">Module</span><span class="v">133 / 197 &times; 2430 mm</span><span class="s"></span></div>
+        <div class="r"><span class="k">Thickness</span><span class="v">15 mm</span><span class="s"></span></div>
+        <div class="r"><span class="k">Acoustic</span><span class="v">NRC &le; 0.80</span><span class="s">ISO 354</span></div>
+        <div class="r"><span class="k">Fire reaction</span><span class="v">Euroclass rated</span><span class="s">EN 13501</span></div>
+        <div class="r"><span class="k">Low VOC</span><span class="v">Compliant</span><span class="s">EN 717</span></div>
+      </div>
+
+      <div class="ovh2-cols pv-rise d3">
+        <div>
+          <span class="ovh2-lab">Applications</span>
+          <div class="ovh2-apps">
+            <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path d="M8 3v18M13 3v18M18 3v18"/></svg>Walls</span>
+            <span><svg viewBox="0 0 24 24"><path d="M3 5h18"/><path d="M5 5v3M9 5v3M13 5v3M17 5v3M21 5v3"/><path d="M3 12h18M3 19h18"/></svg>Ceilings</span>
+            <span><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18"/><circle cx="15" cy="12" r="1"/></svg>Doors</span>
+            <span><svg viewBox="0 0 24 24"><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M3 10h18v6H3z"/><path d="M5 16v4M19 16v4"/></svg>Furniture &amp; joinery</span>
+          </div>
+        </div>
+        <div>
+          <span class="ovh2-lab">Qualities</span>
+          <div class="ovh2-qual">
+            <span>Impact resistance</span>
+            <span>Scratch resistance</span>
+            <span>Light fastness</span>
+            <span>Easy maintenance</span>
+          </div>
         </div>
       </div>
-      <div class="ovh-cta">
+
+      <div class="ovh2-cta pv-rise d4">
         <a href="mailto:hello@naaya.com?subject=Vega%20quote%20request" class="pv-btn pv-btn--solid">Request a quote <span class="ar">&#8594;</span></a>
         <a href="#download" class="pv-btn pv-btn--ghost">Download datasheet</a>
       </div>
@@ -1493,7 +1550,7 @@
   </div>
 </section>
 
-<!-- ===== 2 · IN-SITU SHOWCASE (interiors — swipe rail) ===== -->
+<!-- ===== 2 · IN-SITU SHOWCASE (interiors — fixed 3-up row) ===== -->
 <section class="pv-wrap ov-sec ov-rule">
   <div class="ov-sc-head pv-rise">
     <div>
@@ -1502,13 +1559,10 @@
     </div>
     <p class="sub">From curved corridors to auditorium walls &mdash; the same grooved language, scaled to the space.</p>
   </div>
-  <div class="ov-sc-rail pv-rise">
+  <div class="ov-sc-row pv-rise">
     <figure><img loading="lazy" src="assets/products/vega/scene-4.webp" alt="Vega in a cultural centre foyer"><div class="cap"><div class="t">Cultural centre foyer</div><div class="s">Vega in oak</div></div></figure>
     <figure><img loading="lazy" src="assets/products/vega/scene-3.webp" alt="Vega acoustic corridor"><div class="cap"><div class="t">Acoustic corridor</div><div class="s">Vertical run</div></div></figure>
     <figure><img loading="lazy" src="assets/products/vega/scene-2.webp" alt="Vega feature wall"><div class="cap"><div class="t">Feature wall</div></div></figure>
-    <figure><img loading="lazy" src="assets/products/vega/scene-5.webp" alt="Vega in an auditorium"><div class="cap"><div class="t">Auditorium</div><div class="s">Vega in walnut</div></div></figure>
-    <figure><img loading="lazy" src="assets/products/vega/scene-1.webp" alt="Vega curved corridor"><div class="cap"><div class="t">Curved corridor</div></div></figure>
-    <figure><img loading="lazy" src="assets/products/vega/scene-portrait.webp" alt="Vega stair core"><div class="cap"><div class="t">Stair core</div></div></figure>
   </div>
 </section>
 
@@ -1516,129 +1570,43 @@
 <section class="pv-wrap ov-sec ov-rule">
   <div class="ov-perf-intro">
     <span class="ov-eyebrow pv-rise">Tested, not estimated</span>
-    <h2 class="ov-h2 pv-rise" style="margin-bottom:1.8rem">Performance you can <span style="color:var(--pv-accent)">trust</span>.</h2>
-    <p class="ov-perf-lead pv-rise">Every NAAYA panel is tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber &mdash; mounted over a 50&nbsp;mm fibreglass cavity, reported as the absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with, where a typical flat absorber falls short. Lab data you can specify against &mdash; not marketing estimates.</p>
+    <h2 class="ov-h2 pv-rise">Performance you can <span style="color:var(--pv-accent)">trust</span>.</h2>
   </div>
-  <div class="ov-chart-wrap pv-rise">
-    <div class="ov-legend">
-      <span><i style="background:var(--pv-accent)"></i>Vega &mdash; Classic grooved <em>(NRC 0.80)</em></span>
-      <span><i style="background:#3f7d86"></i>Typical flat absorber</span>
-    </div>
-    <div class="ov-chart">
-      <svg viewBox="0 0 1180 470" role="img" aria-label="Sound absorption coefficient — Vega vs typical flat absorber" font-family="Inter, sans-serif">
-      <line x1="66" y1="388.0" x2="1166" y2="388.0" stroke="#231f20" stroke-opacity="0.1" stroke-width="1"/>
-      <text x="54" y="392.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0</text>
-      <line x1="66" y1="278.2" x2="1166" y2="278.2" stroke="#231f20" stroke-opacity="0.1" stroke-width="1"/>
-      <text x="54" y="282.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.3</text>
-      <line x1="66" y1="205.0" x2="1166" y2="205.0" stroke="#231f20" stroke-opacity="0.1" stroke-width="1"/>
-      <text x="54" y="209.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.5</text>
-      <line x1="66" y1="95.2" x2="1166" y2="95.2" stroke="#231f20" stroke-opacity="0.1" stroke-width="1"/>
-      <text x="54" y="99.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.8</text>
-      <line x1="66" y1="22.0" x2="1166" y2="22.0" stroke="#231f20" stroke-opacity="0.1" stroke-width="1"/>
-      <text x="54" y="26.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">1</text>
-      <text x="20" y="205" font-size="13" fill="#231f20" fill-opacity="0.55" text-anchor="middle" transform="rotate(-90 20 205)">Sound absorption coefficient &#945;p</text>
-      <text x="66.0" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 66.0 406.0)">40</text>
-      <text x="111.8" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 111.8 406.0)">50</text>
-      <text x="157.7" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 157.7 406.0)">63</text>
-      <text x="203.5" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 203.5 406.0)">80</text>
-      <text x="249.3" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 249.3 406.0)">100</text>
-      <text x="295.2" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 295.2 406.0)">125</text>
-      <text x="341.0" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 341.0 406.0)">160</text>
-      <text x="386.8" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 386.8 406.0)">200</text>
-      <text x="432.7" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 432.7 406.0)">250</text>
-      <text x="478.5" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 478.5 406.0)">315</text>
-      <text x="524.3" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 524.3 406.0)">400</text>
-      <text x="570.2" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 570.2 406.0)">500</text>
-      <text x="616.0" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 616.0 406.0)">630</text>
-      <text x="661.8" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 661.8 406.0)">800</text>
-      <text x="707.7" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 707.7 406.0)">1k</text>
-      <text x="753.5" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 753.5 406.0)">1.25k</text>
-      <text x="799.3" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 799.3 406.0)">1.6k</text>
-      <text x="845.2" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 845.2 406.0)">2k</text>
-      <text x="891.0" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 891.0 406.0)">2.5k</text>
-      <text x="936.8" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 936.8 406.0)">3.15k</text>
-      <text x="982.7" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 982.7 406.0)">4k</text>
-      <text x="1028.5" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1028.5 406.0)">5k</text>
-      <text x="1074.3" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1074.3 406.0)">6.3k</text>
-      <text x="1120.2" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1120.2 406.0)">8k</text>
-      <text x="1166.0" y="406.0" font-size="11" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1166.0 406.0)">10k</text>
-      <text x="616" y="464" font-size="13" fill="#231f20" fill-opacity="0.55" text-anchor="middle">Frequency (Hz)</text>
-      <polyline points="66.0,384.3 111.8,380.7 157.7,380.7 203.5,373.4 249.3,351.4 295.2,285.5 341.0,278.2 386.8,241.6 432.7,212.3 478.5,186.7 524.3,161.1 570.2,139.1 616.0,124.5 661.8,117.2 707.7,113.5 753.5,117.2 799.3,131.8 845.2,161.1 891.0,186.7 936.8,197.7 982.7,205.0 1028.5,205.0 1074.3,205.0 1120.2,205.0 1166.0,205.0" fill="none" stroke="#3f7d86" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-      <circle cx="66.0" cy="384.3" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="111.8" cy="380.7" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="157.7" cy="380.7" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="203.5" cy="373.4" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="249.3" cy="351.4" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="295.2" cy="285.5" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="341.0" cy="278.2" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="386.8" cy="241.6" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="432.7" cy="212.3" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="478.5" cy="186.7" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="524.3" cy="161.1" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="570.2" cy="139.1" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="616.0" cy="124.5" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="661.8" cy="117.2" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="707.7" cy="113.5" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="753.5" cy="117.2" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="799.3" cy="131.8" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="845.2" cy="161.1" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="891.0" cy="186.7" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="936.8" cy="197.7" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="982.7" cy="205.0" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="1028.5" cy="205.0" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="1074.3" cy="205.0" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="1120.2" cy="205.0" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <circle cx="1166.0" cy="205.0" r="3" fill="#fff" stroke="#3f7d86" stroke-width="2"/>
-      <polygon points="66.0,388.0 66.0,380.7 111.8,377.0 157.7,373.4 203.5,358.7 249.3,314.8 295.2,168.4 341.0,124.5 386.8,87.9 432.7,62.3 478.5,58.6 524.3,62.3 570.2,69.6 616.0,73.2 661.8,76.9 707.7,76.9 753.5,87.9 799.3,102.5 845.2,131.8 891.0,146.4 936.8,161.1 982.7,168.4 1028.5,168.4 1074.3,164.7 1120.2,161.1 1166.0,161.1 1166.0,388.0" fill="#8a4332" fill-opacity="0.07"/>
-      <polyline points="66.0,380.7 111.8,377.0 157.7,373.4 203.5,358.7 249.3,314.8 295.2,168.4 341.0,124.5 386.8,87.9 432.7,62.3 478.5,58.6 524.3,62.3 570.2,69.6 616.0,73.2 661.8,76.9 707.7,76.9 753.5,87.9 799.3,102.5 845.2,131.8 891.0,146.4 936.8,161.1 982.7,168.4 1028.5,168.4 1074.3,164.7 1120.2,161.1 1166.0,161.1" fill="none" stroke="#8a4332" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-      <circle cx="66.0" cy="380.7" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="111.8" cy="377.0" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="157.7" cy="373.4" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="203.5" cy="358.7" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="249.3" cy="314.8" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="295.2" cy="168.4" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="341.0" cy="124.5" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="386.8" cy="87.9" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="432.7" cy="62.3" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="478.5" cy="58.6" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="524.3" cy="62.3" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="570.2" cy="69.6" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="616.0" cy="73.2" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="661.8" cy="76.9" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="707.7" cy="76.9" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="753.5" cy="87.9" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="799.3" cy="102.5" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="845.2" cy="131.8" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="891.0" cy="146.4" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="936.8" cy="161.1" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="982.7" cy="168.4" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="1028.5" cy="168.4" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="1074.3" cy="164.7" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="1120.2" cy="161.1" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      <circle cx="1166.0" cy="161.1" r="3.4" fill="#fff" stroke="#8a4332" stroke-width="2.2"/>
-      </svg>
+  <div class="tv-perf pv-rise">
+    <div class="tv-perf-chart"><svg viewBox="0 0 1180 470" font-family="monospace" role="img" aria-label="Vega absorption coefficient curve"><line x1="66" y1="388.0" x2="1166" y2="388.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="392.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0</text><line x1="66" y1="278.2" x2="1166" y2="278.2" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="282.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.3</text><line x1="66" y1="205.0" x2="1166" y2="205.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="209.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.5</text><line x1="66" y1="95.2" x2="1166" y2="95.2" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="99.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.8</text><line x1="66" y1="22.0" x2="1166" y2="22.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="26.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">1</text><text x="66.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 66.0 406.0)">40</text><text x="111.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 111.8 406.0)">50</text><text x="157.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 157.7 406.0)">63</text><text x="203.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 203.5 406.0)">80</text><text x="249.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 249.3 406.0)">100</text><text x="295.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 295.2 406.0)">125</text><text x="341.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 341.0 406.0)">160</text><text x="386.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 386.8 406.0)">200</text><text x="432.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 432.7 406.0)">250</text><text x="478.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 478.5 406.0)">315</text><text x="524.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 524.3 406.0)">400</text><text x="570.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 570.2 406.0)">500</text><text x="616.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 616.0 406.0)">630</text><text x="661.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 661.8 406.0)">800</text><text x="707.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 707.7 406.0)">1k</text><text x="753.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 753.5 406.0)">1.25k</text><text x="799.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 799.3 406.0)">1.6k</text><text x="845.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 845.2 406.0)">2k</text><text x="891.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 891.0 406.0)">2.5k</text><text x="936.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 936.8 406.0)">3.15k</text><text x="982.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 982.7 406.0)">4k</text><text x="1028.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1028.5 406.0)">5k</text><text x="1074.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1074.3 406.0)">6.3k</text><text x="1120.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1120.2 406.0)">8k</text><text x="1166.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1166.0 406.0)">10k</text><polyline points="66.0,362.4 111.8,355.1 157.7,344.1 203.5,314.8 249.3,256.2 295.2,184.2 341.0,142.8 386.8,109.8 432.7,84.2 478.5,74.3 524.3,68.8 570.2,65.9 616.0,68.5 661.8,74.3 707.7,80.6 753.5,93.4 799.3,111.7 845.2,130.6 891.0,143.5 936.8,158.2 982.7,169.6 1028.5,173.9 1074.3,176.5 1120.2,177.6 1166.0,178.3" fill="none" stroke="#8a4332" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="66.0" cy="362.4" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="111.8" cy="355.1" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="157.7" cy="344.1" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="203.5" cy="314.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="249.3" cy="256.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="295.2" cy="184.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="341.0" cy="142.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="386.8" cy="109.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="432.7" cy="84.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="478.5" cy="74.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="524.3" cy="68.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="570.2" cy="65.9" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="616.0" cy="68.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="661.8" cy="74.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="707.7" cy="80.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="753.5" cy="93.4" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="799.3" cy="111.7" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="845.2" cy="130.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="891.0" cy="143.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="936.8" cy="158.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="982.7" cy="169.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1028.5" cy="173.9" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1074.3" cy="176.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1120.2" cy="177.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1166.0" cy="178.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/></svg></div>
+    <div class="tv-perf-side">
+      <p class="lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with &mdash; peaking near &alpha;p&nbsp;0.88 at 500&nbsp;Hz.</p>
+      <div class="tv-legend"><span><i style="background:var(--pv-accent)"></i>Vega &mdash; Classic grooved &middot; NRC&nbsp;0.80</span></div>
+      <table class="tv-aptable">
+        <tr><th>Hz</th><th>125</th><th>250</th><th>500</th><th>1k</th><th>2k</th><th>4k</th></tr>
+        <tr><td>&alpha;p</td><td>0.56</td><td>0.83</td><td>0.88</td><td>0.84</td><td>0.70</td><td>0.60</td></tr>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- ===== 4 · SPECIFICATIONS ===== -->
+<!-- ===== 4 · MATERIALS & FINISHES (swatch wall) ===== -->
 <section class="pv-wrap ov-sec ov-rule">
-  <span class="ov-eyebrow pv-rise">Specifications</span>
-  <h2 class="ov-h2 pv-rise">Product data.</h2>
-  <div class="ov-spec pv-rise">
-    <div class="col">
-      <div class="row"><div class="k">Base material</div><div class="v">MDF / MGO board</div></div>
-      <div class="row"><div class="k">Back layer</div><div class="v">Acoustic fleece &middot; 7.5% rear perforation</div></div>
-      <div class="row"><div class="k">Surface</div><div class="v">Grooved &mdash; slats 20&middot;20&middot;13&middot;28&middot;32 mm @ 3 mm</div></div>
-      <div class="row"><div class="k">Finishes</div><div class="v">Melamine &middot; HPL &middot; Natural veneer (30) &middot; Pantone / RAL</div></div>
-      <div class="row"><div class="k">Edge profile</div><div class="v">Tongue &amp; groove</div></div>
+  <div class="mf">
+    <div class="mf-side">
+      <span class="ov-eyebrow pv-rise">Materials &amp; finishes</span>
+      <h2 class="ov-h2 pv-rise">Pick a look.</h2>
+      <div class="mf-blk pv-rise d1">
+        <span class="mf-lab">Core &middot; substrate</span>
+        <div class="mf-item"><span class="sq" style="background:#1a1714"></span><span class="nm">Black MDF</span><span class="mf-badge">Class B</span></div>
+        <div class="mf-item"><span class="sq" style="background:#e8e4dd"></span><span class="nm">Calcium silicate</span><span class="mf-badge a">Class A</span></div>
+      </div>
+      <div class="mf-blk pv-rise d1">
+        <span class="mf-lab">Finish &middot; surface</span>
+        <div class="mf-fam"><span>Melamine</span><span class="cn">Thermally fused laminate</span></div>
+        <div class="mf-fam"><span>HPL</span><span class="cn">High-pressure laminate</span></div>
+        <div class="mf-fam"><span>Veneer</span><span class="cn">Natural wood</span></div>
+      </div>
+      <p class="mf-msg pv-rise d2"><b>A surface for every brief.</b> From budget-friendly melamine to natural wood veneer &mdash; finishes to suit any design style and budget.</p>
     </div>
-    <div class="col">
-      <div class="row"><div class="k">Panel sizes</div><div class="v">133 &times; 2430 &middot; 197 &times; 2430 mm</div></div>
-      <div class="row"><div class="k">Thickness</div><div class="v">15 mm</div></div>
-      <div class="row"><div class="k">Acoustic</div><div class="v">NRC &le; 0.80 &mdash; ISO 354:2003</div></div>
-      <div class="row"><div class="k">Fire</div><div class="v">EN 13501 (B&#8209;s1,d0); option (A)</div></div>
-      <div class="row"><div class="k">VOC</div><div class="v">EN 717 &mdash; 0.08 mg/m&sup3;</div></div>
+    <div class="mf-wallwrap pv-rise d1">
+      <div class="mf-wall"><img loading="lazy" src="assets/products/vega/finishes/f-01.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-02.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-03.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-04.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-05.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-06.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-07.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-08.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-09.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-10.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-11.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-12.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-13.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-14.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-15.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-16.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-17.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-18.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-19.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-20.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-21.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-22.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-23.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-24.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-25.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-26.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-27.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-28.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-29.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-30.webp" alt=""></div>
+      <div class="mf-count">30 finishes &middot; Melamine / HPL / Veneer</div>
     </div>
   </div>
 </section>
@@ -1646,46 +1614,13 @@
 <!-- ===== 5 · MODELS FAMILY (compact, real photos) ===== -->
 <section class="pv-wrap ov-sec ov-rule">
   <span class="ov-eyebrow pv-rise">The Classic family</span>
-  <h2 class="ov-h2 pv-rise">Two formats, one core.</h2>
+  <h2 class="ov-h2 pv-rise">Ten formats, one core.</h2>
   <div class="ov-fam pv-rise">
-    <div class="ov-fam-item">
-      <figure><img loading="lazy" src="assets/products/vega/panel-front.webp" alt="Vega — mixed-width grooved face"></figure>
-      <div class="ov-fam-meta"><h3>Vega<span class="badge">This product</span></h3><span class="sp">Mixed &middot; 20&ndash;32 mm</span></div>
-    </div>
-    <div class="ov-fam-item">
-      <figure><img loading="lazy" src="assets/products/28-4/panel-front.webp" alt="28/4 — uniform grooved face"></figure>
-      <div class="ov-fam-meta"><h3>28 / 4</h3><span class="sp">Uniform &middot; 28 mm</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 6 · APPLICATIONS + CHARACTERISTICS (merged, editorial split) ===== -->
-<section class="pv-wrap ov-sec ov-rule">
-  <div class="ov-mg">
-    <div class="pv-rise">
-      <span class="ov-eyebrow">Specify with confidence</span>
-      <h2 class="ov-h2">Where it goes,<br>how it performs.</h2>
-      <p class="ov-mg-lede">One panel, engineered to drop into the build &mdash; and to keep performing once it&rsquo;s there.</p>
-      <div class="ov-mg-sublabel">Applications</div>
-      <div class="ov-mg-pills">
-        <span class="ov-mg-pill"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path d="M8 3v18M13 3v18M18 3v18"/></svg>Walls</span>
-        <span class="ov-mg-pill"><svg viewBox="0 0 24 24"><path d="M3 5h18"/><path d="M5 5v3M9 5v3M13 5v3M17 5v3M21 5v3"/><path d="M3 12h18M3 19h18"/></svg>Ceilings</span>
-        <span class="ov-mg-pill"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18"/><circle cx="15" cy="12" r="1"/></svg>Doors</span>
-        <span class="ov-mg-pill"><svg viewBox="0 0 24 24"><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M3 10h18v6H3z"/><path d="M5 16v4M19 16v4"/></svg>Furniture &amp; joinery</span>
-      </div>
-    </div>
-    <div class="pv-rise d1">
-      <div class="ov-mg-sublabel">Characteristics</div>
-      <div class="ov-mg-clist">
-        <div class="ov-mg-crow"><svg viewBox="0 0 24 24"><path d="M12 3c2.4 3.8 5.2 5.2 5.2 9.2A5.2 5.2 0 0 1 6.8 12.2c0-1.7.8-3 1.9-4 .4 2.1 2.1 2.2 2.1.2 0-2 .2-3.6 1.2-5.4z"/></svg><div class="t">Fire reaction</div><div class="s">EN 13501</div></div>
-        <div class="ov-mg-crow"><svg viewBox="0 0 24 24"><path d="M2 12h3l2.5-6 4 16 4-19 2.5 9H22"/></svg><div class="t">Acoustic absorption</div><div class="s">NRC 0.80</div></div>
-        <div class="ov-mg-crow"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg><div class="t">Impact resistance</div></div>
-        <div class="ov-mg-crow"><svg viewBox="0 0 24 24"><path d="M4 20L20 4M9 4h11v11"/></svg><div class="t">Scratch resistance</div></div>
-        <div class="ov-mg-crow"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg><div class="t">Light fastness</div></div>
-        <div class="ov-mg-crow"><svg viewBox="0 0 24 24"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></svg><div class="t">Low VOC</div><div class="s">EN 717</div></div>
-        <div class="ov-mg-crow"><svg viewBox="0 0 24 24"><path d="M3 11h18l-1 9H4z"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div class="t">Easy maintenance</div></div>
-      </div>
-    </div>
+    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/5-3.webp" alt="Classic 5/3 — fine grooved face"></figure><div class="ov-fam-meta"><h3>5 / 3</h3><span class="sp">Uniform &middot; 5 mm</span></div></div>
+    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/13-3.webp" alt="Classic 13/3 — grooved face"></figure><div class="ov-fam-meta"><h3>13 / 3</h3><span class="sp">Uniform &middot; 13 mm</span></div></div>
+    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/28-4.webp" alt="Classic 28/4 — grooved face"></figure><div class="ov-fam-meta"><h3>28 / 4</h3><span class="sp">Uniform &middot; 28 mm</span></div></div>
+    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/59-2.webp" alt="Classic 59/2 — wide grooved face"></figure><div class="ov-fam-meta"><h3>59 / 2</h3><span class="sp">Uniform &middot; 59 mm</span></div></div>
+    <a class="ov-fam-all" href="collection.html"><span class="ar">&#8594;</span><span class="t">View all</span><span class="s">10 formats</span></a>
   </div>
 </section>
 
@@ -1729,8 +1664,7 @@
 <div class="footer-col footer-col-brand">
 <img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="footer-brand-logo" style="height:2.4rem;width:auto;align-self:flex-start;margin-bottom:2rem">
 <address class="footer-addr">
-<a href="mailto:info@naaya.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>info@naaya.com</a>
-<a href="tel:+862088888888" class="footer-link"><span data-i18n="footer_phone_label">Phone</span><br>+86 20 8888 8888</a>
+<a href="mailto:hello@naayaasia.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>hello@naayaasia.com</a>
 <span class="footer-link"><span data-i18n="footer_addr_label">Address</span><br><span data-i18n="footer_addr">Guangzhou, China</span></span>
 </address>
 </div>
