@@ -297,31 +297,30 @@ main,.scroll{ transform:none!important; }
 }
 
 /* ================= S1 Hero — Editorial split (image <=68vh / text) ================= */
-.bd-hero{ min-height:100svh; display:grid; align-items:center; background:var(--bd-paper);
-  color:var(--bd-ink); padding:10rem 0 4rem; }
-.bd-wrap{ width:100%; max-width:152rem; margin:0 auto; padding:0 4rem; }
-.bd-grid{ display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:center; }
+.bd-hero{ background:var(--bd-paper); color:var(--bd-ink); padding:12.5rem 0 7rem; }
+.bd-wrap{ width:100%; max-width:132rem; margin:0 auto; padding:0 4rem; }
+.bd-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:6rem; align-items:stretch; }
 .bd-grid > *{ min-width:0; }
 
-.bd-fig{ height:min(68svh,640px); overflow:hidden; background:var(--bd-mist); margin:0; }
+.bd-fig{ width:100%; height:100%; min-height:38rem; overflow:hidden; background:var(--bd-mist); margin:0; }
 .bd-fig img{ width:100%; height:100%; object-fit:cover; }
 
 .bd-eye{ display:inline-flex; align-items:center; gap:1.1rem; font-family:var(--bd-mono);
-  font-size:1.15rem; letter-spacing:.22em; text-transform:uppercase; color:var(--bd-red); margin-bottom:2.6rem; }
+  font-size:1.15rem; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:var(--bd-red); margin-bottom:2.6rem; }
 .bd-eye::before{ content:""; width:2.6rem; height:1px; background:var(--bd-red); }
 .bd-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
-  overflow:visible!important; margin:0; font-weight:800; line-height:1; letter-spacing:-.03em;
-  font-size:clamp(3rem,3.9vw,4.8rem); color:var(--bd-ink); }
+  overflow:visible!important; margin:0; font-weight:600; line-height:1.02; letter-spacing:-.028em;
+  font-size:clamp(3rem,4vw,4.7rem); color:var(--bd-ink); max-width:15ch; }
 .bd-title .dot{ color:var(--bd-red); }
-.bd-lede{ font-size:clamp(1.55rem,1.6vw,1.85rem); line-height:1.58; color:var(--bd-muted);
-  max-width:46rem; margin:2.6rem 0 0; }
+.bd-lede{ font-size:clamp(1.5rem,1.5vw,1.7rem); line-height:1.5; color:var(--bd-muted);
+  max-width:48rem; margin:2.6rem 0 0; }
 
-.bd-services{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.6rem; margin-top:4rem;
-  padding-top:2.8rem; border-top:1px solid var(--bd-line); }
-.bd-s .n{ font-family:var(--bd-mono); font-size:1.05rem; color:var(--bd-red); }
-.bd-s .k{ font-size:1.35rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--bd-ink); margin:.9rem 0 .7rem; }
-.bd-s .d{ font-size:1.3rem; line-height:1.48; color:var(--bd-muted); }
+.bd-services{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.6rem; margin-top:3.6rem;
+  padding-top:2.6rem; border-top:1px solid var(--bd-line); }
+.bd-s .k{ display:flex; align-items:baseline; gap:.8rem; font-size:1.45rem; font-weight:600;
+  letter-spacing:-.005em; color:var(--bd-ink); margin:0 0 .6rem; }
+.bd-s .k i{ font-style:normal; font-family:var(--bd-mono); font-size:1.05rem; font-weight:600; color:var(--bd-red); }
+.bd-s .d{ font-size:1.3rem; line-height:1.45; color:var(--bd-muted); }
 
 /* ---------- reveal ---------- */
 .bd-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
@@ -330,43 +329,43 @@ main,.scroll{ transform:none!important; }
 
 /* ---------- responsive ---------- */
 @media(max-width:900px){
-  .bd-hero{ min-height:auto; display:block; padding:13rem 0 6rem; }
+  .bd-hero{ padding:13rem 0 6rem; }
   .bd-wrap{ padding:0 2.4rem; }
   .bd-grid{ grid-template-columns:1fr; gap:3.4rem; }
-  .bd-fig{ height:46svh; }
+  .bd-fig{ order:-1; height:auto; min-height:0; aspect-ratio:4/3; }
 }
 @media(max-width:600px){
-  .bd-services{ grid-template-columns:1fr; gap:2.4rem; }
-  .bd-fig{ height:auto; aspect-ratio:16/11; }
+  .bd-services{ grid-template-columns:1fr; gap:1.8rem; margin-top:3rem; padding-top:2.2rem; }
+  .bd-fig{ aspect-ratio:4/3; }
 }
 
 /* ================= shared (S2/S3) ================= */
 .bd-sec{ background:var(--bd-paper); color:var(--bd-ink); padding:13rem 0; }
-.bd-eyebrow{ display:inline-block; font-family:var(--bd-mono); font-size:1.3rem; font-weight:600;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--bd-red); margin:0 0 2.8rem; }
+.bd-eyebrow{ display:inline-block; font-family:var(--bd-mono); font-size:1.1rem; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--bd-red); margin:0 0 1.7rem; }
 .bd-display{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
-  overflow:visible!important; margin:0; font-weight:800; font-size:clamp(3.4rem,4.8vw,6rem);
-  line-height:.98; letter-spacing:-.03em; color:var(--bd-ink); }
+  overflow:visible!important; margin:0; font-weight:600; font-size:clamp(2.4rem,2.8vw,3.4rem);
+  line-height:1.05; letter-spacing:-.022em; color:var(--bd-ink); }
 .bd-display .dot{ color:var(--bd-red); }
 
 /* ================= S2 · Who we are ================= */
 .bd-who-grid{ display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:start; }
 .bd-who-grid > *{ min-width:0; }
-.bd-lead{ font-size:clamp(1.9rem,2.1vw,2.6rem); line-height:1.34; letter-spacing:-.012em; color:var(--bd-ink); margin:0; }
-.bd-body{ font-size:1.6rem; line-height:1.62; color:var(--bd-muted); margin:2.8rem 0 0; }
+.bd-lead{ font-size:clamp(1.7rem,1.8vw,2.05rem); line-height:1.38; letter-spacing:-.01em; color:var(--bd-ink); margin:0; }
+.bd-body{ font-size:1.45rem; line-height:1.58; color:var(--bd-muted); margin:2.8rem 0 0; }
 .bd-statement{ display:flex; gap:2.2rem; margin:3.8rem 0 0; }
 .bd-statement::before{ content:""; flex:none; width:3px; background:var(--bd-red); align-self:stretch; }
-.bd-statement p{ font-size:clamp(1.9rem,2vw,2.4rem); font-weight:700; line-height:1.28; letter-spacing:-.015em; color:var(--bd-ink); margin:0; }
+.bd-statement p{ font-size:1.6rem; font-weight:600; line-height:1.34; letter-spacing:-.01em; color:var(--bd-ink); margin:0; }
 
 /* ================= S3 · What we do ================= */
 .bd-what-top{ display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:start; margin-bottom:5.5rem; }
 .bd-what-top > *{ min-width:0; }
-.bd-what-intro{ font-size:clamp(1.8rem,2vw,2.4rem); line-height:1.42; letter-spacing:-.01em; color:var(--bd-ink); margin:0; }
+.bd-what-intro{ font-size:clamp(1.7rem,1.8vw,2.05rem); line-height:1.42; letter-spacing:-.01em; color:var(--bd-ink); margin:0; }
 .bd-grid8{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--bd-line); border:1px solid var(--bd-line); }
 .bd-cell{ background:var(--bd-paper); padding:3.4rem 2.8rem 4rem; transition:background .35s ease; }
 .bd-cell .num{ font-family:var(--bd-mono); font-size:1.2rem; letter-spacing:.1em; color:var(--bd-faint); transition:color .35s ease; }
-.bd-cell .t{ font-size:1.9rem; font-weight:700; letter-spacing:-.012em; line-height:1.12; margin:3.4rem 0 1.5rem; color:var(--bd-ink); transition:color .35s ease; }
-.bd-cell .d{ font-size:1.45rem; line-height:1.55; color:var(--bd-muted); transition:color .35s ease; }
+.bd-cell .t{ font-size:1.6rem; font-weight:600; letter-spacing:-.01em; line-height:1.16; margin:3.4rem 0 1.5rem; color:var(--bd-ink); transition:color .35s ease; }
+.bd-cell .d{ font-size:1.32rem; line-height:1.5; color:var(--bd-muted); transition:color .35s ease; }
 .bd-cell:hover{ background:var(--bd-ink); }
 .bd-cell:hover .num{ color:var(--bd-red); }
 .bd-cell:hover .t{ color:#fff; }
@@ -384,36 +383,32 @@ main,.scroll{ transform:none!important; }
 /* ================= S4 · Simulations & Analysis ================= */
 .bd-sim-grid{ display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:stretch; }
 .bd-sim-grid > *{ min-width:0; }
-.bd-sim-lead{ font-size:clamp(1.85rem,2.05vw,2.5rem); line-height:1.36; letter-spacing:-.012em; color:var(--bd-ink); margin:3rem 0 0; }
-.bd-sim-body{ font-size:1.55rem; line-height:1.6; color:var(--bd-muted); margin:2.4rem 0 0; }
-.bd-tools{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--bd-line);
-  border:1px solid var(--bd-line); margin-top:3.4rem; }
-.bd-tool{ background:var(--bd-paper); aspect-ratio:8/5; display:flex; align-items:center; justify-content:center; padding:1.9rem 1.7rem; }
-.bd-tool img{ width:auto!important; height:auto; max-width:100%; max-height:100%; object-fit:contain;
-  filter:grayscale(1); opacity:.5; transition:filter .35s ease, opacity .35s ease; }
-.bd-tool:hover img{ filter:none; opacity:1; }
+.bd-sim-lead{ font-size:clamp(1.6rem,1.7vw,1.95rem); line-height:1.4; letter-spacing:-.01em; color:var(--bd-ink); margin:3rem 0 0; }
+.bd-sim-body{ font-size:1.4rem; line-height:1.56; color:var(--bd-muted); margin:2.4rem 0 0; }
+.bd-tools{ display:flex; flex-wrap:wrap; gap:.8rem; margin-top:2.6rem; }
+.bd-chip{ font-size:1.22rem; color:var(--bd-ink); border:1px solid var(--bd-line);
+  padding:.65rem 1.3rem; border-radius:100px; transition:border-color .3s ease, color .3s ease; }
+.bd-chip:hover{ border-color:var(--bd-ink); color:var(--bd-ink); }
 .bd-sim-fig{ position:relative; min-height:46rem; overflow:hidden; background:var(--bd-mist); }
 .bd-sim-fig img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 @media(max-width:900px){
   .bd-sim-grid{ grid-template-columns:1fr; gap:3.4rem; }
   .bd-sim-fig{ min-height:0; aspect-ratio:16/11; }
-  .bd-tools{ grid-template-columns:repeat(3,1fr); }
 }
-@media(max-width:600px){ .bd-tools{ grid-template-columns:repeat(2,1fr); } }
 
 /* ================= S5 · How we work (dark) ================= */
 .bd-dark{ background:#141312; color:#fff; }
 .bd-dark .bd-display{ color:#fff; }
-.bd-flow-intro{ font-size:clamp(1.6rem,1.7vw,2rem); line-height:1.55; color:rgba(255,255,255,.6); max-width:64rem; margin:3rem 0 0; }
+.bd-flow-intro{ font-size:clamp(1.5rem,1.6vw,1.85rem); line-height:1.55; color:rgba(255,255,255,.6); max-width:64rem; margin:3rem 0 0; }
 .bd-flow{ margin-top:7rem; }
 .bd-flow-track{ display:grid; grid-template-columns:repeat(6,1fr); gap:2.4rem; position:relative; }
 .bd-flow-track::before{ content:""; position:absolute; left:4.2rem; right:0; top:4.2rem; height:1px; background:rgba(255,255,255,.18); z-index:0; }
 .bd-step{ position:relative; }
 .bd-step-c{ width:8.4rem; height:8.4rem; border-radius:50%; border:1px solid rgba(255,255,255,.28);
   background:#141312; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
-.bd-step-c span{ font-family:var(--bd-mono); font-size:1.35rem; letter-spacing:.06em; color:#fff; }
-.bd-step-t{ font-size:1.7rem; font-weight:700; line-height:1.14; letter-spacing:-.01em; margin:2.6rem 0 0; color:#fff; }
-.bd-step-d{ font-size:1.4rem; line-height:1.5; color:rgba(255,255,255,.55); margin:1.4rem 0 0; }
+.bd-step-c span{ font-family:var(--bd-mono); font-size:1.3rem; letter-spacing:.06em; color:#fff; }
+.bd-step-t{ font-size:1.6rem; font-weight:600; line-height:1.14; letter-spacing:-.01em; margin:2.6rem 0 0; color:#fff; }
+.bd-step-d{ font-size:1.32rem; line-height:1.5; color:rgba(255,255,255,.55); margin:1.4rem 0 0; }
 @media(max-width:900px){
   .bd-flow{ margin-top:5rem; }
   .bd-flow-track{ grid-template-columns:repeat(2,1fr); gap:3.6rem 2.4rem; }
@@ -423,28 +418,22 @@ main,.scroll{ transform:none!important; }
 
 /* ================= S6 · Who we served (logo grid — spec-sheet) ================= */
 .bd-served-head{ max-width:66rem; }
-.bd-served-grid{ margin-top:5rem; display:grid; grid-template-columns:repeat(9,1fr); gap:1px;
-  background:var(--bd-line); border:1px solid var(--bd-line); }
-.bd-served-cell{ background:var(--bd-paper); aspect-ratio:3/2; display:flex; align-items:center;
-  justify-content:center; padding:1.7rem 1.9rem; }
-.bd-served-cell img{ max-width:100%; max-height:100%; object-fit:contain; filter:grayscale(1); opacity:.62;
-  transition:filter .35s ease, opacity .35s ease; }
-.bd-served-cell:hover img{ filter:none; opacity:1; }
-@media(max-width:1100px){ .bd-served-grid{ grid-template-columns:repeat(6,1fr); } }
-/* mobile: one-screen-height horizontal swipe (rows fixed, columns overflow) */
-@media(max-width:600px){
-  .bd-served-grid{ margin-top:3rem; grid-template-columns:none; grid-template-rows:repeat(5,1fr);
-    grid-auto-flow:column; grid-auto-columns:34%; height:min(58svh,40rem);
-    overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
-    scroll-snap-type:x proximity; scrollbar-width:none; }
-  .bd-served-grid::-webkit-scrollbar{ display:none; }
-  .bd-served-cell{ aspect-ratio:auto; scroll-snap-align:start; padding:1.4rem 1.5rem; }
-}
+/* organic logo cloud — normalized height, natural widths, full colour */
+.bd-served-grid{ margin-top:5rem; display:flex; flex-wrap:wrap; align-items:center;
+  justify-content:center; gap:2.9rem 3.8rem; }
+.bd-served-cell{ height:3.6rem; display:flex; align-items:center; flex:none; }
+.bd-served-cell:empty{ display:none; }
+.bd-served-cell.star{ height:5.2rem; }   /* top-tier global architecture brands */
+.bd-served-cell img{ width:auto; height:100%; max-width:none; object-fit:contain;
+  transition:transform .35s cubic-bezier(.16,.84,.44,1); }
+.bd-served-cell:hover img{ transform:translateY(-.4rem); }
+@media(max-width:900px){ .bd-served-grid{ gap:2.5rem 3.2rem; } .bd-served-cell{ height:3.2rem; } .bd-served-cell.star{ height:4.4rem; } }
+@media(max-width:600px){ .bd-served-grid{ margin-top:3rem; gap:2rem 2.6rem; } .bd-served-cell{ height:2.7rem; } .bd-served-cell.star{ height:3.7rem; } }
 
 /* ================= S7 · Manufacturing capability ================= */
 .bd-mfg-top{ display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:start; margin-bottom:5rem; }
 .bd-mfg-top > *{ min-width:0; }
-.bd-mfg-intro{ font-size:clamp(1.7rem,1.85vw,2.2rem); line-height:1.5; letter-spacing:-.01em; color:var(--bd-ink); margin:0; }
+.bd-mfg-intro{ font-size:clamp(1.6rem,1.7vw,1.95rem); line-height:1.5; letter-spacing:-.01em; color:var(--bd-ink); margin:0; }
 .bd-fac{ display:grid; grid-template-columns:repeat(6,1fr); gap:1.6rem; }
 .bd-fac-tile{ position:relative; aspect-ratio:3/2; overflow:hidden; background:var(--bd-mist); margin:0; }
 .bd-fac-tile img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
@@ -461,9 +450,10 @@ main,.scroll{ transform:none!important; }
 .bd-contact{ background:#231f20; color:#fff; padding:11rem 0; }
 .bd-cu-inner{ max-width:62rem; }
 .bd-cu-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important; overflow:visible!important;
-  margin:0; font-weight:600; line-height:1.02; letter-spacing:-.02em; color:#fff; }
+  margin:0; font-weight:800; line-height:.95; letter-spacing:-.03em; color:#fff; }
 .bd-cu-title span{ display:block; }
 .bd-cu-title .lg{ font-size:clamp(3.4rem,5.2vw,6.6rem); }
+.bd-cu-title .sm{ font-size:clamp(1.9rem,2.9vw,3.7rem); }
 .bd-cu-title .dot{ display:inline; color:var(--bd-red); }
 .bd-cu-invite{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); margin:2.6rem 0 0; max-width:44rem; }
 .bd-cu-btn{ display:inline-flex; align-items:center; gap:1rem; margin-top:3.4rem; height:4.6rem; padding:0 2.2rem;
@@ -1124,17 +1114,17 @@ main,.scroll{ transform:none!important; }
 <section class="bd-hero">
 <div class="bd-wrap">
 <div class="bd-grid">
-<figure class="bd-fig bd-rise"><img src="assets/brand/hero.webp" alt="Urban acoustic noise-mapping simulation over a city skyline"></figure>
 <div class="bd-text">
 <span class="bd-eye bd-rise">Acoustic design &middot; Engineering &middot; Delivery</span>
 <h1 class="bd-title bd-rise d1">Integrated acoustic environments for architecture<span class="dot">.</span></h1>
 <p class="bd-lede bd-rise d1">NAAYA partners with architects, developers and contractors to deliver complete acoustic solutions &mdash; from design and simulation through to manufacturing and on-site commissioning.</p>
 <div class="bd-services bd-rise d2">
-<div class="bd-s"><div class="n">01</div><div class="k">Design</div><div class="d">Acoustic criteria, planning and consultancy.</div></div>
-<div class="bd-s"><div class="n">02</div><div class="k">Build</div><div class="d">Material systems, fit-out and site support.</div></div>
-<div class="bd-s"><div class="n">03</div><div class="k">Verify</div><div class="d">Testing, tuning and commissioning.</div></div>
+<div class="bd-s"><div class="k"><i>01</i>Design</div><div class="d">Acoustic criteria, planning and consultancy.</div></div>
+<div class="bd-s"><div class="k"><i>02</i>Build</div><div class="d">Material systems, fit-out and site support.</div></div>
+<div class="bd-s"><div class="k"><i>03</i>Verify</div><div class="d">Testing, tuning and commissioning.</div></div>
 </div>
 </div>
+<figure class="bd-fig bd-rise d1"><img src="assets/brand/hero.webp" alt="Urban acoustic noise-mapping simulation over a city skyline"></figure>
 </div>
 </div>
 </section>
@@ -1189,21 +1179,21 @@ main,.scroll{ transform:none!important; }
 <p class="bd-sim-lead bd-rise">We model and analyse acoustic performance before construction begins &mdash; reducing risk and giving architects, consultants and contractors the evidence to make better decisions early.</p>
 <p class="bd-sim-body bd-rise">Workflows span room-acoustic modelling, ray tracing, reverberation analysis, environmental noise mapping, MEP noise review and sound-insulation assessment &mdash; delivered with industry-standard simulation tools:</p>
 <div class="bd-tools bd-rise">
-<div class="bd-tool"><img src="assets/brand/tools/odeon.webp" alt="Odeon"></div>
-<div class="bd-tool"><img src="assets/brand/tools/catt.webp" alt="CATT"></div>
-<div class="bd-tool"><img src="assets/brand/tools/cadnaa.webp" alt="CadnaA"></div>
-<div class="bd-tool"><img src="assets/brand/tools/insul.webp" alt="INSUL"></div>
-<div class="bd-tool"><img src="assets/brand/tools/soundplan.webp" alt="SoundPLAN"></div>
-<div class="bd-tool"><img src="assets/brand/tools/comsol.webp" alt="COMSOL"></div>
-<div class="bd-tool"><img src="assets/brand/tools/ansys.webp" alt="Ansys"></div>
-<div class="bd-tool"><img src="assets/brand/tools/rhino.webp" alt="Rhinoceros"></div>
-<div class="bd-tool"><img src="assets/brand/tools/grasshopper.webp" alt="Grasshopper"></div>
-<div class="bd-tool"><img src="assets/brand/tools/dante.webp" alt="Dante Controller"></div>
-<div class="bd-tool"><img src="assets/brand/tools/dirac.webp" alt="DIRAC"></div>
-<div class="bd-tool"><img src="assets/brand/tools/virtuallab.webp" alt="Virtual.Lab"></div>
+<span class="bd-chip">Odeon</span>
+<span class="bd-chip">CATT</span>
+<span class="bd-chip">CadnaA</span>
+<span class="bd-chip">INSUL</span>
+<span class="bd-chip">SoundPLAN</span>
+<span class="bd-chip">COMSOL</span>
+<span class="bd-chip">Ansys</span>
+<span class="bd-chip">Rhinoceros</span>
+<span class="bd-chip">Grasshopper</span>
+<span class="bd-chip">Dante Controller</span>
+<span class="bd-chip">DIRAC</span>
+<span class="bd-chip">Virtual.Lab</span>
 </div>
 </div>
-<figure class="bd-sim-fig bd-rise" style="margin:0;"><img src="assets/brand/sim.webp" alt="Environmental traffic-noise simulation over a city skyline"></figure>
+<figure class="bd-sim-fig bd-rise" style="margin:0;"><img src="assets/brand/sim-map.webp" alt="3D environmental noise-mapping simulation of a building cluster"></figure>
 </div>
 </div>
 </section>
@@ -1235,22 +1225,22 @@ main,.scroll{ transform:none!important; }
 <h2 class="bd-display">Trusted by leading architects, engineers and developers<span class="dot">.</span></h2>
 </div>
 <div class="bd-served-grid bd-rise">
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c00.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c01.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c02.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c03.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell star"><img src="assets/brand/served2/slogo-1_r0_c00.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell star"><img src="assets/brand/served2/slogo-1_r0_c01.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell star"><img src="assets/brand/served2/slogo-1_r0_c02.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell star"><img src="assets/brand/served2/slogo-1_r0_c03.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c04.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c05.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell star"><img src="assets/brand/served2/slogo-1_r0_c05.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c06.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c07.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c08.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c09.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c10.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c11.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c12.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell star"><img src="assets/brand/served2/slogo-1_r0_c12.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c13.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c14.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c15.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell star"><img src="assets/brand/served2/slogo-1_r0_c14.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell star"><img src="assets/brand/served2/slogo-1_r0_c15.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c16.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c17.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c18.webp" alt="" loading="lazy"></div>
@@ -1261,8 +1251,8 @@ main,.scroll{ transform:none!important; }
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-1_r0_c23.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r0_c0.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r1_c0.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r1_c2.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c0.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/vanke.webp" alt="Vanke" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/ihg.webp" alt="IHG Hotels & Resorts" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c1.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c2.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-2_r2_c3.webp" alt="" loading="lazy"></div>
@@ -1271,36 +1261,19 @@ main,.scroll{ transform:none!important; }
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c1.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c2.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c3.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c4.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/tencent.webp" alt="Tencent" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c5.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r0_c6.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c0.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c1.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c2.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c3.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c4.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c5.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c6.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c0.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c1.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c0.webp" alt="" loading="lazy"></div><div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/sc.webp" alt="Standard Chartered" loading="lazy"></div><div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r1_c5.webp" alt="" loading="lazy"></div><div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c2.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c3.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c4.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c5.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c6.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c0.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c1.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c4.webp" alt="" loading="lazy"></div><div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r2_c6.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/londoner.webp" alt="The Londoner Macao" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/muji.webp" alt="MUJI" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c2.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c3.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c4.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c5.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c6.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c0.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c1.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c2.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c3.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c4.webp" alt="" loading="lazy"></div>
-<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c5.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c4.webp" alt="" loading="lazy"></div><div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r3_c6.webp" alt="" loading="lazy"></div><div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c2.webp" alt="" loading="lazy"></div>
+<div class="bd-served-cell"><img src="assets/brand/served2/hsbc.webp" alt="HSBC" loading="lazy"></div><div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c5.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"><img src="assets/brand/served2/slogo-3_r4_c6.webp" alt="" loading="lazy"></div>
 <div class="bd-served-cell"></div>
 <div class="bd-served-cell"></div>
@@ -1342,7 +1315,7 @@ main,.scroll{ transform:none!important; }
 <section class="bd-sec bd-contact">
 <div class="bd-wrap">
 <div class="bd-cu-inner bd-rise">
-<h2 class="bd-cu-title"><span class="lg">Sound Shapes</span><span class="lg">Inspired Spaces<span class="dot">.</span></span></h2>
+<h2 class="bd-cu-title"><span class="lg">Sound</span><span class="sm">Shapes</span><span class="sm">Inspired</span><span class="lg">Spaces<span class="dot">.</span></span></h2>
 <p class="bd-cu-invite">Tell us about your project &mdash; acoustic design, engineering, materials or full delivery. Our team replies within two business days.</p>
 <a class="bd-cu-btn" href="mailto:hello@naayaasia.com"><span>Start a project &rarr;</span></a>
 </div>
