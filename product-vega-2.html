@@ -639,18 +639,30 @@
   .mf-item .sq{ width:2.2rem; height:2.2rem; flex:none; border:1px solid var(--pv-line); }
   .mf-item .nm{ font-size:1.6rem; font-weight:500; }
   .mf-item .mf-badge{ margin-left:auto; }
-  .mf-badge{ font-family:var(--pv-mono); font-size:.95rem; letter-spacing:.08em; text-transform:uppercase; padding:.32rem .72rem; border:1px solid var(--pv-line); white-space:nowrap; color:var(--pv-faint); }
-  .mf-badge.a{ background:var(--pv-accent); color:#fff; border-color:var(--pv-accent); }
-  .mf-fam{ display:flex; justify-content:space-between; align-items:baseline; padding:1.05rem 0; border-bottom:1px solid var(--pv-hair); font-size:1.6rem; font-weight:500; }
-  .mf-fam .cn{ font-family:var(--pv-mono); font-size:1.1rem; font-weight:400; color:var(--pv-faint); letter-spacing:.04em; text-transform:none; }
+  .mf-badge{ display:inline-flex; align-items:center; gap:.5rem; font-family:var(--pv-mono); font-size:.95rem; letter-spacing:.08em; text-transform:uppercase; padding:.32rem .72rem .32rem .6rem; border:1px solid var(--pv-line); white-space:nowrap; color:var(--pv-muted); }
+  .mf-badge .mf-fic{ width:1.3rem; height:1.3rem; color:var(--pv-accent); stroke:currentColor; fill:none; stroke-width:1.8; flex:none; }
+  .mf-fam{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding:1.15rem 0; border-bottom:1px solid var(--pv-hair); cursor:pointer; position:relative; transition:padding-left .25s; }
+  .mf-fam .fn{ font-size:1.6rem; font-weight:500; }
+  .mf-fam .fn em{ font-style:normal; font-family:var(--pv-mono); font-size:1.05rem; font-weight:400; color:var(--pv-faint); letter-spacing:.03em; margin-left:.9rem; }
+  .mf-fam .ct{ font-family:var(--pv-mono); font-size:1.15rem; color:var(--pv-faint); flex:none; }
+  .mf-fam::before{ content:""; position:absolute; left:0; top:50%; width:3px; height:58%; background:var(--pv-accent); transform:translateY(-50%) scaleY(0); transform-origin:center; transition:transform .25s; }
+  .mf-fam:hover{ padding-left:.8rem; }
+  .mf-fam.is-active{ padding-left:1.2rem; }
+  .mf-fam.is-active::before{ transform:translateY(-50%) scaleY(1); }
+  .mf-fam.is-active .ct{ color:var(--pv-accent); }
   .mf-msg{ font-size:1.7rem; line-height:1.55; color:var(--pv-muted); margin-top:2.6rem; font-weight:350; }
   .mf-msg b{ color:var(--pv-ink); font-weight:600; }
-  .mf-wall{ display:grid; grid-template-columns:repeat(6,1fr); gap:1rem; }
-  .mf-wall img{ aspect-ratio:1; object-fit:cover; border:1px solid var(--pv-hair); transition:transform .25s; }
-  .mf-wall img:hover{ transform:scale(1.06); outline:2px solid var(--pv-ink); position:relative; z-index:2; }
-  .mf-count{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pv-faint); text-align:right; margin-top:1.4rem; }
+  .mf-wall{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.6rem 1.1rem; }
+  .sw{ margin:0; }
+  .sw .im{ display:block; aspect-ratio:1; overflow:hidden; border:1px solid var(--pv-hair); background:var(--pv-mist); }
+  .sw .im img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s; }
+  .sw:hover .im img{ transform:scale(1.05); }
+  .sw figcaption{ margin-top:.75rem; }
+  .sw .c{ display:block; font-family:var(--pv-mono); font-size:.95rem; letter-spacing:.05em; color:var(--pv-faint); }
+  .sw .n{ display:block; font-size:1.25rem; font-weight:500; letter-spacing:-.01em; margin-top:.25rem; }
+  .mf-count{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pv-faint); text-align:right; margin-top:2rem; }
   @media(max-width:900px){ .mf{ grid-template-columns:1fr; gap:3.4rem; } }
-  @media(max-width:600px){ .mf-wall{ grid-template-columns:repeat(5,1fr); gap:.7rem; } }
+  @media(max-width:600px){ .mf-wall{ grid-template-columns:repeat(3,1fr); gap:1.2rem .8rem; } .sw .n{ font-size:1.15rem; } }
 
   /* 6/7 · icon grids */
   .ov-icons{ display:grid; gap:1.6rem; }
@@ -695,16 +707,15 @@
   }
 
   /* ===== v2 hero — Style 2 tabular: sticky gallery 45% (main + thumb row) / dense info 55% ===== */
-  .ovh2{ display:grid; grid-template-columns:45% 55%; gap:5.2rem; align-items:start; margin-top:2rem; }
-  .ovh2-gal{ align-self:start; }
-  .ovh2-main{ background:var(--pv-mist); overflow:hidden; aspect-ratio:1/1; }
-  .ovh2-main img{ width:100%; height:100%; object-fit:cover; }
+  .ovh2{ display:grid; grid-template-columns:50% 50%; gap:5.2rem; align-items:start; margin-top:2rem; }
+  .ovh2-gal{ align-self:start; position:sticky; top:3rem; }
+  .ovh2-main{ background:#fff; overflow:hidden; aspect-ratio:1/1; }
+  .ovh2-main img{ width:100%; height:100%; object-fit:contain; }
   .ovh2-row{ display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-top:1rem; }
   .ovh-thumb{ aspect-ratio:1; border:1px solid var(--pv-line); overflow:hidden; cursor:pointer; background:var(--pv-mist); position:relative; transition:border-color .2s; }
   .ovh-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .4s; }
   .ovh-thumb:hover img{ transform:scale(1.06); }
-  .ovh-thumb.on{ border-color:var(--pv-ink); }
-  .ovh-thumb.on::after{ content:""; position:absolute; inset:0; border:2px solid #fff; box-shadow:0 0 0 1px var(--pv-ink) inset; }
+  .ovh-thumb.on{ border-color:var(--pv-ink); box-shadow:0 0 0 2px var(--pv-ink) inset; }
   .ovh2-title{ position:static; width:auto; height:auto; overflow:visible; clip:auto; clip-path:none; padding:0; margin:1.4rem 0 0; font-size:clamp(4.2rem,4.8vw,6.8rem); line-height:.92; letter-spacing:-.03em; font-weight:600; }
   .ovh2-lede{ font-size:1.75rem; line-height:1.55; color:var(--pv-muted); margin:1.6rem 0 0; max-width:42rem; font-weight:350; }
   .ovh2-table{ margin-top:2.8rem; border-top:1px solid var(--pv-ink); border-bottom:1px solid var(--pv-ink); }
@@ -724,6 +735,7 @@
   .ovh2-cta{ display:flex; gap:1.4rem; flex-wrap:wrap; margin-top:3rem; }
   @media(max-width:900px){
     .ovh2{ grid-template-columns:1fr; gap:3rem; }
+    .ovh2-gal{ position:static; }
     .ovh2-main{ aspect-ratio:1/1; }
   }
 
@@ -749,27 +761,37 @@
     .ov-sc-row figure, .ov-sc-row figure:first-child{ aspect-ratio:16/10; }
   }
 
-  /* 3 · acoustic performance chart (vega-3 bordered-box style, single line) */
+  /* 3 · acoustic performance — Style C editorial split (text-left · chart card-right) */
   .ov-perf-intro{ max-width:78rem; }
-  .tv-perf{ display:grid; grid-template-columns:1.7fr 1fr; border:1px solid var(--pv-ink); margin-top:4.5rem; }
-  .tv-perf-chart{ border-right:1px solid var(--pv-ink); padding:2.6rem 2.8rem; }
+  .tv-perf{ display:grid; grid-template-columns:.92fr 1.08fr; gap:5rem; align-items:start; }
+  .tv-perf-txt{ display:flex; flex-direction:column; min-width:0; }
+  .tv-perf-card{ min-width:0; }
+  .tv-perf-txt .ov-h2{ margin-bottom:0; margin-top:1.4rem; }
+  .tv-perf-lede{ font-size:1.45rem; line-height:1.6; color:var(--pv-muted); margin-top:2rem; max-width:44rem; }
+  .tv-perf-lede b{ color:var(--pv-ink); }
+  .tv-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.4rem; margin-top:3.4rem; }
+  .tv-stat{ border-top:2px solid var(--pv-ink); padding-top:1.2rem; }
+  .tv-stat .n{ font-size:2.9rem; font-weight:600; letter-spacing:-.02em; line-height:1; }
+  .tv-stat .l{ font-family:var(--pv-mono); font-size:1rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pv-faint); margin-top:.9rem; line-height:1.4; }
+  .tv-perf-card{ border:1px solid var(--pv-ink); }
+  .tv-perf-chart{ padding:2.6rem 2.8rem 2rem; }
   .tv-perf-chart svg{ width:100%; height:auto; display:block; }
-  .tv-perf-side{ padding:2.6rem 2.8rem; display:flex; flex-direction:column; }
-  .tv-perf-side .lede{ font-size:1.45rem; line-height:1.6; color:var(--pv-muted); }
-  .tv-perf-side .lede b{ color:var(--pv-ink); }
-  .tv-legend{ display:flex; flex-direction:column; gap:.8rem; margin:2.2rem 0; }
+  .tv-legend{ padding:0 2.8rem 1.8rem; }
   .tv-legend span{ display:flex; align-items:center; gap:1rem; font-size:1.3rem; font-weight:500; }
   .tv-legend i{ width:2.4rem; height:.4rem; flex:none; }
-  .tv-aptable{ margin-top:auto; width:100%; border-collapse:collapse; font-family:var(--pv-mono); }
-  .tv-aptable td,.tv-aptable th{ border:1px solid var(--pv-line); padding:.8rem .4rem; text-align:center; font-size:1.15rem; }
+  .tv-aptable{ width:100%; border-collapse:collapse; font-family:var(--pv-mono); border-top:1px solid var(--pv-line); }
+  .tv-aptable td,.tv-aptable th{ border:1px solid var(--pv-line); border-bottom:0; padding:1rem .4rem; text-align:center; font-size:1.15rem; }
   .tv-aptable th{ color:var(--pv-faint); font-weight:500; }
   .tv-aptable td{ font-weight:600; }
-  @media(max-width:900px){ .tv-perf{ grid-template-columns:1fr; } .tv-perf-chart{ border-right:0; border-bottom:1px solid var(--pv-ink); } }
+  .tv-aptable tr :first-child{ border-left:0; }
+  .tv-aptable tr :last-child{ border-right:0; }
+  @media(max-width:900px){ .tv-perf{ grid-template-columns:1fr; gap:3rem; } }
   @media(max-width:600px){
-    .tv-perf-chart{ overflow-x:auto; scrollbar-width:none; padding:1.8rem; }
+    .tv-perf-chart{ overflow-x:auto; scrollbar-width:none; }
     .tv-perf-chart::-webkit-scrollbar{ display:none; }
     .tv-perf-chart svg{ min-width:520px; }
-    .tv-perf-side{ padding:2.2rem 1.8rem; }
+    .tv-stats{ gap:1.6rem; }
+    .tv-stat .n{ font-size:2.3rem; }
   }
 
   /* 5 · applications + characteristics merged (editorial split) */
@@ -1498,13 +1520,13 @@
   </nav>
   <div class="ovh2">
     <div class="ovh2-gal" id="ovhGal">
-      <div class="ovh2-main pv-rise"><img id="ovhMain" src="assets/products/vega/array-front.webp" alt="Vega"></div>
+      <div class="ovh2-main pv-rise"><img id="ovhMain" src="assets/products/vega/vega-1.webp" alt="Vega"></div>
       <div class="ovh2-row pv-rise d1">
-        <div class="ovh-thumb on" data-src="assets/products/vega/array-front.webp"><img src="assets/products/vega/array-front.webp" alt="Vega tiled face"></div>
-        <div class="ovh-thumb" data-src="assets/products/vega/panel-front.webp"><img src="assets/products/vega/panel-front.webp" alt="Vega single face"></div>
-        <div class="ovh-thumb" data-src="assets/products/vega/panel-3d.png"><img src="assets/products/vega/panel-3d.png" alt="Vega profile"></div>
-        <div class="ovh-thumb" data-src="assets/products/vega/array-3d.png"><img src="assets/products/vega/array-3d.png" alt="Vega depth"></div>
-        <div class="ovh-thumb" data-src="assets/products/vega/detail.webp"><img src="assets/products/vega/detail.webp" alt="Vega texture"></div>
+        <div class="ovh-thumb on" data-src="assets/products/vega/vega-1.webp"><img src="assets/products/vega/vega-1.webp" alt="Vega front face"></div>
+        <div class="ovh-thumb" data-src="assets/products/vega/vega-2.webp"><img src="assets/products/vega/vega-2.webp" alt="Vega panel angle"></div>
+        <div class="ovh-thumb" data-src="assets/products/vega/vega-3.webp"><img src="assets/products/vega/vega-3.webp" alt="Vega panel profile"></div>
+        <div class="ovh-thumb" data-src="assets/products/vega/vega-4.webp"><img src="assets/products/vega/vega-4.webp" alt="Vega front and perforated back"></div>
+        <div class="ovh-thumb" data-src="assets/products/vega/vega-5.webp"><img src="assets/products/vega/vega-5.webp" alt="Vega construction layers"></div>
       </div>
     </div>
     <div class="ovh2-info">
@@ -1568,15 +1590,20 @@
 
 <!-- ===== 3 · ACOUSTIC PERFORMANCE (tested) ===== -->
 <section class="pv-wrap ov-sec ov-rule">
-  <div class="ov-perf-intro">
-    <span class="ov-eyebrow pv-rise">Tested, not estimated</span>
-    <h2 class="ov-h2 pv-rise">Performance you can <span style="color:var(--pv-accent)">trust</span>.</h2>
-  </div>
   <div class="tv-perf pv-rise">
+    <div class="tv-perf-txt">
+      <span class="ov-eyebrow">Tested, not estimated</span>
+      <h2 class="ov-h2">Performance you can <span style="color:var(--pv-accent)">trust</span>.</h2>
+      <p class="tv-perf-lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
+      <div class="tv-stats">
+        <div class="tv-stat"><div class="n">0.80</div><div class="l">NRC</div></div>
+        <div class="tv-stat"><div class="n">0.88</div><div class="l">Peak &alpha;p<br>@ 500 Hz</div></div>
+        <div class="tv-stat"><div class="n">ISO<br>354</div><div class="l">Chamber<br>tested</div></div>
+      </div>
+    </div>
+    <div class="tv-perf-card">
     <div class="tv-perf-chart"><svg viewBox="0 0 1180 470" font-family="monospace" role="img" aria-label="Vega absorption coefficient curve"><line x1="66" y1="388.0" x2="1166" y2="388.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="392.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0</text><line x1="66" y1="278.2" x2="1166" y2="278.2" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="282.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.3</text><line x1="66" y1="205.0" x2="1166" y2="205.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="209.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.5</text><line x1="66" y1="95.2" x2="1166" y2="95.2" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="99.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.8</text><line x1="66" y1="22.0" x2="1166" y2="22.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="26.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">1</text><text x="66.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 66.0 406.0)">40</text><text x="111.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 111.8 406.0)">50</text><text x="157.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 157.7 406.0)">63</text><text x="203.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 203.5 406.0)">80</text><text x="249.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 249.3 406.0)">100</text><text x="295.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 295.2 406.0)">125</text><text x="341.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 341.0 406.0)">160</text><text x="386.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 386.8 406.0)">200</text><text x="432.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 432.7 406.0)">250</text><text x="478.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 478.5 406.0)">315</text><text x="524.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 524.3 406.0)">400</text><text x="570.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 570.2 406.0)">500</text><text x="616.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 616.0 406.0)">630</text><text x="661.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 661.8 406.0)">800</text><text x="707.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 707.7 406.0)">1k</text><text x="753.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 753.5 406.0)">1.25k</text><text x="799.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 799.3 406.0)">1.6k</text><text x="845.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 845.2 406.0)">2k</text><text x="891.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 891.0 406.0)">2.5k</text><text x="936.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 936.8 406.0)">3.15k</text><text x="982.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 982.7 406.0)">4k</text><text x="1028.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1028.5 406.0)">5k</text><text x="1074.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1074.3 406.0)">6.3k</text><text x="1120.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1120.2 406.0)">8k</text><text x="1166.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1166.0 406.0)">10k</text><polyline points="66.0,362.4 111.8,355.1 157.7,344.1 203.5,314.8 249.3,256.2 295.2,184.2 341.0,142.8 386.8,109.8 432.7,84.2 478.5,74.3 524.3,68.8 570.2,65.9 616.0,68.5 661.8,74.3 707.7,80.6 753.5,93.4 799.3,111.7 845.2,130.6 891.0,143.5 936.8,158.2 982.7,169.6 1028.5,173.9 1074.3,176.5 1120.2,177.6 1166.0,178.3" fill="none" stroke="#8a4332" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="66.0" cy="362.4" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="111.8" cy="355.1" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="157.7" cy="344.1" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="203.5" cy="314.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="249.3" cy="256.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="295.2" cy="184.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="341.0" cy="142.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="386.8" cy="109.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="432.7" cy="84.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="478.5" cy="74.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="524.3" cy="68.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="570.2" cy="65.9" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="616.0" cy="68.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="661.8" cy="74.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="707.7" cy="80.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="753.5" cy="93.4" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="799.3" cy="111.7" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="845.2" cy="130.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="891.0" cy="143.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="936.8" cy="158.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="982.7" cy="169.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1028.5" cy="173.9" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1074.3" cy="176.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1120.2" cy="177.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1166.0" cy="178.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/></svg></div>
-    <div class="tv-perf-side">
-      <p class="lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with &mdash; peaking near &alpha;p&nbsp;0.88 at 500&nbsp;Hz.</p>
-      <div class="tv-legend"><span><i style="background:var(--pv-accent)"></i>Vega &mdash; Classic grooved &middot; NRC&nbsp;0.80</span></div>
+      <div class="tv-legend"><span><i style="background:var(--pv-accent)"></i>Vega &mdash; Classic grooved</span></div>
       <table class="tv-aptable">
         <tr><th>Hz</th><th>125</th><th>250</th><th>500</th><th>1k</th><th>2k</th><th>4k</th></tr>
         <tr><td>&alpha;p</td><td>0.56</td><td>0.83</td><td>0.88</td><td>0.84</td><td>0.70</td><td>0.60</td></tr>
@@ -1593,20 +1620,20 @@
       <h2 class="ov-h2 pv-rise">Pick a look.</h2>
       <div class="mf-blk pv-rise d1">
         <span class="mf-lab">Core &middot; substrate</span>
-        <div class="mf-item"><span class="sq" style="background:#1a1714"></span><span class="nm">Black MDF</span><span class="mf-badge">Class B</span></div>
-        <div class="mf-item"><span class="sq" style="background:#e8e4dd"></span><span class="nm">Calcium silicate</span><span class="mf-badge a">Class A</span></div>
+        <div class="mf-item"><span class="sq" style="background:#e8e4dd"></span><span class="nm">MGO</span><span class="mf-badge"><svg class="mf-fic" viewBox="0 0 24 24"><use href="#mcF"/></svg>Class A</span></div>
+        <div class="mf-item"><span class="sq" style="background:#1a1714"></span><span class="nm">CDF</span><span class="mf-badge"><svg class="mf-fic" viewBox="0 0 24 24"><use href="#mcF"/></svg>Class B</span></div>
       </div>
       <div class="mf-blk pv-rise d1">
-        <span class="mf-lab">Finish &middot; surface</span>
-        <div class="mf-fam"><span>Melamine</span><span class="cn">Thermally fused laminate</span></div>
-        <div class="mf-fam"><span>HPL</span><span class="cn">High-pressure laminate</span></div>
-        <div class="mf-fam"><span>Veneer</span><span class="cn">Natural wood</span></div>
+        <span class="mf-lab">Finish &middot; surface &mdash; tap to preview</span>
+        <div class="mf-fam is-active" data-fam="mel"><span class="fn">Melamine <em>Thermally fused laminate</em></span><span class="ct">8</span></div>
+        <div class="mf-fam" data-fam="hpl"><span class="fn">HPL <em>High-pressure laminate</em></span><span class="ct">8</span></div>
+        <div class="mf-fam" data-fam="ven"><span class="fn">Veneer <em>Natural wood</em></span><span class="ct">14</span></div>
       </div>
       <p class="mf-msg pv-rise d2"><b>A surface for every brief.</b> From budget-friendly melamine to natural wood veneer &mdash; finishes to suit any design style and budget.</p>
     </div>
     <div class="mf-wallwrap pv-rise d1">
-      <div class="mf-wall"><img loading="lazy" src="assets/products/vega/finishes/f-01.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-02.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-03.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-04.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-05.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-06.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-07.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-08.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-09.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-10.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-11.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-12.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-13.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-14.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-15.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-16.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-17.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-18.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-19.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-20.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-21.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-22.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-23.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-24.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-25.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-26.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-27.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-28.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-29.webp" alt=""><img loading="lazy" src="assets/products/vega/finishes/f-30.webp" alt=""></div>
-      <div class="mf-count">30 finishes &middot; Melamine / HPL / Veneer</div>
+      <div class="mf-wall" id="mfWall"></div>
+      <div class="mf-count" id="mfCount"></div>
     </div>
   </div>
 </section>
@@ -1743,6 +1770,33 @@
 <script>
 (function(){var g=document.getElementById('ovhGal');if(!g)return;var m=document.getElementById('ovhMain');
 g.querySelectorAll('.ovh-thumb').forEach(function(t){t.addEventListener('click',function(){m.src=t.getAttribute('data-src');g.querySelectorAll('.ovh-thumb.on').forEach(function(e){e.classList.remove('on');});t.classList.add('on');});});})();
+</script>
+<script>
+(function(){
+  var SW={
+    mel:{label:'Melamine',code:'NY-M',pre:'nym',names:['White Oak','Oak','Chestnut','Silver Pear','Oiled Walnut','American Walnut','Thermo Walnut','Dark Walnut']},
+    hpl:{label:'HPL',code:'NY-HPL',pre:'nyhpl',names:['Elegant Oak','Planked Oak','Noce Orvieto','Teak Allover','Maple','Fineline','Natural Maple','Afromosia']},
+    ven:{label:'Veneer',code:'NY-V',pre:'nyv',names:['Washed White Oak','Oak','Manchurian Ash','White Oak','Warm Oak','Black Walnut','Silver Pear','European Oak','Grey Oak','Astrakhan Oak','Sliver Oak','European Walnut','Smoked Oak','European Ebony']}
+  };
+  var wall=document.getElementById('mfWall'), count=document.getElementById('mfCount'), fams=document.querySelectorAll('.mf-fam');
+  if(!wall) return;
+  function pad(n){ return n<10?'0'+n:''+n; }
+  function render(key){
+    var d=SW[key]; if(!d) return; var h='';
+    for(var i=0;i<d.names.length;i++){
+      var code=d.code+'-'+pad(i+1), file='assets/products/vega/swatches/'+d.pre+'-'+pad(i+1)+'.webp';
+      h+='<figure class="sw"><span class="im"><img src="'+file+'" alt="'+code+' '+d.names[i]+'"></span><figcaption><span class="c">'+code+'</span><span class="n">'+d.names[i]+'</span></figcaption></figure>';
+    }
+    wall.innerHTML=h;
+    count.innerHTML=d.names.length+' colours &middot; '+d.label;
+  }
+  fams.forEach(function(f){ f.addEventListener('click',function(){
+    fams.forEach(function(e){ e.classList.remove('is-active'); });
+    f.classList.add('is-active');
+    render(f.getAttribute('data-fam'));
+  }); });
+  render('mel');
+})();
 </script>
 </body>
 </html>
