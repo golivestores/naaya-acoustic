@@ -706,16 +706,19 @@
     .ov-situ{ aspect-ratio:4/3; }
   }
 
-  /* ===== v2 hero — Style 2 tabular: sticky gallery 45% (main + thumb row) / dense info 55% ===== */
+  /* ===== v2 hero — original right column + L3 left image (minimal float) ===== */
   .ovh2{ display:grid; grid-template-columns:50% 50%; gap:5.2rem; align-items:start; margin-top:2rem; }
   .ovh2-gal{ align-self:start; position:sticky; top:3rem; display:grid; grid-template-columns:8rem 1fr; gap:1rem; align-items:start; }
-  .ovh2-main{ grid-column:2; grid-row:1; background:#fff; overflow:hidden; aspect-ratio:1/1; }
-  .ovh2-main img{ width:100%; height:100%; object-fit:contain; }
+  /* L3 — product floats on white: no border, soft drop shadow only */
+  .ovh2-main{ grid-column:2; grid-row:1; background:#fff; overflow:hidden; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:2.2rem; box-shadow:0 2.2rem 6rem -1.4rem rgba(35,31,32,.18); }
+  .ovh2-main img{ max-width:100%; max-height:100%; object-fit:contain; }
   .ovh2-row{ grid-column:1; grid-row:1; display:flex; flex-direction:column; gap:1rem; }
-  .ovh-thumb{ aspect-ratio:1; border:1px solid var(--pv-line); overflow:hidden; cursor:pointer; background:var(--pv-mist); position:relative; transition:border-color .2s; }
-  .ovh-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .4s; }
-  .ovh-thumb:hover img{ transform:scale(1.06); }
-  .ovh-thumb.on{ border-color:var(--pv-ink); box-shadow:0 0 0 2px var(--pv-ink) inset; }
+  .ovh-thumb{ aspect-ratio:1; border:1px solid var(--pv-line); overflow:hidden; cursor:pointer; background:var(--pv-mist); position:relative; transition:border-color .25s; }
+  .ovh-thumb img{ width:100%; height:100%; object-fit:contain; padding:.5rem; }
+  .ovh-thumb:hover{ border-color:var(--pv-muted); }
+  .ovh-thumb.on{ border-color:var(--pv-ink); }
+  .ovh-thumb.on::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--pv-accent); }
+  /* right info column — ORIGINAL styling (unchanged) */
   .ovh2-title{ position:static; width:auto; height:auto; overflow:visible; clip:auto; clip-path:none; padding:0; margin:1.4rem 0 0; font-size:clamp(4.2rem,4.8vw,6.8rem); line-height:.92; letter-spacing:-.03em; font-weight:600; }
   .ovh2-lede{ font-size:1.75rem; line-height:1.55; color:var(--pv-muted); margin:1.6rem 0 0; max-width:42rem; font-weight:350; }
   .ovh2-table{ margin-top:2.8rem; border-top:1px solid var(--pv-ink); border-bottom:1px solid var(--pv-ink); }
@@ -731,15 +734,16 @@
   .ovh2-apps svg{ width:1.8rem; height:1.8rem; color:var(--pv-accent); stroke:currentColor; fill:none; stroke-width:1.6; flex:none; }
   .ovh2-cta{ display:flex; gap:1.4rem; flex-wrap:wrap; margin-top:3rem; }
   @media(max-width:900px){
-    .ovh2{ grid-template-columns:1fr; gap:3rem; }
+    .ovh2{ grid-template-columns:1fr; gap:3.2rem; }
     .ovh2-gal{ position:static; }
     .ovh2-main{ aspect-ratio:1/1; }
   }
   @media(max-width:600px){
     .ovh2-gal{ grid-template-columns:1fr; }
-    .ovh2-main{ grid-column:1; grid-row:1; }
+    .ovh2-main{ grid-column:1; grid-row:1; padding:2rem; }
     .ovh2-row{ grid-column:1; grid-row:2; flex-direction:row; margin-top:1rem; }
     .ovh-thumb{ flex:1; }
+    .ovh-thumb.on::after{ left:0; right:0; top:auto; bottom:0; width:auto; height:2px; }
   }
 
   /* 2 · in-situ showcase — heading + horizontal swipe rail of large interiors */
@@ -1589,12 +1593,12 @@
       <p class="tv-perf-lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
       <div class="tv-nrc">
         <div class="tv-nrc-n">0.80</div>
-        <div class="tv-nrc-l"><span class="k">NRC</span><span class="d">Noise Reduction Coefficient</span><span class="s">ISO 354 &middot; chamber tested</span></div>
+        <div class="tv-nrc-l"><span class="k">NRC</span><span class="d">Noise Reduction Coefficient</span><span class="s">ISO 354</span></div>
       </div>
     </div>
     <div class="tv-perf-card">
     <div class="tv-perf-chart"><svg viewBox="0 0 1180 470" font-family="monospace" role="img" aria-label="Vega absorption coefficient curve"><line x1="66" y1="388.0" x2="1166" y2="388.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="392.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0</text><line x1="66" y1="278.2" x2="1166" y2="278.2" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="282.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.3</text><line x1="66" y1="205.0" x2="1166" y2="205.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="209.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.5</text><line x1="66" y1="95.2" x2="1166" y2="95.2" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="99.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.8</text><line x1="66" y1="22.0" x2="1166" y2="22.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="26.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">1</text><text x="66.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 66.0 406.0)">40</text><text x="111.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 111.8 406.0)">50</text><text x="157.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 157.7 406.0)">63</text><text x="203.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 203.5 406.0)">80</text><text x="249.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 249.3 406.0)">100</text><text x="295.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 295.2 406.0)">125</text><text x="341.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 341.0 406.0)">160</text><text x="386.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 386.8 406.0)">200</text><text x="432.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 432.7 406.0)">250</text><text x="478.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 478.5 406.0)">315</text><text x="524.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 524.3 406.0)">400</text><text x="570.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 570.2 406.0)">500</text><text x="616.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 616.0 406.0)">630</text><text x="661.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 661.8 406.0)">800</text><text x="707.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 707.7 406.0)">1k</text><text x="753.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 753.5 406.0)">1.25k</text><text x="799.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 799.3 406.0)">1.6k</text><text x="845.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 845.2 406.0)">2k</text><text x="891.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 891.0 406.0)">2.5k</text><text x="936.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 936.8 406.0)">3.15k</text><text x="982.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 982.7 406.0)">4k</text><text x="1028.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1028.5 406.0)">5k</text><text x="1074.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1074.3 406.0)">6.3k</text><text x="1120.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1120.2 406.0)">8k</text><text x="1166.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1166.0 406.0)">10k</text><polyline points="66.0,362.4 111.8,355.1 157.7,344.1 203.5,314.8 249.3,256.2 295.2,184.2 341.0,142.8 386.8,109.8 432.7,84.2 478.5,74.3 524.3,68.8 570.2,65.9 616.0,68.5 661.8,74.3 707.7,80.6 753.5,93.4 799.3,111.7 845.2,130.6 891.0,143.5 936.8,158.2 982.7,169.6 1028.5,173.9 1074.3,176.5 1120.2,177.6 1166.0,178.3" fill="none" stroke="#8a4332" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="66.0" cy="362.4" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="111.8" cy="355.1" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="157.7" cy="344.1" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="203.5" cy="314.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="249.3" cy="256.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="295.2" cy="184.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="341.0" cy="142.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="386.8" cy="109.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="432.7" cy="84.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="478.5" cy="74.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="524.3" cy="68.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="570.2" cy="65.9" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="616.0" cy="68.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="661.8" cy="74.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="707.7" cy="80.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="753.5" cy="93.4" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="799.3" cy="111.7" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="845.2" cy="130.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="891.0" cy="143.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="936.8" cy="158.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="982.7" cy="169.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1028.5" cy="173.9" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1074.3" cy="176.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1120.2" cy="177.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1166.0" cy="178.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/></svg></div>
-      <div class="tv-legend"><span><i style="background:var(--pv-accent)"></i>Vega &mdash; Classic grooved</span></div>
+      <div class="tv-legend"><span><i style="background:var(--pv-accent)"></i>Vega</span></div>
       <table class="tv-aptable">
         <tr><th>Hz</th><th>125</th><th>250</th><th>500</th><th>1k</th><th>2k</th><th>4k</th></tr>
         <tr><td>&alpha;p</td><td>0.56</td><td>0.83</td><td>0.88</td><td>0.84</td><td>0.70</td><td>0.60</td></tr>
