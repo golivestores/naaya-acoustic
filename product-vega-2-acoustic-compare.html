@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vega · Acoustic section — 3 styles (real-page scale)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<style>
+/* replicate naaya.css proportional root so this renders at the real page scale */
+:root{ --size:1600; --font-s:calc((100vw / var(--size)) * 10); }
+@media(max-width:600px){ :root{ --size:375; } }
+@media(min-width:601px){ :root{ --size:1600; } }
+html{ font-size:var(--font-s); }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:'Inter', system-ui, sans-serif; background:#fff; color:#231f20; -webkit-font-smoothing:antialiased; }
+svg{ display:block; }
+
+.cc-intro{ background:#231f20; color:#f3efe9; padding:22px 40px; }
+.cc-intro h1{ font-size:19px; font-weight:600; letter-spacing:-.01em; }
+.cc-intro p{ font-size:13px; color:#a99f95; margin-top:8px; max-width:1180px; line-height:1.6; }
+.cc-intro b{ color:#f3efe9; font-weight:500; }
+.lab{ background:#f5f3f0; color:#8a4332; font-size:11px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; padding:14px 40px; border-top:1px solid rgba(35,31,32,.08); }
+
+/* ============ shared tokens + primitives (unchanged colours) ============ */
+.ac{
+  --ink:#231f20; --mist:#f5f3f0; --acc:#8a4332;
+  --line:color-mix(in srgb, var(--ink) 13%, transparent);
+  --hair:color-mix(in srgb, var(--ink) 8%, transparent);
+  --mut:color-mix(in srgb, var(--ink) 54%, transparent);
+  --faint:color-mix(in srgb, var(--ink) 38%, transparent);
+  color:var(--ink);
+}
+.wrap{ width:100%; max-width:150rem; margin-inline:auto; padding:7rem 5rem; }
+.eyebrow{ display:inline-flex; align-items:center; gap:1rem; font-size:1.15rem; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--faint); }
+.eyebrow::before{ content:""; width:.7rem; height:.7rem; background:var(--acc); transform:rotate(45deg); flex:none; }
+.h2{ font-size:clamp(3rem,3.6vw,4.4rem); line-height:1.04; letter-spacing:-.025em; font-weight:600; }
+.h2 em{ font-style:normal; color:var(--acc); }
+.lede{ font-size:1.45rem; line-height:1.6; color:var(--mut); max-width:44rem; }
+.lede b{ color:var(--ink); font-weight:500; }
+
+/* NRC feature block */
+.nrc{ display:flex; align-items:flex-end; gap:1.8rem; }
+.nrc-n{ font-size:6.4rem; font-weight:600; letter-spacing:-.03em; line-height:.82; }
+.nrc-l{ display:flex; flex-direction:column; gap:.35rem; padding-bottom:.7rem; }
+.nrc-l .k{ font-size:1.25rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; }
+.nrc-l .d{ font-size:1.35rem; color:var(--mut); }
+.nrc-l .s{ font-size:1.05rem; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-top:.3rem; }
+
+/* legend + table (shared skeleton; per-style overrides below) */
+.legend span{ display:flex; align-items:center; gap:1rem; font-size:1.3rem; font-weight:500; }
+.legend i{ width:2.4rem; height:.4rem; background:var(--acc); flex:none; }
+.aptable{ width:100%; border-collapse:collapse; border-top:1px solid var(--line); }
+.aptable td,.aptable th{ border:1px solid var(--line); border-bottom:0; padding:1rem .4rem; text-align:center; font-size:1.15rem; }
+.aptable th{ color:var(--faint); font-weight:500; }
+.aptable td{ font-weight:600; }
+.aptable tr :first-child{ border-left:0; }
+.aptable tr :last-child{ border-right:0; }
+.chartslot svg{ width:100%; height:auto; }
+
+/* ===================== A · Editorial split ===================== */
+.A .split{ display:grid; grid-template-columns:.92fr 1.08fr; gap:5rem; align-items:start; }
+.A .txt{ display:flex; flex-direction:column; min-width:0; }
+.A .txt .h2{ margin-top:1.4rem; }
+.A .txt .lede{ margin-top:2rem; }
+.A .nrc{ margin-top:3.4rem; border-top:2px solid var(--ink); padding-top:1.8rem; }
+.A .card{ border:1px solid var(--ink); min-width:0; }
+.A .chartslot{ padding:2.6rem 2.8rem 2rem; }
+.A .legend{ padding:0 2.8rem 1.8rem; }
+
+/* ===================== B · Chart hero (stacked, full-width plot) ===================== */
+.B .head{ display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:end; padding-bottom:3rem; border-bottom:2px solid var(--ink); }
+.B .head .h2{ margin-top:1.4rem; }
+.B .head .hr{ display:flex; flex-direction:column; gap:2.6rem; }
+.B .head .nrc{ align-self:flex-start; }
+.B .chartslot{ margin-top:3.4rem; }
+.B .legend{ margin-top:1.6rem; }
+.B .aptable{ margin-top:3rem; border:1px solid var(--line); border-bottom:0; }
+
+/* ===================== C · Unified data panel ===================== */
+.C .panel{ display:grid; grid-template-columns:.86fr 1.14fr; border:1px solid var(--ink); }
+.C .pl{ padding:4rem; border-right:1px solid var(--ink); display:flex; flex-direction:column; }
+.C .pl .h2{ margin-top:1.4rem; }
+.C .pl .lede{ margin-top:1.8rem; font-size:1.35rem; }
+.C .pl .nrc{ margin-top:auto; padding-top:3.4rem; }
+.C .pr{ padding:3rem 3rem 0; display:flex; flex-direction:column; }
+.C .pr .chartslot{ flex:1; display:flex; align-items:center; }
+.C .legend{ margin:1.4rem 0; }
+.C .aptable{ border-top:1px solid var(--line); }
+.C .aptable tr:last-child td{ border-bottom:0; }
+
+@media(max-width:900px){
+  .A .split,.B .head,.C .panel{ grid-template-columns:1fr; gap:3rem; }
+  .C .pl{ border-right:0; border-bottom:1px solid var(--ink); }
+  .A .card,.A .txt,.B .hl,.B .hr,.C .pl,.C .pr{ min-width:0; }
+  .chartslot,.C .pr .chartslot{ overflow-x:auto; display:block; min-width:0; }
+  .chartslot svg{ min-width:520px; }
+}
+@media(max-width:600px){ .wrap{ padding:5rem 2rem; } .nrc-n{ font-size:5rem; } }
+</style>
+</head>
+<body>
+
+<div class="cc-intro">
+  <h1>Vega — acoustic section, three styles</h1>
+  <p>Same content in all three, with your two edits applied: the NRC sub-label now reads <b>ISO 354</b> (no &ldquo;chamber tested&rdquo;) and the legend reads <b>Vega</b> (no &ldquo;Classic grooved&rdquo;). Real page scale, colours unchanged. <b>A</b> editorial split (current) · <b>B</b> chart hero, full-width plot · <b>C</b> unified data panel.</p>
+</div>
+
+<!-- chart + table defined once, cloned into each style -->
+<template id="chartTpl"><svg viewBox="0 0 1180 470" role="img" aria-label="Vega absorption coefficient curve"><line x1="66" y1="388.0" x2="1166" y2="388.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="392.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0</text><line x1="66" y1="278.2" x2="1166" y2="278.2" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="282.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.3</text><line x1="66" y1="205.0" x2="1166" y2="205.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="209.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.5</text><line x1="66" y1="95.2" x2="1166" y2="95.2" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="99.2" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">0.8</text><line x1="66" y1="22.0" x2="1166" y2="22.0" stroke="#231f20" stroke-opacity="0.12"/><text x="54" y="26.0" font-size="13" fill="#231f20" fill-opacity="0.5" text-anchor="end">1</text><text x="66.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 66.0 406.0)">40</text><text x="111.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 111.8 406.0)">50</text><text x="157.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 157.7 406.0)">63</text><text x="203.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 203.5 406.0)">80</text><text x="249.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 249.3 406.0)">100</text><text x="295.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 295.2 406.0)">125</text><text x="341.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 341.0 406.0)">160</text><text x="386.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 386.8 406.0)">200</text><text x="432.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 432.7 406.0)">250</text><text x="478.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 478.5 406.0)">315</text><text x="524.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 524.3 406.0)">400</text><text x="570.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 570.2 406.0)">500</text><text x="616.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 616.0 406.0)">630</text><text x="661.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 661.8 406.0)">800</text><text x="707.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 707.7 406.0)">1k</text><text x="753.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 753.5 406.0)">1.25k</text><text x="799.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 799.3 406.0)">1.6k</text><text x="845.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 845.2 406.0)">2k</text><text x="891.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 891.0 406.0)">2.5k</text><text x="936.8" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 936.8 406.0)">3.15k</text><text x="982.7" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 982.7 406.0)">4k</text><text x="1028.5" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1028.5 406.0)">5k</text><text x="1074.3" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1074.3 406.0)">6.3k</text><text x="1120.2" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1120.2 406.0)">8k</text><text x="1166.0" y="406.0" font-size="10.5" fill="#231f20" fill-opacity="0.5" text-anchor="end" transform="rotate(-45 1166.0 406.0)">10k</text><polyline points="66.0,362.4 111.8,355.1 157.7,344.1 203.5,314.8 249.3,256.2 295.2,184.2 341.0,142.8 386.8,109.8 432.7,84.2 478.5,74.3 524.3,68.8 570.2,65.9 616.0,68.5 661.8,74.3 707.7,80.6 753.5,93.4 799.3,111.7 845.2,130.6 891.0,143.5 936.8,158.2 982.7,169.6 1028.5,173.9 1074.3,176.5 1120.2,177.6 1166.0,178.3" fill="none" stroke="#8a4332" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="66.0" cy="362.4" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="111.8" cy="355.1" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="157.7" cy="344.1" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="203.5" cy="314.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="249.3" cy="256.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="295.2" cy="184.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="341.0" cy="142.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="386.8" cy="109.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="432.7" cy="84.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="478.5" cy="74.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="524.3" cy="68.8" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="570.2" cy="65.9" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="616.0" cy="68.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="661.8" cy="74.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="707.7" cy="80.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="753.5" cy="93.4" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="799.3" cy="111.7" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="845.2" cy="130.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="891.0" cy="143.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="936.8" cy="158.2" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="982.7" cy="169.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1028.5" cy="173.9" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1074.3" cy="176.5" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1120.2" cy="177.6" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/><circle cx="1166.0" cy="178.3" r="3.2" fill="#fff" stroke="#8a4332" stroke-width="2"/></svg></template>
+<template id="tableTpl"><table class="aptable"><tr><th>Hz</th><th>125</th><th>250</th><th>500</th><th>1k</th><th>2k</th><th>4k</th></tr><tr><td>&alpha;p</td><td>0.56</td><td>0.83</td><td>0.88</td><td>0.84</td><td>0.70</td><td>0.60</td></tr></table></template>
+
+<!-- ============================ A ============================ -->
+<div class="lab">A · Editorial split — current layout</div>
+<section class="ac A"><div class="wrap">
+  <div class="split">
+    <div class="txt">
+      <span class="eyebrow">Tested, not estimated</span>
+      <h2 class="h2">Performance you can <em>trust</em>.</h2>
+      <p class="lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
+      <div class="nrc"><div class="nrc-n">0.80</div><div class="nrc-l"><span class="k">NRC</span><span class="d">Noise Reduction Coefficient</span><span class="s">ISO 354</span></div></div>
+    </div>
+    <div class="card">
+      <div class="chartslot" data-chart></div>
+      <div class="legend"><span><i></i>Vega</span></div>
+      <div data-table></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================ B ============================ -->
+<div class="lab">B · Chart hero — full-width plot, data strip</div>
+<section class="ac B"><div class="wrap">
+  <div class="head">
+    <div class="hl">
+      <span class="eyebrow">Tested, not estimated</span>
+      <h2 class="h2">Performance you can <em>trust</em>.</h2>
+    </div>
+    <div class="hr">
+      <p class="lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
+      <div class="nrc"><div class="nrc-n">0.80</div><div class="nrc-l"><span class="k">NRC</span><span class="d">Noise Reduction Coefficient</span><span class="s">ISO 354</span></div></div>
+    </div>
+  </div>
+  <div class="chartslot" data-chart></div>
+  <div class="legend"><span><i></i>Vega</span></div>
+  <div data-table></div>
+</div></section>
+
+<!-- ============================ C ============================ -->
+<div class="lab">C · Unified data panel — one framed dashboard</div>
+<section class="ac C"><div class="wrap">
+  <div class="panel">
+    <div class="pl">
+      <span class="eyebrow">Tested, not estimated</span>
+      <h2 class="h2">Performance you can <em>trust</em>.</h2>
+      <p class="lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
+      <div class="nrc"><div class="nrc-n">0.80</div><div class="nrc-l"><span class="k">NRC</span><span class="d">Noise Reduction Coefficient</span><span class="s">ISO 354</span></div></div>
+    </div>
+    <div class="pr">
+      <div class="chartslot" data-chart></div>
+      <div class="legend"><span><i></i>Vega</span></div>
+      <div data-table></div>
+    </div>
+  </div>
+</div></section>
+
+<script>
+var chartTpl=document.getElementById('chartTpl').innerHTML;
+var tableTpl=document.getElementById('tableTpl').innerHTML;
+document.querySelectorAll('[data-chart]').forEach(function(el){ el.innerHTML=chartTpl; });
+document.querySelectorAll('[data-table]').forEach(function(el){ el.innerHTML=tableTpl; });
+</script>
+</body>
+</html>
