@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vega · Acoustic left side — 3 structures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<style>
+:root{ --size:1600; --font-s:calc((100vw / var(--size)) * 10); }
+@media(max-width:600px){ :root{ --size:375; } }
+@media(min-width:601px){ :root{ --size:1600; } }
+html{ font-size:var(--font-s); }
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:'Inter', system-ui, sans-serif; background:#fff; color:#231f20; -webkit-font-smoothing:antialiased; }
+img{ display:block; }
+
+.cc-intro{ background:#231f20; color:#f3efe9; padding:22px 40px; }
+.cc-intro h1{ font-size:19px; font-weight:600; letter-spacing:-.01em; }
+.cc-intro p{ font-size:13px; color:#a99f95; margin-top:8px; max-width:1180px; line-height:1.6; }
+.cc-intro b{ color:#f3efe9; font-weight:500; }
+.lab{ background:#f5f3f0; color:#8a4332; font-size:11px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; padding:14px 40px; border-top:1px solid rgba(35,31,32,.08); }
+
+.ac{
+  --ink:#231f20; --mist:#f5f3f0; --acc:#8a4332;
+  --line:color-mix(in srgb, var(--ink) 13%, transparent);
+  --hair:color-mix(in srgb, var(--ink) 8%, transparent);
+  --mut:color-mix(in srgb, var(--ink) 54%, transparent);
+  --faint:color-mix(in srgb, var(--ink) 38%, transparent);
+  color:var(--ink);
+}
+.wrap{ width:100%; max-width:150rem; margin-inline:auto; padding:7rem 5rem; }
+.eyebrow{ display:inline-flex; align-items:center; gap:1rem; font-size:1.15rem; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--faint); }
+.eyebrow::before{ content:""; width:.7rem; height:.7rem; background:var(--acc); transform:rotate(45deg); flex:none; }
+.h2{ font-size:clamp(3rem,3.6vw,4.4rem); line-height:1.04; letter-spacing:-.025em; font-weight:600; }
+.h2 em{ font-style:normal; color:var(--acc); }
+.lede{ font-size:1.45rem; line-height:1.6; color:var(--mut); max-width:44rem; }
+.lede b{ color:var(--ink); font-weight:500; }
+
+.split{ display:grid; grid-template-columns:.92fr 1.08fr; gap:5rem; align-items:stretch; }
+.txt{ display:flex; flex-direction:column; min-width:0; }
+.pic{ min-width:0; overflow:hidden; min-height:38rem; }
+.pic img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* NRC atoms */
+.nrc-n{ font-weight:600; letter-spacing:-.03em; line-height:.82; }
+.nrc-l{ display:flex; flex-direction:column; gap:.35rem; }
+.nrc-l .k{ font-size:1.25rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; }
+.nrc-l .d{ font-size:1.35rem; color:var(--mut); }
+.nrc-l .s{ font-size:1.05rem; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-top:.3rem; }
+
+/* ===== LD · Number first (stat leads the column) ===== */
+.LD .nrc-hero{ display:flex; align-items:flex-end; gap:2rem; padding-bottom:2.4rem; border-bottom:2px solid var(--ink); }
+.LD .nrc-hero .nrc-n{ font-size:8.4rem; }
+.LD .nrc-hero .nrc-l{ padding-bottom:1rem; }
+.LD .eyebrow{ margin-top:3rem; }
+.LD .h2{ margin-top:1.4rem; }
+.LD .lede{ margin-top:1.8rem; }
+
+/* ===== LE · Corner metric (eyebrow + KPI top bar) ===== */
+.LE .topbar{ display:flex; align-items:flex-start; justify-content:space-between; gap:2rem;
+             padding-bottom:2rem; border-bottom:1px solid var(--line); }
+.LE .kpi{ display:flex; align-items:baseline; gap:.9rem; flex:none; text-align:right; }
+.LE .kpi .nrc-n{ font-size:3.4rem; line-height:1; }
+.LE .kpi .m{ display:flex; flex-direction:column; align-items:flex-start; }
+.LE .kpi .m .k{ font-size:1.1rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+.LE .kpi .m .s{ font-size:.95rem; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); }
+.LE .h2{ margin-top:3rem; }
+.LE .lede{ margin-top:2rem; }
+
+/* ===== LF · Claim -> proof -> detail (NRC band between heading & lede) ===== */
+.LF .h2{ margin-top:1.4rem; }
+.LF .nrc-band{ display:flex; align-items:flex-end; gap:1.8rem; margin-top:2.6rem;
+               border-top:2px solid var(--ink); border-bottom:1px solid var(--line); padding:1.8rem 0; }
+.LF .nrc-band .nrc-n{ font-size:6rem; }
+.LF .nrc-band .nrc-l{ padding-bottom:.6rem; }
+.LF .lede{ margin-top:2.4rem; }
+
+@media(max-width:900px){
+  .split{ grid-template-columns:1fr; gap:3rem; align-items:start; }
+  .pic{ min-height:0; aspect-ratio:4/3; }
+}
+@media(max-width:600px){
+  .wrap{ padding:5rem 2rem; }
+  .LD .nrc-hero .nrc-n{ font-size:6.4rem; } .LF .nrc-band .nrc-n{ font-size:5rem; }
+  .LE .topbar{ flex-direction:column; } .LE .kpi{ text-align:left; }
+}
+</style>
+</head>
+<body>
+
+<div class="cc-intro">
+  <h1>Vega — acoustic left side, three structures</h1>
+  <p>Same content (eyebrow, heading, lede, <b>0.80 NRC</b>) but re-ordered / re-structured. Right side held constant (full-bleed image). <b>LD</b> number first — the stat leads · <b>LE</b> corner metric — KPI in the header bar · <b>LF</b> claim &rarr; proof &rarr; detail — NRC band right after the heading. Real page scale, colours unchanged.</p>
+</div>
+
+<!-- ============================ LD ============================ -->
+<div class="lab">LD · Number first — the stat leads</div>
+<section class="ac LD"><div class="wrap">
+  <div class="split">
+    <div class="txt">
+      <div class="nrc-hero"><div class="nrc-n">0.80</div><div class="nrc-l"><span class="k">NRC</span><span class="d">Noise Reduction Coefficient</span><span class="s">ISO 354</span></div></div>
+      <span class="eyebrow">Tested, not estimated</span>
+      <h2 class="h2">Performance you can <em>trust</em>.</h2>
+      <p class="lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
+    </div>
+    <figure class="pic"><img src="assets/products/vega/scene-4.webp" alt="Vega in an acoustic interior"></figure>
+  </div>
+</div></section>
+
+<!-- ============================ LE ============================ -->
+<div class="lab">LE · Corner metric — KPI in the header bar</div>
+<section class="ac LE"><div class="wrap">
+  <div class="split">
+    <div class="txt">
+      <div class="topbar">
+        <span class="eyebrow">Tested, not estimated</span>
+        <div class="kpi"><div class="nrc-n">0.80</div><div class="m"><span class="k">NRC</span><span class="s">ISO 354</span></div></div>
+      </div>
+      <h2 class="h2">Performance you can <em>trust</em>.</h2>
+      <p class="lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
+    </div>
+    <figure class="pic"><img src="assets/products/vega/scene-4.webp" alt="Vega in an acoustic interior"></figure>
+  </div>
+</div></section>
+
+<!-- ============================ LF ============================ -->
+<div class="lab">LF · Claim → proof → detail — NRC band after the heading</div>
+<section class="ac LF"><div class="wrap">
+  <div class="split">
+    <div class="txt">
+      <span class="eyebrow">Tested, not estimated</span>
+      <h2 class="h2">Performance you can <em>trust</em>.</h2>
+      <div class="nrc-band"><div class="nrc-n">0.80</div><div class="nrc-l"><span class="k">NRC</span><span class="d">Noise Reduction Coefficient</span><span class="s">ISO 354</span></div></div>
+      <p class="lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
+    </div>
+    <figure class="pic"><img src="assets/products/vega/scene-4.webp" alt="Vega in an acoustic interior"></figure>
+  </div>
+</div></section>
+
+</body>
+</html>
