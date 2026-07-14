@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vega — Classic grooved panel · NAAYA (catalogue)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/naaya.css">
+<style>
+  /* ============================================
+     index-4 ONLY skin — Inter + White × #231f20
+     (overrides the shared naaya.css; does not touch
+      index-1/2/3 which share the same stylesheet)
+     ============================================ */
+
+  /* --- Typeface: single typeface (Inter) across the whole page,
+         à la Kvadrat. Remaps the shared --font-f-aeonik-* vars. --- */
+  :root{
+    --font-f-aeonik-pro:  'Inter', system-ui, -apple-system, sans-serif;
+    --font-f-aeonik-mono: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  html, body, body *:not(i):not([class*="fa-"]):not([class*="glyphicon"]){
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* --- Color skin: pure white canvas, single warm-near-black ink --- */
+  :root{
+    --color-cream: #ffffff;   /* page background */
+    --color-black: #231f20;   /* primary ink / text */
+    --color-grey:  #231f20;
+  }
+  html, body{ background:#ffffff; color:#231f20; }
+  main, .main{ background:#ffffff; }
+
+  /* --- Remove the arrow-diamond icon from all buttons/links --- */
+  .site-nav-cta-arrow, .arrow-svg{ display:none !important; }
+
+  /* --- Product Collection: prev/next arrows on the sides, centred on the image band --- */
+  .collection-track-wrap > .collection-nav-btn{
+    position:absolute;
+    top:17.3rem;                 /* centre of a 26rem card's 3/4 image */
+    transform:translateY(-50%);
+    z-index:5;
+    background:#ffffff;
+    border-color:color-mix(in srgb, var(--color-black) 12%, transparent);
+    box-shadow:0 .4rem 1.6rem rgba(0,0,0,.14);
+  }
+  .collection-track-wrap > .collection-nav-btn.prev{ left:1.6rem; }
+  .collection-track-wrap > .collection-nav-btn.next{ right:1.6rem; }
+  @media(max-width:900px){
+    .collection-track-wrap > .collection-nav-btn{ top:14.7rem; }  /* 22rem card */
+  }
+  @media(max-width:600px){
+    .collection-track-wrap > .collection-nav-btn{ display:none; } /* swipe on mobile */
+  }
+  .collection-nav-count{ margin-left:0; }
+
+  /* --- Footer: solid colour, no background photo --- */
+  .footer .background[data-v-b5a28948]{ display:none; }
+  .footer[data-v-b5a28948]{ background:#231f20; }          /* SCHEME A — Deep Ink */
+  @media(min-width:1101px){
+    .footer-content{ grid-template-columns:1.6fr 1fr 1fr 1.4fr; }  /* 4 cols (Resources removed) */
+  }
+
+  /* --- Product Collection: material label removed → keep the model count right-aligned --- */
+  .cat-card-top{ justify-content:flex-end; }
+
+  /* --- Brand logo: nav swaps white(over hero) / black(scrolled on white) --- */
+  .site-nav-logo{ display:inline-flex; align-items:center; }
+  /* default (inline) = black logo shown; over the hero (not scrolled) swap to white */
+  .site-nav:not(.is-scrolled) .logo-light{ display:block !important; }
+  .site-nav:not(.is-scrolled) .logo-dark{ display:none !important; }
+  /* footer mark: small, natural aspect (defeat global img{width:100%}) --- */
+  .footer-brand-logo{ height:2.4rem !important; width:auto !important; display:block; margin-bottom:2rem; }
+
+  /* --- Calculator footnote: longer sentence copy, readable (not uppercase) --- */
+  .calc-foot{
+    text-transform:none;
+    letter-spacing:0;
+    font-size:1.25rem;
+    line-height:1.5;
+    max-width:42rem;
+    margin-top:1.4rem;
+  }
+
+  /* --- About mosaic: 5 images, Direction C (two-row balanced filmstrip) --- */
+  .about-mosaic-grid{
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-rows:23rem 18rem;
+    grid-template-areas:
+      "m1 m1 m2 m2"
+      "m3 m4 m4 m5";
+  }
+
+  /* ============================================
+     Mega menu — 16 Naaya Collections + spec tags
+     (index-4 only; overrides shared naaya.css)
+     ============================================ */
+  /* Left list: 16 compact rows, internal scroll on short viewports */
+  .mega-cats-v2 .mcat-list{
+    gap:0;
+    max-height:min(58rem, 74vh);
+    overflow-y:auto;
+    padding-right:.9rem;
+  }
+  .mega-cats-v2 .mcat-list::-webkit-scrollbar{ width:4px; }
+  .mega-cats-v2 .mcat-list::-webkit-scrollbar-thumb{
+    background:color-mix(in srgb, var(--color-black) 18%, transparent); border-radius:2px;
+  }
+  .mega-cats-v2 .mcat-item{ padding:.6rem 0; }
+  .mega-cats-v2 .mcat-name{ font-size:1.45rem; }
+  .mega-cats-v2 .mcat-all{ margin-top:1rem; padding-top:1.1rem; }
+
+  /* Right detail: a touch taller so specs + thumbs never clip */
+  .mega-cats-v2 .mcat-detail{ min-height:46rem; }
+
+  /* Spec tags — 2×2 grid, icon + label + value */
+  .mcat-specs{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:1.4rem 2.6rem; margin-top:.2rem; max-width:48rem;
+  }
+  .mcat-spec{ display:flex; align-items:center; gap:1.1rem; }
+  .mcat-spec svg{
+    width:2.2rem; height:2.2rem; flex:none;
+    color:var(--color-black); opacity:.82;
+  }
+  .ms-text{ display:flex; flex-direction:column; line-height:1.18; }
+  .ms-label{
+    font-family:var(--font-f-aeonik-mono);
+    font-size:1rem; letter-spacing:.12em; text-transform:uppercase;
+    color:color-mix(in srgb, var(--color-black) 45%, transparent);
+  }
+  .ms-val{
+    font-size:1.5rem; font-weight:500; letter-spacing:-.01em;
+    color:var(--color-black);
+  }
+
+  /* Thumbs: 2 up, sized down to sit beside the specs */
+  .mega-cats-v2 .mcat-pane-thumbs{
+    grid-template-columns:repeat(2, 1fr);
+    max-width:38rem; gap:1.2rem;
+  }
+
+  @media(max-width:1100px){
+    .mega-cats-v2 .mcat-list{ max-height:none; overflow:visible; }
+    .mega-cats-v2 .mcat-detail{ min-height:0; }
+    .mcat-specs{ max-width:none; }
+    .mega-cats-v2 .mcat-pane-thumbs{ max-width:none; }
+  }
+
+  /* ============================================================
+     PRODUCT PAGE  (Classic Vega) — unified template
+     Editorial brand-led long-scroll, index-4 skin
+     ============================================================ */
+  .pv{
+    --pv-ink:#231f20;
+    --pv-paper:#ffffff;
+    --pv-mist:#f5f3f0;                /* warm off-white block bg */
+    --pv-sand:#ece7e0;
+    --pv-accent:#8a4332;              /* copper / rust */
+    --pv-line:color-mix(in srgb, var(--pv-ink) 13%, transparent);
+    --pv-hair:color-mix(in srgb, var(--pv-ink) 8%, transparent);
+    --pv-muted:color-mix(in srgb, var(--pv-ink) 54%, transparent);
+    --pv-faint:color-mix(in srgb, var(--pv-ink) 38%, transparent);
+    --pv-mono:var(--font-f-aeonik-mono);
+    --pv-wood:#c79a63; --pv-groove:#2a2521;
+    color:var(--pv-ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .pv *{ box-sizing:border-box; }
+  .pv-wrap{ width:100%; max-width:150rem; margin-inline:auto; padding-inline:5rem; }
+  .pv-sec{ padding-block:11rem; position:relative; }
+  .pv-sec--tight{ padding-block:7rem; }
+  .pv-mist{ background:var(--pv-mist); }
+  .pv-ink-bg{ background:var(--pv-ink); color:#f3efe9; }
+
+  /* --- shared primitives --- */
+  .pv-eyebrow{
+    display:inline-flex; align-items:center; gap:1rem;
+    font-family:var(--pv-mono); font-size:1.15rem; font-weight:500;
+    letter-spacing:.26em; text-transform:uppercase; color:var(--pv-faint);
+  }
+  .pv-eyebrow::before{
+    content:""; width:.7rem; height:.7rem; flex:none;
+    background:var(--pv-accent); transform:rotate(45deg);
+  }
+  .pv-ink-bg .pv-eyebrow{ color:color-mix(in srgb, #f3efe9 60%, transparent); }
+  .pv-h2{
+    font-size:clamp(3.4rem,4.6vw,6.2rem); line-height:1.02;
+    letter-spacing:-.025em; font-weight:600; margin:1.8rem 0 0;
+  }
+  .pv-h3{ font-size:clamp(2.2rem,2.6vw,3rem); line-height:1.08; letter-spacing:-.02em; font-weight:600; }
+  .pv-lead{ font-size:1.85rem; line-height:1.62; color:var(--pv-muted); max-width:46rem; font-weight:350; }
+  .pv-kicker{ font-family:var(--pv-mono); font-size:1.15rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pv-faint); }
+  a.pv-btn,button.pv-btn{
+    display:inline-flex; align-items:center; gap:1rem; cursor:pointer;
+    font-size:1.4rem; font-weight:500; letter-spacing:-.01em;
+    padding:1.35rem 2.5rem; border-radius:0; border:1px solid transparent;
+    transition:background .4s ease,color .4s ease,border-color .4s ease,transform .4s ease;
+    text-decoration:none;
+  }
+  /* button hovers match the homepage convention: ink fill, no copper */
+  .pv-btn--solid{ background:var(--pv-ink); color:#fff; }
+  .pv-btn--solid:hover{ background:color-mix(in srgb, var(--pv-ink) 80%, #fff); }
+  .pv-btn--ghost{ background:transparent; color:var(--pv-ink); border-color:var(--pv-line); }
+  .pv-btn--ghost:hover{ border-color:var(--pv-ink); background:var(--pv-ink); color:#fff; }
+  .pv-btn--accent{ background:var(--pv-ink); color:#fff; }
+  .pv-btn--accent:hover{ background:color-mix(in srgb, var(--pv-ink) 80%, #fff); }
+  .pv-btn .ar{ font-size:1.5rem; line-height:1; transition:transform .4s ease; }
+  .pv-btn:hover .ar{ transform:translateX(.4rem); }
+
+  /* scroll reveal */
+  .pv-rise{ opacity:0; transform:translateY(2.6rem); transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1); }
+  .pv-rise.in{ opacity:1; transform:none; }
+  .pv-rise.d1{ transition-delay:.08s } .pv-rise.d2{ transition-delay:.16s } .pv-rise.d3{ transition-delay:.24s } .pv-rise.d4{ transition-delay:.32s }
+
+  /* ---- sticky CTA bar (outside Lenis transform) ---- */
+  .pv-sticky{
+    position:fixed; left:0; right:0; bottom:0; z-index:90;
+    transform:translateY(110%); transition:transform .55s cubic-bezier(.16,1,.3,1);
+    background:color-mix(in srgb, var(--color-black) 96%, #000); color:#fff;
+    border-top:1px solid rgba(255,255,255,.1);
+  }
+  .pv-sticky.show{ transform:none; }
+  .pv-sticky-in{ max-width:150rem; margin-inline:auto; padding:1.4rem 5rem;
+    display:flex; align-items:center; gap:2rem; }
+  .pv-sticky-name{ font-weight:600; font-size:1.6rem; letter-spacing:-.01em; }
+  .pv-sticky-name span{ color:rgba(255,255,255,.5); font-weight:400; margin-left:1rem; font-size:1.3rem; }
+  .pv-sticky-cta{ margin-left:auto; display:flex; gap:1.2rem; }
+  .pv-sticky .pv-btn{ padding:1.05rem 2.1rem; font-size:1.3rem; }
+  .pv-sticky .pv-btn--ghost{ color:#fff; border-color:rgba(255,255,255,.28); }
+  .pv-sticky .pv-btn--ghost:hover{ background:#fff; color:var(--pv-ink); border-color:#fff; }
+  @media(max-width:720px){ .pv-sticky-in{ padding:1.1rem 2rem; } .pv-sticky-name span{ display:none; } .pv-sticky .pv-btn--ghost{ display:none; } }
+
+  /* ---- breadcrumb ---- */
+  .pv-crumb{ padding:14rem 0 0; }
+  .pv-crumb-in{ font-family:var(--pv-mono); font-size:1.2rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pv-faint); display:flex; gap:1rem; }
+  .pv-crumb-in a{ color:var(--pv-faint); text-decoration:none; transition:color .3s; }
+  .pv-crumb-in a:hover{ color:var(--pv-ink); }
+  .pv-crumb-in .sep{ opacity:.5; }
+  .pv-crumb-in .cur{ color:var(--pv-ink); }
+
+  /* ---- 1. HERO ---- */
+  .pv-hero{ padding:5rem 0 9rem; }
+  .pv-hero-grid{ display:grid; grid-template-columns:1.04fr 1fr; gap:5rem; align-items:end; }
+  /* undo naaya.css global visually-hidden h1 (position:absolute;clip;1px) */
+  .pv-hero-name{ position:static; width:auto; height:auto; overflow:visible; clip:auto; clip-path:none; padding:0;
+    font-size:clamp(6rem,11vw,15rem); line-height:.86; letter-spacing:-.04em; font-weight:600; margin:1.6rem 0 0; }
+  .pv-hero-tag{ font-size:2.2rem; line-height:1.4; color:var(--pv-muted); max-width:40rem; margin:2.6rem 0 0; font-weight:350; }
+  .pv-hero-cta{ display:flex; flex-wrap:wrap; gap:1.4rem; margin-top:3.4rem; }
+  .pv-hero-media{ position:relative; aspect-ratio:4/4.4; background:var(--pv-mist); overflow:hidden; }
+  .pv-hero-media img.scene{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .pv-hero-media .prod{
+    position:absolute; left:50%; bottom:-2%; width:118%; transform:translateX(-50%);
+    filter:drop-shadow(0 4rem 6rem rgba(0,0,0,.34)); z-index:2;
+  }
+  .pv-hero-tagline{ position:absolute; top:2.4rem; left:2.4rem; z-index:3; font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.2em; text-transform:uppercase; color:#fff; mix-blend-mode:difference; }
+  .pv-hero-chips{ display:flex; flex-wrap:wrap; gap:0; margin-top:4rem; border-top:1px solid var(--pv-line); }
+  .pv-chip{ flex:1 1 0; min-width:14rem; padding:2.2rem 2rem 2.2rem 0; border-right:1px solid var(--pv-line); }
+  .pv-chip:last-child{ border-right:0; }
+  .pv-chip .v{ font-size:2.8rem; font-weight:600; letter-spacing:-.02em; }
+  .pv-chip .l{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pv-faint); margin-top:.5rem; }
+
+  /* ---- 2. KEY SPECS strip ---- */
+  .pv-keyspecs{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-block:1px solid var(--pv-line); }
+  .pv-ks{ padding:4.5rem 3rem; border-right:1px solid var(--pv-line); display:flex; flex-direction:column; gap:1.6rem; }
+  .pv-ks:last-child{ border-right:0; }
+  .pv-ks svg{ width:3.2rem; height:3.2rem; color:var(--pv-accent); }
+  .pv-ks .v{ font-size:2.4rem; font-weight:600; letter-spacing:-.02em; }
+  .pv-ks .l{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pv-faint); }
+
+  /* ---- 3. OVERVIEW + groove section ---- */
+  .pv-ov-grid{ display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
+  .pv-ov-copy p{ font-size:1.75rem; line-height:1.66; color:var(--pv-muted); margin:2rem 0 0; font-weight:350; }
+  .pv-ov-copy p strong{ color:var(--pv-ink); font-weight:600; }
+  .pv-ov-media{ position:relative; aspect-ratio:1/1.04; overflow:hidden; background:var(--pv-mist); }
+  .pv-ov-media img{ width:100%; height:100%; object-fit:cover; }
+  .pv-groove-card{ margin-top:3rem; border:1px solid var(--pv-line); padding:2.6rem; background:var(--pv-paper); }
+  .pv-groove-vis{ height:8rem; border-radius:2px;
+    --w:var(--pv-wood); --g:var(--pv-ink);
+    background:repeating-linear-gradient(90deg,
+      var(--w) 0 24px, var(--g) 24px 27.6px, var(--w) 27.6px 51.6px, var(--g) 51.6px 55.2px,
+      var(--w) 55.2px 70.8px, var(--g) 70.8px 74.4px, var(--w) 74.4px 108px, var(--g) 108px 111.6px,
+      var(--w) 111.6px 150px, var(--g) 150px 153.6px);
+  }
+  .pv-groove-meta{ display:flex; justify-content:space-between; gap:2rem; margin-top:1.8rem; font-family:var(--pv-mono); font-size:1.15rem; letter-spacing:.06em; color:var(--pv-faint); }
+  .pv-groove-meta b{ color:var(--pv-ink); font-weight:600; }
+
+  /* ---- 4. GALLERY ---- */
+  .pv-gal-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:3rem; margin-bottom:4.5rem; flex-wrap:wrap; }
+  /* scene gallery — sticky split (pinned title left, scenes glide right; all shots unified to the first image's ratio) */
+  .pv-sg-split{ display:grid; grid-template-columns:0.8fr 1.45fr; gap:6rem; align-items:start; }
+  .pv-sg-aside{ position:sticky; top:10rem; align-self:start; }
+  .pv-sg-aside .pv-kicker{ display:block; margin-top:2.4rem; max-width:30rem; line-height:1.55; }
+  .pv-sg-index{ margin-top:3.4rem; border-top:1px solid var(--pv-line); }
+  .pv-sg-index div{ display:flex; gap:1.4rem; padding:1.35rem 0; border-bottom:1px solid var(--pv-line); font-size:1.5rem; }
+  .pv-sg-index .n{ font-family:var(--pv-mono); color:var(--pv-accent); font-weight:600; width:2.8rem; }
+  .pv-sg-stack{ display:flex; flex-direction:column; gap:2rem; }
+  .pv-sg-shot{ position:relative; overflow:hidden; background:var(--pv-mist); aspect-ratio:1800/1233; margin:0; }
+  .pv-sg-shot img{ width:100%; height:100%; object-fit:cover; transition:transform 1.2s cubic-bezier(.16,1,.3,1); }
+  .pv-sg-shot:hover img{ transform:scale(1.04); }
+  .pv-sg-shot::after{ content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(20,15,13,.4),transparent 45%); }
+  .pv-sg-shot figcaption{ position:absolute; left:2.2rem; bottom:1.8rem; z-index:2; color:#fff; font-size:1.9rem; font-weight:600; text-shadow:0 1px 10px rgba(0,0,0,.5); }
+
+  /* ---- 5. ACOUSTIC performance ---- */
+  .pv-ac-grid{ display:grid; grid-template-columns:1fr 1.1fr; gap:6rem; align-items:center; }
+  .pv-chart{ background:var(--pv-paper); border:1px solid var(--pv-line); padding:3.4rem; }
+  .pv-chart-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1rem; }
+  .pv-chart-nrc{ font-size:1.2rem; font-family:var(--pv-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--pv-faint); }
+  .pv-chart-nrc b{ color:var(--pv-accent); font-size:2rem; margin-left:.6rem; }
+  .pv-chart svg{ width:100%; height:auto; display:block; }
+  .pv-ac-table{ width:100%; margin-top:1.6rem; border-collapse:collapse; font-family:var(--pv-mono); }
+  .pv-ac-table td,.pv-ac-table th{ padding:.9rem .4rem; text-align:center; font-size:1.15rem; border-top:1px solid var(--pv-hair); }
+  .pv-ac-table th{ color:var(--pv-faint); font-weight:500; letter-spacing:.05em; }
+  .pv-ac-table td{ font-weight:600; }
+  .pv-ac-note{ display:flex; gap:1.4rem; margin-top:2.4rem; padding:1.8rem 2rem; background:var(--pv-mist); font-size:1.35rem; line-height:1.55; color:var(--pv-muted); }
+  .pv-ac-note b{ color:var(--pv-ink); }
+  /* grid children must be allowed to shrink below content min-width, or a wide
+     child (chart/table/image) pushes the whole grid past the viewport on narrow screens */
+  .pv-ac-grid>*, .pv-spec-grid>*, .pv-fv-grid>*, .pv-enq-grid>*, .pv-sg-split>*, .pv-hero-grid>*{ min-width:0; }
+  .pv-ac-table{ table-layout:fixed; }
+
+  /* ---- 6. FINISHES ---- */
+  /* ---- 4. FINISHES — spectrum wall (edge-to-edge expanding strips) ---- */
+  .pv-fin-legend{ display:flex; gap:4rem; align-items:baseline; margin-top:4rem; padding-bottom:1.4rem; border-bottom:1px solid var(--pv-line); }
+  .pv-fin-legend span{ font-family:var(--pv-mono); font-size:1.15rem; letter-spacing:.12em; text-transform:uppercase; color:var(--pv-faint); }
+  .pv-fin-legend span b{ color:var(--pv-ink); font-weight:600; margin-left:.6rem; }
+  .pv-fin-legend .hint{ margin-left:auto; }
+  .pv-fin-wall{ display:flex; height:64vh; min-height:52rem; margin-top:2.6rem; overflow:hidden; }
+  .pv-fin-strip{ flex:1 1 0; position:relative; overflow:hidden; cursor:pointer; border-right:1px solid rgba(255,255,255,.5); transition:flex-grow .55s cubic-bezier(.16,1,.3,1); }
+  .pv-fin-strip:last-child{ border-right:0; }
+  .pv-fin-strip img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .pv-fin-strip:hover{ flex-grow:6; }
+  .pv-fin-strip .cap{ position:absolute; left:0; right:0; bottom:0; padding:2rem 1.6rem; color:#fff; background:linear-gradient(0deg,rgba(20,15,13,.85),transparent); opacity:0; transition:opacity .35s; white-space:nowrap; }
+  .pv-fin-strip:hover .cap{ opacity:1; }
+  .pv-fin-strip .cap .c{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.12em; color:rgba(255,255,255,.75); }
+  .pv-fin-strip .cap .n{ font-size:1.7rem; font-weight:600; margin-top:.3rem; }
+  .pv-fin-note{ margin-top:4rem; font-size:1.4rem; color:var(--pv-muted); }
+  .pv-fin-note b{ color:var(--pv-ink); }
+
+  /* ---- 7. MODELS family ---- */
+  .pv-models{ display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; }
+  .pv-model{ border:1px solid var(--pv-line); background:var(--pv-paper); transition:border-color .4s,transform .4s; overflow:hidden; }
+  .pv-model:hover{ border-color:var(--pv-ink); transform:translateY(-.4rem); }
+  .pv-model.is-this{ border-color:var(--pv-accent); }
+  .pv-model-vis{ height:26rem; background-color:var(--pv-wood); background-repeat:repeat; }
+  .pv-model-foot{ padding:1.6rem 1.8rem; display:flex; justify-content:space-between; align-items:baseline; }
+  .pv-model-foot .nm{ font-size:1.7rem; font-weight:600; letter-spacing:-.01em; }
+  .pv-model-foot .tag{ font-family:var(--pv-mono); font-size:1rem; letter-spacing:.06em; color:var(--pv-faint); }
+  .pv-model.is-this .tag{ color:var(--pv-accent); }
+
+  /* ---- 8. INSTALLATION ---- */
+  .pv-inst-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:5rem; }
+  .pv-inst-card{ }
+  .pv-inst-img{ background:var(--pv-paper); border:1px solid var(--pv-line); aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:3rem; }
+  .pv-inst-img img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
+  .pv-inst-cap{ display:flex; align-items:baseline; gap:1.4rem; margin-top:2rem; }
+  .pv-inst-cap h4{ font-size:2.2rem; font-weight:600; letter-spacing:-.01em; }
+  .pv-inst-cap span{ font-family:var(--pv-mono); font-size:1.15rem; color:var(--pv-faint); letter-spacing:.08em; }
+  .pv-inst-parts{ display:flex; flex-wrap:wrap; gap:.7rem 1.4rem; margin-top:1.6rem; }
+  .pv-inst-parts li{ list-style:none; font-size:1.25rem; color:var(--pv-muted); display:flex; gap:.7rem; }
+  .pv-inst-parts li b{ color:var(--pv-accent); font-family:var(--pv-mono); font-size:1.05rem; }
+  .pv-inst-hw{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; margin-top:5rem; }
+  .pv-hw{ background:var(--pv-mist); padding:2.4rem; text-align:center; }
+  .pv-hw img{ width:auto; max-width:70%; height:9rem; object-fit:contain; margin:0 auto 1.6rem; display:block; }
+  .pv-hw .nm{ font-size:1.45rem; font-weight:500; }
+  .pv-hw .ds{ font-family:var(--pv-mono); font-size:1.05rem; color:var(--pv-faint); letter-spacing:.08em; margin-top:.4rem; }
+
+  /* ---- 9. SPEC TABLE ---- */
+  .pv-spec-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:6rem; align-items:start; }
+  .pv-spec-table{ width:100%; border-collapse:collapse; }
+  .pv-spec-table tr{ border-top:1px solid var(--pv-line); }
+  .pv-spec-table tr:last-child{ border-bottom:1px solid var(--pv-line); }
+  .pv-spec-table th{ text-align:left; vertical-align:top; padding:1.9rem 2rem 1.9rem 0; width:34%;
+    font-family:var(--pv-mono); font-size:1.2rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pv-faint); font-weight:500; }
+  .pv-spec-table td{ padding:1.9rem 0; font-size:1.6rem; color:var(--pv-ink); font-weight:450; }
+  .pv-spec-side{ position:sticky; top:11rem; border:1px solid var(--pv-line); padding:3.4rem; background:var(--pv-mist); }
+  .pv-spec-side h4{ font-size:2.2rem; font-weight:600; letter-spacing:-.01em; }
+  .pv-spec-side p{ font-size:1.4rem; line-height:1.55; color:var(--pv-muted); margin:1.2rem 0 2.6rem; }
+  .pv-size-row{ display:flex; align-items:center; gap:1.6rem; margin-top:1.4rem; }
+  .pv-size-bar{ height:1.4rem; background:var(--pv-wood); position:relative; }
+  .pv-size-row .dim{ font-family:var(--pv-mono); font-size:1.2rem; color:var(--pv-ink); white-space:nowrap; }
+
+  /* ---- 10. WHY NAAYA ---- */
+  .pv-why-certs{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid rgba(255,255,255,.14); margin-bottom:6rem; }
+  .pv-cert{ padding:3.4rem; border-right:1px solid rgba(255,255,255,.14); }
+  .pv-cert:last-child{ border-right:0; }
+  .pv-cert svg{ width:3rem; height:3rem; color:#cf9b6e; margin-bottom:1.8rem; }
+  .pv-cert .c{ font-size:2rem; font-weight:600; }
+  .pv-cert .d{ font-size:1.3rem; color:rgba(243,239,233,.6); margin-top:.6rem; line-height:1.45; }
+  .pv-flow{ display:grid; grid-template-columns:repeat(5,1fr); gap:1.6rem; }
+  .pv-flow-item figure{ margin:0; aspect-ratio:4/3; overflow:hidden; background:rgba(255,255,255,.06); }
+  .pv-flow-item img{ width:100%; height:100%; object-fit:cover; filter:grayscale(.2); transition:transform 1s cubic-bezier(.16,1,.3,1),filter .6s; }
+  .pv-flow-item:hover img{ transform:scale(1.06); filter:none; }
+  .pv-flow-item .n{ font-family:var(--pv-mono); font-size:1.1rem; color:#cf9b6e; margin-top:1.4rem; }
+  .pv-flow-item .t{ font-size:1.55rem; font-weight:500; margin-top:.4rem; color:#f3efe9; }
+
+  /* ---- 11. RELATED ---- */
+  .pv-rel{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.6rem; }
+  .pv-rel-card{ text-decoration:none; color:var(--pv-ink); display:block; }
+  .pv-rel-img{ aspect-ratio:4/5; overflow:hidden; background:var(--pv-mist); }
+  .pv-rel-img img{ width:100%; height:100%; object-fit:cover; transition:transform 1s cubic-bezier(.16,1,.3,1); }
+  .pv-rel-card:hover .pv-rel-img img{ transform:scale(1.06); }
+  .pv-rel-foot{ display:flex; justify-content:space-between; align-items:baseline; margin-top:1.4rem; padding-bottom:1.2rem; border-bottom:1px solid var(--pv-line); transition:border-color .4s; }
+  .pv-rel-card:hover .pv-rel-foot{ border-color:var(--pv-ink); }
+  .pv-rel-foot .nm{ font-size:1.7rem; font-weight:600; }
+  .pv-rel-foot .ar{ transition:transform .4s; }
+  .pv-rel-card:hover .pv-rel-foot .ar{ transform:translateX(.4rem); }
+  .pv-rel-sub{ font-family:var(--pv-mono); font-size:1.1rem; color:var(--pv-faint); letter-spacing:.08em; margin-top:.8rem; text-transform:uppercase; }
+
+  /* ---- 12. INQUIRY ---- */
+  .pv-enq-grid{ display:grid; grid-template-columns:1fr 1.05fr; gap:6rem; align-items:start; }
+  .pv-enq-lead p{ font-size:1.75rem; line-height:1.6; color:var(--pv-muted); margin-top:2.4rem; max-width:42rem; }
+  .pv-enq-tags{ display:flex; flex-wrap:wrap; gap:1rem; margin-top:3rem; }
+  .pv-enq-tag{ font-family:var(--pv-mono); font-size:1.15rem; letter-spacing:.08em; padding:.9rem 1.6rem; border:1px solid var(--pv-line); color:var(--pv-muted); }
+  .pv-enq-contact{ margin-top:4rem; display:flex; flex-direction:column; gap:1rem; }
+  .pv-enq-contact a{ font-size:1.7rem; color:var(--pv-ink); text-decoration:none; border-bottom:1px solid var(--pv-line); padding-bottom:.4rem; width:fit-content; transition:border-color .3s; }
+  .pv-enq-contact a:hover{ border-color:var(--pv-accent); color:var(--pv-accent); }
+  .pv-form{ background:var(--pv-mist); padding:4rem; }
+  .pv-form-row{ display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; }
+  .pv-field{ margin-top:1.6rem; }
+  .pv-field:first-child{ margin-top:0; }
+  .pv-field label{ display:block; font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pv-faint); margin-bottom:.8rem; }
+  .pv-field input,.pv-field select,.pv-field textarea{
+    width:100%; background:var(--pv-paper); border:1px solid var(--pv-line); color:var(--pv-ink);
+    font-family:inherit; font-size:1.5rem; padding:1.3rem 1.4rem; border-radius:0; transition:border-color .3s; }
+  .pv-field input:focus,.pv-field select:focus,.pv-field textarea:focus{ outline:none; border-color:var(--pv-accent); }
+  .pv-field textarea{ resize:vertical; min-height:11rem; }
+  .pv-form-foot{ display:flex; align-items:center; justify-content:space-between; gap:2rem; margin-top:2.4rem; flex-wrap:wrap; }
+  .pv-form-note{ font-size:1.15rem; color:var(--pv-faint); max-width:26rem; line-height:1.45; }
+  .pv-form-ref{ font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.08em; color:var(--pv-accent); margin-bottom:2.4rem; padding:1rem 1.4rem; background:color-mix(in srgb,var(--pv-accent) 9%,transparent); }
+
+  /* ============ responsive ============ */
+  @media(max-width:1100px){
+    .pv-wrap{ padding-inline:3.4rem; }
+    .pv-sec{ padding-block:8rem; }
+    .pv-hero-grid,.pv-ov-grid,.pv-ac-grid,.pv-spec-grid,.pv-enq-grid{ grid-template-columns:1fr; gap:4.5rem; }
+    .pv-spec-side{ position:static; }
+    .pv-keyspecs{ grid-template-columns:repeat(2,1fr); }
+    .pv-ks:nth-child(2){ border-right:0; }
+    .pv-ks:nth-child(1),.pv-ks:nth-child(2){ border-bottom:1px solid var(--pv-line); }
+    .pv-models{ grid-template-columns:repeat(2,1fr); }
+    .pv-fin-wall{ flex-wrap:wrap; height:auto; min-height:0; }
+    .pv-fin-strip{ flex:1 0 16.66%; aspect-ratio:3/4; }
+    .pv-fin-strip:hover{ flex-grow:0; } .pv-fin-strip .cap{ opacity:1; }
+    .pv-flow{ grid-template-columns:repeat(3,1fr); }
+    .pv-rel{ grid-template-columns:repeat(2,1fr); }
+    .pv-inst-grid{ grid-template-columns:1fr; gap:4rem; }
+    .pv-why-certs{ grid-template-columns:1fr; }
+    .pv-cert{ border-right:0; border-bottom:1px solid rgba(255,255,255,.14); }
+  }
+  @media(max-width:680px){
+    .pv-wrap{ padding-inline:2rem; }
+    .pv-sec{ padding-block:6rem; }
+    .pv-hero-chips{ flex-wrap:wrap; }
+    .pv-chip{ flex:1 1 45%; border-right:0; border-bottom:1px solid var(--pv-line); padding-right:2rem; }
+    .pv-keyspecs{ grid-template-columns:1fr; }
+    .pv-ks{ border-right:0; border-bottom:1px solid var(--pv-line); padding:3.2rem 0; }
+    .pv-sg-split{ grid-template-columns:1fr; gap:3.5rem; }
+    .pv-sg-aside{ position:static; }
+    .pv-models{ grid-template-columns:1fr; }
+    .pv-fin-strip{ flex:1 0 25%; }
+    .pv-flow{ grid-template-columns:repeat(2,1fr); }
+    .pv-rel{ grid-template-columns:1fr; }
+    .pv-inst-hw{ grid-template-columns:1fr; }
+    .pv-form{ padding:2.4rem; }
+    .pv-form-row{ grid-template-columns:1fr; }
+    .pv-sticky-cta .pv-btn--accent{ flex:1; justify-content:center; }
+  }
+
+  /* ===== HERO — Direction A · full-bleed cinematic ===== */
+  .pv-heroA{ position:relative; min-height:100vh; display:flex; flex-direction:column; color:#fff; overflow:hidden; }
+  .pv-heroA-media{ position:absolute; inset:0; z-index:0; }
+  .pv-heroA-media img{ width:100%; height:100%; object-fit:cover; }
+  .pv-heroA-grad{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,rgba(20,15,13,.58) 0%,rgba(20,15,13,.08) 24%,rgba(20,15,13,.16) 54%,rgba(20,15,13,.9) 100%); }
+  .pv-heroA-inner{ position:relative; z-index:2; flex:1; display:flex; flex-direction:column; padding-top:14rem; padding-bottom:6rem; }
+  .pv-heroA-crumb{ font-family:var(--pv-mono); font-size:1.2rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.6); display:flex; gap:1rem; }
+  .pv-heroA-crumb a{ color:rgba(255,255,255,.6); text-decoration:none; transition:color .3s; } .pv-heroA-crumb a:hover{ color:#fff; }
+  .pv-heroA-crumb .sep{ opacity:.5; } .pv-heroA-crumb .cur{ color:#fff; }
+  .pv-heroA-copy{ margin-top:auto; max-width:78rem; }
+  .pv-heroA .pv-eyebrow{ color:rgba(255,255,255,.72); }
+  .pv-heroA-name{ position:static; width:auto; height:auto; overflow:visible; clip:auto; font-size:clamp(8rem,13vw,19rem); line-height:.84; letter-spacing:-.04em; font-weight:600; margin:1.6rem 0 0; color:#fff; }
+  .pv-heroA-tag{ font-size:2.1rem; line-height:1.45; color:rgba(255,255,255,.88); max-width:48rem; margin:2.6rem 0 0; font-weight:350; }
+  .pv-heroA-cta{ display:flex; gap:1.4rem; margin-top:3.4rem; flex-wrap:wrap; }
+  .pv-heroA .pv-btn--solid{ background:#fff; color:var(--pv-ink); } .pv-heroA .pv-btn--solid:hover{ background:rgba(255,255,255,.8); }
+  .pv-heroA .pv-btn--ghost{ color:#fff; border-color:rgba(255,255,255,.5); } .pv-heroA .pv-btn--ghost:hover{ background:#fff; color:var(--pv-ink); border-color:#fff; }
+  .pv-heroA-prod{ position:absolute; right:5rem; bottom:9rem; width:32rem; z-index:3; margin:0; background:#fff; padding:2rem; box-shadow:0 3rem 6rem rgba(0,0,0,.42); }
+  .pv-heroA-prod img{ width:100%; height:auto; display:block; }
+  /* Direction A — inline stats on the hero image bottom (replaces the dark chipbar) */
+  .pv-heroA-stats{ display:flex; flex-wrap:wrap; row-gap:2.4rem; margin-top:4rem; }
+  .pv-heroA-stats .it{ display:flex; flex-direction:column; }
+  .pv-heroA-stats .it + .it{ margin-left:4.6rem; padding-left:4.6rem; border-left:1px solid rgba(255,255,255,.24); }
+  .pv-heroA-stats .v{ font-size:2.8rem; font-weight:600; letter-spacing:-.02em; line-height:1; color:#fff; }
+  .pv-heroA-stats .v small{ font-size:1.4rem; font-weight:400; color:rgba(255,255,255,.62); margin-left:.4rem; }
+  .pv-heroA-stats .l{ font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.64); margin-top:.8rem; }
+  .pv-heroA-chipbar{ background:var(--pv-ink); color:#fff; }
+  .pv-heroA-chips{ display:grid; grid-template-columns:repeat(4,1fr); }
+  .pv-heroA-chips .pv-chip2{ padding:3rem 2.6rem; border-right:1px solid rgba(255,255,255,.12); }
+  .pv-heroA-chips .pv-chip2:first-child{ padding-left:0; } .pv-heroA-chips .pv-chip2:last-child{ border-right:0; padding-right:0; }
+  .pv-heroA-chips .v{ font-size:2.7rem; font-weight:600; letter-spacing:-.02em; }
+  .pv-heroA-chips .l{ font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.5); margin-top:.5rem; }
+  @media(max-width:900px){
+    .pv-heroA-prod{ display:none; }
+    .pv-heroA-inner{ padding-top:11rem; }
+    .pv-heroA-chips{ grid-template-columns:repeat(2,1fr); }
+    .pv-heroA-chips .pv-chip2:nth-child(2){ border-right:0; padding-right:0; }
+    .pv-heroA-chips .pv-chip2:nth-child(3){ padding-left:0; }
+  }
+  @media(max-width:600px){
+    .pv-heroA-chips{ grid-template-columns:1fr; }
+    .pv-heroA-chips .pv-chip2{ border-right:0; border-bottom:1px solid rgba(255,255,255,.12); padding:2.4rem 0; }
+    .pv-heroA-stats{ column-gap:0; }
+    .pv-heroA-stats .it{ flex:1 1 40%; }
+    .pv-heroA-stats .it + .it{ margin-left:0; padding-left:0; border-left:0; }
+  }
+
+  /* ===== 1b · FIVE VIEWS (editorial offset — copy rail + staggered render cluster) ===== */
+  .pv-fv-grid{ display:grid; grid-template-columns:0.92fr 1.55fr; gap:5rem; align-items:center; }
+  .pv-fv-copy .pv-h2{ margin-top:1.6rem; }
+  .pv-fv-micro{ margin:3.4rem 0 0; border-top:1px solid var(--pv-line); }
+  .pv-fv-micro div{ display:flex; justify-content:space-between; gap:2rem; padding:1.3rem 0; border-bottom:1px solid var(--pv-line); font-size:1.45rem; }
+  .pv-fv-micro span{ color:var(--pv-faint); letter-spacing:.04em; }
+  .pv-fv-micro b{ font-weight:600; }
+  .pv-fv-stage{ display:grid; grid-template-columns:repeat(6,1fr); grid-template-rows:1.5fr 1fr 0.62fr; gap:1.8rem; height:78vh; min-height:62rem; }
+  .pv-fv-fig{ margin:0; position:relative; background:var(--pv-mist); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .pv-fv-fig img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; padding:1.6rem; }
+  .pv-fv-fig figcaption{ position:absolute; left:1.6rem; top:1.5rem; font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.12em; color:var(--pv-faint); }
+  .pv-fv-fig .lbl{ position:absolute; left:1.6rem; bottom:1.4rem; font-size:1.25rem; font-weight:500; }
+  .pv-fv-art{ grid-column:1/3; grid-row:1/3; }
+  .pv-fv-af { grid-column:3/7; grid-row:1; }
+  .pv-fv-p3 { grid-column:3/5; grid-row:2; }
+  .pv-fv-a3 { grid-column:5/7; grid-row:2; }
+  .pv-fv-pf { grid-column:1/7; grid-row:3; }
+  @media(max-width:900px){
+    .pv-fv-grid{ grid-template-columns:1fr; gap:4rem; }
+    .pv-fv-stage{ height:auto; min-height:0; grid-template-rows:repeat(3,26vh); }
+  }
+
+  /* ============================================================
+     MOBILE (≤600px) — long sections become horizontal swipe rails
+     (placed last so it wins over the 900/680 layout rules above)
+     ============================================================ */
+  @media(max-width:600px){
+    /* shared swipe affordance: snap + hide scrollbar; next card peeks */
+    .pv-fv-stage, .pv-fin-wall, .pv-sg-stack, .pv-rel{
+      scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    }
+    .pv-fv-stage::-webkit-scrollbar, .pv-fin-wall::-webkit-scrollbar,
+    .pv-sg-stack::-webkit-scrollbar, .pv-rel::-webkit-scrollbar{ display:none; }
+
+    /* 2 · Five Views → swipe cards */
+    .pv-fv-stage{ display:flex; grid-template:none; height:auto; min-height:0;
+      overflow-x:auto; gap:1.2rem; padding-bottom:1.2rem; }
+    .pv-fv-fig{ flex:0 0 78%; scroll-snap-align:center; aspect-ratio:4/3; }
+    .pv-fv-fig.pv-fv-art{ aspect-ratio:3/4; }
+    .pv-fv-fig img{ padding:1.2rem; }
+
+    /* 4 · Finishes spectrum → swipe swatch rail */
+    .pv-fin-wall{ flex-wrap:nowrap; overflow-x:auto; height:auto; min-height:0; gap:1rem;
+      margin-top:2.4rem; }
+    .pv-fin-strip{ flex:0 0 34%; aspect-ratio:3/4; scroll-snap-align:start; }
+    .pv-fin-strip:hover{ flex-grow:0; }
+    .pv-fin-strip .cap{ opacity:1; padding:1.2rem 1rem; }
+    .pv-fin-strip .cap .n{ font-size:1.4rem; }
+
+    /* 5 · In the room → swipe scenes */
+    .pv-sg-stack{ flex-direction:row; overflow-x:auto; gap:1.2rem; padding-bottom:1.2rem; }
+    .pv-sg-shot{ flex:0 0 86%; scroll-snap-align:center; }
+
+    /* 8 · Related → swipe cards */
+    .pv-rel{ display:flex; overflow-x:auto; gap:1.4rem; padding-bottom:1.2rem; }
+    .pv-rel-card{ flex:0 0 66%; scroll-snap-align:center; }
+
+    /* finishes legend: tighter, drop the desktop-only "Hover" hint */
+    .pv-fin-legend{ gap:2rem; }
+    .pv-fin-legend .hint{ display:none; }
+
+    /* phone rhythm polish */
+    .pv-sec{ padding-block:6rem; }
+    .pv-fv-grid{ gap:3.2rem; }
+    .pv-spec-side{ margin-top:3rem; }
+  }
+
+  /* ============================================================
+     product-vega-2 — Oberflex-style catalogue layout (.ov-*)
+     reuses .pv tokens / .pv-wrap / .pv-btn / .pv-rise from the shell
+     ============================================================ */
+  .ov-sec{ padding-block:8rem; }
+  .ov-sec--tight{ padding-block:4.5rem; }
+  .ov-rule{ border-top:1px solid var(--pv-line); }
+  .ov-eyebrow{ display:inline-flex; align-items:center; gap:1rem; font-family:var(--pv-mono); font-size:1.15rem; letter-spacing:.22em; text-transform:uppercase; color:var(--pv-faint); margin-bottom:1.6rem; }
+  .ov-eyebrow::before{ content:""; width:.7rem; height:.7rem; background:var(--pv-accent); transform:rotate(45deg); }
+  .ov-h2{ font-size:clamp(2.6rem,3.2vw,3.9rem); line-height:1.05; letter-spacing:-.02em; font-weight:600; margin-bottom:3.6rem; }
+
+  /* 1 · hero — two big product images + finish bar */
+  .ov-hero{ padding-top:13rem; }
+  .ov-hero-imgs{ display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; }
+  .ov-hero-imgs figure{ margin:0; background:var(--pv-mist); aspect-ratio:4/3; overflow:hidden; }
+  .ov-hero-imgs img{ width:100%; height:100%; object-fit:cover; }
+  .ov-finbar{ display:flex; gap:1.1rem; margin-top:1.8rem; align-items:center; flex-wrap:wrap; }
+  .ov-finbar .lbl{ font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pv-faint); margin-right:.8rem; }
+  .ov-finbtn{ width:5.2rem; height:5.2rem; border:1px solid var(--pv-line); overflow:hidden; padding:0; background:none; cursor:pointer; transition:border-color .25s,transform .25s; }
+  .ov-finbtn img{ width:100%; height:100%; object-fit:cover; }
+  .ov-finbtn:hover{ border-color:var(--pv-ink); transform:translateY(-.3rem); }
+
+  /* 2 · breadcrumb */
+  .ov-crumb{ font-family:var(--pv-mono); font-size:1.15rem; letter-spacing:.08em; text-transform:uppercase; color:var(--pv-faint); display:flex; gap:.9rem; flex-wrap:wrap; }
+  .ov-crumb a{ color:var(--pv-faint); text-decoration:none; } .ov-crumb a:hover{ color:var(--pv-ink); }
+  .ov-crumb .sep{ opacity:.5; } .ov-crumb .cur{ color:var(--pv-ink); }
+
+  /* 3 · title + sample */
+  .ov-title{ display:grid; grid-template-columns:1.45fr 1fr; gap:5rem; align-items:start; margin-top:2.6rem; }
+  .ov-title h1{ font-size:clamp(3.8rem,5.2vw,6.6rem); line-height:1.0; letter-spacing:-.03em; font-weight:600; }
+  .ov-title .sub{ font-size:1.75rem; color:var(--pv-muted); margin-top:2rem; max-width:44rem; line-height:1.55; font-weight:350; }
+  .ov-sample{ border:1px solid var(--pv-line); padding:2.8rem; }
+  .ov-sample .top{ display:flex; gap:1.6rem; align-items:center; margin-bottom:1.8rem; }
+  .ov-sample .top img{ width:6.4rem; height:6.4rem; object-fit:cover; background:var(--pv-mist); flex:none; }
+  .ov-sample h4{ font-size:1.7rem; font-weight:600; }
+  .ov-sample .top span{ font-family:var(--pv-mono); font-size:1.1rem; color:var(--pv-faint); letter-spacing:.06em; display:block; margin-top:.4rem; }
+  .ov-sample p{ font-size:1.35rem; color:var(--pv-muted); margin:0 0 1.8rem; line-height:1.55; }
+  .ov-sample .note{ font-family:var(--pv-mono); font-size:1.05rem; color:var(--pv-faint); margin-top:1.4rem; letter-spacing:.04em; }
+
+  /* 4 · downloads */
+  .ov-dl{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.6rem; }
+  .ov-dl a{ border:1px solid var(--pv-line); padding:2rem; text-decoration:none; color:var(--pv-ink); display:flex; flex-direction:column; gap:1.2rem; min-height:15rem; justify-content:space-between; transition:border-color .25s,transform .25s; }
+  .ov-dl a:hover{ border-color:var(--pv-ink); transform:translateY(-.4rem); }
+  .ov-dl .ic{ width:2.8rem; height:2.8rem; color:var(--pv-accent); }
+  .ov-dl .nm{ font-size:1.5rem; font-weight:600; line-height:1.2; }
+  .ov-dl .meta{ font-family:var(--pv-mono); font-size:1.05rem; color:var(--pv-faint); letter-spacing:.06em; text-transform:uppercase; }
+
+  /* 4 · materials & finishes (swatch wall) */
+  .mf{ display:grid; grid-template-columns:.85fr 1.15fr; gap:5.6rem; align-items:start; }
+  .mf .ov-h2{ margin:1.4rem 0 0; }
+  .mf-blk{ margin-top:3rem; }
+  .mf-lab{ display:block; font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.2em; text-transform:uppercase; color:var(--pv-faint); margin-bottom:1.6rem; }
+  .mf-item{ display:flex; align-items:center; gap:1.2rem; padding:1.1rem 0; border-bottom:1px solid var(--pv-hair); }
+  .mf-item .sq{ width:2.2rem; height:2.2rem; flex:none; border:1px solid var(--pv-line); }
+  .mf-item .nm{ font-size:1.6rem; font-weight:500; }
+  .mf-item .mf-badge{ margin-left:auto; }
+  .mf-badge{ display:inline-flex; align-items:center; gap:.5rem; font-family:var(--pv-mono); font-size:.95rem; letter-spacing:.08em; text-transform:uppercase; padding:.32rem .72rem .32rem .6rem; border:1px solid var(--pv-line); white-space:nowrap; color:var(--pv-muted); }
+  .mf-badge .mf-fic{ width:1.3rem; height:1.3rem; color:var(--pv-accent); stroke:currentColor; fill:none; stroke-width:1.8; flex:none; }
+  .mf-fam{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding:1.15rem 0; border-bottom:1px solid var(--pv-hair); cursor:pointer; position:relative; transition:padding-left .25s; }
+  .mf-fam .fn{ font-size:1.6rem; font-weight:500; }
+  .mf-fam .fn em{ font-style:normal; font-family:var(--pv-mono); font-size:1.05rem; font-weight:400; color:var(--pv-faint); letter-spacing:.03em; margin-left:.9rem; }
+  .mf-fam .ct{ font-family:var(--pv-mono); font-size:1.15rem; color:var(--pv-faint); flex:none; }
+  .mf-fam::before{ content:""; position:absolute; left:0; top:50%; width:3px; height:58%; background:var(--pv-accent); transform:translateY(-50%) scaleY(0); transform-origin:center; transition:transform .25s; }
+  .mf-fam:hover{ padding-left:.8rem; }
+  .mf-fam.is-active{ padding-left:1.2rem; }
+  .mf-fam.is-active::before{ transform:translateY(-50%) scaleY(1); }
+  .mf-fam.is-active .ct{ color:var(--pv-accent); }
+  .mf-msg{ font-size:1.7rem; line-height:1.55; color:var(--pv-muted); margin-top:2.6rem; font-weight:350; }
+  .mf-msg b{ color:var(--pv-ink); font-weight:600; }
+  .mf-wall{ display:grid; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); gap:1.6rem 1.1rem; }
+  .sw{ margin:0; }
+  .sw .im{ display:block; aspect-ratio:1; overflow:hidden; border:1px solid var(--pv-hair); background:var(--pv-mist); }
+  .sw .im img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s; }
+  .sw:hover .im img{ transform:scale(1.05); }
+  .sw figcaption{ margin-top:.75rem; }
+  .sw .c{ display:block; font-family:var(--pv-mono); font-size:.95rem; letter-spacing:.05em; color:var(--pv-faint); }
+  .sw .n{ display:block; font-size:1.25rem; font-weight:500; letter-spacing:-.01em; margin-top:.25rem; }
+  .mf-count{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pv-faint); text-align:right; margin-top:2rem; }
+  @media(max-width:900px){ .mf{ grid-template-columns:1fr; gap:3.4rem; } }
+  @media(max-width:600px){ .mf-wall{ grid-template-columns:repeat(3,1fr); gap:1.2rem .8rem; } .sw .n{ font-size:1.15rem; } }
+
+  /* 6/7 · icon grids */
+  .ov-icons{ display:grid; gap:1.6rem; }
+  .ov-apps{ grid-template-columns:repeat(4,1fr); }
+  .ov-chars{ grid-template-columns:repeat(7,1fr); }
+  .ov-ic{ border:1px solid var(--pv-line); padding:2.4rem 1.6rem; display:flex; flex-direction:column; align-items:flex-start; gap:1.4rem; }
+  .ov-ic svg{ width:2.8rem; height:2.8rem; color:var(--pv-accent); flex:none; }
+  .ov-ic .t{ font-size:1.3rem; font-weight:500; line-height:1.25; }
+  .ov-ic .s{ font-family:var(--pv-mono); font-size:1rem; color:var(--pv-faint); letter-spacing:.04em; }
+
+  /* 8 · in situ */
+  .ov-situ{ position:relative; aspect-ratio:21/9; overflow:hidden; background:var(--pv-mist); }
+  .ov-situ img{ width:100%; height:100%; object-fit:cover; }
+  .ov-situ::after{ content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(20,15,13,.6),transparent 55%); }
+  .ov-situ .cap{ position:absolute; left:3rem; bottom:2.8rem; color:#fff; z-index:2; }
+  .ov-situ .cap .t{ font-size:2.4rem; font-weight:600; letter-spacing:-.01em; }
+  .ov-situ .cap .loc{ font-family:var(--pv-mono); font-size:1.15rem; color:rgba(255,255,255,.82); margin-top:.5rem; letter-spacing:.08em; text-transform:uppercase; }
+
+  /* 9 · cross-sell */
+  .ov-cross{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.6rem; }
+  .ov-cross a{ text-decoration:none; color:var(--pv-ink); }
+  .ov-cross .im{ aspect-ratio:4/3; overflow:hidden; background:var(--pv-mist); }
+  .ov-cross .im img{ width:100%; height:100%; object-fit:cover; transition:transform .8s cubic-bezier(.16,1,.3,1); }
+  .ov-cross a:hover .im img{ transform:scale(1.05); }
+  .ov-cross .nm{ font-size:1.5rem; font-weight:600; margin-top:1.2rem; display:flex; justify-content:space-between; padding-bottom:1rem; border-bottom:1px solid var(--pv-line); transition:border-color .3s; }
+  .ov-cross a:hover .nm{ border-color:var(--pv-ink); }
+  .ov-cross .sub{ font-family:var(--pv-mono); font-size:1.05rem; color:var(--pv-faint); margin-top:.7rem; text-transform:uppercase; letter-spacing:.06em; }
+
+  @media(max-width:900px){
+    .ov-title,.ov-spec{ grid-template-columns:1fr; gap:3rem; }
+    .ov-dl,.ov-cross{ grid-template-columns:repeat(2,1fr); }
+    .ov-apps{ grid-template-columns:repeat(2,1fr); }
+    .ov-chars{ grid-template-columns:repeat(4,1fr); }
+  }
+  @media(max-width:600px){
+    .ov-hero{ padding-top:11rem; }
+    .ov-hero-imgs{ grid-template-columns:1fr; }
+    .ov-dl,.ov-cross,.ov-apps{ grid-template-columns:1fr 1fr; }
+    .ov-chars{ grid-template-columns:repeat(2,1fr); }
+    .ov-sec{ padding-block:6rem; }
+    .ov-situ{ aspect-ratio:4/3; }
+  }
+
+  /* ===== v2 hero — original right column + L3 left image (minimal float) ===== */
+  .ovh2{ display:grid; grid-template-columns:50% 50%; gap:5.2rem; align-items:start; margin-top:2rem; }
+  .ovh2-gal{ align-self:start; position:sticky; top:3rem; display:grid; grid-template-columns:8rem 1fr; gap:1rem; align-items:start; }
+  /* L3 — product floats on white: no border, soft drop shadow only */
+  .ovh2-main{ grid-column:2; grid-row:1; background:#fff; overflow:hidden; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:2.2rem; box-shadow:0 2.2rem 6rem -1.4rem rgba(35,31,32,.18); }
+  .ovh2-main img{ max-width:100%; max-height:100%; object-fit:contain; }
+  .ovh2-row{ grid-column:1; grid-row:1; display:flex; flex-direction:column; gap:1rem; }
+  .ovh-thumb{ aspect-ratio:1; border:1px solid var(--pv-line); overflow:hidden; cursor:pointer; background:var(--pv-mist); position:relative; transition:border-color .25s; }
+  .ovh-thumb img{ width:100%; height:100%; object-fit:contain; padding:.5rem; }
+  .ovh-thumb:hover{ border-color:var(--pv-muted); }
+  .ovh-thumb.on{ border-color:var(--pv-ink); }
+  .ovh-thumb.on::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--pv-accent); }
+  /* right info column — ORIGINAL styling (unchanged) */
+  .ovh2-title{ position:static; width:auto; height:auto; overflow:visible; clip:auto; clip-path:none; padding:0; margin:1.4rem 0 0; font-size:clamp(4.2rem,4.8vw,6.8rem); line-height:.92; letter-spacing:-.03em; font-weight:600; }
+  .ovh2-lede{ font-size:1.75rem; line-height:1.55; color:var(--pv-muted); margin:1.6rem 0 0; max-width:42rem; font-weight:350; }
+  .ovh2-table{ margin-top:2.8rem; border-top:1px solid var(--pv-ink); border-bottom:1px solid var(--pv-ink); }
+  .ovh2-table .r{ display:grid; grid-template-columns:13rem 1fr auto; gap:1.6rem; align-items:baseline; padding:1.15rem 0; border-bottom:1px solid var(--pv-hair); }
+  .ovh2-table .r:last-child{ border-bottom:0; }
+  .ovh2-table .k{ font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.05em; text-transform:uppercase; color:var(--pv-faint); }
+  .ovh2-table .v{ font-size:1.5rem; font-weight:500; }
+  .ovh2-table .s{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.03em; color:var(--pv-accent); text-align:right; white-space:nowrap; }
+  .ovh2-apps-wrap{ margin-top:2.8rem; }
+  .ovh2-lab{ display:block; font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.2em; text-transform:uppercase; color:var(--pv-faint); margin-bottom:1.4rem; }
+  .ovh2-apps{ display:flex; flex-wrap:wrap; gap:.8rem; }
+  .ovh2-apps span{ display:inline-flex; align-items:center; gap:.7rem; border:1px solid var(--pv-line); padding:.75rem 1.3rem; font-size:1.3rem; font-weight:500; white-space:nowrap; }
+  .ovh2-apps svg{ width:1.8rem; height:1.8rem; color:var(--pv-accent); stroke:currentColor; fill:none; stroke-width:1.6; flex:none; }
+  .ovh2-cta{ display:flex; gap:1.4rem; flex-wrap:wrap; margin-top:3rem; }
+  @media(max-width:900px){
+    .ovh2{ grid-template-columns:1fr; gap:3.2rem; }
+    .ovh2-gal{ position:static; }
+    .ovh2-main{ aspect-ratio:1/1; }
+  }
+  @media(max-width:600px){
+    .ovh2-gal{ grid-template-columns:1fr; }
+    .ovh2-main{ grid-column:1; grid-row:1; padding:2rem; }
+    .ovh2-row{ grid-column:1; grid-row:2; flex-direction:row; margin-top:1rem; }
+    .ovh-thumb{ flex:1; }
+    .ovh-thumb.on::after{ left:0; right:0; top:auto; bottom:0; width:auto; height:2px; }
+  }
+
+  /* 2 · in-situ showcase — heading + horizontal swipe rail of large interiors */
+  .ov-sc-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:3rem; flex-wrap:wrap; margin-bottom:3.6rem; }
+  .ov-sc-head h2{ font-size:clamp(2.6rem,3.2vw,3.9rem); line-height:1.05; letter-spacing:-.02em; font-weight:600; margin-top:0; }
+  .ov-sc-head .sub{ font-size:1.6rem; line-height:1.55; color:var(--pv-muted); max-width:32rem; }
+  .ov-sc-row{ display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:1.6rem; }
+  .ov-sc-row figure{ position:relative; margin:0; overflow:hidden; background:var(--pv-mist); height:56vh; min-height:42rem; max-height:60rem; }
+  .ov-sc-row figure img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.16,1,.3,1); }
+  .ov-sc-row figure:hover img{ transform:scale(1.04); }
+  .ov-sc-row figure::after{ content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(20,15,13,.5),transparent 50%); }
+  .ov-sc-row .cap{ position:absolute; left:2rem; bottom:1.8rem; color:#fff; z-index:2; text-shadow:0 1px 12px rgba(0,0,0,.5); }
+  .ov-sc-row .cap .t{ font-size:1.9rem; font-weight:600; }
+  .ov-sc-row .cap .s{ font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.12em; text-transform:uppercase; opacity:.85; margin-top:.3rem; }
+  @media(max-width:900px){
+    .ov-sc-row{ grid-template-columns:1fr 1fr; }
+    .ov-sc-row figure{ height:auto; aspect-ratio:4/3; min-height:0; max-height:none; }
+    .ov-sc-row figure:first-child{ grid-column:1 / -1; aspect-ratio:16/9; }
+  }
+  @media(max-width:600px){
+    .ov-sc-row{ grid-template-columns:1fr; }
+    .ov-sc-row figure, .ov-sc-row figure:first-child{ aspect-ratio:16/10; }
+  }
+
+  /* 3 · acoustic performance — text-left + image-right (variant) */
+  .tv-perf{ display:grid; grid-template-columns:.92fr 1.08fr; gap:5rem; align-items:stretch; }
+  .tv-perf-txt{ display:flex; flex-direction:column; min-width:0; }
+  .tv-perf-lede{ font-size:1.45rem; line-height:1.6; color:var(--pv-muted); max-width:44rem; }
+  .tv-perf-lede b{ color:var(--pv-ink); }
+  .tv-nrc-n{ font-weight:600; letter-spacing:-.03em; line-height:.82; }
+  .tv-nrc-l{ display:flex; flex-direction:column; gap:.35rem; }
+  .tv-nrc-l .k{ font-family:var(--pv-mono); font-size:1.25rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; }
+  .tv-nrc-l .d{ font-size:1.35rem; color:var(--pv-muted); }
+  .tv-nrc-l .s{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pv-faint); margin-top:.3rem; }
+  .tv-pic{ min-width:0; overflow:hidden; min-height:38rem; margin:0; }
+  .tv-pic img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .tv-perf-txt .ov-h2{ margin-top:1.4rem; margin-bottom:0; }
+  .tv-nrc-band{ display:flex; align-items:flex-end; gap:1.8rem; margin-top:2.6rem; border-top:2px solid var(--pv-ink); border-bottom:1px solid var(--pv-line); padding:1.8rem 0; }
+  .tv-nrc-band .tv-nrc-n{ font-size:6rem; }
+  .tv-nrc-band .tv-nrc-l{ padding-bottom:.6rem; }
+  .tv-perf-txt .tv-perf-lede{ margin-top:2.4rem; }
+  .tv-pic{ display:flex; flex-direction:column; overflow:visible; min-height:0; }
+  .tv-pic .im{ overflow:hidden; border:1px solid var(--pv-line); flex:1; min-height:36rem; }
+  .tv-pic .im img{ width:100%; height:100%; object-fit:cover; }
+  .tv-pic figcaption{ display:flex; align-items:center; gap:1rem; margin-top:1.2rem; font-family:var(--pv-mono); font-size:1.1rem; letter-spacing:.08em; text-transform:uppercase; color:var(--pv-faint); }
+  .tv-pic figcaption i{ width:2.4rem; height:.4rem; background:var(--pv-accent); flex:none; }
+  @media(max-width:900px){
+    .tv-perf{ grid-template-columns:1fr; gap:3rem; align-items:start; }
+    .tv-pic{ min-height:0; aspect-ratio:4/3; }
+    .tv-pic .im{ min-height:0; aspect-ratio:4/3; }
+  }
+  @media(max-width:600px){
+    .tv-nrc-hero .tv-nrc-n,.tv-nrc-band .tv-nrc-n{ font-size:6rem; }
+    .tv-topbar{ flex-direction:column; }
+  }
+
+  /* 5 · applications + characteristics merged (editorial split) */
+
+  /* 6 · download datasheet band (dark CTA) */
+  .ov-dlband{ background:var(--pv-ink); color:#f3efe9; }
+  .ov-dlband .ov-eyebrow{ color:color-mix(in srgb,#f3efe9 55%,transparent); }
+  .ov-dlband-grid{ display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .ov-dlband h2{ font-size:clamp(2.6rem,3.2vw,3.9rem); line-height:1.05; letter-spacing:-.02em; font-weight:600; margin-top:0; color:#fff; }
+  .ov-dlband p{ font-size:1.6rem; line-height:1.6; color:rgba(243,239,233,.7); margin-top:1.6rem; max-width:40rem; }
+  .ov-dlcard{ display:flex; align-items:center; gap:2rem; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.03); padding:2.6rem 2.8rem; text-decoration:none; color:#fff; transition:background .25s,transform .25s; }
+  .ov-dlcard:hover{ background:rgba(255,255,255,.08); transform:translateY(-.4rem); }
+  .ov-dlcard .fic{ width:3.8rem; height:3.8rem; color:#cf9b6e; flex:none; stroke:currentColor; fill:none; stroke-width:1.5; }
+  .ov-dlcard .nm{ font-size:1.7rem; font-weight:600; }
+  .ov-dlcard .meta{ font-family:var(--pv-mono); font-size:1.1rem; color:rgba(255,255,255,.55); letter-spacing:.06em; margin-top:.4rem; }
+  .ov-dlcard .dlbtn{ margin-left:auto; display:inline-flex; align-items:center; gap:.8rem; font-size:1.45rem; font-weight:500; white-space:nowrap; }
+  .ov-dlcard .dlbtn svg{ width:1.8rem; height:1.8rem; stroke:currentColor; fill:none; stroke-width:1.8; }
+  @media(max-width:760px){ .ov-dlband-grid{ grid-template-columns:1fr; gap:3rem; } .ov-dlcard{ flex-wrap:wrap; } .ov-dlcard .dlbtn{ margin-left:0; width:100%; justify-content:space-between; } }
+
+  /* 5 · models family — compact, real product photos */
+  .ov-fam{ display:grid; grid-template-columns:repeat(5,1fr); gap:1.4rem; }
+  .ov-fam-item{ border:1px solid var(--pv-line); transition:border-color .25s; }
+  .ov-fam-item:hover{ border-color:var(--pv-ink); }
+  .ov-fam-item figure{ margin:0; aspect-ratio:3/4; background:var(--pv-mist); overflow:hidden; }
+  .ov-fam-item img{ width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+  .ov-fam-item:hover img{ transform:scale(1.04); }
+  .ov-fam-meta{ display:flex; justify-content:space-between; align-items:baseline; gap:.8rem; padding:1.2rem 1.3rem; }
+  .ov-fam-meta h3{ font-size:1.5rem; font-weight:600; letter-spacing:-.01em; }
+  .ov-fam-meta .sp{ font-family:var(--pv-mono); font-size:1rem; letter-spacing:.03em; color:var(--pv-faint); text-align:right; white-space:nowrap; }
+  .ov-fam-all{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.3rem; text-align:center; padding:1.5rem; background:var(--pv-mist); border:1px solid var(--pv-line); transition:border-color .25s; }
+  .ov-fam-all:hover{ border-color:var(--pv-ink); }
+  .ov-fam-all .ar{ width:4.6rem; height:4.6rem; border:1px solid var(--pv-ink); border-radius:50%; display:grid; place-items:center; font-size:1.7rem; transition:.25s; }
+  .ov-fam-all:hover .ar{ background:var(--pv-ink); color:#fff; }
+  .ov-fam-all .t{ font-size:1.5rem; font-weight:600; }
+  .ov-fam-all .s{ font-family:var(--pv-mono); font-size:.95rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pv-faint); }
+  @media(max-width:900px){ .ov-fam{ grid-template-columns:repeat(3,1fr); } }
+
+  /* ===== consolidated mobile optimization (≤600) — last so it wins ===== */
+  @media(max-width:600px){
+    /* hero: square main + 5-up thumbnail row already stacks; condense the spec table + columns */
+    .ovh2-table .r{ grid-template-columns:1fr auto; gap:.3rem 1.2rem; }
+    .ovh2-table .k{ grid-column:1 / -1; margin-bottom:.1rem; }
+    .ovh2-cols{ grid-template-columns:1fr; gap:2.4rem; }
+    .ovh2-qual{ grid-template-columns:1fr; }
+
+    /* The Classic family -> 2-up grid; view-all becomes a full-width bar */
+    .ov-fam{ grid-template-columns:repeat(2,1fr); gap:1rem; }
+    .ov-fam-all{ grid-column:1 / -1; flex-direction:row; align-items:center; justify-content:center; gap:1.1rem; padding:1.7rem; }
+    .ov-fam-all .ar{ width:3.6rem; height:3.6rem; font-size:1.5rem; }
+    .ov-fam-all .t{ font-size:1.45rem; }
+    .ov-fam-all .s::before{ content:"\00b7\00a0"; }
+
+    /* specifications: narrower label column so values fit */
+    .ov-spec .row{ grid-template-columns:10rem 1fr; gap:1.2rem; }
+
+    /* acoustic chart: keep readable + horizontally swipeable */
+    .ov-chart{ overflow-x:auto; scrollbar-width:none; }
+    .ov-chart::-webkit-scrollbar{ display:none; }
+    .ov-chart svg{ min-width:600px; }
+  }
+  /* keep the loading intro, but remove the page emerge / scale-in reveal */
+  main, .scroll{ transform:none !important; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="mcS" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l2.5-6 4 16 4-19 2.5 9H22"/></symbol>
+<symbol id="mcT" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+<symbol id="mcF" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.4 3.8 5.2 5.2 5.2 9.2A5.2 5.2 0 0 1 6.8 12.2c0-1.7.8-3 1.9-4 .4 2.1 2.1 2.2 2.1.2 0-2 .2-3.6 1.2-5.4z"/></symbol>
+<symbol id="mcE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></symbol>
+</defs></svg>
+<div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
+<a href="/" class="site-nav-logo" aria-label="NAAYA Home">
+<img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="site-nav-logo-img logo-light" style="height:2.2rem;width:auto;display:none">
+<img src="assets/brand/naaya-logo.webp" alt="" aria-hidden="true" class="site-nav-logo-img logo-dark" style="height:2.2rem;width:auto;display:block">
+</a>
+<nav class="site-nav-links" aria-label="Primary">
+<a href="/about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="/collection/" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-cats-v2" aria-hidden="true">
+<div class="mcat-inner">
+
+<div class="mcat-list">
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item is-active" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="/collection/" class="mcat-all">All models →</a>
+</div>
+
+<div class="mcat-detail">
+
+<div class="mcat-pane is-active" data-pane="classic">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Classic Series</h3>
+<p class="mcat-pane-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="perfo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Perfo Series</h3>
+<p class="mcat-pane-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="micro">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Micro Series</h3>
+<p class="mcat-pane-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation. Includes Micro Classic and Micro Art geometries.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="curve">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Curve Series</h3>
+<p class="mcat-pane-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces for effective absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Art Acoustic Series</h3>
+<p class="mcat-pane-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="phonex">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Phonex Metal Series</h3>
+<p class="mcat-pane-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.70–0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="uniseam">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Uniseam Series</h3>
+<p class="mcat-pane-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.75+</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12 / 30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="cleaneo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Cleaneo Series</h3>
+<p class="mcat-pane-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12.5 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acouspray">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acouspray Series</h3>
+<p class="mcat-pane-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.95</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acona">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Classic Series</h3>
+<p class="mcat-pane-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 / 20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="aconaart">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Art Series</h3>
+<p class="mcat-pane-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25 / 40 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Fabricoustic Series</h3>
+<p class="mcat-pane-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25–60 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="pet">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Polyester (PET) Series</h3>
+<p class="mcat-pane-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">9 / 12 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="woodwool">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Wool Series</h3>
+<p class="mcat-pane-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.60</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15–25 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="diffuser">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Diffuser Series</h3>
+<p class="mcat-pane-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">Scattering</span><span class="ms-val">ISO 17497</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Depth</span><span class="ms-val">Custom</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="door">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Soundproofed Door Series</h3>
+<p class="mcat-pane-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">STC</span><span class="ms-val">35–45 dB</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">50–100 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<a href="/projects/" data-i18n="nav_projects">Projects</a>
+<a href="/process" data-i18n="nav_process">Process</a>
+<a href="/contact" data-i18n="nav_contact">Contact</a>
+</nav>
+<div class="site-nav-right">
+<a href="/contact" class="site-nav-cta">
+<span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+</a>
+</div>
+</header>
+<button class="site-nav-burger" aria-label="Open menu" id="siteNavBurger"><span></span><span></span><span></span></button>
+<div class="site-nav-mobile" id="siteNavMobile" aria-hidden="true">
+<nav class="site-nav-mobile-links">
+<a href="/about" data-i18n="nav_about">About</a>
+<div class="nav-item has-mega" data-mega>
+<a href="/collection/" data-i18n="nav_products">Products</a>
+<div class="mega-menu mega-cats-v2" aria-hidden="true">
+<div class="mcat-inner">
+
+<div class="mcat-list">
+<div class="mega-label"><span>Naaya Collections</span></div>
+<div class="mcat-item is-active" data-cat="classic"><span class="mcat-name">Classic</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="perfo"><span class="mcat-name">Perfo</span><span class="mcat-count">6</span></div>
+<div class="mcat-item" data-cat="micro"><span class="mcat-name">Micro</span><span class="mcat-count">11</span></div>
+<div class="mcat-item" data-cat="curve"><span class="mcat-name">Wood Curve</span><span class="mcat-count">3</span></div>
+<div class="mcat-item" data-cat="art"><span class="mcat-name">Art Acoustic</span><span class="mcat-count">22</span></div>
+<div class="mcat-item" data-cat="phonex"><span class="mcat-name">Phonex Metal</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="uniseam"><span class="mcat-name">Uniseam</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="cleaneo"><span class="mcat-name">Cleaneo</span><span class="mcat-count">4</span></div>
+<div class="mcat-item" data-cat="acouspray"><span class="mcat-name">Acouspray</span><span class="mcat-count">1</span></div>
+<div class="mcat-item" data-cat="acona"><span class="mcat-name">Acona Classic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="aconaart"><span class="mcat-name">Acona Art</span><span class="mcat-count">10</span></div>
+<div class="mcat-item" data-cat="fabric"><span class="mcat-name">Fabricoustic</span><span class="mcat-count">2</span></div>
+<div class="mcat-item" data-cat="pet"><span class="mcat-name">Polyester (PET)</span><span class="mcat-count">30</span></div>
+<div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
+<div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
+<div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
+<a href="/collection/" class="mcat-all">All models →</a>
+</div>
+
+<div class="mcat-detail">
+
+<div class="mcat-pane is-active" data-pane="classic">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Classic Series</h3>
+<p class="mcat-pane-desc">Grooved and perforated panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental sound-absorbing surface for interior architecture.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="perfo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Perfo Series</h3>
+<p class="mcat-pane-desc">Double-sided perforated panels engineered on acoustic resonance principles. Six open-area patterns tune mid-to-low frequency absorption while integrating seamlessly with interior design.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="micro">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Micro Series</h3>
+<p class="mcat-pane-desc">Micro-perforations of 0.5–1 mm form a Helmholtz resonator with the back cavity — an almost-invisible surface that controls reverberation. Includes Micro Classic and Micro Art geometries.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="curve">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Curve Series</h3>
+<p class="mcat-pane-desc">Precision kerf-cut MDF that bends into seamless waves, columns and organic forms, with slotted, perforated or micro-perforated faces for effective absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="art">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Art Acoustic Series</h3>
+<p class="mcat-pane-desc">Acoustic wood panels with CNC-carved artistic patterns — 22 designs that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="phonex">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Phonex Metal Series</h3>
+<p class="mcat-pane-desc">Perforated aluminium sheets bonded to a honeycomb core: a fire-resistant, moisture-proof metal system for airports, laboratories and commercial kitchens.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.70–0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="uniseam">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Uniseam Series</h3>
+<p class="mcat-pane-desc">A truly monolithic, joint-free acoustic ceiling — trowel-applied seamless coating over reinforced scrim, shaped into curves and complex forms.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">0.75+</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12 / 30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="cleaneo">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Cleaneo Series</h3>
+<p class="mcat-pane-desc">High-performance perforated gypsum board for monolithic ceiling and wall systems, with versatile perforation patterns and finely tunable absorption.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.80</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">12.5 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acouspray">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acouspray Series</h3>
+<p class="mcat-pane-desc">Spray-applied cellulose coating that cures into a seamless, low-density acoustic envelope directly on substrates — no joints, minimal structural load.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.95</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">30 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="acona">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Classic Series</h3>
+<p class="mcat-pane-desc">High-density fibreglass lay-in tiles with a decorative fabric face. Non-combustible, formaldehyde-free and clean-lined for high-performance interiors.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15 / 20 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="aconaart">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Acona Art Series</h3>
+<p class="mcat-pane-desc">Sculptural moulded-fibreglass space absorbers — clouds, baffles and pyramids — for three-dimensional acoustic control in open or complex volumes.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 1.00</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25 / 40 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="fabric">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Fabricoustic Series</h3>
+<p class="mcat-pane-desc">Fabric-wrapped panels over a dense glass-fibre (Classic) or recycled-cotton (Eco) core, encased in acoustically transparent, Class-A fabric.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.90</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">25–60 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="pet">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Polyester (PET) Series</h3>
+<p class="mcat-pane-desc">100% recyclable polyester-fibre panels, V-groove walls, engraving ceilings and folded clouds — lightweight, colour-rich and low-VOC.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.85</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">9 / 12 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="woodwool">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Wood Wool Series</h3>
+<p class="mcat-pane-desc">Mineralised pine and poplar strands bonded with inorganic cement: broadband absorption combined with impact, fire and moisture resistance.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">NRC</span><span class="ms-val">up to 0.60</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">15–25 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="diffuser">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Diffuser Series</h3>
+<p class="mcat-pane-desc">Wooden MLS, QRD and geometric diffusers that scatter sound into balanced, immersive fields — engineered to ISO 17497 for studios and concert halls.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">Scattering</span><span class="ms-val">ISO 17497</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Depth</span><span class="ms-val">Custom</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+<div class="mcat-pane" data-pane="door">
+<div class="mcat-pane-head">
+<h3 class="mcat-pane-title">Soundproofed Door Series</h3>
+<p class="mcat-pane-desc">Professional acoustic door systems in metal-wood composite, metal and solid wood, with multi-layer cores and full-perimeter sealing.</p>
+</div>
+<div class="mcat-specs">
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcS"/></svg><span class="ms-text"><span class="ms-label">STC</span><span class="ms-val">35–45 dB</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcT"/></svg><span class="ms-text"><span class="ms-label">Thickness</span><span class="ms-val">50–100 mm</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
+<div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
+</div>
+<div class="mcat-pane-thumbs">
+<div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<a href="/projects/" data-i18n="nav_projects">Projects</a>
+<a href="/process" data-i18n="nav_process">Process</a>
+<a href="/contact" data-i18n="nav_contact">Contact</a>
+</nav>
+</div>
+<!-- sticky bar removed per feedback -->
+<main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page">
+<div class="pv">
+
+<!-- ===== 1 · HERO — gallery (thumb rail + main) + spec text (Variant 1) ===== -->
+<section class="pv-wrap ov-hero ov-sec--tight">
+  <nav class="ov-crumb pv-rise" aria-label="Breadcrumb">
+    <a href="index-4.html">NAAYA</a><span class="sep">/</span>
+    <a href="index-4.html">Collections</a><span class="sep">/</span>
+    <a href="index-4.html">Classic</a><span class="sep">/</span>
+    <span class="cur">Vega</span>
+  </nav>
+  <div class="ovh2">
+    <div class="ovh2-gal" id="ovhGal">
+      <div class="ovh2-main pv-rise"><img id="ovhMain" src="assets/products/vega/vega-1.webp" alt="Vega"></div>
+      <div class="ovh2-row pv-rise d1">
+        <div class="ovh-thumb on" data-src="assets/products/vega/vega-1.webp"><img src="assets/products/vega/vega-1.webp" alt="Vega front face"></div>
+        <div class="ovh-thumb" data-src="assets/products/vega/vega-2.webp"><img src="assets/products/vega/vega-2.webp" alt="Vega panel angle"></div>
+        <div class="ovh-thumb" data-src="assets/products/vega/vega-3.webp"><img src="assets/products/vega/vega-3.webp" alt="Vega panel profile"></div>
+        <div class="ovh-thumb" data-src="assets/products/vega/vega-4.webp"><img src="assets/products/vega/vega-4.webp" alt="Vega front and perforated back"></div>
+        <div class="ovh-thumb" data-src="assets/products/vega/vega-5.webp"><img src="assets/products/vega/vega-5.webp" alt="Vega construction layers"></div>
+      </div>
+    </div>
+    <div class="ovh2-info">
+      <span class="ov-eyebrow pv-rise">NAAYA Classic</span>
+      <h1 class="ovh2-title pv-rise d1">Vega</h1>
+      <p class="ovh2-lede pv-rise d1">A grooved acoustic panel that reads as joinery &mdash; a clean linear rhythm engineered for the mid and low frequencies most rooms struggle with.</p>
+
+      <div class="ovh2-table pv-rise d2">
+        <div class="r"><span class="k">Finishes</span><span class="v">Melamine / HPL / Veneer</span><span class="s"></span></div>
+        <div class="r"><span class="k">Module</span><span class="v">133 &times; 2430 mm</span><span class="s"></span></div>
+        <div class="r"><span class="k">Thickness</span><span class="v">15 mm</span><span class="s"></span></div>
+        <div class="r"><span class="k">Acoustic</span><span class="v">NRC 0.80</span><span class="s">ISO 354</span></div>
+        <div class="r"><span class="k">Fire reaction</span><span class="v">Class A / B</span><span class="s">EN 13501</span></div>
+        <div class="r"><span class="k">Low VOC</span><span class="v">Compliant</span><span class="s">EN 717</span></div>
+      </div>
+
+      <div class="ovh2-apps-wrap pv-rise d3">
+        <span class="ovh2-lab">Applications</span>
+        <div class="ovh2-apps">
+          <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path d="M8 3v18M13 3v18M18 3v18"/></svg>Walls</span>
+          <span><svg viewBox="0 0 24 24"><path d="M3 5h18"/><path d="M5 5v3M9 5v3M13 5v3M17 5v3M21 5v3"/><path d="M3 12h18M3 19h18"/></svg>Ceilings</span>
+          <span><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18"/><circle cx="15" cy="12" r="1"/></svg>Doors</span>
+          <span><svg viewBox="0 0 24 24"><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M3 10h18v6H3z"/><path d="M5 16v4M19 16v4"/></svg>Furniture &amp; joinery</span>
+        </div>
+      </div>
+
+      <div class="ovh2-cta pv-rise d4">
+        <a href="mailto:hello@naaya.com?subject=Vega%20quote%20request" class="pv-btn pv-btn--solid">Request a quote <span class="ar">&#8594;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2 · IN-SITU SHOWCASE (interiors — fixed 3-up row) ===== -->
+<section class="pv-wrap ov-sec ov-rule">
+  <div class="ov-sc-head pv-rise">
+    <div>
+      <span class="ov-eyebrow">In the room</span>
+      <h2>Designed to disappear<br>into the room.</h2>
+    </div>
+    <p class="sub">From curved corridors to auditorium walls &mdash; the same grooved language, scaled to the space.</p>
+  </div>
+  <div class="ov-sc-row pv-rise">
+    <figure><img loading="lazy" src="assets/products/vega/scene-4.webp" alt="Vega in a cultural centre foyer"><div class="cap"><div class="t">Cultural centre foyer</div><div class="s">Vega in oak</div></div></figure>
+    <figure><img loading="lazy" src="assets/products/vega/scene-3.webp" alt="Vega acoustic corridor"><div class="cap"><div class="t">Acoustic corridor</div><div class="s">Vertical run</div></div></figure>
+    <figure><img loading="lazy" src="assets/products/vega/scene-2.webp" alt="Vega feature wall"><div class="cap"><div class="t">Feature wall</div></div></figure>
+  </div>
+</section>
+
+<!-- ===== 3 · ACOUSTIC PERFORMANCE (tested) ===== -->
+<section class="pv-wrap ov-sec ov-rule">
+  <div class="tv-perf pv-rise">
+    <div class="tv-perf-txt">
+      <span class="ov-eyebrow">Tested, not estimated</span>
+      <h2 class="ov-h2">Performance you can <span style="color:var(--pv-accent)">trust</span>.</h2>
+      <div class="tv-nrc-band"><div class="tv-nrc-n">0.80</div><div class="tv-nrc-l"><span class="k">NRC</span><span class="d">Noise Reduction Coefficient</span><span class="s">ISO 354</span></div></div>
+      <p class="tv-perf-lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
+    </div>
+    <figure class="tv-pic"><div class="im"><img loading="lazy" src="assets/products/vega/scene-4.webp" alt="Vega in an acoustic interior"></div><figcaption><i></i>Vega &middot; acoustic performance in situ</figcaption></figure>
+  </div>
+</section>
+
+<!-- ===== 4 · MATERIALS & FINISHES (swatch wall) ===== -->
+<section class="pv-wrap ov-sec ov-rule">
+  <div class="mf">
+    <div class="mf-side">
+      <span class="ov-eyebrow pv-rise">Materials &amp; finishes</span>
+      <h2 class="ov-h2 pv-rise">Pick a look.</h2>
+      <div class="mf-blk pv-rise d1">
+        <span class="mf-lab">Core &middot; substrate</span>
+        <div class="mf-item"><span class="sq" style="background:#e8e4dd"></span><span class="nm">MGO</span><span class="mf-badge"><svg class="mf-fic" viewBox="0 0 24 24"><use href="#mcF"/></svg>Class A</span></div>
+        <div class="mf-item"><span class="sq" style="background:#1a1714"></span><span class="nm">CDF</span><span class="mf-badge"><svg class="mf-fic" viewBox="0 0 24 24"><use href="#mcF"/></svg>Class B</span></div>
+      </div>
+      <div class="mf-blk pv-rise d1">
+        <span class="mf-lab">Finish &middot; surface &mdash; tap to preview</span>
+        <div class="mf-fam is-active" data-fam="mel"><span class="fn">Melamine <em>Thermally fused laminate</em></span><span class="ct">8</span></div>
+        <div class="mf-fam" data-fam="hpl"><span class="fn">HPL <em>High-pressure laminate</em></span><span class="ct">8</span></div>
+        <div class="mf-fam" data-fam="ven"><span class="fn">Veneer <em>Natural wood</em></span><span class="ct">14</span></div>
+      </div>
+      <p class="mf-msg pv-rise d2"><b>A surface for every brief.</b> From budget-friendly melamine to natural wood veneer &mdash; finishes to suit any design style and budget.</p>
+    </div>
+    <div class="mf-wallwrap pv-rise d1">
+      <div class="mf-wall" id="mfWall"></div>
+      <div class="mf-count" id="mfCount"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5 · MODELS FAMILY (compact, real photos) ===== -->
+<section class="pv-wrap ov-sec ov-rule">
+  <span class="ov-eyebrow pv-rise">The Classic family</span>
+  <h2 class="ov-h2 pv-rise">Ten formats, one core.</h2>
+  <div class="ov-fam pv-rise">
+    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/5-3.webp" alt="Classic 5/3 — fine grooved face"></figure><div class="ov-fam-meta"><h3>5 / 3</h3><span class="sp">Uniform &middot; 5 mm</span></div></div>
+    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/13-3.webp" alt="Classic 13/3 — grooved face"></figure><div class="ov-fam-meta"><h3>13 / 3</h3><span class="sp">Uniform &middot; 13 mm</span></div></div>
+    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/28-4.webp" alt="Classic 28/4 — grooved face"></figure><div class="ov-fam-meta"><h3>28 / 4</h3><span class="sp">Uniform &middot; 28 mm</span></div></div>
+    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/59-2.webp" alt="Classic 59/2 — wide grooved face"></figure><div class="ov-fam-meta"><h3>59 / 2</h3><span class="sp">Uniform &middot; 59 mm</span></div></div>
+    <a class="ov-fam-all" href="collection.html"><span class="ar">&#8594;</span><span class="t">View all</span><span class="s">10 formats</span></a>
+  </div>
+</section>
+
+<!-- ===== 7 · DOWNLOAD DATASHEET (dark CTA band) ===== -->
+<section class="ov-dlband" id="download">
+  <div class="pv-wrap ov-sec">
+    <div class="ov-dlband-grid">
+      <div class="pv-rise">
+        <span class="ov-eyebrow">Documentation</span>
+        <h2>The whole story,<br>in one PDF.</h2>
+        <p>Absorption data, certificates, the full 30&#8209;finish range and the wall &amp; ceiling installation detail &mdash; the complete Classic Vega datasheet and manual.</p>
+      </div>
+      <a class="ov-dlcard pv-rise d1" href="assets/products/vega/Vega-Classic-datasheet.pdf" target="_blank" rel="noopener">
+        <svg class="fic" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/><path d="M12 11.5v5M9.5 14l2.5 2.5L14.5 14"/></svg>
+        <div>
+          <div class="nm">Vega &mdash; Classic datasheet &amp; manual</div>
+          <div class="meta">PDF &middot; absorption · certificates · finishes · installation</div>
+        </div>
+        <span class="dlbtn">Download <svg viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8 · AVAILABLE PRODUCTS (cross-sell) ===== -->
+<section class="pv-wrap ov-sec ov-rule">
+  <span class="ov-eyebrow pv-rise">Also available</span>
+  <h2 class="ov-h2 pv-rise">Other acoustic ranges.</h2>
+  <div class="ov-cross pv-rise">
+    <a href="index-4.html"><div class="im"><img src="assets/categories/perfo.webp" alt="Perfo"></div><div class="nm"><span>Perfo</span><span>&#8594;</span></div><div class="sub">Perforated panel</div></a>
+    <a href="index-4.html"><div class="im"><img src="assets/categories/micro.webp" alt="Micro"></div><div class="nm"><span>Micro</span><span>&#8594;</span></div><div class="sub">Micro&#8209;perforated</div></a>
+    <a href="index-4.html"><div class="im"><img src="assets/categories/fabric.webp" alt="Fabricoustic"></div><div class="nm"><span>Fabricoustic</span><span>&#8594;</span></div><div class="sub">Fabric&#8209;wrapped</div></a>
+    <a href="index-4.html"><div class="im"><img src="assets/categories/diffuser.webp" alt="Diffuser"></div><div class="nm"><span>Diffuser</span><span>&#8594;</span></div><div class="sub">Sound diffusion</div></a>
+  </div>
+</section>
+
+
+</div>
+<footer class="footer" data-v-b5a28948><div class="container" data-v-b5a28948><a aria-current="page" href="/" class="is-active is-exact-active logo" data-v-b5a28948><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-b5a28948><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg></a><div class="footer-content">
+
+<div class="footer-col footer-col-brand">
+<img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="footer-brand-logo" style="height:2.4rem;width:auto;align-self:flex-start;margin-bottom:2rem">
+<address class="footer-addr">
+<a href="mailto:hello@naayaasia.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>hello@naayaasia.com</a>
+<span class="footer-link"><span data-i18n="footer_addr_label">Address</span><br><span data-i18n="footer_addr">Guangzhou, China</span></span>
+</address>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title" data-i18n="footer_products">Products</h4>
+<a href="/collection/?cat=wood" data-i18n="footer_p_wood">Wood Panels</a>
+<a href="/collection/?cat=ceiling" data-i18n="footer_p_ceiling">Ceiling Systems</a>
+<a href="/collection/?cat=metal" data-i18n="footer_p_metal">Metal Acoustic</a>
+<a href="/collection/?cat=fabric" data-i18n="footer_p_fabric">Fabric &amp; Eco</a>
+<a href="/collection/?cat=specialty" data-i18n="footer_p_specialty">Diffusers &amp; Doors</a>
+<a href="/collection/" data-i18n="footer_p_all">All series →</a>
+</div>
+
+<div class="footer-col">
+<h4 class="footer-col-title">Company</h4>
+<a href="/about">About NAAYA</a>
+<a href="/projects/">Project references</a>
+<a href="/process">Process</a>
+<a href="/contact">Contact</a>
+</div>
+
+<div class="footer-col footer-col-cta">
+<h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
+<p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
+<a href="/contact" class="footer-cta-btn">
+<svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
+<span data-i18n="cta_button">Get in touch</span>
+</a>
+<form class="footer-newsletter" onsubmit="return false">
+<label class="footer-newsletter-label" data-i18n="footer_newsletter">Subscribe to our newsletter</label>
+<div class="footer-newsletter-row">
+<input type="email" placeholder="you@example.com" class="footer-newsletter-input" aria-label="Email">
+<button type="submit" class="footer-newsletter-btn" aria-label="Subscribe">→</button>
+</div>
+</form>
+</div>
+
+</div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2014, NAAYA™</div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
+
+<script src="js/naaya.js"></script>
+<script>
+/* product-vega.html — self-contained interactions (no naaya.js changes) */
+(function(){
+  var rises=[].slice.call(document.querySelectorAll('.pv-rise:not(.in)'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+    rises.forEach(function(el){ io.observe(el); });
+  } else { rises.forEach(function(el){ el.classList.add('in'); }); }
+
+  // Nav transparent-over-hero / solid-on-scroll is handled by naaya.js initSiteNav
+  // via the `home-header` class on our hero — no custom observer needed here.
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(ev){
+      var id=a.getAttribute('href'); if(id.length<2) return;
+      var t=document.querySelector(id); if(!t) return;
+      ev.preventDefault();
+      if(window.lenis && window.lenis.scrollTo){ window.lenis.scrollTo(t,{offset:-20}); }
+      else { t.scrollIntoView({behavior:'smooth',block:'start'}); }
+    });
+  });
+
+  var f=document.getElementById('pvForm');
+  if(f){ f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    if(!f.name.value || !f.email.value){ (f.name.value?f.email:f.name).focus(); return; }
+    f.innerHTML='<div class="pv-form-ref">Enquiry &middot; Classic Vega</div>'+
+      '<h3 class="pv-h3" style="margin-top:1rem">Thank you &mdash; we&rsquo;ll be in touch.</h3>'+
+      '<p style="font-size:1.5rem;color:var(--pv-muted);margin-top:1.4rem;line-height:1.6">Your enquiry for Classic Vega is noted. A NAAYA specialist will reply within one business day with samples and a quote.</p>';
+  }); }
+})();
+</script>
+<script>
+(function(){var g=document.getElementById('ovhGal');if(!g)return;var m=document.getElementById('ovhMain');
+g.querySelectorAll('.ovh-thumb').forEach(function(t){t.addEventListener('click',function(){m.src=t.getAttribute('data-src');g.querySelectorAll('.ovh-thumb.on').forEach(function(e){e.classList.remove('on');});t.classList.add('on');});});})();
+</script>
+<script>
+(function(){
+  var SW={
+    mel:{label:'Melamine',code:'NY-M',pre:'nym',names:['White Oak','Oak','Chestnut','Silver Pear','Oiled Walnut','American Walnut','Thermo Walnut','Dark Walnut']},
+    hpl:{label:'HPL',code:'NY-HPL',pre:'nyhpl',names:['Elegant Oak','Planked Oak','Noce Orvieto','Teak Allover','Maple','Fineline','Natural Maple','Afromosia']},
+    ven:{label:'Veneer',code:'NY-V',pre:'nyv',names:['Washed White Oak','Oak','Manchurian Ash','White Oak','Warm Oak','Black Walnut','Silver Pear','European Oak','Grey Oak','Astrakhan Oak','Sliver Oak','European Walnut','Smoked Oak','European Ebony']}
+  };
+  var wall=document.getElementById('mfWall'), count=document.getElementById('mfCount'), fams=document.querySelectorAll('.mf-fam');
+  if(!wall) return;
+  function pad(n){ return n<10?'0'+n:''+n; }
+  function render(key){
+    var d=SW[key]; if(!d) return; var h='';
+    for(var i=0;i<d.names.length;i++){
+      var code=d.code+'-'+pad(i+1), file='assets/products/vega/swatches/placeholder.webp';
+      h+='<figure class="sw"><span class="im"><img src="'+file+'" alt="'+code+' '+d.names[i]+'"></span><figcaption><span class="c">'+code+'</span><span class="n">'+d.names[i]+'</span></figcaption></figure>';
+    }
+    wall.innerHTML=h;
+    count.innerHTML=d.names.length+' colours &middot; '+d.label;
+  }
+  fams.forEach(function(f){ f.addEventListener('click',function(){
+    fams.forEach(function(e){ e.classList.remove('is-active'); });
+    f.classList.add('is-active');
+    render(f.getAttribute('data-fam'));
+  }); });
+  render('mel');
+})();
+</script>
+</body>
+</html>
