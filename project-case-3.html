@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/naaya.css">
+<link rel="stylesheet" href="css/naaya-system.css">
 <style>
   /* ============================================
      index-4 ONLY skin — Inter + White × #231f20
@@ -289,11 +290,11 @@ main,.scroll{ transform:none!important; }
 /* ============================================
    project-case-3.html — process-led case study (.pc3-*)
    ============================================ */
-:root{
-  --pc3-ink:#231f20; --pc3-paper:#fff; --pc3-mist:color-mix(in srgb, #231f20 4%, #fff);
-  --pc3-line:rgba(35,31,32,.13); --pc3-hair:rgba(35,31,32,.08);
-  --pc3-muted:rgba(35,31,32,.56); --pc3-faint:rgba(35,31,32,.4); --pc3-red:#e3261b;
-  --pc3-mono:ui-monospace,'SF Mono',Menlo,monospace;
+:root{  /* tokens aliased to naaya-system.css */
+  --pc3-ink:var(--ns-ink); --pc3-paper:var(--ns-paper); --pc3-mist:var(--ns-mist);
+  --pc3-line:var(--ns-line); --pc3-hair:var(--ns-hair);
+  --pc3-muted:var(--ns-muted); --pc3-faint:var(--ns-faint); --pc3-red:var(--ns-red);
+  --pc3-mono:var(--ns-mono);
 }
 
 /* ---------- nav: inherits the dark-hero index-4 skin (transparent + white over
@@ -330,10 +331,8 @@ main,.scroll{ transform:none!important; }
 @keyframes pc3drop{ 0%{ transform:translateY(0); } 60%,100%{ transform:translateY(300%); } }
 
 /* ---------- generic section ---------- */
-.pc3-sec{ background:var(--pc3-paper); color:var(--pc3-ink); padding:11rem 0; }
-.pc3-wrap{ max-width:152rem; margin:0 auto; padding:0 4rem; }
-.pc3-secmark{ font-family:var(--pc3-mono); font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:var(--pc3-faint); }
-.pc3-h2{ font-size:clamp(3rem,4.4vw,5rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:1.6rem 0 0; }
+.pc3-sec{ background:var(--pc3-paper); color:var(--pc3-ink); }   /* rhythm/wrap/secmark → naaya-system.css */
+.pc3-h2{ margin:1.6rem 0 0; }
 
 /* ================= S2 Project Overview (Image #32 layout) ================= */
 .pc3-ov-top{ display:grid; grid-template-columns:0.9fr 2fr; gap:6rem; align-items:start; }
@@ -470,7 +469,7 @@ main,.scroll{ transform:none!important; }
 /* ================= S6 Get in touch (pc3-contact) ================= */
 .pc3-contact{ background:var(--pc3-ink); color:#fff; }
 .pc3-contact-grid{ max-width:62rem; }
-.pc3-contact-mark{ font-family:var(--pc3-mono); font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.45); }
+/* .pc3-contact-mark → naaya-system.css */
 .pc3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:0; }
 .pc3-contact h2 .dot{ color:var(--pc3-red); }
 .pc3-contact-sub{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); max-width:44rem; margin:2.6rem 0 0; }
@@ -478,16 +477,10 @@ main,.scroll{ transform:none!important; }
 .pc3-contact-info .k{ font-family:var(--pc3-mono); font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:.4rem; }
 .pc3-contact-info a, .pc3-contact-info span{ color:#fff; text-decoration:none; font-size:1.6rem; display:block; transition:opacity .25s; }
 .pc3-contact-info a:hover{ opacity:.6; }
-.pc3-contact .pc3-cta{ display:inline-flex; align-items:center; gap:1rem; margin-top:3.4rem; align-self:flex-start;
-  height:4.6rem; padding:0 2.2rem; line-height:1; border:1px solid var(--pc3-red); background:var(--pc3-red);
-  color:#fff!important; text-decoration:none; font-family:var(--font-f-aeonik-mono); font-weight:600; font-size:1.2rem;
-  letter-spacing:.08em; text-transform:uppercase; transition:background .3s, color .3s, border-color .3s; }
-.pc3-contact .pc3-cta:hover{ background:#fff; color:var(--pc3-ink)!important; border-color:#fff; opacity:1!important; }
-.pc3-contact .pc3-cta span{ display:inline-block; transform:translateY(.07em); color:inherit!important; }
+/* .pc3-contact .pc3-cta (red button) → naaya-system.css */
 
 /* ---------- reveal ---------- */
-.pc3-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
-.pc3-rise.in{ opacity:1; transform:none; }
+/* .pc3-rise base + .in → naaya-system.css */
 .pc3-rise.d1{ transition-delay:.08s } .pc3-rise.d2{ transition-delay:.16s } .pc3-rise.d3{ transition-delay:.24s }
 
 /* ---------- responsive ---------- */
@@ -495,8 +488,7 @@ main,.scroll{ transform:none!important; }
 @media(max-width:1100px){ .pc3-gallery{ grid-template-columns:repeat(2,1fr); } }
 @media(max-width:960px){ .pc3-rel-grid{ grid-template-columns:repeat(2,1fr); } }
 @media(max-width:900px){
-  .pc3-sec{ padding:7rem 0; } .pc3-wrap{ padding:0 2.4rem; }
-  .pc3-hero-inner{ padding:0 2.4rem 11rem; }
+  .pc3-hero-inner{ padding:0 2.4rem 11rem; }   /* .pc3-sec pad + .pc3-wrap gutter → tokens */
   .pc3-ov-top{ grid-template-columns:1fr; gap:2.6rem; }
   .pc3-meta{ grid-template-columns:repeat(2,1fr); gap:0 3rem; margin-top:5rem; row-gap:0; }
   .pc3-meta-i{ margin-top:2.4rem; }
@@ -532,14 +524,14 @@ main,.scroll{ transform:none!important; }
 <symbol id="mcE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></symbol>
 </defs></svg>
 <div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
-<a href="/" class="site-nav-logo" aria-label="NAAYA Home">
+<a href="index-4.html" class="site-nav-logo" aria-label="NAAYA Home">
 <img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="site-nav-logo-img logo-light" style="height:2.2rem;width:auto;display:none">
 <img src="assets/brand/naaya-logo.webp" alt="" aria-hidden="true" class="site-nav-logo-img logo-dark" style="height:2.2rem;width:auto;display:block">
 </a>
 <nav class="site-nav-links" aria-label="Primary">
-<a href="/about" data-i18n="nav_about">About</a>
+<a href="brand.html" data-i18n="nav_about">About</a>
 <div class="nav-item has-mega" data-mega>
-<a href="/collection/" data-i18n="nav_products">Products</a>
+<a href="collection.html" data-i18n="nav_products">Products</a>
 <div class="mega-menu mega-cats-v2" aria-hidden="true">
 <div class="mcat-inner">
 
@@ -561,7 +553,7 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
 <div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
 <div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
-<a href="/collection/" class="mcat-all">All models →</a>
+<a href="collection.html" class="mcat-all">All models →</a>
 </div>
 
 <div class="mcat-detail">
@@ -843,12 +835,12 @@ main,.scroll{ transform:none!important; }
 </div>
 </div>
 </div>
-<a href="/projects/" data-i18n="nav_projects">Projects</a>
-<a href="/process" data-i18n="nav_process">Process</a>
-<a href="/contact" data-i18n="nav_contact">Contact</a>
+<a href="projects-3.html" data-i18n="nav_projects">Projects</a>
+<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 <div class="site-nav-right">
-<a href="/contact" class="site-nav-cta">
+<a href="mailto:hello@naaya.com" class="site-nav-cta">
 <span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 </a>
@@ -857,9 +849,9 @@ main,.scroll{ transform:none!important; }
 <button class="site-nav-burger" aria-label="Open menu" id="siteNavBurger"><span></span><span></span><span></span></button>
 <div class="site-nav-mobile" id="siteNavMobile" aria-hidden="true">
 <nav class="site-nav-mobile-links">
-<a href="/about" data-i18n="nav_about">About</a>
+<a href="brand.html" data-i18n="nav_about">About</a>
 <div class="nav-item has-mega" data-mega>
-<a href="/collection/" data-i18n="nav_products">Products</a>
+<a href="collection.html" data-i18n="nav_products">Products</a>
 <div class="mega-menu mega-cats-v2" aria-hidden="true">
 <div class="mcat-inner">
 
@@ -881,7 +873,7 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
 <div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
 <div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
-<a href="/collection/" class="mcat-all">All models →</a>
+<a href="collection.html" class="mcat-all">All models →</a>
 </div>
 
 <div class="mcat-detail">
@@ -1163,9 +1155,9 @@ main,.scroll{ transform:none!important; }
 </div>
 </div>
 </div>
-<a href="/projects/" data-i18n="nav_projects">Projects</a>
-<a href="/process" data-i18n="nav_process">Process</a>
-<a href="/contact" data-i18n="nav_contact">Contact</a>
+<a href="projects-3.html" data-i18n="nav_projects">Projects</a>
+<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 </div>
 <main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page">
@@ -1253,10 +1245,10 @@ main,.scroll{ transform:none!important; }
 <a class="pc3-step-link" href="projects-3.html"><span>All projects</span><span>&rarr;</span></a>
 </div>
 <div class="pc3-rel-grid">
-<a class="pc3-card pc3-rise" href="project-case-2.html"><div class="pc3-card-img"><img src="assets/projects/case-opera.webp" alt="Metropolitan Opera House" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.6h18"/><path d="M6 4.6c-1.2 3.6-1.2 8.3 0 11.9"/><path d="M9.4 4.6c1 3.6 1 8.3 0 11.9"/><path d="M14.6 4.6c-1 3.6-1 8.3 0 11.9"/><path d="M18 4.6c1.2 3.6 1.2 8.3 0 11.9"/><path d="M3 20.4h18"/></svg>Theatres</span><div class="pc3-card-bottom"><h3>Metropolitan Opera House</h3><p class="pc3-card-loc">Vienna, AT &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
-<a class="pc3-card pc3-rise d1" href="project-case.html"><div class="pc3-card-img"><img src="assets/projects/case-golden.webp" alt="The Golden Ballroom" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pc3-card-bottom"><h3>The Golden Ballroom</h3><p class="pc3-card-loc">Dubai, AE &middot; 2025</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
-<a class="pc3-card pc3-rise d2" href="project-case.html"><div class="pc3-card-img"><img src="assets/projects/case-hall.webp" alt="Riverside Grand Auditorium" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums</span><div class="pc3-card-bottom"><h3>Riverside Grand Auditorium</h3><p class="pc3-card-loc">Shenzhen, CN &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
-<a class="pc3-card pc3-rise d3" href="project-case-2.html"><div class="pc3-card-img"><img src="assets/projects/case-hero.webp" alt="Helix Headquarters" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pc3-card-bottom"><h3>Helix Headquarters</h3><p class="pc3-card-loc">Amsterdam, NL &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
+<a class="pc3-card pc3-rise" href="project-case-3.html"><div class="pc3-card-img"><img src="assets/projects/case-opera.webp" alt="Metropolitan Opera House" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.6h18"/><path d="M6 4.6c-1.2 3.6-1.2 8.3 0 11.9"/><path d="M9.4 4.6c1 3.6 1 8.3 0 11.9"/><path d="M14.6 4.6c-1 3.6-1 8.3 0 11.9"/><path d="M18 4.6c1.2 3.6 1.2 8.3 0 11.9"/><path d="M3 20.4h18"/></svg>Theatres</span><div class="pc3-card-bottom"><h3>Metropolitan Opera House</h3><p class="pc3-card-loc">Vienna, AT &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
+<a class="pc3-card pc3-rise d1" href="project-case-3.html"><div class="pc3-card-img"><img src="assets/projects/case-golden.webp" alt="The Golden Ballroom" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pc3-card-bottom"><h3>The Golden Ballroom</h3><p class="pc3-card-loc">Dubai, AE &middot; 2025</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
+<a class="pc3-card pc3-rise d2" href="project-case-3.html"><div class="pc3-card-img"><img src="assets/projects/case-hall.webp" alt="Riverside Grand Auditorium" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums</span><div class="pc3-card-bottom"><h3>Riverside Grand Auditorium</h3><p class="pc3-card-loc">Shenzhen, CN &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
+<a class="pc3-card pc3-rise d3" href="project-case-3.html"><div class="pc3-card-img"><img src="assets/projects/case-hero.webp" alt="Helix Headquarters" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pc3-card-bottom"><h3>Helix Headquarters</h3><p class="pc3-card-loc">Amsterdam, NL &middot; 2024</p><span class="pc3-card-go">View project &rarr;</span></div></div></a>
 </div>
 </div>
 </section>
@@ -1291,21 +1283,21 @@ main,.scroll{ transform:none!important; }
 <a href="/collection/?cat=metal" data-i18n="footer_p_metal">Metal Acoustic</a>
 <a href="/collection/?cat=fabric" data-i18n="footer_p_fabric">Fabric &amp; Eco</a>
 <a href="/collection/?cat=specialty" data-i18n="footer_p_specialty">Diffusers &amp; Doors</a>
-<a href="/collection/" data-i18n="footer_p_all">All series →</a>
+<a href="collection.html" data-i18n="footer_p_all">All series →</a>
 </div>
 
 <div class="footer-col">
 <h4 class="footer-col-title">Company</h4>
-<a href="/about">About NAAYA</a>
-<a href="/projects/">Project references</a>
-<a href="/process">Process</a>
-<a href="/contact">Contact</a>
+<a href="brand.html">About NAAYA</a>
+<a href="projects-3.html">Project references</a>
+<a href="index-4.html#process">Process</a>
+<a href="mailto:hello@naaya.com">Contact</a>
 </div>
 
 <div class="footer-col footer-col-cta">
 <h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
 <p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
-<a href="/contact" class="footer-cta-btn">
+<a href="mailto:hello@naaya.com" class="footer-cta-btn">
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 <span data-i18n="cta_button">Get in touch</span>
 </a>

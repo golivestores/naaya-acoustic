@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/naaya.css">
+<link rel="stylesheet" href="css/naaya-system.css">
 <style>
   /* ============================================
      index-4 ONLY skin — Inter + White × #231f20
@@ -290,62 +291,22 @@ main,.scroll{ transform:none!important; }
 /* ============================================
    brand.html — brand page (.bd-*) · tokens & type match index-4
    ============================================ */
-:root{
-  --bd-ink:#231f20; --bd-paper:#fff; --bd-mist:color-mix(in srgb, #231f20 4%, #fff);
-  --bd-line:rgba(35,31,32,.13); --bd-muted:rgba(35,31,32,.58); --bd-faint:rgba(35,31,32,.4);
-  --bd-red:#e3261b; --bd-mono:ui-monospace,'SF Mono',Menlo,monospace;
+:root{  /* tokens aliased to naaya-system.css */
+  --bd-ink:var(--ns-ink); --bd-paper:var(--ns-paper); --bd-mist:var(--ns-mist);
+  --bd-line:var(--ns-line); --bd-muted:var(--ns-muted); --bd-faint:var(--ns-faint);
+  --bd-red:var(--ns-red); --bd-mono:var(--ns-mono);
 }
 
-/* ================= S1 Hero — Editorial split (image <=68vh / text) ================= */
-.bd-hero{ background:var(--bd-paper); color:var(--bd-ink); padding:12.5rem 0 7rem; }
-.bd-wrap{ width:100%; max-width:132rem; margin:0 auto; padding:0 4rem; }
-.bd-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:6rem; align-items:stretch; }
-.bd-grid > *{ min-width:0; }
+/* ================= S1 Hero → shared .ns-hero in naaya-system.css (wide 1916×821 image) ================= */
 
-.bd-fig{ width:100%; height:100%; min-height:38rem; overflow:hidden; background:var(--bd-mist); margin:0; }
-.bd-fig img{ width:100%; height:100%; object-fit:cover; }
-
-.bd-eye{ display:inline-flex; align-items:center; gap:1.1rem; font-family:var(--bd-mono);
-  font-size:1.15rem; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:var(--bd-red); margin-bottom:2.6rem; }
-.bd-eye::before{ content:""; width:2.6rem; height:1px; background:var(--bd-red); }
-.bd-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
-  overflow:visible!important; margin:0; font-weight:600; line-height:1.02; letter-spacing:-.028em;
-  font-size:clamp(3rem,4vw,4.7rem); color:var(--bd-ink); max-width:15ch; }
-.bd-title .dot{ color:var(--bd-red); }
-.bd-lede{ font-size:clamp(1.5rem,1.5vw,1.7rem); line-height:1.5; color:var(--bd-muted);
-  max-width:48rem; margin:2.6rem 0 0; }
-
-.bd-services{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.6rem; margin-top:3.6rem;
-  padding-top:2.6rem; border-top:1px solid var(--bd-line); }
-.bd-s .k{ display:flex; align-items:baseline; gap:.8rem; font-size:1.45rem; font-weight:600;
-  letter-spacing:-.005em; color:var(--bd-ink); margin:0 0 .6rem; }
-.bd-s .k i{ font-style:normal; font-family:var(--bd-mono); font-size:1.05rem; font-weight:600; color:var(--bd-red); }
-.bd-s .d{ font-size:1.3rem; line-height:1.45; color:var(--bd-muted); }
-
-/* ---------- reveal ---------- */
-.bd-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
-.bd-rise.in{ opacity:1; transform:none; }
+/* ---------- reveal (base + .in → naaya-system.css) ---------- */
 .bd-rise.d1{ transition-delay:.1s } .bd-rise.d2{ transition-delay:.2s }
 
-/* ---------- responsive ---------- */
-@media(max-width:900px){
-  .bd-hero{ padding:13rem 0 6rem; }
-  .bd-wrap{ padding:0 2.4rem; }
-  .bd-grid{ grid-template-columns:1fr; gap:3.4rem; }
-  .bd-fig{ order:-1; height:auto; min-height:0; aspect-ratio:4/3; }
-}
-@media(max-width:600px){
-  .bd-services{ grid-template-columns:1fr; gap:1.8rem; margin-top:3rem; padding-top:2.2rem; }
-  .bd-fig{ aspect-ratio:4/3; }
-}
-
 /* ================= shared (S2/S3) ================= */
-.bd-sec{ background:var(--bd-paper); color:var(--bd-ink); padding:13rem 0; }
-.bd-eyebrow{ display:inline-block; font-family:var(--bd-mono); font-size:1.1rem; font-weight:600;
-  letter-spacing:.16em; text-transform:uppercase; color:var(--bd-red); margin:0 0 1.7rem; }
+.bd-sec{ background:var(--bd-paper); color:var(--bd-ink); }   /* rhythm → naaya-system.css */
+.bd-eyebrow{ margin:0 0 1.7rem; }   /* type/color → naaya-system.css (faint, Inter) */
 .bd-display{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
-  overflow:visible!important; margin:0; font-weight:600; font-size:clamp(2.4rem,2.8vw,3.4rem);
-  line-height:1.05; letter-spacing:-.022em; color:var(--bd-ink); }
+  overflow:visible!important; margin:0; color:var(--bd-ink); }   /* scale → naaya-system.css */
 .bd-display .dot{ color:var(--bd-red); }
 
 /* ================= S2 · Who we are ================= */
@@ -373,7 +334,6 @@ main,.scroll{ transform:none!important; }
 
 @media(max-width:1100px){ .bd-grid8{ grid-template-columns:repeat(2,1fr); } }
 @media(max-width:900px){
-  .bd-sec{ padding:8rem 0; }
   .bd-contact{ padding:7rem 0; }
   .bd-who-grid,.bd-what-top{ grid-template-columns:1fr; gap:3rem; }
   .bd-what-top{ margin-bottom:4rem; }
@@ -456,12 +416,7 @@ main,.scroll{ transform:none!important; }
 .bd-cu-title .sm{ font-size:clamp(1.9rem,2.9vw,3.7rem); }
 .bd-cu-title .dot{ display:inline; color:var(--bd-red); }
 .bd-cu-invite{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); margin:2.6rem 0 0; max-width:44rem; }
-.bd-cu-btn{ display:inline-flex; align-items:center; gap:1rem; margin-top:3.4rem; height:4.6rem; padding:0 2.2rem;
-  border:1px solid var(--bd-red); background:var(--bd-red); color:#fff!important; text-decoration:none;
-  font-family:var(--font-f-aeonik-mono); font-weight:600; font-size:1.2rem; letter-spacing:.08em; text-transform:uppercase;
-  transition:background .3s ease, color .3s ease, border-color .3s ease; }
-.bd-cu-btn:hover{ background:#fff; color:#231f20!important; border-color:#fff; }
-.bd-cu-btn span{ display:inline-block; transform:translateY(.07em); color:inherit; }
+/* .bd-cu-btn (red button) → naaya-system.css */
 </style>
 </head>
 <body>
@@ -472,14 +427,14 @@ main,.scroll{ transform:none!important; }
 <symbol id="mcE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></symbol>
 </defs></svg>
 <div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
-<a href="/" class="site-nav-logo" aria-label="NAAYA Home">
+<a href="index-4.html" class="site-nav-logo" aria-label="NAAYA Home">
 <img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="site-nav-logo-img logo-light" style="height:2.2rem;width:auto;display:none">
 <img src="assets/brand/naaya-logo.webp" alt="" aria-hidden="true" class="site-nav-logo-img logo-dark" style="height:2.2rem;width:auto;display:block">
 </a>
 <nav class="site-nav-links" aria-label="Primary">
-<a href="/about" data-i18n="nav_about">About</a>
+<a href="brand.html" data-i18n="nav_about">About</a>
 <div class="nav-item has-mega" data-mega>
-<a href="/collection/" data-i18n="nav_products">Products</a>
+<a href="collection.html" data-i18n="nav_products">Products</a>
 <div class="mega-menu mega-cats-v2" aria-hidden="true">
 <div class="mcat-inner">
 
@@ -501,7 +456,7 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
 <div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
 <div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
-<a href="/collection/" class="mcat-all">All models →</a>
+<a href="collection.html" class="mcat-all">All models →</a>
 </div>
 
 <div class="mcat-detail">
@@ -783,12 +738,12 @@ main,.scroll{ transform:none!important; }
 </div>
 </div>
 </div>
-<a href="/projects/" data-i18n="nav_projects">Projects</a>
-<a href="/process" data-i18n="nav_process">Process</a>
-<a href="/contact" data-i18n="nav_contact">Contact</a>
+<a href="projects-3.html" data-i18n="nav_projects">Projects</a>
+<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 <div class="site-nav-right">
-<a href="/contact" class="site-nav-cta">
+<a href="mailto:hello@naaya.com" class="site-nav-cta">
 <span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 </a>
@@ -797,9 +752,9 @@ main,.scroll{ transform:none!important; }
 <button class="site-nav-burger" aria-label="Open menu" id="siteNavBurger"><span></span><span></span><span></span></button>
 <div class="site-nav-mobile" id="siteNavMobile" aria-hidden="true">
 <nav class="site-nav-mobile-links">
-<a href="/about" data-i18n="nav_about">About</a>
+<a href="brand.html" data-i18n="nav_about">About</a>
 <div class="nav-item has-mega" data-mega>
-<a href="/collection/" data-i18n="nav_products">Products</a>
+<a href="collection.html" data-i18n="nav_products">Products</a>
 <div class="mega-menu mega-cats-v2" aria-hidden="true">
 <div class="mcat-inner">
 
@@ -821,7 +776,7 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
 <div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
 <div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
-<a href="/collection/" class="mcat-all">All models →</a>
+<a href="collection.html" class="mcat-all">All models →</a>
 </div>
 
 <div class="mcat-detail">
@@ -1103,34 +1058,26 @@ main,.scroll{ transform:none!important; }
 </div>
 </div>
 </div>
-<a href="/projects/" data-i18n="nav_projects">Projects</a>
-<a href="/process" data-i18n="nav_process">Process</a>
-<a href="/contact" data-i18n="nav_contact">Contact</a>
+<a href="projects-3.html" data-i18n="nav_projects">Projects</a>
+<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 </div>
 <main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page">
 
 <!-- ===== S1 Hero ===== -->
-<section class="bd-hero">
-<div class="bd-wrap">
-<div class="bd-grid">
-<div class="bd-text">
-<span class="bd-eye bd-rise">Acoustic design &middot; Engineering &middot; Delivery</span>
-<h1 class="bd-title bd-rise d1">Integrated acoustic environments for architecture<span class="dot">.</span></h1>
-<p class="bd-lede bd-rise d1">NAAYA partners with architects, developers and contractors to deliver complete acoustic solutions &mdash; from design and simulation through to manufacturing and on-site commissioning.</p>
-<div class="bd-services bd-rise d2">
-<div class="bd-s"><div class="k"><i>01</i>Design</div><div class="d">Acoustic criteria, planning and consultancy.</div></div>
-<div class="bd-s"><div class="k"><i>02</i>Build</div><div class="d">Material systems, fit-out and site support.</div></div>
-<div class="bd-s"><div class="k"><i>03</i>Verify</div><div class="d">Testing, tuning and commissioning.</div></div>
+<section class="home-header ns-hero">
+<div class="ns-hero-bg"><img src="assets/brand/hero-wide.webp" alt="Urban acoustic noise-mapping simulation over a city skyline"></div>
+<div class="ns-hero-inner">
+<span class="ns-hero-ey">Acoustic design &middot; Engineering &middot; Delivery</span>
+<h1 class="ns-hero-title">Integrated acoustic<br>environments for architecture<span class="dot"></span></h1>
+<p class="ns-hero-lede">NAAYA partners with architects, developers and contractors to deliver complete acoustic solutions &mdash; from design and simulation through to manufacturing and on-site commissioning.</p>
 </div>
-</div>
-<figure class="bd-fig bd-rise d1"><img src="assets/brand/hero.webp" alt="Urban acoustic noise-mapping simulation over a city skyline"></figure>
-</div>
-</div>
+<a class="ns-scrollcue" href="#brand-start" aria-label="Scroll down"><span>Scroll</span><span class="ns-scrollcue-line"></span></a>
 </section>
 
 <!-- ===== S2 Who we are ===== -->
-<section class="bd-sec">
+<section class="bd-sec" id="brand-start">
 <div class="bd-wrap">
 <div class="bd-who-grid">
 <div>
@@ -1339,21 +1286,21 @@ main,.scroll{ transform:none!important; }
 <a href="/collection/?cat=metal" data-i18n="footer_p_metal">Metal Acoustic</a>
 <a href="/collection/?cat=fabric" data-i18n="footer_p_fabric">Fabric &amp; Eco</a>
 <a href="/collection/?cat=specialty" data-i18n="footer_p_specialty">Diffusers &amp; Doors</a>
-<a href="/collection/" data-i18n="footer_p_all">All series →</a>
+<a href="collection.html" data-i18n="footer_p_all">All series →</a>
 </div>
 
 <div class="footer-col">
 <h4 class="footer-col-title">Company</h4>
-<a href="/about">About NAAYA</a>
-<a href="/projects/">Project references</a>
-<a href="/process">Process</a>
-<a href="/contact">Contact</a>
+<a href="brand.html">About NAAYA</a>
+<a href="projects-3.html">Project references</a>
+<a href="index-4.html#process">Process</a>
+<a href="mailto:hello@naaya.com">Contact</a>
 </div>
 
 <div class="footer-col footer-col-cta">
 <h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
 <p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
-<a href="/contact" class="footer-cta-btn">
+<a href="mailto:hello@naaya.com" class="footer-cta-btn">
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 <span data-i18n="cta_button">Get in touch</span>
 </a>
@@ -1376,6 +1323,11 @@ main,.scroll{ transform:none!important; }
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.bd-rise').forEach(function(el){ io.observe(el); });
+  // hero parallax (shared .ns-hero)
+  var nsHero=document.querySelector('.ns-hero'), nsBg=document.querySelector('.ns-hero-bg img');
+  if(nsHero && nsBg){ (function raf(){ var r=nsHero.getBoundingClientRect();
+    if(r.bottom>0 && r.top<window.innerHeight){ nsBg.style.transform='translateY('+(-r.top*0.16)+'px) scale(1.14)'; }
+    requestAnimationFrame(raf); })(); }
 })();
 </script>
 

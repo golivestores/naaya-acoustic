@@ -1,0 +1,171 @@
+/* ============================================================
+   naaya-system.css — single-source design system for the six
+   NAAYA page types (homepage · product · collection · brand ·
+   projects · project-case).
+
+   Load order per page:  naaya.css  →  naaya-system.css  →  inline <style>
+   Baseline spec = project-case-3.  Root scaling (1rem ~ 10px @1600)
+   is inherited from naaya.css; this file does not touch it.
+
+   Decisions locked in:
+     · accent  = red  #e3261b   (product-vega copper retired)
+     · labels  = Inter          (no real monospace)
+     · headings= weight 600
+   Everything below is grouped by the pages' existing prefixed
+   class names, so NO page HTML changes — the duplication that
+   used to live in every inline block now lives here once.
+   ============================================================ */
+
+/* ---------- 1 · canonical tokens ---------- */
+:root{
+  --ns-ink:#231f20;
+  --ns-paper:#ffffff;
+  --ns-red:#e3261b;
+  --ns-mist:color-mix(in srgb, #231f20 4%, #fff);
+  --ns-line:rgba(35,31,32,.13);
+  --ns-hair:rgba(35,31,32,.08);
+  --ns-muted:rgba(35,31,32,.56);
+  --ns-faint:rgba(35,31,32,.40);
+  --ns-mono:'Inter', system-ui, -apple-system, sans-serif;   /* labels = Inter */
+
+  /* metric tokens (single source for container + rhythm) */
+  --ns-container:152rem;
+  --ns-gutter:4rem;
+  --ns-sec:11rem;
+}
+@media(max-width:900px){ :root{ --ns-gutter:2.4rem; --ns-sec:7rem; } }
+@media(max-width:600px){ :root{ --ns-gutter:2rem;   --ns-sec:6rem; } }
+
+/* ---------- 2 · container ---------- */
+.pc3-wrap, .pj3-wrap, .bd-wrap, .pv-wrap, .cl-wrap{
+  width:100%;
+  max-width:var(--ns-container);
+  margin-inline:auto;
+  padding-inline:var(--ns-gutter);
+}
+
+/* ---------- 3 · section vertical rhythm ---------- */
+.pc3-sec, .pj3-sec, .bd-sec, .pv-sec{ padding-block:var(--ns-sec); }
+.cl-sec{ margin-block:var(--ns-sec); }        /* collection uses margin — same value */
+.ov-sec{ padding-block:var(--ns-sec); }        /* product-vega sections */
+.ov-sec--tight{ padding-block:calc(var(--ns-sec) * .58); }
+
+/* ---------- 4 · section eyebrow / secmark (light-bg) ---------- */
+.pc3-secmark, .pj3-secmark, .cl-secmark, .bd-eyebrow, .ov-eyebrow{
+  display:inline-block;
+  font-family:var(--ns-mono);
+  font-size:1.2rem;
+  font-weight:500;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ns-faint);
+}
+/* eyebrow/secmark sitting on the dark contact/hero panels */
+.pc3-contact-mark, .pj3-contact-mark{
+  font-family:var(--ns-mono);
+  font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+}
+
+/* ---------- 5 · section H2 scale ---------- */
+.pc3-h2, .pj3-h2, .bd-display, .ov-h2{
+  font-size:clamp(3rem, 4.4vw, 5rem);
+  font-weight:600;
+  letter-spacing:-.02em;
+  line-height:1.02;
+}
+
+/* ---------- 6 · lede / standfirst ---------- */
+.pc3-lead, .pj3-lead{
+  font-size:1.6rem;
+  line-height:1.6;
+  color:var(--ns-muted);
+}
+
+/* ---------- 7 · scroll-reveal ( .ab-rise stays owned by the cl-skin shell ) ---------- */
+.pc3-rise, .pj3-rise, .bd-rise, .pv-rise{
+  opacity:0; transform:translateY(2.4rem);
+  transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1);
+  will-change:opacity, transform;
+}
+.pc3-rise.in, .pj3-rise.in, .bd-rise.in, .pv-rise.in{ opacity:1; transform:none; }
+@media(prefers-reduced-motion:reduce){
+  .pc3-rise, .pj3-rise, .bd-rise, .pv-rise{ opacity:1; transform:none; transition:none; }
+}
+
+/* ---------- 8 · red CTA button (contact panels) ---------- */
+.pc3-contact .pc3-cta, .pj3-contact .pj3-cta, .bd-cu-btn{
+  display:inline-flex; align-items:center; gap:1rem;
+  margin-top:3.4rem; align-self:flex-start;
+  height:4.6rem; padding:0 2.2rem; line-height:1;
+  border:1px solid var(--ns-red); background:var(--ns-red);
+  color:#fff!important; text-decoration:none;
+  font-family:var(--ns-mono); font-weight:600; font-size:1.2rem;
+  letter-spacing:.08em; text-transform:uppercase;
+  transition:background .3s ease, color .3s ease, border-color .3s ease;
+}
+.pc3-contact .pc3-cta:hover, .pj3-contact .pj3-cta:hover, .bd-cu-btn:hover{
+  background:#fff; color:var(--ns-ink)!important; border-color:#fff; opacity:1!important;
+}
+.pc3-contact .pc3-cta span, .pj3-contact .pj3-cta span, .bd-cu-btn span{
+  display:inline-block; transform:translateY(.07em); color:inherit!important;
+}
+
+/* ---------- 9 · shared HERO (baseline = project-case-3 hero) ----------
+   full-bleed dark bg image + gradient · bottom-aligned eyebrow / big
+   bold title with red dot / lede · animated scroll cue. Used by every
+   page's opening section except the homepage. Pair with class
+   `home-header` so the nav goes transparent/white over it. */
+.ns-hero{
+  position:relative; min-height:100svh; overflow:hidden;
+  background:#000; color:#fff; display:flex; align-items:flex-end;
+}
+.ns-hero-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+.ns-hero-bg img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  will-change:transform; transform:scale(1.12);
+}
+.ns-hero-bg::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(12,11,11,.46) 0%, rgba(12,11,11,.20) 38%, rgba(12,11,11,.86) 100%);
+}
+.ns-hero-inner{
+  position:relative; z-index:2; width:100%;
+  max-width:var(--ns-container); margin:0 auto;
+  padding:0 var(--ns-gutter) 14rem;
+}
+.ns-hero-ey{
+  display:inline-block; font-family:var(--ns-mono);
+  font-size:1.15rem; letter-spacing:.26em; text-transform:uppercase;
+  color:rgba(255,255,255,.74); margin-bottom:2.6rem;
+}
+.ns-hero-title{
+  position:static!important; clip:auto!important; width:auto!important; height:auto!important;
+  overflow:visible!important; margin:0; font-weight:800; line-height:.92;
+  letter-spacing:-.035em; font-size:clamp(4.4rem,8vw,10.4rem); color:#fff;
+}
+.ns-hero-title .dot{
+  display:inline-block; width:.14em; height:.14em; margin-left:.05em;
+  background:var(--ns-red); vertical-align:baseline;
+}
+.ns-hero-lede{
+  font-size:clamp(1.5rem,1.7vw,1.9rem); line-height:1.6;
+  color:rgba(255,255,255,.78); max-width:56rem; margin:3rem 0 0;
+}
+.ns-scrollcue{
+  position:absolute; left:50%; bottom:3.4rem; transform:translateX(-50%); z-index:3;
+  display:flex; flex-direction:column; align-items:center; gap:1.2rem;
+  color:#fff; text-decoration:none;
+}
+.ns-scrollcue span:first-child{
+  font-family:var(--ns-mono); font-size:1rem; letter-spacing:.24em;
+  text-transform:uppercase; color:rgba(255,255,255,.7);
+}
+.ns-scrollcue-line{ position:relative; width:1px; height:5.4rem; background:rgba(255,255,255,.28); overflow:hidden; }
+.ns-scrollcue-line::after{
+  content:""; position:absolute; left:0; top:-50%; width:100%; height:50%;
+  background:#fff; animation:ns-cue-drop 1.9s cubic-bezier(.7,0,.3,1) infinite;
+}
+@keyframes ns-cue-drop{ 0%{ transform:translateY(0); } 60%,100%{ transform:translateY(300%); } }
+@media(max-width:900px){ .ns-hero-inner{ padding:0 var(--ns-gutter) 11rem; } }
+@media(prefers-reduced-motion:reduce){ .ns-scrollcue-line::after{ animation:none; } }

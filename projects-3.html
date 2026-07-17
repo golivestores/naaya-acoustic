@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/naaya.css">
+<link rel="stylesheet" href="css/naaya-system.css">
 <style>
   /* ============================================
      index-4 ONLY skin — Inter + White × #231f20
@@ -289,10 +290,10 @@ main,.scroll{ transform:none!important; }
 /* ============================================
    projects-3.html — case collection page (.pj3-*)
    ============================================ */
-:root{
-  --pj3-ink:#231f20; --pj3-paper:#fff; --pj3-mist:color-mix(in srgb, #231f20 5%, #fff);
-  --pj3-line:rgba(35,31,32,.13); --pj3-hair:rgba(35,31,32,.08);
-  --pj3-muted:rgba(35,31,32,.56); --pj3-faint:rgba(35,31,32,.4);
+:root{  /* tokens aliased to naaya-system.css */
+  --pj3-ink:var(--ns-ink); --pj3-paper:var(--ns-paper); --pj3-mist:var(--ns-mist);
+  --pj3-line:var(--ns-line); --pj3-hair:var(--ns-hair);
+  --pj3-muted:var(--ns-muted); --pj3-faint:var(--ns-faint);
 }
 
 /* ---------- nav: DARK hero — use the inherited index-4 skin default
@@ -303,31 +304,13 @@ main,.scroll{ transform:none!important; }
    (content-height footer, no 100svh canvas / parallax / bg photo). No per-page
    override needed here anymore. -------- */
 
-/* ---------- S1 Hero (black, stacked title — exact Image #24 layout) ---------- */
-.pj3-banner{ position:relative; background:#000; color:#fff; min-height:100svh; display:flex; align-items:center; }
-.pj3-banner-inner{ width:100%; max-width:152rem; margin:0 auto; padding:16rem 4rem 8rem;
-  display:grid; grid-template-columns:1.32fr .68fr; align-items:end; gap:5rem; }
-/* big / small / small / big stacked title, white, with a red square dot */
-.pj3-hero-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
-  overflow:visible!important; margin:0; font-weight:800; line-height:.88; letter-spacing:-.035em; color:#fff; }
-.pj3-hero-title span{ display:block; }
-.pj3-hero-title .lg{ font-size:clamp(6rem,13.5vw,17rem); }
-.pj3-hero-title .sm{ font-size:clamp(3.4rem,7.4vw,9.4rem); }
-.pj3-hero-title .dot{ display:inline-block; width:.17em; height:.17em; margin-left:.06em;
-  background:#e3261b; vertical-align:baseline; }
-/* lede — right column, bottom-aligned with the title baseline */
-.pj3-hero-lede{ align-self:end; max-width:40rem; margin:0 0 1.2rem; padding-left:.2rem;
-  font-size:clamp(1.5rem,1.5vw,1.75rem); line-height:1.72; color:rgba(255,255,255,.6); }
-.pj3-hero-lede::before{ content:""; display:block; width:4.2rem; height:2px; background:#e3261b;
-  margin:0 0 2.2rem; }
+/* ---------- S1 Hero → shared .ns-hero in naaya-system.css ---------- */
 
 /* ---------- generic section ---------- */
-.pj3-sec{ background:var(--pj3-paper); padding:9rem 0; }
-.pj3-wrap{ max-width:152rem; margin:0 auto; padding:0 4rem; }
-.pj3-secmark{ font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:var(--pj3-faint); }
+.pj3-sec{ background:var(--pj3-paper); }        /* rhythm/wrap/secmark/h2/lead → naaya-system.css */
 .pj3-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:4rem; flex-wrap:wrap; }
-.pj3-h2{ font-size:clamp(3rem,4.4vw,5rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:1.4rem 0 0; }
-.pj3-lead{ font-size:1.5rem; line-height:1.6; color:var(--pj3-muted); max-width:46rem; margin:0; }
+.pj3-h2{ margin:1.4rem 0 0; }
+.pj3-lead{ max-width:46rem; margin:0; }
 
 /* ---------- filter (15 categories, no icon) ---------- */
 .pj3-filter{ display:flex; flex-wrap:wrap; gap:.8rem; margin:4rem 0 3.2rem; }
@@ -365,7 +348,6 @@ main,.scroll{ transform:none!important; }
 /* ---------- S3 contact (black, static) ---------- */
 .pj3-contact{ background:var(--pj3-ink); color:#fff; padding:11rem 0; }
 .pj3-contact-grid{ max-width:62rem; }
-.pj3-contact-mark{ font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.45); }
 .pj3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:0; }
 .pj3-contact h2 .dot{ color:#e3261b; }
 .pj3-contact-sub{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); max-width:44rem; margin:2.6rem 0 0; }
@@ -373,29 +355,16 @@ main,.scroll{ transform:none!important; }
 .pj3-contact-info .k{ font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:.4rem; }
 .pj3-contact-info a, .pj3-contact-info span{ color:#fff; text-decoration:none; font-size:1.6rem; display:block; transition:opacity .25s; }
 .pj3-contact-info a:hover{ opacity:.6; }
-.pj3-contact .pj3-cta{ display:inline-flex; align-items:center; gap:1rem; margin-top:3.4rem; align-self:flex-start;
-  height:4.6rem; padding:0 2.2rem; line-height:1; border:1px solid #e3261b; background:#e3261b;
-  color:#fff!important; text-decoration:none; font-family:var(--font-f-aeonik-mono);
-  font-weight:600; font-size:1.2rem; letter-spacing:.08em; text-transform:uppercase;
-  transition:background .3s ease, color .3s ease, border-color .3s ease; }
-.pj3-contact .pj3-cta:hover{ background:#fff; color:var(--pj3-ink)!important; border-color:#fff; opacity:1 !important; }
-.pj3-contact .pj3-cta span{ display:inline-block; transform:translateY(.07em); color:inherit !important; }  /* optical centering */
+/* .pj3-contact .pj3-cta (red button) → naaya-system.css */
 
-/* ---------- reveal (grid + heading only) ---------- */
-.pj3-rise{ opacity:0; transform:translateY(2.4rem); transition:opacity .8s ease, transform .8s cubic-bezier(.16,.84,.44,1); }
-.pj3-rise.in{ opacity:1; transform:none; }
+/* ---------- reveal (base + .in → naaya-system.css; delays are page-specific) ---------- */
 .pj3-rise.d1{ transition-delay:.07s } .pj3-rise.d2{ transition-delay:.14s } .pj3-rise.d3{ transition-delay:.21s }
 
 /* ---------- responsive ---------- */
 @media(max-width:1280px){ .pj3-grid{ grid-template-columns:repeat(3,1fr); } }
 @media(max-width:960px){ .pj3-grid{ grid-template-columns:repeat(2,1fr); } }
 @media(max-width:900px){
-  .pj3-banner-inner{ padding:13rem 2.4rem 5rem; gap:2.6rem;
-    grid-template-columns:1fr; align-items:start; }
-  .pj3-hero-lede{ align-self:start; max-width:54rem; margin:0; }
-  .pj3-hero-lede::before{ margin-bottom:1.8rem; }
-  .pj3-sec{ padding:6.5rem 0; } .pj3-wrap{ padding:0 2.4rem; }
-  .pj3-contact{ padding:7rem 0; }
+  .pj3-contact{ padding:7rem 0; }   /* .pj3-sec pad + .pj3-wrap gutter → tokens; hero → .ns-hero */
 }
 @media(max-width:600px){
   .pj3-grid{ grid-template-columns:1fr; }
@@ -420,14 +389,14 @@ main,.scroll{ transform:none!important; }
 <symbol id="mcE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C10 4 4 9.5 4 18c0 1 .2 1.8.5 2.5M20 4c.6 7.6-3.4 14.5-12 15.2M20 4c-2 0-9 1-12.5 6.5"/></symbol>
 </defs></svg>
 <div id="__nuxt"><div class="app"><div class="intro" data-v-fc7c0bb1><div class="overlay" data-v-fc7c0bb1></div><div class="logo" data-v-fc7c0bb1><div class="brandmark" data-v-fc7c0bb1><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-fc7c0bb1><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg><div class="cube" data-v-fc7c0bb1><div class="shape" data-v-fc7c0bb1><div class="face face-front" data-v-fc7c0bb1></div><div class="face face-back" data-v-fc7c0bb1></div><div class="face face-right" data-v-fc7c0bb1></div><div class="face face-left" data-v-fc7c0bb1></div><div class="face face-top" data-v-fc7c0bb1></div><div class="face face-bottom" data-v-fc7c0bb1></div></div></div></div><div class="wordmark" data-v-fc7c0bb1><svg viewBox="0 0 388 62" fill="none" xmlns="http://www.w3.org/2000/svg" class="wordmark-svg" data-v-fc7c0bb1><text x="50%" y="75%" text-anchor="middle" fill="currentcolor" font-family="var(--font-f-aeonik-pro)" font-weight="700" font-size="58" letter-spacing="4">NAAYA</text></svg></div></div></div><div class="cursor" data-v-ed5337c0><div class="label" data-v-ed5337c0></div></div><header class="site-nav" id="siteNav">
-<a href="/" class="site-nav-logo" aria-label="NAAYA Home">
+<a href="index-4.html" class="site-nav-logo" aria-label="NAAYA Home">
 <img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="site-nav-logo-img logo-light" style="height:2.2rem;width:auto;display:none">
 <img src="assets/brand/naaya-logo.webp" alt="" aria-hidden="true" class="site-nav-logo-img logo-dark" style="height:2.2rem;width:auto;display:block">
 </a>
 <nav class="site-nav-links" aria-label="Primary">
-<a href="/about" data-i18n="nav_about">About</a>
+<a href="brand.html" data-i18n="nav_about">About</a>
 <div class="nav-item has-mega" data-mega>
-<a href="/collection/" data-i18n="nav_products">Products</a>
+<a href="collection.html" data-i18n="nav_products">Products</a>
 <div class="mega-menu mega-cats-v2" aria-hidden="true">
 <div class="mcat-inner">
 
@@ -449,7 +418,7 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
 <div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
 <div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
-<a href="/collection/" class="mcat-all">All models →</a>
+<a href="collection.html" class="mcat-all">All models →</a>
 </div>
 
 <div class="mcat-detail">
@@ -731,12 +700,12 @@ main,.scroll{ transform:none!important; }
 </div>
 </div>
 </div>
-<a href="/projects/" data-i18n="nav_projects">Projects</a>
-<a href="/process" data-i18n="nav_process">Process</a>
-<a href="/contact" data-i18n="nav_contact">Contact</a>
+<a href="projects-3.html" data-i18n="nav_projects">Projects</a>
+<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 <div class="site-nav-right">
-<a href="/contact" class="site-nav-cta">
+<a href="mailto:hello@naaya.com" class="site-nav-cta">
 <span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 </a>
@@ -745,9 +714,9 @@ main,.scroll{ transform:none!important; }
 <button class="site-nav-burger" aria-label="Open menu" id="siteNavBurger"><span></span><span></span><span></span></button>
 <div class="site-nav-mobile" id="siteNavMobile" aria-hidden="true">
 <nav class="site-nav-mobile-links">
-<a href="/about" data-i18n="nav_about">About</a>
+<a href="brand.html" data-i18n="nav_about">About</a>
 <div class="nav-item has-mega" data-mega>
-<a href="/collection/" data-i18n="nav_products">Products</a>
+<a href="collection.html" data-i18n="nav_products">Products</a>
 <div class="mega-menu mega-cats-v2" aria-hidden="true">
 <div class="mcat-inner">
 
@@ -769,7 +738,7 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-item" data-cat="woodwool"><span class="mcat-name">Wood Wool</span><span class="mcat-count">7</span></div>
 <div class="mcat-item" data-cat="diffuser"><span class="mcat-name">Diffuser</span><span class="mcat-count">17</span></div>
 <div class="mcat-item" data-cat="door"><span class="mcat-name">Soundproofed Door</span><span class="mcat-count">3</span></div>
-<a href="/collection/" class="mcat-all">All models →</a>
+<a href="collection.html" class="mcat-all">All models →</a>
 </div>
 
 <div class="mcat-detail">
@@ -1051,23 +1020,26 @@ main,.scroll{ transform:none!important; }
 </div>
 </div>
 </div>
-<a href="/projects/" data-i18n="nav_projects">Projects</a>
-<a href="/process" data-i18n="nav_process">Process</a>
-<a href="/contact" data-i18n="nav_contact">Contact</a>
+<a href="projects-3.html" data-i18n="nav_projects">Projects</a>
+<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 </div>
 <main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page">
 
 <!-- ===== S1 Hero (black, stacked title) ===== -->
-<section class="home-header pj3-banner">
-<div class="pj3-banner-inner">
-<h1 class="pj3-hero-title"><span class="lg">Sound</span><span class="sm">Shapes</span><span class="sm">Inspired</span><span class="lg">Spaces<span class="dot"></span></span></h1>
-<p class="pj3-hero-lede">NAAYA provides integrated acoustic design, engineering, materials and delivery solutions for global landmark projects across culture, hospitality, workplace and public spaces.</p>
+<section class="home-header ns-hero">
+<div class="ns-hero-bg"><img src="assets/collection-hero-2.webp" alt="Concert hall with timber acoustic panelling and ceiling clouds"></div>
+<div class="ns-hero-inner">
+<span class="ns-hero-ey">Selected Projects</span>
+<h1 class="ns-hero-title">Sound Shapes<br>Inspired Spaces<span class="dot"></span></h1>
+<p class="ns-hero-lede">NAAYA provides integrated acoustic design, engineering, materials and delivery solutions for global landmark projects across culture, hospitality, workplace and public spaces.</p>
 </div>
+<a class="ns-scrollcue" href="#projects-start" aria-label="Scroll down"><span>Scroll</span><span class="ns-scrollcue-line"></span></a>
 </section>
 
 <!-- ===== S2 Selected Projects ===== -->
-<section class="pj3-sec">
+<section class="pj3-sec" id="projects-start">
 <div class="pj3-wrap">
 <div class="pj3-head pj3-rise">
 <div>
@@ -1090,24 +1062,24 @@ main,.scroll{ transform:none!important; }
 <button class="pj3-chip" data-f="transit" type="button">Entertainment &amp; Transit<sup>02</sup></button>
 </div>
 <div class="pj3-grid">
-<a class="pj3-card pj3-rise" data-group="auditoriums" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-hall.webp" alt="Riverside Grand Auditorium" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums &amp; Theatres</span><div class="pj3-card-bottom"><h3>Riverside Grand Auditorium</h3><p class="pj3-card-loc">Shenzhen, CN · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d1" data-group="auditoriums" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-opera.webp" alt="Metropolitan Opera House" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums &amp; Theatres</span><div class="pj3-card-bottom"><h3>Metropolitan Opera House</h3><p class="pj3-card-loc">Vienna, AT · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d2" data-group="office" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-conf.webp" alt="Helix Headquarters" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pj3-card-bottom"><h3>Helix Headquarters</h3><p class="pj3-card-loc">Amsterdam, NL · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise" data-group="office" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-atrium.webp" alt="Northpoint Meeting Suites" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pj3-card-bottom"><h3>Northpoint Meeting Suites</h3><p class="pj3-card-loc">Munich, DE · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d1" data-group="hotels" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-golden.webp" alt="The Golden Ballroom" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pj3-card-bottom"><h3>The Golden Ballroom</h3><p class="pj3-card-loc">Dubai, AE · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d2" data-group="hotels" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-5.webp" alt="Harbour Grand Hotel" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pj3-card-bottom"><h3>Harbour Grand Hotel</h3><p class="pj3-card-loc">Singapore · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise" data-group="education" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-hero.webp" alt="Westbridge University Hall" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9 12 5l9.5 4-9.5 4z"/><path d="M6.5 11.3v4.2c0 1.4 2.6 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4.2"/><path d="M21.5 9.1v4.2"/></svg>Education</span><div class="pj3-card-bottom"><h3>Westbridge University Hall</h3><p class="pj3-card-loc">Boston, US · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d1" data-group="education" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-vaults.webp" alt="Lakeside Campus Library" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9 12 5l9.5 4-9.5 4z"/><path d="M6.5 11.3v4.2c0 1.4 2.6 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4.2"/><path d="M21.5 9.1v4.2"/></svg>Education</span><div class="pj3-card-bottom"><h3>Lakeside Campus Library</h3><p class="pj3-card-loc">Oslo, NO · 2022</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d2" data-group="exhibition" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-foyer.webp" alt="Modern Art Pavilion" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="15" rx="1"/><path d="M7 15.5l3.2-4 2.1 2.6 2.3-3.2L18 15.5"/><circle cx="9" cy="9" r="1.2"/></svg>Exhibition</span><div class="pj3-card-bottom"><h3>Modern Art Pavilion</h3><p class="pj3-card-loc">Berlin, DE · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise" data-group="exhibition" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-2.webp" alt="Lumina Brand Experience" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="15" rx="1"/><path d="M7 15.5l3.2-4 2.1 2.6 2.3-3.2L18 15.5"/><circle cx="9" cy="9" r="1.2"/></svg>Exhibition</span><div class="pj3-card-bottom"><h3>Lumina Brand Experience</h3><p class="pj3-card-loc">Shanghai, CN · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d1" data-group="sports" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-hall.webp" alt="Skyline Arena" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5.5"/><ellipse cx="12" cy="12" rx="4.4" ry="2.4"/></svg>Sports</span><div class="pj3-card-bottom"><h3>Skyline Arena</h3><p class="pj3-card-loc">Toronto, CA · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d2" data-group="sports" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-6.webp" alt="Summit Aquatic Centre" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5.5"/><ellipse cx="12" cy="12" rx="4.4" ry="2.4"/></svg>Sports</span><div class="pj3-card-bottom"><h3>Summit Aquatic Centre</h3><p class="pj3-card-loc">Tokyo, JP · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise" data-group="residential" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-1.webp" alt="Hillcrest Private Villa" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11 12 4.5l8.5 6.5"/><path d="M5.5 9.8V19.5h13V9.8"/><rect x="10" y="14" width="4" height="5.5"/></svg>Residential</span><div class="pj3-card-bottom"><h3>Hillcrest Private Villa</h3><p class="pj3-card-loc">Los Angeles, US · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d1" data-group="residential" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-3.webp" alt="Parkview Sky Residences" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11 12 4.5l8.5 6.5"/><path d="M5.5 9.8V19.5h13V9.8"/><rect x="10" y="14" width="4" height="5.5"/></svg>Residential</span><div class="pj3-card-bottom"><h3>Parkview Sky Residences</h3><p class="pj3-card-loc">Seoul, KR · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d2" data-group="studios" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/project-4.webp" alt="Northgate Recording Studios" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="10.5" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><path d="M12 17v3.5"/><path d="M8.5 20.5h7"/></svg>Broadcast &amp; Studios</span><div class="pj3-card-bottom"><h3>Northgate Recording Studios</h3><p class="pj3-card-loc">London, UK · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise" data-group="studios" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-corridor.webp" alt="Citywave Broadcast Centre" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="10.5" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><path d="M12 17v3.5"/><path d="M8.5 20.5h7"/></svg>Broadcast &amp; Studios</span><div class="pj3-card-bottom"><h3>Citywave Broadcast Centre</h3><p class="pj3-card-loc">Toronto, CA · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d1" data-group="transit" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-golden.webp" alt="The Velvet Lounge" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11V8.5A2.5 2.5 0 0 1 8.5 6h7A2.5 2.5 0 0 1 18 8.5V11"/><path d="M4.5 11A1.5 1.5 0 0 0 3 12.5V16h18v-3.5A1.5 1.5 0 0 0 19.5 11a1.5 1.5 0 0 0-1.5 1.5V14H6v-1.5A1.5 1.5 0 0 0 4.5 11z"/><path d="M5 16v3M19 16v3"/></svg>Entertainment &amp; Transit</span><div class="pj3-card-bottom"><h3>The Velvet Lounge</h3><p class="pj3-card-loc">Macau · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
-<a class="pj3-card pj3-rise d2" data-group="transit" href="project-case.html"><div class="pj3-card-img"><img src="assets/projects/case-corridor.webp" alt="Skyport Transit Hall" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11V8.5A2.5 2.5 0 0 1 8.5 6h7A2.5 2.5 0 0 1 18 8.5V11"/><path d="M4.5 11A1.5 1.5 0 0 0 3 12.5V16h18v-3.5A1.5 1.5 0 0 0 19.5 11a1.5 1.5 0 0 0-1.5 1.5V14H6v-1.5A1.5 1.5 0 0 0 4.5 11z"/><path d="M5 16v3M19 16v3"/></svg>Entertainment &amp; Transit</span><div class="pj3-card-bottom"><h3>Skyport Transit Hall</h3><p class="pj3-card-loc">Dubai, AE · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="auditoriums" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-hall.webp" alt="Riverside Grand Auditorium" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums &amp; Theatres</span><div class="pj3-card-bottom"><h3>Riverside Grand Auditorium</h3><p class="pj3-card-loc">Shenzhen, CN · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="auditoriums" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-opera.webp" alt="Metropolitan Opera House" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16a9 9 0 0 1 18 0"/><path d="M6.5 16a5.5 5.5 0 0 1 11 0"/><path d="M10 16a2 2 0 0 1 4 0"/><path d="M3 19.6h18"/></svg>Auditoriums &amp; Theatres</span><div class="pj3-card-bottom"><h3>Metropolitan Opera House</h3><p class="pj3-card-loc">Vienna, AT · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="office" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-conf.webp" alt="Helix Headquarters" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pj3-card-bottom"><h3>Helix Headquarters</h3><p class="pj3-card-loc">Amsterdam, NL · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="office" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-atrium.webp" alt="Northpoint Meeting Suites" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><circle cx="3.7" cy="12" r="1"/><circle cx="20.3" cy="12" r="1"/><circle cx="8.5" cy="6.4" r="1"/><circle cx="15.5" cy="6.4" r="1"/><circle cx="8.5" cy="17.6" r="1"/><circle cx="15.5" cy="17.6" r="1"/></svg>Office</span><div class="pj3-card-bottom"><h3>Northpoint Meeting Suites</h3><p class="pj3-card-loc">Munich, DE · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="hotels" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-golden.webp" alt="The Golden Ballroom" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pj3-card-bottom"><h3>The Golden Ballroom</h3><p class="pj3-card-loc">Dubai, AE · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="hotels" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/project-5.webp" alt="Harbour Grand Hotel" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 18.5h15"/><path d="M5.5 18.5a6.5 6.5 0 0 1 13 0"/><path d="M12 6.6V8.9"/><circle cx="12" cy="5.3" r="1"/></svg>Hotels</span><div class="pj3-card-bottom"><h3>Harbour Grand Hotel</h3><p class="pj3-card-loc">Singapore · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="education" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-hero.webp" alt="Westbridge University Hall" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9 12 5l9.5 4-9.5 4z"/><path d="M6.5 11.3v4.2c0 1.4 2.6 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4.2"/><path d="M21.5 9.1v4.2"/></svg>Education</span><div class="pj3-card-bottom"><h3>Westbridge University Hall</h3><p class="pj3-card-loc">Boston, US · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="education" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-vaults.webp" alt="Lakeside Campus Library" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9 12 5l9.5 4-9.5 4z"/><path d="M6.5 11.3v4.2c0 1.4 2.6 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4.2"/><path d="M21.5 9.1v4.2"/></svg>Education</span><div class="pj3-card-bottom"><h3>Lakeside Campus Library</h3><p class="pj3-card-loc">Oslo, NO · 2022</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="exhibition" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-foyer.webp" alt="Modern Art Pavilion" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="15" rx="1"/><path d="M7 15.5l3.2-4 2.1 2.6 2.3-3.2L18 15.5"/><circle cx="9" cy="9" r="1.2"/></svg>Exhibition</span><div class="pj3-card-bottom"><h3>Modern Art Pavilion</h3><p class="pj3-card-loc">Berlin, DE · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="exhibition" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/project-2.webp" alt="Lumina Brand Experience" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="15" rx="1"/><path d="M7 15.5l3.2-4 2.1 2.6 2.3-3.2L18 15.5"/><circle cx="9" cy="9" r="1.2"/></svg>Exhibition</span><div class="pj3-card-bottom"><h3>Lumina Brand Experience</h3><p class="pj3-card-loc">Shanghai, CN · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="sports" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-hall.webp" alt="Skyline Arena" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5.5"/><ellipse cx="12" cy="12" rx="4.4" ry="2.4"/></svg>Sports</span><div class="pj3-card-bottom"><h3>Skyline Arena</h3><p class="pj3-card-loc">Toronto, CA · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="sports" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/project-6.webp" alt="Summit Aquatic Centre" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5.5"/><ellipse cx="12" cy="12" rx="4.4" ry="2.4"/></svg>Sports</span><div class="pj3-card-bottom"><h3>Summit Aquatic Centre</h3><p class="pj3-card-loc">Tokyo, JP · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="residential" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/project-1.webp" alt="Hillcrest Private Villa" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11 12 4.5l8.5 6.5"/><path d="M5.5 9.8V19.5h13V9.8"/><rect x="10" y="14" width="4" height="5.5"/></svg>Residential</span><div class="pj3-card-bottom"><h3>Hillcrest Private Villa</h3><p class="pj3-card-loc">Los Angeles, US · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="residential" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/project-3.webp" alt="Parkview Sky Residences" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11 12 4.5l8.5 6.5"/><path d="M5.5 9.8V19.5h13V9.8"/><rect x="10" y="14" width="4" height="5.5"/></svg>Residential</span><div class="pj3-card-bottom"><h3>Parkview Sky Residences</h3><p class="pj3-card-loc">Seoul, KR · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="studios" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/project-4.webp" alt="Northgate Recording Studios" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="10.5" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><path d="M12 17v3.5"/><path d="M8.5 20.5h7"/></svg>Broadcast &amp; Studios</span><div class="pj3-card-bottom"><h3>Northgate Recording Studios</h3><p class="pj3-card-loc">London, UK · 2024</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise" data-group="studios" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-corridor.webp" alt="Citywave Broadcast Centre" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="10.5" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><path d="M12 17v3.5"/><path d="M8.5 20.5h7"/></svg>Broadcast &amp; Studios</span><div class="pj3-card-bottom"><h3>Citywave Broadcast Centre</h3><p class="pj3-card-loc">Toronto, CA · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d1" data-group="transit" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-golden.webp" alt="The Velvet Lounge" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11V8.5A2.5 2.5 0 0 1 8.5 6h7A2.5 2.5 0 0 1 18 8.5V11"/><path d="M4.5 11A1.5 1.5 0 0 0 3 12.5V16h18v-3.5A1.5 1.5 0 0 0 19.5 11a1.5 1.5 0 0 0-1.5 1.5V14H6v-1.5A1.5 1.5 0 0 0 4.5 11z"/><path d="M5 16v3M19 16v3"/></svg>Entertainment &amp; Transit</span><div class="pj3-card-bottom"><h3>The Velvet Lounge</h3><p class="pj3-card-loc">Macau · 2023</p><span class="pj3-card-go">View project →</span></div></div></a>
+<a class="pj3-card pj3-rise d2" data-group="transit" href="project-case-3.html"><div class="pj3-card-img"><img src="assets/projects/case-corridor.webp" alt="Skyport Transit Hall" loading="lazy"></div><div class="pj3-card-body"><span class="pj3-card-tag"><svg class="pj3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11V8.5A2.5 2.5 0 0 1 8.5 6h7A2.5 2.5 0 0 1 18 8.5V11"/><path d="M4.5 11A1.5 1.5 0 0 0 3 12.5V16h18v-3.5A1.5 1.5 0 0 0 19.5 11a1.5 1.5 0 0 0-1.5 1.5V14H6v-1.5A1.5 1.5 0 0 0 4.5 11z"/><path d="M5 16v3M19 16v3"/></svg>Entertainment &amp; Transit</span><div class="pj3-card-bottom"><h3>Skyport Transit Hall</h3><p class="pj3-card-loc">Dubai, AE · 2025</p><span class="pj3-card-go">View project →</span></div></div></a>
 </div>
 </div>
 </section>
@@ -1142,21 +1114,21 @@ main,.scroll{ transform:none!important; }
 <a href="/collection/?cat=metal" data-i18n="footer_p_metal">Metal Acoustic</a>
 <a href="/collection/?cat=fabric" data-i18n="footer_p_fabric">Fabric &amp; Eco</a>
 <a href="/collection/?cat=specialty" data-i18n="footer_p_specialty">Diffusers &amp; Doors</a>
-<a href="/collection/" data-i18n="footer_p_all">All series →</a>
+<a href="collection.html" data-i18n="footer_p_all">All series →</a>
 </div>
 
 <div class="footer-col">
 <h4 class="footer-col-title">Company</h4>
-<a href="/about">About NAAYA</a>
-<a href="/projects/">Project references</a>
-<a href="/process">Process</a>
-<a href="/contact">Contact</a>
+<a href="brand.html">About NAAYA</a>
+<a href="projects-3.html">Project references</a>
+<a href="index-4.html#process">Process</a>
+<a href="mailto:hello@naaya.com">Contact</a>
 </div>
 
 <div class="footer-col footer-col-cta">
 <h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
 <p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
-<a href="/contact" class="footer-cta-btn">
+<a href="mailto:hello@naaya.com" class="footer-cta-btn">
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 <span data-i18n="cta_button">Get in touch</span>
 </a>
@@ -1190,6 +1162,11 @@ main,.scroll{ transform:none!important; }
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.pj3-rise').forEach(function(el){ io.observe(el); });
+  // hero parallax (shared .ns-hero — Lenis-robust, reads rendered rect)
+  var nsHero=document.querySelector('.ns-hero'), nsBg=document.querySelector('.ns-hero-bg img');
+  if(nsHero && nsBg){ (function raf(){ var r=nsHero.getBoundingClientRect();
+    if(r.bottom>0 && r.top<window.innerHeight){ nsBg.style.transform='translateY('+(-r.top*0.16)+'px) scale(1.14)'; }
+    requestAnimationFrame(raf); })(); }
 })();
 </script>
 
