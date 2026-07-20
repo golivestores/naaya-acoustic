@@ -95,61 +95,6 @@
       "m3 m4 m4 m5";
   }
 
-  /* ============================================
-     Mega menu — 16 Naaya Collections + spec tags
-     (index-4 only; overrides shared naaya.css)
-     ============================================ */
-  /* Left list: 16 compact rows, internal scroll on short viewports */
-  .mega-cats-v2 .mcat-list{
-    gap:0;
-    max-height:min(58rem, 74vh);
-    overflow-y:auto;
-    padding-right:.9rem;
-  }
-  .mega-cats-v2 .mcat-list::-webkit-scrollbar{ width:4px; }
-  .mega-cats-v2 .mcat-list::-webkit-scrollbar-thumb{
-    background:color-mix(in srgb, var(--color-black) 18%, transparent); border-radius:2px;
-  }
-  .mega-cats-v2 .mcat-item{ padding:.6rem 0; }
-  .mega-cats-v2 .mcat-name{ font-size:1.45rem; }
-  .mega-cats-v2 .mcat-all{ margin-top:1rem; padding-top:1.1rem; }
-
-  /* Right detail: a touch taller so specs + thumbs never clip */
-  .mega-cats-v2 .mcat-detail{ min-height:46rem; }
-
-  /* Spec tags — 2×2 grid, icon + label + value */
-  .mcat-specs{
-    display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
-    gap:1.4rem 2.6rem; margin-top:.2rem; max-width:48rem;
-  }
-  .mcat-spec{ display:flex; align-items:center; gap:1.1rem; }
-  .mcat-spec svg{
-    width:2.2rem; height:2.2rem; flex:none;
-    color:var(--color-black); opacity:.82;
-  }
-  .ms-text{ display:flex; flex-direction:column; line-height:1.18; }
-  .ms-label{
-    font-family:var(--font-f-aeonik-mono);
-    font-size:1rem; letter-spacing:.12em; text-transform:uppercase;
-    color:color-mix(in srgb, var(--color-black) 45%, transparent);
-  }
-  .ms-val{
-    font-size:1.5rem; font-weight:500; letter-spacing:-.01em;
-    color:var(--color-black);
-  }
-
-  /* Thumbs: 2 up, sized down to sit beside the specs */
-  .mega-cats-v2 .mcat-pane-thumbs{
-    grid-template-columns:repeat(2, 1fr);
-    max-width:38rem; gap:1.2rem;
-  }
-
-  @media(max-width:1100px){
-    .mega-cats-v2 .mcat-list{ max-height:none; overflow:visible; }
-    .mega-cats-v2 .mcat-detail{ min-height:0; }
-    .mcat-specs{ max-width:none; }
-    .mega-cats-v2 .mcat-pane-thumbs{ max-width:none; }
-  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
@@ -319,9 +264,13 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/classic-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="product-vega-2.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/classic-1.webp" alt="Vega" loading="lazy"></span><span class="mcat-prod-name">Vega</span></a>
+<a href="collection-classic.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/classic-2.webp" alt="5/3" loading="lazy"></span><span class="mcat-prod-name">5/3</span></a>
+<a href="collection-classic.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/classic-3.webp" alt="9/2" loading="lazy"></span><span class="mcat-prod-name">9/2</span></a>
+<a href="collection-classic.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/classic-4.webp" alt="13/3" loading="lazy"></span><span class="mcat-prod-name">13/3</span></a>
+<a href="collection-classic.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/classic-5.webp" alt="14/2" loading="lazy"></span><span class="mcat-prod-name">14/2</span></a>
+<a href="collection-classic.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/classic-6.webp" alt="18/3" loading="lazy"></span><span class="mcat-prod-name">18/3</span></a>
 </div>
 </div>
 
@@ -336,9 +285,13 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/classic-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/perfo-1.webp" alt="16/3" loading="lazy"></span><span class="mcat-prod-name">16/3</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/perfo-2.webp" alt="16/6" loading="lazy"></span><span class="mcat-prod-name">16/6</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/perfo-3.webp" alt="16/8" loading="lazy"></span><span class="mcat-prod-name">16/8</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/perfo-4.webp" alt="20/6" loading="lazy"></span><span class="mcat-prod-name">20/6</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/perfo-5.webp" alt="20/7" loading="lazy"></span><span class="mcat-prod-name">20/7</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/perfo-6.webp" alt="32/6" loading="lazy"></span><span class="mcat-prod-name">32/6</span></a>
 </div>
 </div>
 
@@ -353,9 +306,12 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/art-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/micro-1.webp" alt="2/0.5" loading="lazy"></span><span class="mcat-prod-name">2/0.5</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/micro-2.webp" alt="4/0.7" loading="lazy"></span><span class="mcat-prod-name">4/0.7</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/micro-3.webp" alt="5/1" loading="lazy"></span><span class="mcat-prod-name">5/1</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/micro-4.webp" alt="8/1" loading="lazy"></span><span class="mcat-prod-name">8/1</span></a>
+
 </div>
 </div>
 
@@ -370,9 +326,9 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/art-4.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/curve-1.webp" alt="Classic" loading="lazy"></span><span class="mcat-prod-name">Classic</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/curve-2.webp" alt="Perfo" loading="lazy"></span><span class="mcat-prod-name">Perfo</span></a>
 </div>
 </div>
 
@@ -387,9 +343,13 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/art-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/art-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/art-1.webp" alt="NY-AA-003" loading="lazy"></span><span class="mcat-prod-name">NY-AA-003</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/art-2.webp" alt="NY-AA-007" loading="lazy"></span><span class="mcat-prod-name">NY-AA-007</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/art-3.webp" alt="NY-AA-008" loading="lazy"></span><span class="mcat-prod-name">NY-AA-008</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/art-4.webp" alt="NY-AA-010" loading="lazy"></span><span class="mcat-prod-name">NY-AA-010</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/art-5.webp" alt="NY-AA-017" loading="lazy"></span><span class="mcat-prod-name">NY-AA-017</span></a>
+
 </div>
 </div>
 
@@ -404,9 +364,11 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/metal-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/metal-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/phonex-1.webp" alt="Compose Nano" loading="lazy"></span><span class="mcat-prod-name">Compose Nano</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/phonex-2.webp" alt="Classic 5/2.3" loading="lazy"></span><span class="mcat-prod-name">Classic 5/2.3</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/phonex-3.webp" alt="Standard 5/1" loading="lazy"></span><span class="mcat-prod-name">Standard 5/1</span></a>
+
 </div>
 </div>
 
@@ -421,9 +383,9 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/uniseam-1.webp" alt="Aero" loading="lazy"></span><span class="mcat-prod-name">Aero</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/uniseam-2.webp" alt="Mono" loading="lazy"></span><span class="mcat-prod-name">Mono</span></a>
 </div>
 </div>
 
@@ -438,9 +400,8 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/cleaneo-1.webp" alt="Random 8/15/20R" loading="lazy"></span><span class="mcat-prod-name">Random 8/15/20R</span></a>
 </div>
 </div>
 
@@ -455,9 +416,9 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/specialty-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/acouspray-1.webp" alt="AS30" loading="lazy"></span><span class="mcat-prod-name">AS30</span></a>
+
 </div>
 </div>
 
@@ -472,9 +433,8 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/ceiling-2.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/ceiling-4.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/acona-1.webp" alt="Classic" loading="lazy"></span><span class="mcat-prod-name">Classic</span></a>
 </div>
 </div>
 
@@ -489,9 +449,11 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/ceiling-3.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/ceiling-1.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/aconaart-1.webp" alt="D01 Square" loading="lazy"></span><span class="mcat-prod-name">D01 Square</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/aconaart-2.webp" alt="D02 Convex" loading="lazy"></span><span class="mcat-prod-name">D02 Convex</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/aconaart-3.webp" alt="D03 Trapezoid" loading="lazy"></span><span class="mcat-prod-name">D03 Trapezoid</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/aconaart-4.webp" alt="D04 Hexagon" loading="lazy"></span><span class="mcat-prod-name">D04 Hexagon</span></a>
 </div>
 </div>
 
@@ -506,9 +468,9 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/fabric-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/fabric-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/fabric-1.webp" alt="Classic" loading="lazy"></span><span class="mcat-prod-name">Classic</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/fabric-2.webp" alt="Eco" loading="lazy"></span><span class="mcat-prod-name">Eco</span></a>
 </div>
 </div>
 
@@ -523,9 +485,10 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/pet-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/pet-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/pet-1.webp" alt="Panel" loading="lazy"></span><span class="mcat-prod-name">Panel</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/pet-2.webp" alt="Ceiling" loading="lazy"></span><span class="mcat-prod-name">Ceiling</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/pet-3.webp" alt="V-Groove" loading="lazy"></span><span class="mcat-prod-name">V-Groove</span></a>
 </div>
 </div>
 
@@ -540,9 +503,8 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/specialty-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/specialty-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/woodwool-1.webp" alt="Square" loading="lazy"></span><span class="mcat-prod-name">Square</span></a>
 </div>
 </div>
 
@@ -557,9 +519,9 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/diffuser-1.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/diffuser-2.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/diffuser-1.webp" alt="MLS Diffuser" loading="lazy"></span><span class="mcat-prod-name">MLS Diffuser</span></a>
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/diffuser-2.webp" alt="NY-D-001" loading="lazy"></span><span class="mcat-prod-name">NY-D-001</span></a>
 </div>
 </div>
 
@@ -574,9 +536,8 @@ main,.scroll{ transform:none!important; }
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcF"/></svg><span class="ms-text"><span class="ms-label">Fire</span><span class="ms-val">EN 13501</span></span></div>
 <div class="mcat-spec"><svg viewBox="0 0 24 24"><use href="#mcE"/></svg><span class="ms-text"><span class="ms-label">Eco / VOC</span><span class="ms-val">EN 717</span></span></div>
 </div>
-<div class="mcat-pane-thumbs">
-<div class="mcat-thumb"><img src="assets/mega/specialty-4.webp" alt="" loading="lazy"></div>
-<div class="mcat-thumb"><img src="assets/mega/metal-3.webp" alt="" loading="lazy"></div>
+<div class="mcat-products">
+<a href="collection.html" class="mcat-prod"><span class="mcat-prod-img"><img src="assets/mega/product/door-1.webp" alt="Composite" loading="lazy"></span><span class="mcat-prod-name">Composite</span></a>
 </div>
 </div>
 
