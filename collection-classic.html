@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Collection — NAAYA Acoustic</title>
+<title>Classic Series — Grooved Acoustic Panels — NAAYA</title>
+<meta name="description" content="The NAAYA Classic series — ten grooved acoustic panels on an MDF or fire-rated MGO base, finished in melamine, HPL or veneer. Lab-measured to ISO 354.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
@@ -186,29 +188,15 @@ main,.scroll{ transform:none!important; }
 
 /* ---- S1 Hero → shared .ns-hero in naaya-system.css ---- */
 
-/* ---- S2 Index : filter ---- */
-.cl-filter{ display:flex; flex-wrap:wrap; gap:.8rem; margin:5rem 0 0; }
-@media(max-width:600px){
-  .cl-filter{ margin-top:3.4rem; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin-left:-2rem; margin-right:-2rem; padding:0 2rem; }
-  .cl-filter::-webkit-scrollbar{ display:none; }
-  .cl-chip{ white-space:nowrap; flex:0 0 auto; }
-}
-.cl-chip{ appearance:none; -webkit-appearance:none; background:transparent; cursor:pointer; font-family:var(--font-f-aeonik-mono); font-size:1.2rem; letter-spacing:.08em; text-transform:uppercase; color:color-mix(in srgb,var(--color-black) 62%,transparent); border:1px solid color-mix(in srgb,var(--color-black) 22%,transparent); padding:1rem 1.6rem; transition:color .25s ease, border-color .25s ease, background .25s ease; }
-.cl-chip sup{ font-size:.9rem; margin-left:.5rem; color:color-mix(in srgb,var(--color-black) 38%,transparent); }
-.cl-chip:hover{ color:var(--color-black); border-color:color-mix(in srgb,var(--color-black) 50%,transparent); }
-.cl-chip.is-active{ background:var(--color-black); color:var(--color-white); border-color:var(--color-black); }
-.cl-chip.is-active sup{ color:rgba(255,255,255,.6); }
-
-/* ---- S2 Index : series cards ---- */
+/* ---- S2 The series : model cards ---- */
 .cl-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:5.4rem 1.6rem; margin-top:5.6rem; }
 @media(max-width:1280px){ .cl-grid{ grid-template-columns:repeat(3,1fr); } }
 @media(max-width:1100px){ .cl-grid{ grid-template-columns:1fr 1fr; } }
 @media(max-width:600px){ .cl-grid{ grid-template-columns:1fr; gap:0; margin-top:4rem; } }
 .cl-card{ display:block; text-decoration:none; color:inherit; border-top:1px solid var(--cl-hair); padding-top:1.3rem; }
 .cl-card-bar{ display:flex; justify-content:space-between; gap:1rem 2rem; flex-wrap:wrap; font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.1em; text-transform:uppercase; color:var(--cl-faint); margin-bottom:1.3rem; }
-.cl-card-img{ overflow:hidden; background:#f4f2f0; }
-.cl-card-img img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; transition:transform 1.1s cubic-bezier(.16,1,.3,1); }
-.cl-card:hover .cl-card-img img{ transform:scale(1.04); }
+.cl-card-img{ overflow:hidden; background:#fff; border:1px solid var(--cl-hair); }
+.cl-card-img img{ width:100%; aspect-ratio:1; object-fit:contain; display:block; }
 .cl-card h3{ font-family:var(--font-f-aeonik-pro); font-weight:600; font-size:2.3rem; letter-spacing:-.01em; color:var(--color-black); margin:1.6rem 0 .8rem; }
 .cl-card .d{ font-family:var(--font-f-aeonik-pro); font-size:1.45rem; line-height:1.55; color:var(--cl-muted); margin:0; }
 .cl-card .s{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--cl-faint); margin-top:1.4rem; }
@@ -225,32 +213,6 @@ main,.scroll{ transform:none!important; }
   .cl-card .s{ grid-column:2; order:4; margin-top:1rem; }
   .cl-card .f{ grid-column:2; order:5; justify-self:start; margin-top:1rem; }
 }
-
-/* ---- S3 By need : 4 quiet tiles ---- */
-.cl-need{ display:grid; grid-template-columns:repeat(4,1fr); gap:4.8rem; margin-top:5.2rem; }
-@media(max-width:980px){ .cl-need{ grid-template-columns:1fr 1fr; gap:4rem; } }
-@media(max-width:560px){ .cl-need{ grid-template-columns:1fr; gap:3.2rem; } }
-.cl-need-item .n{ font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.12em; color:var(--cl-faint); }
-.cl-need-item h3{ font-family:var(--font-f-aeonik-pro); font-weight:600; font-size:2.1rem; letter-spacing:-.01em; color:var(--color-black); margin:1.4rem 0 1rem; }
-.cl-need-item p{ font-family:var(--font-f-aeonik-pro); font-size:1.45rem; line-height:1.6; color:var(--cl-muted); margin:0 0 1.4rem; }
-.cl-need-item .ls{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-black); line-height:2; }
-
-/* ---- S4 Finishes ---- */
-.cl-fin{ display:grid; grid-template-columns:repeat(4,1fr); gap:4.8rem; margin-top:5.2rem; }
-@media(max-width:980px){ .cl-fin{ grid-template-columns:1fr 1fr; gap:4rem; } }
-@media(max-width:560px){ .cl-fin{ grid-template-columns:1fr; gap:3.2rem; } }
-.cl-fin-col{ border-top:1px solid var(--cl-hair); padding-top:1.6rem; }
-.cl-fin-col .k{ display:flex; justify-content:space-between; gap:2rem; font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-black); }
-.cl-fin-col .k em{ font-style:normal; color:var(--cl-faint); }
-.cl-fin-col p{ font-family:var(--font-f-aeonik-pro); font-size:1.4rem; line-height:1.65; color:var(--cl-muted); margin:1.2rem 0 0; }
-
-/* ---- S5 Certifications ---- */
-.cl-certs{ border-top:1px solid var(--cl-hair); margin-top:5.2rem; }
-.cl-cert{ display:grid; grid-template-columns:16rem 1fr auto; gap:3rem; padding:2rem 0; border-bottom:1px solid var(--cl-hair); align-items:baseline; }
-@media(max-width:700px){ .cl-cert{ grid-template-columns:1fr; gap:.5rem; padding:1.8rem 0; } }
-.cl-cert .c{ font-family:var(--font-f-aeonik-mono); font-size:1.2rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-black); }
-.cl-cert .w{ font-family:var(--font-f-aeonik-pro); font-size:1.5rem; color:var(--cl-muted); }
-.cl-cert .x{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--cl-faint); }
 
 /* ---- S6 CTA ---- */
 .cl-cta{ display:flex; justify-content:space-between; align-items:center; gap:3rem; flex-wrap:wrap; margin-top:6.4rem; padding-top:6.4rem; border-top:1px solid var(--cl-hair); }
@@ -913,236 +875,118 @@ main,.scroll{ transform:none!important; }
 
 <!-- ===== S1 Head ===== -->
 <section class="home-header ns-hero">
-<div class="ns-hero-bg"><img src="assets/collection-hero.webp" alt="Wood Curve — curved perforated timber acoustic wall"></div>
+<div class="ns-hero-bg"><img src="assets/classic-hero.webp" alt="Classic grooved timber acoustic wall in a daylit office interior"></div>
 <div class="ns-hero-inner">
-<span class="ns-hero-ey">NAAYA — Products · Catalogue 2026</span>
-<h1 class="ns-hero-title">Collection<span class="dot"></span></h1>
-<p class="ns-hero-lede">Twenty series across five material families — engineered, lab-measured and made in our own factory. One catalogue for every acoustic challenge, from concert halls to clean rooms.</p>
+<span class="ns-hero-ey">NAAYA — Wood · Classic Series</span>
+<h1 class="ns-hero-title">Classic<span class="dot"></span></h1>
+<p class="ns-hero-lede">The grooved panel that started the collection — ten linear profiles on an MDF or fire-rated MGO base, finished in melamine, HPL or real-wood veneer. The fundamental sound-absorbing surface for interior architecture.</p>
 </div>
 <a class="ns-scrollcue" href="#collection-start" aria-label="Scroll down"><span>Scroll</span><span class="ns-scrollcue-line"></span></a>
 </section>
 
-<!-- ===== S2 Index ===== -->
+<!-- ===== S2 The series ===== -->
 <section class="cl-sec" id="collection-start"><div class="cl-wrap">
-<div class="cl-secmark">01 — Index</div>
-<p class="cl-lead">Sixteen product lines. Filter by material family.</p>
-
-<div class="cl-filter" aria-label="Filter series">
-<button class="cl-chip is-active" data-f="all" type="button">All<sup>16</sup></button>
-<button class="cl-chip" data-f="wood" type="button">Wood<sup>05</sup></button>
-<button class="cl-chip" data-f="ceiling" type="button">Ceiling &amp; seamless<sup>05</sup></button>
-<button class="cl-chip" data-f="fibre" type="button">Fibre &amp; PET<sup>03</sup></button>
-<button class="cl-chip" data-f="metal" type="button">Metal<sup>01</sup></button>
-<button class="cl-chip" data-f="specialty" type="button">Specialty<sup>02</sup></button>
-</div>
-
+<div class="cl-secmark">01 — The series</div>
+<p class="cl-lead">Ten grooved profiles, one system.</p>
 <div class="cl-grid">
 
-<a class="cl-card" href="collection-classic.html" data-cat="wood">
-<div class="cl-card-bar"><span>01 · Wood</span><span>10 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/classic.webp" alt="Classic series — grooved timber wall" loading="lazy"></div>
-<h3>Classic</h3>
-<p class="d">Grooved panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental absorbing surface.</p>
-<div class="s">NRC ≤ 0.80 · 15 mm</div>
-<span class="f">View 10 models →</span>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>01 · Classic</span><span>Signature</span></div>
+<div class="cl-card-img"><img src="assets/products/vega/vega-1.webp" alt="Classic Vega — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>Vega</h3>
+<p class="d">The signature Classic profile — evenly spaced reveals with a calm, architectural rhythm.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
 </a>
 
-<div class="cl-card" data-cat="wood">
-<div class="cl-card-bar"><span>02 · Wood</span><span>6 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/perfo.webp" alt="Perfo series — perforated panels" loading="lazy"></div>
-<h3>Perfo</h3>
-<p class="d">Double-sided perforated panels in six open-area patterns, tuned for mid-to-low frequency absorption.</p>
-<div class="s">NRC ≤ 0.85 · 15 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>02 · Classic</span><span>Fine</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/5-3-panel.webp" alt="Classic 5/3 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>5 / 3</h3>
+<p class="d">Tight, closely-set ribs — a dense, finely-lined surface.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="wood">
-<div class="cl-card-bar"><span>03 · Wood</span><span>11 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/micro.webp" alt="Micro series — micro-perforated ceiling" loading="lazy"></div>
-<h3>Micro</h3>
-<p class="d">0.5–1 mm micro-perforations form a Helmholtz resonator — near-invisible control. Micro Classic · Micro Art.</p>
-<div class="s">NRC ≤ 0.85 · 15 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>03 · Classic</span><span>Fine</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/9-2-panel.webp" alt="Classic 9/2 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>9 / 2</h3>
+<p class="d">Narrow ribs and slim reveals — a quiet, even texture.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="wood">
-<div class="cl-card-bar"><span>04 · Wood</span><span>3 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/curve.webp" alt="Wood Curve series — curved timber shells" loading="lazy"></div>
-<h3>Wood Curve</h3>
-<p class="d">Kerf-cut MDF that bends into seamless waves, columns and organic forms, down to a 1,000 mm radius.</p>
-<div class="s">NRC ≤ 0.85 · 15 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>04 · Classic</span><span>Medium</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/13-3-panel.webp" alt="Classic 13/3 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>13 / 3</h3>
+<p class="d">Balanced ribs and reveals — the everyday grooved wall.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="wood">
-<div class="cl-card-bar"><span>05 · Wood</span><span>22 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/art.webp" alt="Art Acoustic series — carved feature wall" loading="lazy"></div>
-<h3>Art Acoustic</h3>
-<p class="d">CNC-carved artistic patterns that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
-<div class="s">NRC ≤ 0.90 · 15 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>05 · Classic</span><span>Medium</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/14-2-panel.webp" alt="Classic 14/2 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>14 / 2</h3>
+<p class="d">Medium ribs with slim reveals — crisp, linear shadow lines.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="metal">
-<div class="cl-card-bar"><span>06 · Metal</span><span>17 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/phonex.webp" alt="Phonex Metal series — perforated aluminium" loading="lazy"></div>
-<h3>Phonex Metal</h3>
-<p class="d">Perforated aluminium on a honeycomb core — fire-resistant and moisture-proof. Compose · Classic · Standard.</p>
-<div class="s">NRC 0.70–0.80 · 20 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>06 · Classic</span><span>Medium</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/18-3-panel.webp" alt="Classic 18/3 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>18 / 3</h3>
+<p class="d">Broader ribs with defined reveals — a confident grain.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="ceiling">
-<div class="cl-card-bar"><span>07 · Ceiling</span><span>2 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/uniseam.webp" alt="Uniseam series — seamless acoustic ceiling" loading="lazy"></div>
-<h3>Uniseam</h3>
-<p class="d">A truly monolithic, joint-free ceiling — trowel-applied over reinforced scrim. Aero · Mono.</p>
-<div class="s">NRC 0.75+ · 12 / 30 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>07 · Classic</span><span>Wide</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/28-4-panel.webp" alt="Classic 28/4 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>28 / 4</h3>
+<p class="d">Wide ribs and open reveals — bold, architectural presence.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="ceiling">
-<div class="cl-card-bar"><span>08 · Ceiling</span><span>4 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/cleaneo.webp" alt="Cleaneo series — perforated gypsum" loading="lazy"></div>
-<h3>Cleaneo</h3>
-<p class="d">High-performance perforated gypsum for monolithic ceiling and wall systems, finely tunable absorption.</p>
-<div class="s">NRC ≤ 0.80 · 12.5 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>08 · Classic</span><span>Wide</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/30-2-panel.webp" alt="Classic 30/2 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>30 / 2</h3>
+<p class="d">Wide ribs, fine reveals — expansive and calm.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="ceiling">
-<div class="cl-card-bar"><span>09 · Ceiling</span><span>1 system</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/acouspray.webp" alt="Acouspray — seamless sprayed finish" loading="lazy"></div>
-<h3>Acouspray</h3>
-<p class="d">Spray-applied cellulose that cures into a seamless, low-density acoustic envelope on any substrate.</p>
-<div class="s">NRC ≤ 0.95 · 30 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>09 · Classic</span><span>Wide</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/40-3-panel.webp" alt="Classic 40/3 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>40 / 3</h3>
+<p class="d">Extra-wide ribs — a generous, minimal field.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="ceiling">
-<div class="cl-card-bar"><span>10 · Ceiling</span><span>2 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/acona.webp" alt="Acona Classic series — fibreglass lay-in tiles" loading="lazy"></div>
-<h3>Acona Classic</h3>
-<p class="d">High-density fibreglass lay-in tiles with a decorative face — non-combustible and formaldehyde-free.</p>
-<div class="s">NRC ≤ 1.00 · 15 / 20 mm</div>
-</div>
+<a class="cl-card" href="product-vega-2.html">
+<div class="cl-card-bar"><span>10 · Classic</span><span>Wide</span></div>
+<div class="cl-card-img"><img src="assets/products/classic/59-2-panel.webp" alt="Classic 59/2 — grooved acoustic panel, tiled front view" loading="lazy"></div>
+<h3>59 / 2</h3>
+<p class="d">The widest ribs with hairline reveals — reads almost solid.</p>
+<div class="s">MDF · MGO base · 15 mm</div>
+<span class="f">View product →</span>
+</a>
 
-<div class="cl-card" data-cat="ceiling">
-<div class="cl-card-bar"><span>11 · Ceiling</span><span>10 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/aconaart.webp" alt="Acona Art series — sculptural space absorbers" loading="lazy"></div>
-<h3>Acona Art</h3>
-<p class="d">Sculptural moulded-fibreglass clouds, baffles and pyramids for three-dimensional acoustic control.</p>
-<div class="s">NRC ≤ 1.00 · 25 / 40 mm</div>
-</div>
-
-<div class="cl-card" data-cat="fibre">
-<div class="cl-card-bar"><span>12 · Fibre</span><span>2 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/fabric.webp" alt="Fabricoustic series — fabric-wrapped panels" loading="lazy"></div>
-<h3>Fabricoustic</h3>
-<p class="d">Fabric-wrapped panels over glass-fibre (Classic) or recycled cotton (Eco), in Class-A acoustic fabric.</p>
-<div class="s">NRC ≤ 0.90 · 25–60 mm</div>
-</div>
-
-<div class="cl-card" data-cat="fibre">
-<div class="cl-card-bar"><span>13 · Fibre</span><span>30 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/pet.webp" alt="Polyester PET series — recyclable fibre panels" loading="lazy"></div>
-<h3>Polyester (PET)</h3>
-<p class="d">100% recyclable polyester fibre — flat panels, V-groove walls, engraving ceilings and folded clouds.</p>
-<div class="s">NRC ≤ 0.85 · 9 / 12 mm</div>
-</div>
-
-<div class="cl-card" data-cat="fibre">
-<div class="cl-card-bar"><span>14 · Fibre</span><span>7 shapes</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/woodwool.webp" alt="Wood Wool series — mineralised wood wool tiles" loading="lazy"></div>
-<h3>Wood Wool</h3>
-<p class="d">Mineralised wood wool bound with cement — impact-resistant, fire-safe, moisture-proof and insulating.</p>
-<div class="s">NRC 0.60–0.65 · 15–25 mm</div>
-</div>
-
-<div class="cl-card" data-cat="specialty">
-<div class="cl-card-bar"><span>15 · Specialty</span><span>17 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/diffuser.webp" alt="Diffuser series — MLS and QRD diffusers" loading="lazy"></div>
-<h3>Diffuser</h3>
-<p class="d">MLS, QRD, Skyline and geometric diffusers in solid wood or MDF — scattering measured to ISO 17497.</p>
-<div class="s">ISO 17497 · Wood / MDF</div>
-</div>
-
-<div class="cl-card" data-cat="specialty">
-<div class="cl-card-bar"><span>16 · Specialty</span><span>3 types</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/door.webp" alt="Soundproofed Door — studio doorway" loading="lazy"></div>
-<h3>Soundproofed Door</h3>
-<p class="d">Metal-wood composite, metal or solid-wood doorsets, tested to ISO 10140 for studios and halls.</p>
-<div class="s">STC 35–45 dB · 50–100 mm</div>
-</div>
-
-</div>
-</div></section>
-
-<!-- ===== S3 By need ===== -->
-<section class="cl-sec"><div class="cl-wrap">
-<div class="cl-secmark">02 — Choosing a system</div>
-<p class="cl-lead">Start from the problem, not the product.</p>
-<div class="cl-need">
-<div class="cl-need-item">
-<span class="n">A</span>
-<h3>Control reverberation</h3>
-<p>Bring speech clarity and music balance to halls, offices and public rooms.</p>
-<div class="ls">Classic · Micro · Acona · PET</div>
-</div>
-<div class="cl-need-item">
-<span class="n">B</span>
-<h3>Invisible acoustics</h3>
-<p>Monolithic surfaces where the treatment should not read as a product.</p>
-<div class="ls">Uniseam · Acouspray · Cleaneo · Micro</div>
-</div>
-<div class="cl-need-item">
-<span class="n">C</span>
-<h3>Demanding environments</h3>
-<p>Impact, humidity, hygiene and fire — airports, labs, kitchens, schools.</p>
-<div class="ls">Phonex · Wood Wool · Soundproofed Door</div>
-</div>
-<div class="cl-need-item">
-<span class="n">D</span>
-<h3>Sculpture &amp; diffusion</h3>
-<p>Acoustic performance as a visual statement, or precise scattering control.</p>
-<div class="ls">Art Acoustic · Acona Art · Wood Curve · Diffuser</div>
-</div>
-</div>
-</div></section>
-
-<!-- ===== S4 Finishes ===== -->
-<section class="cl-sec"><div class="cl-wrap">
-<div class="cl-secmark">03 — Finishes</div>
-<p class="cl-lead">One palette across the wood-based collection.</p>
-<div class="cl-fin">
-<div class="cl-fin-col">
-<div class="k"><span>Melamine</span><em>8 finishes</em></div>
-<p>White Oak to Dark Walnut — durable resin surfaces for high-traffic interiors.</p>
-</div>
-<div class="cl-fin-col">
-<div class="k"><span>HPL</span><em>8 finishes</em></div>
-<p>Elegant Oak to Afromosia — high-pressure laminate for the hardest wear.</p>
-</div>
-<div class="cl-fin-col">
-<div class="k"><span>Veneer</span><em>14 finishes</em></div>
-<p>Washed White Oak to European Ebony — natural wood, sequence-matched.</p>
-</div>
-<div class="cl-fin-col">
-<div class="k"><span>Paint</span><em>12 + RAL / Pantone</em></div>
-<p>Twelve standard coats, or any RAL and Pantone colour on request.</p>
-</div>
-</div>
-</div></section>
-
-<!-- ===== S5 Certifications ===== -->
-<section class="cl-sec"><div class="cl-wrap">
-<div class="cl-secmark">04 — Tested, not claimed</div>
-<p class="cl-lead">Every series ships with its lab report.</p>
-<div class="cl-certs">
-<div class="cl-cert"><span class="c">ISO 354</span><span class="w">Sound absorption — reverberation room method</span><span class="x">All absorbing series</span></div>
-<div class="cl-cert"><span class="c">EN 13501</span><span class="w">Reaction to fire classification</span><span class="x">All series</span></div>
-<div class="cl-cert"><span class="c">EN 717</span><span class="w">Formaldehyde &amp; VOC emission</span><span class="x">All series</span></div>
-<div class="cl-cert"><span class="c">ISO 10140</span><span class="w">Airborne sound insulation</span><span class="x">Soundproofed Door</span></div>
-<div class="cl-cert"><span class="c">ISO 17497</span><span class="w">Sound scattering &amp; diffusion</span><span class="x">Diffuser</span></div>
 </div>
 </div></section>
 
 <!-- ===== S6 CTA ===== -->
 <section class="cl-sec"><div class="cl-wrap">
 <div class="cl-cta">
-<p>Not sure which system fits your room?</p>
+<p>Specifying Classic for a project?</p>
 <div class="cl-cta-btns">
 <a class="cl-btn solid" href="mailto:hello@naaya.com">Talk to an engineer</a>
 <a class="cl-btn" href="projects-3.html">See it in projects</a>
@@ -1205,21 +1049,11 @@ main,.scroll{ transform:none!important; }
   var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}})},{threshold:0.12,rootMargin:'0px 0px -5% 0px'});
   function R(el,d,img){ if(!el)return; el.classList.add('ab-rise'); if(img)el.classList.add('ab-rise-img'); if(d)el.style.transitionDelay=(d*STEP)+'ms'; obs.observe(el); }
   function each(p,sel,fn){ Array.prototype.forEach.call((p||document).querySelectorAll(sel),fn); }
-  // head
-  R(document.querySelector('.cl-meta'),0);
-  R(document.querySelector('.cl-title'),1);
-  R(document.querySelector('.cl-sub > p'),2);
-  each(document,'.cl-fact',function(el,i){ R(el,i+3); });
-  // section marks + leads
+  // section mark + lead
   each(document,'.cl-secmark',function(el){ R(el,0); });
   each(document,'.cl-lead',function(el){ R(el,1); });
-  // filter + cards
-  R(document.querySelector('.cl-filter'),2);
+  // model cards
   each(document,'.cl-grid .cl-card',function(el,i){ R(el,(i%4),true); });
-  // need tiles / finishes / certs
-  each(document,'.cl-need-item',function(el,i){ R(el,i); });
-  each(document,'.cl-fin-col',function(el,i){ R(el,i); });
-  each(document,'.cl-cert',function(el,i){ R(el,Math.min(i,3)); });
   // cta
   R(document.querySelector('.cl-cta'),1);
   // hero parallax (shared .ns-hero)
@@ -1227,23 +1061,6 @@ main,.scroll{ transform:none!important; }
   if(nsHero && nsBg){ (function raf(){ var r=nsHero.getBoundingClientRect();
     if(r.bottom>0 && r.top<window.innerHeight){ nsBg.style.transform='translateY('+(-r.top*0.16)+'px) scale(1.14)'; }
     requestAnimationFrame(raf); })(); }
-})();
-</script>
-<script>
-/* Material family filter */
-(function(){
-  var chips=document.querySelectorAll('.cl-chip');
-  var cards=document.querySelectorAll('.cl-card[data-cat]');
-  Array.prototype.forEach.call(chips,function(chip){
-    chip.addEventListener('click',function(){
-      Array.prototype.forEach.call(chips,function(c){ c.classList.remove('is-active'); });
-      chip.classList.add('is-active');
-      var f=chip.getAttribute('data-f');
-      Array.prototype.forEach.call(cards,function(card){
-        card.style.display=(f==='all'||card.getAttribute('data-cat')===f)?'':'none';
-      });
-    });
-  });
 })();
 </script>
 </body>
