@@ -370,8 +370,10 @@ main,.scroll{ transform:none!important; }
   .pj3-grid{ grid-template-columns:1fr; }
   .pj3-card{ aspect-ratio:1/1; }
   /* filter: single swipeable row (horizontal scroll) instead of stacking 6 rows tall */
+  /* first chip aligns with the content gutter; only the right edge bleeds
+     so the row still reads as horizontally scrollable */
   .pj3-filter{ flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
-    scrollbar-width:none; margin:3.2rem -2.4rem 2.8rem; padding:0 2.4rem;
+    scrollbar-width:none; margin:3.2rem calc(-1 * var(--ns-gutter)) 2.8rem 0; padding:0 var(--ns-gutter) 0 0;
     scroll-snap-type:x proximity; }
   .pj3-filter::-webkit-scrollbar{ display:none; }
   .pj3-filter-break{ display:none; }            /* no two-row break — one continuous scroll row */

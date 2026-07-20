@@ -86,13 +86,17 @@
     margin-top:1.4rem;
   }
 
-  /* --- About mosaic: 5 images, Direction C (two-row balanced filmstrip) --- */
-  .about-mosaic-grid{
-    grid-template-columns:repeat(4, 1fr);
-    grid-template-rows:23rem 18rem;
-    grid-template-areas:
-      "m1 m1 m2 m2"
-      "m3 m4 m4 m5";
+  /* --- About mosaic: 5 images, Direction C (two-row balanced filmstrip) ---
+     Desktop/tablet only — below 901px naaya.css collapses it to a clean
+     2-col stack. Must stay media-gated or it overrides the mobile rule. */
+  @media(min-width:901px){
+    .about-mosaic-grid{
+      grid-template-columns:repeat(4, 1fr);
+      grid-template-rows:23rem 18rem;
+      grid-template-areas:
+        "m1 m1 m2 m2"
+        "m3 m4 m4 m5";
+    }
   }
 
   /* ============================================

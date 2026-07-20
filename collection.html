@@ -189,7 +189,8 @@ main,.scroll{ transform:none!important; }
 /* ---- S2 Index : filter ---- */
 .cl-filter{ display:flex; flex-wrap:wrap; gap:.8rem; margin:5rem 0 0; }
 @media(max-width:600px){
-  .cl-filter{ margin-top:3.4rem; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin-left:-2rem; margin-right:-2rem; padding:0 2rem; }
+  /* first chip aligns with the content gutter; only the right edge bleeds for scroll affordance */
+  .cl-filter{ margin-top:3.4rem; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin-left:0; margin-right:-2rem; padding:0 2rem 0 0; }
   .cl-filter::-webkit-scrollbar{ display:none; }
   .cl-chip{ white-space:nowrap; flex:0 0 auto; }
 }
