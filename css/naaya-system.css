@@ -264,3 +264,44 @@
   .mcat-products{ flex-wrap:wrap; gap:1.4rem 1.6rem; }
   .mcat-prod{ flex:0 0 auto; width:calc((100% - 3.2rem)/3); max-width:none; }
 }
+
+/* =============================================================
+   Process flow (dark) — "How we work / Approach" section
+   Single source for brand.html + index-4.html (baseline = brand S5)
+   Eyebrow forced light on dark bg; display width constrained.
+   ============================================================= */
+.bd-sec.bd-dark{ background:#141312; color:#fff; }   /* .bd-sec.bd-dark beats brand's inline .bd-sec paper bg */
+.bd-dark .bd-display{ color:#fff; max-width:24ch; }
+.bd-dark .bd-eyebrow{ color:rgba(255,255,255,.5); margin:0 0 1.7rem; }
+.bd-dark .bd-display .dot{ color:var(--ns-red); }
+.bd-flow-intro{ font-size:clamp(1.5rem,1.6vw,1.85rem); line-height:1.55; color:rgba(255,255,255,.6); max-width:64rem; margin:3rem 0 0; }
+.bd-flow{ margin-top:7rem; }
+.bd-flow-track{ display:grid; grid-template-columns:repeat(6,1fr); gap:2.4rem; position:relative; }
+.bd-flow-track::before{ content:""; position:absolute; left:4.2rem; right:0; top:4.2rem; height:1px; background:rgba(255,255,255,.18); z-index:0; }
+.bd-step{ position:relative; }
+.bd-step-c{ width:8.4rem; height:8.4rem; border-radius:50%; border:1px solid rgba(255,255,255,.28);
+  background:#141312; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
+.bd-step-c span{ font-family:var(--ns-mono); font-size:1.3rem; letter-spacing:.06em; color:#fff; }
+.bd-step-t{ font-size:1.6rem; font-weight:600; line-height:1.14; letter-spacing:-.01em; margin:2.6rem 0 0; color:#fff; }
+.bd-step-d{ font-size:1.32rem; line-height:1.5; color:rgba(255,255,255,.55); margin:1.4rem 0 0; }
+@media(max-width:900px){
+  .bd-flow{ margin-top:5rem; }
+  .bd-flow-track{ grid-template-columns:repeat(2,1fr); gap:3.6rem 2.4rem; }
+  .bd-flow-track::before{ display:none; }
+}
+@media(max-width:600px){ .bd-flow-track{ grid-template-columns:1fr; } }
+
+/* =============================================================
+   Get-in-touch (dark contact) — .pc3-contact
+   Single source for project-case-3 + collection (matching case style)
+   (mark + red .pc3-cta button already defined above)
+   ============================================================= */
+.pc3-sec.pc3-contact{ background:var(--ns-ink); color:#fff; }   /* .pc3-sec.pc3-contact beats case-3's inline .pc3-sec paper bg */
+.pc3-contact-grid{ max-width:62rem; }
+.pc3-contact h2{ font-size:clamp(3.4rem,5.2vw,6.6rem); font-weight:600; letter-spacing:-.02em; line-height:1.02; margin:0; }
+.pc3-contact h2 .dot{ color:var(--ns-red); }
+.pc3-contact-sub{ font-size:1.5rem; line-height:1.62; color:rgba(255,255,255,.66); max-width:44rem; margin:2.6rem 0 0; }
+.pc3-contact-info{ display:flex; flex-direction:column; gap:1.8rem; }
+.pc3-contact-info .k{ font-family:var(--ns-mono); font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:.4rem; }
+.pc3-contact-info a, .pc3-contact-info span{ color:#fff; text-decoration:none; font-size:1.6rem; display:block; transition:opacity .25s; }
+.pc3-contact-info a:hover{ opacity:.6; }

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/naaya.css">
-<link rel="stylesheet" href="css/naaya-system.css">
+<link rel="stylesheet" href="css/naaya-system.css?v=20260727">
 <style>
   /* ============================================
      index-4 ONLY skin — Inter + White × #231f20
@@ -301,25 +301,7 @@ main,.scroll{ transform:none!important; }
   .bd-sim-fig{ min-height:0; aspect-ratio:16/11; }
 }
 
-/* ================= S5 · How we work (dark) ================= */
-.bd-dark{ background:#141312; color:#fff; }
-.bd-dark .bd-display{ color:#fff; }
-.bd-flow-intro{ font-size:clamp(1.5rem,1.6vw,1.85rem); line-height:1.55; color:rgba(255,255,255,.6); max-width:64rem; margin:3rem 0 0; }
-.bd-flow{ margin-top:7rem; }
-.bd-flow-track{ display:grid; grid-template-columns:repeat(6,1fr); gap:2.4rem; position:relative; }
-.bd-flow-track::before{ content:""; position:absolute; left:4.2rem; right:0; top:4.2rem; height:1px; background:rgba(255,255,255,.18); z-index:0; }
-.bd-step{ position:relative; }
-.bd-step-c{ width:8.4rem; height:8.4rem; border-radius:50%; border:1px solid rgba(255,255,255,.28);
-  background:#141312; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
-.bd-step-c span{ font-family:var(--bd-mono); font-size:1.3rem; letter-spacing:.06em; color:#fff; }
-.bd-step-t{ font-size:1.6rem; font-weight:600; line-height:1.14; letter-spacing:-.01em; margin:2.6rem 0 0; color:#fff; }
-.bd-step-d{ font-size:1.32rem; line-height:1.5; color:rgba(255,255,255,.55); margin:1.4rem 0 0; }
-@media(max-width:900px){
-  .bd-flow{ margin-top:5rem; }
-  .bd-flow-track{ grid-template-columns:repeat(2,1fr); gap:3.6rem 2.4rem; }
-  .bd-flow-track::before{ display:none; }
-}
-@media(max-width:600px){ .bd-flow-track{ grid-template-columns:1fr; } }
+/* ================= S5 · How we work (dark) → shared in css/naaya-system.css (eyebrow now light on dark, display width capped) ================= */
 
 /* ================= S6 · Who we served (logo grid — spec-sheet) ================= */
 .bd-served-head{ max-width:66rem; }
@@ -700,7 +682,7 @@ main,.scroll{ transform:none!important; }
 </div>
 </div>
 <a href="projects-3.html" data-i18n="nav_projects">Projects</a>
-<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="index-4.html#process" data-i18n="nav_process">Approach</a>
 <a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 <div class="site-nav-right">
@@ -1020,7 +1002,7 @@ main,.scroll{ transform:none!important; }
 </div>
 </div>
 <a href="projects-3.html" data-i18n="nav_projects">Projects</a>
-<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="index-4.html#process" data-i18n="nav_process">Approach</a>
 <a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 </div>

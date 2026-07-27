@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/naaya.css">
-<link rel="stylesheet" href="css/naaya-system.css">
+<link rel="stylesheet" href="css/naaya-system.css?v=20260727">
 <style>
   /* ============================================
      index-4 ONLY skin — Inter + White × #231f20
@@ -86,18 +86,9 @@
     margin-top:1.4rem;
   }
 
-  /* --- About mosaic: 5 images, Direction C (two-row balanced filmstrip) ---
-     Desktop/tablet only — below 901px naaya.css collapses it to a clean
-     2-col stack. Must stay media-gated or it overrides the mobile rule. */
-  @media(min-width:901px){
-    .about-mosaic-grid{
-      grid-template-columns:repeat(4, 1fr);
-      grid-template-rows:23rem 18rem;
-      grid-template-areas:
-        "m1 m1 m2 m2"
-        "m3 m4 m4 m5";
-    }
-  }
+  /* --- About mosaic: single showcase image (transparent architectural cutaway) --- */
+  .about-mosaic-single{ align-self:center; }
+  .about-mosaic-single img{ width:100%; height:auto; display:block; }
 
 
   /* ============================================
@@ -105,17 +96,117 @@
      tokens from css/naaya-system.css
      ============================================ */
   /* section eyebrows → unified faint label (were warm-brown / heavy ink) */
-  .ei-eyebrow, .calc-eyebrow{
+  .calc-eyebrow{
     font-family:var(--ns-mono); font-size:1.2rem; font-weight:500;
     letter-spacing:.18em; text-transform:uppercase; color:var(--ns-faint);
   }
-  .ei-meta{ color:var(--ns-faint); }
-  /* accent tag → family red (was copper #b87333) */
-  .ei-deliver-label{ color:var(--ns-red); }
   /* section + display headings → family weight 600
      (.base-heading is Vue-scoped [data-v-*] specificity, needs !important) */
-  .ei-title, .calc-heading{ font-weight:600; }
+  .calc-heading{ font-weight:600; }
   .base-heading{ font-weight:600 !important; }
+
+  /* ============================================
+     Who We Serve → interactive role interface
+     (layout ref: NAAYA_Homepage_Final; re-skinned to
+      the design system — Inter, red #e3261b, ink dark)
+     ============================================ */
+  .role-interface{
+    display:grid;
+    grid-template-columns:1.4fr .85fr .55fr;
+    min-height:58rem;
+    border:1px solid var(--ns-line);
+    background:#141312;
+    overflow:hidden;
+  }
+  /* col 1 — feature image + copy */
+  .role-feature{ position:relative; overflow:hidden; min-height:0; }
+  .role-feature img{
+    position:absolute; inset:0;
+    width:100%; height:100%; object-fit:cover; object-position:center;
+    filter:grayscale(1) contrast(1.06); display:block;
+  }
+  .role-feature::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,10,10,.12) 0%, rgba(10,10,10,.5) 58%, rgba(10,10,10,.82) 100%);
+  }
+  .role-feature-copy{
+    position:absolute; z-index:2;
+    left:clamp(2.4rem,3vw,5.5rem); right:clamp(2.4rem,3vw,5.5rem); bottom:5.5rem;
+  }
+  .role-feature-tag{
+    margin:0; font-family:var(--ns-mono);
+    font-size:1.15rem; font-weight:700; letter-spacing:.14em;
+    color:var(--ns-red); text-transform:uppercase;
+  }
+  .role-feature-desc{
+    margin:1.8rem 0 0; max-width:52rem;
+    font-family:'Inter',sans-serif;
+    font-size:clamp(2.4rem,2vw,3.4rem); font-weight:400; line-height:1.32;
+    letter-spacing:-.01em; color:#fff;
+  }
+  /* col 2 — accordion tabs */
+  .role-tabs{
+    display:grid; grid-template-rows:repeat(8,1fr);
+    border-left:1px solid rgba(255,255,255,.12);
+    border-right:1px solid rgba(255,255,255,.12);
+  }
+  .role-tab{
+    display:grid; grid-template-columns:4.4rem 1fr 2.4rem; align-items:center; gap:1rem;
+    min-height:6rem; padding:0 2.4rem;
+    border:0; border-bottom:1px solid rgba(255,255,255,.1);
+    background:#141312; color:#fff; text-align:left; cursor:pointer;
+    font-family:'Inter',sans-serif;
+    transition:background .2s ease;
+  }
+  .role-tab:last-child{ border-bottom:0; }
+  .role-tab:hover, .role-tab.is-active{ background:#221f1e; }
+  .role-tab .rt-num{ color:var(--ns-red); font-family:var(--ns-mono); font-size:1.15rem; font-weight:700; }
+  .role-tab strong{ font-size:1.45rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; }
+  .role-tab .rt-icon{ color:var(--ns-red); font-size:1.9rem; font-weight:400; text-align:center; line-height:1; }
+  /* col 3 — approach panel (brand red) */
+  .approach-panel{
+    padding:5rem 3.4rem 4rem;
+    display:flex; flex-direction:column;
+    background:var(--ns-red); color:#fff;
+  }
+  .approach-panel .ap-eyebrow{
+    margin:0; font-family:var(--ns-mono);
+    font-size:1.2rem; font-weight:700; letter-spacing:.18em;
+  }
+  .approach-panel .ap-plus{ margin-top:3.4rem; font-size:2.4rem; font-weight:300; line-height:1; }
+  .approach-panel .ap-title{
+    margin:auto 0 0; max-width:12ch;
+    font-family:'Inter',sans-serif;
+    font-size:clamp(3.2rem,2.6vw,4.6rem); font-weight:600; line-height:1.06; letter-spacing:-.03em;
+  }
+  .approach-topics{
+    margin-top:3rem; padding:2.4rem 0;
+    display:grid; gap:1rem;
+    border-top:1px solid rgba(255,255,255,.5); border-bottom:1px solid rgba(255,255,255,.5);
+    font-family:var(--ns-mono);
+    font-size:1.05rem; font-weight:700; letter-spacing:.14em;
+  }
+  .ap-cta{
+    margin-top:2.8rem;
+    display:inline-flex; align-items:center; gap:.7rem;
+    font-family:var(--ns-mono); font-size:1.15rem; font-weight:700; letter-spacing:.12em;
+    color:#fff; text-decoration:none; transition:gap .2s ease;
+  }
+  .ap-cta::after{ content:"\2192"; }
+  .ap-cta:hover{ gap:1.2rem; }
+  @media(max-width:1024px){
+    .role-interface{ grid-template-columns:1fr; }
+    .role-feature{ min-height:40rem; }
+    .role-tabs{ border-left:0; border-right:0; border-top:1px solid rgba(255,255,255,.12); }
+    .approach-panel{ padding:4rem 2.8rem; }
+    .approach-panel .ap-title{ margin:3rem 0 0; }
+  }
+  @media(max-width:600px){
+    .role-feature-copy{ bottom:3rem; }
+    .role-tab{ grid-template-columns:3.6rem 1fr 2rem; padding:1.6rem 2rem; }
+    .role-tab strong{ font-size:1.3rem; }
+    .approach-panel{ padding:3.4rem 2.4rem; }
+  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
@@ -460,7 +551,7 @@
 </div>
 </div>
 <a href="projects-3.html" data-i18n="nav_projects">Projects</a>
-<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="index-4.html#process" data-i18n="nav_process">Approach</a>
 <a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 <div class="site-nav-right">
@@ -796,7 +887,7 @@
 </div>
 </div>
 <a href="projects-3.html" data-i18n="nav_projects">Projects</a>
-<a href="index-4.html#process" data-i18n="nav_process">Process</a>
+<a href="index-4.html#process" data-i18n="nav_process">Approach</a>
 <a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
 </nav>
 </div>
@@ -813,27 +904,8 @@
 </a>
 </div>
 
-<div class="about-mosaic-grid">
-<a href="index-4.html#process" class="mat-card mat-1">
-<img src="assets/services/sim.webp" alt="Acoustic simulation">
-<span class="mat-label"><em>01</em> <span>Acoustic Simulation</span></span>
-</a>
-<a href="index-4.html#process" class="mat-card mat-2">
-<img src="assets/services/factory.webp" alt="In-house manufacturing">
-<span class="mat-label"><em>02</em> <span>Manufacturing</span></span>
-</a>
-<a href="index-4.html#process" class="mat-card mat-3">
-<img src="assets/services/install.webp" alt="Installation">
-<span class="mat-label"><em>03</em> <span>Installation</span></span>
-</a>
-<a href="index-4.html#process" class="mat-card mat-4">
-<img src="assets/services/testing.webp" alt="Acoustic testing">
-<span class="mat-label"><em>04</em> <span>Acoustic Testing</span></span>
-</a>
-<a href="index-4.html#process" class="mat-card mat-5">
-<img src="assets/services/acceptance.webp" alt="Handover and acceptance">
-<span class="mat-label"><em>05</em> <span>Acceptance</span></span>
-</a>
+<div class="about-mosaic-single">
+<img src="assets/services/sina-spaces.webp" alt="Architectural cutaway of four acoustic spaces — concert hall, gallery, ballroom and chapel">
 </div>
 
 </div>
@@ -1221,172 +1293,55 @@
 </div>
 </div>
 
-<div class="wws-grid">
-<a href="mailto:hello@naaya.com" class="wws-card">
-<div class="wws-card-image"><img src="assets/personas/owner.webp" alt="" loading="lazy"></div>
-<div class="wws-card-overlay">
-<span class="wws-card-num">01</span>
-<h3 class="wws-card-name" data-i18n="wws_owner_name">Property Owners</h3>
-<p class="wws-card-desc" data-i18n="wws_owner_desc">Visionaries commissioning exceptional spaces</p>
+<div class="role-interface">
+<div class="role-feature">
+<img src="assets/services/wws-customers.webp" alt="Acoustic project space" loading="lazy">
+<div class="role-feature-copy">
+<p class="role-feature-tag"><span class="rf-num">01</span> &middot; <span class="rf-name">PROPERTY OWNERS</span></p>
+<h3 class="role-feature-desc">From concept to completion, one accountable partner for interior design, acoustics, materials and construction.</h3>
 </div>
-</a>
-<a href="mailto:hello@naaya.com" class="wws-card">
-<div class="wws-card-image"><img src="assets/personas/architect.webp" alt="" loading="lazy"></div>
-<div class="wws-card-overlay">
-<span class="wws-card-num">02</span>
-<h3 class="wws-card-name" data-i18n="wws_architect_name">Architects</h3>
-<p class="wws-card-desc" data-i18n="wws_architect_desc">Designers shaping the acoustic blueprint</p>
 </div>
-</a>
-<a href="mailto:hello@naaya.com" class="wws-card">
-<div class="wws-card-image"><img src="assets/personas/mep.webp" alt="" loading="lazy"></div>
-<div class="wws-card-overlay">
-<span class="wws-card-num">03</span>
-<h3 class="wws-card-name" data-i18n="wws_mep_name">MEP Consultants</h3>
-<p class="wws-card-desc" data-i18n="wws_mep_desc">Engineering allies for seamless integration</p>
+<div class="role-tabs" role="tablist" aria-label="Who we serve">
+<button class="role-tab" type="button" aria-pressed="false"><span class="rt-num">01</span><strong>Property Owners</strong><span class="rt-icon">+</span></button>
+<button class="role-tab" type="button" aria-pressed="false"><span class="rt-num">02</span><strong>Architects</strong><span class="rt-icon">+</span></button>
+<button class="role-tab" type="button" aria-pressed="false"><span class="rt-num">03</span><strong>MEP Consultants</strong><span class="rt-icon">+</span></button>
+<button class="role-tab" type="button" aria-pressed="false"><span class="rt-num">04</span><strong>Acoustic Consultants</strong><span class="rt-icon">+</span></button>
+<button class="role-tab" type="button" aria-pressed="false"><span class="rt-num">05</span><strong>Interior Designers</strong><span class="rt-icon">+</span></button>
+<button class="role-tab" type="button" aria-pressed="false"><span class="rt-num">06</span><strong>Contractors</strong><span class="rt-icon">+</span></button>
+<button class="role-tab" type="button" aria-pressed="false"><span class="rt-num">07</span><strong>Fit-out Partners</strong><span class="rt-icon">+</span></button>
+<button class="role-tab" type="button" aria-pressed="false"><span class="rt-num">08</span><strong>Acoustic Distributors</strong><span class="rt-icon">+</span></button>
 </div>
-</a>
-<a href="mailto:hello@naaya.com" class="wws-card">
-<div class="wws-card-image"><img src="assets/personas/acoustic.webp" alt="" loading="lazy"></div>
-<div class="wws-card-overlay">
-<span class="wws-card-num">04</span>
-<h3 class="wws-card-name" data-i18n="wws_acoustic_name">Acoustic Consultants</h3>
-<p class="wws-card-desc" data-i18n="wws_acoustic_desc">Specialists defining the sound of a space</p>
+<aside class="approach-panel">
+<p class="ap-eyebrow">APPROACH</p>
+<span class="ap-plus">+</span>
+<h3 class="ap-title">Acoustic thinking, made practical.</h3>
+<div class="approach-topics">
+<span>RESEARCH</span>
+<span>METHODS</span>
+<span>FIELD NOTES</span>
 </div>
-</a>
-<a href="mailto:hello@naaya.com" class="wws-card">
-<div class="wws-card-image"><img src="assets/personas/interior.webp" alt="" loading="lazy"></div>
-<div class="wws-card-overlay">
-<span class="wws-card-num">05</span>
-<h3 class="wws-card-name" data-i18n="wws_interior_name">Interior Designers</h3>
-<p class="wws-card-desc" data-i18n="wws_interior_desc">Creatives balancing beauty and performance</p>
-</div>
-</a>
-<a href="mailto:hello@naaya.com" class="wws-card">
-<div class="wws-card-image"><img src="assets/personas/contractor.webp" alt="" loading="lazy"></div>
-<div class="wws-card-overlay">
-<span class="wws-card-num">06</span>
-<h3 class="wws-card-name" data-i18n="wws_contractor_name">General Contractors</h3>
-<p class="wws-card-desc" data-i18n="wws_contractor_desc">Builders delivering complex projects on time</p>
-</div>
-</a>
-<a href="mailto:hello@naaya.com" class="wws-card">
-<div class="wws-card-image"><img src="assets/personas/fitout.webp" alt="" loading="lazy"></div>
-<div class="wws-card-overlay">
-<span class="wws-card-num">07</span>
-<h3 class="wws-card-name" data-i18n="wws_fitout_name">Fit-out Companies</h3>
-<p class="wws-card-desc" data-i18n="wws_fitout_desc">Experts in precision acoustic installation</p>
-</div>
-</a>
-<a href="mailto:hello@naaya.com" class="wws-card">
-<div class="wws-card-image"><img src="assets/personas/distributor.webp" alt="" loading="lazy"></div>
-<div class="wws-card-overlay">
-<span class="wws-card-num">08</span>
-<h3 class="wws-card-name" data-i18n="wws_distributor_name">Acoustic Distributors</h3>
-<p class="wws-card-desc" data-i18n="wws_distributor_desc">Partners extending our global reach</p>
-</div>
-</a>
+<a href="#process" class="ap-cta">EXPLORE APPROACH</a>
+</aside>
 </div>
 
 </div>
 </section>
 
-<section class="process editorial-index" id="process">
-<div class="ei-inner">
-<header class="ei-head">
-<span class="ei-eyebrow">SERVICE PROCESS · 06 STEPS · DESIGN TO DELIVERY</span>
-<h2 class="ei-title">How we work.</h2>
-</header>
-<ol class="ei-list">
-<li class="ei-row">
-<span class="ei-num">01</span>
-<div class="ei-body">
-<h3 class="ei-name">Brief</h3>
-<span class="ei-meta">DISCOVERY</span>
-</div>
-<div class="ei-detail">
-<p class="ei-desc">Understand use, operation, design intent and project constraints.</p>
-<div class="ei-deliver">
-<span class="ei-deliver-label">Deliverable</span>
-<span class="ei-deliver-text">Project brief · Feasibility note · Free, no sign-up</span>
+<section class="bd-sec bd-dark" id="process">
+<div class="bd-wrap">
+<span class="bd-eyebrow">How we work</span>
+<h2 class="bd-display">A clear delivery process from brief to verified performance<span class="dot">.</span></h2>
+<p class="bd-flow-intro">Each project follows a structured sequence that connects client requirements, technical analysis, material development, construction coordination and final commissioning.</p>
+<div class="bd-flow">
+<div class="bd-flow-track">
+<div class="bd-step"><div class="bd-step-c"><span>01</span></div><h3 class="bd-step-t">Brief</h3><p class="bd-step-d">Understand use, operation, design intent and project constraints.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>02</span></div><h3 class="bd-step-t">Criteria Development</h3><p class="bd-step-d">Define acoustic targets, standards and measurable benchmarks.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>03</span></div><h3 class="bd-step-t">Acoustic Analysis &amp; Simulations</h3><p class="bd-step-d">Model, test assumptions and optimise spatial performance.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>04</span></div><h3 class="bd-step-t">Material Engineering &amp; Manufacturing</h3><p class="bd-step-d">Develop buildable systems with controlled quality and finishes.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>05</span></div><h3 class="bd-step-t">Construction Support</h3><p class="bd-step-d">Coordinate details, installation guidance and site implementation.</p></div>
+<div class="bd-step"><div class="bd-step-c"><span>06</span></div><h3 class="bd-step-t">Testing &amp; Commissioning</h3><p class="bd-step-d">Measure, verify and tune the final acoustic result.</p></div>
 </div>
 </div>
-</li>
-<li class="ei-row">
-<span class="ei-num">02</span>
-<div class="ei-body">
-<h3 class="ei-name">Criteria Development</h3>
-<span class="ei-meta">TARGETS · STANDARDS</span>
-</div>
-<div class="ei-detail">
-<p class="ei-desc">Define acoustic targets, standards and measurable benchmarks.</p>
-<div class="ei-deliver">
-<span class="ei-deliver-label">Deliverable</span>
-<span class="ei-deliver-text">RT60 / ISO 354 targets · Acoustic criteria</span>
-</div>
-</div>
-</li>
-<li class="ei-row">
-<span class="ei-num">03</span>
-<div class="ei-body">
-<h3 class="ei-name">Acoustic Analysis &amp; Simulations</h3>
-<span class="ei-meta">MODELLING</span>
-</div>
-<div class="ei-detail">
-<p class="ei-desc">Model, test assumptions and optimise spatial performance.</p>
-<div class="ei-deliver">
-<span class="ei-deliver-label">Deliverable</span>
-<span class="ei-deliver-text">Simulation report · Panel-mix spec · Revit / CAD library</span>
-</div>
-</div>
-</li>
-<li class="ei-row">
-<span class="ei-num">04</span>
-<div class="ei-body">
-<h3 class="ei-name">Material Engineering &amp; Manufacturing</h3>
-<span class="ei-meta">PRODUCTION</span>
-</div>
-<div class="ei-detail">
-<p class="ei-desc">Develop buildable systems with controlled quality and finishes.</p>
-<div class="ei-deliver">
-<span class="ei-deliver-label">Deliverable</span>
-<span class="ei-deliver-text">Manufactured panels · QC records · Factory-direct supply</span>
-</div>
-</div>
-</li>
-<li class="ei-row">
-<span class="ei-num">05</span>
-<div class="ei-body">
-<h3 class="ei-name">Construction Support</h3>
-<span class="ei-meta">INSTALLATION</span>
-</div>
-<div class="ei-detail">
-<p class="ei-desc">Coordinate details, installation guidance and site implementation.</p>
-<div class="ei-deliver">
-<span class="ei-deliver-label">Deliverable</span>
-<span class="ei-deliver-text">Shop drawings · On-site installation support</span>
-</div>
-</div>
-</li>
-<li class="ei-row">
-<span class="ei-num">06</span>
-<div class="ei-body">
-<h3 class="ei-name">Testing &amp; Commissioning</h3>
-<span class="ei-meta">VERIFICATION</span>
-</div>
-<div class="ei-detail">
-<p class="ei-desc">Measure, verify and tune the final acoustic result.</p>
-<div class="ei-deliver">
-<span class="ei-deliver-label">Deliverable</span>
-<span class="ei-deliver-text">Measured RT60 · ISO 354 verification report</span>
-</div>
-</div>
-</li>
-</ol>
-<a class="ei-cta" href="#contact">
-<span class="ei-cta-l">Ready to begin?</span>
-<span class="ei-cta-r">Contact us →</span>
-</a>
 </div>
 </section>
 
@@ -1436,6 +1391,42 @@
 
 </div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2014, NAAYA™</div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
 
+<script>
+/* Who We Serve — accordion tab interaction */
+(function(){
+  var ROLES = [
+    ["Property Owners","From concept to completion, one accountable partner for interior design, acoustics, materials and construction."],
+    ["Architects","Integrate acoustics early to create spaces that perform beautifully, feel better and elevate every user experience."],
+    ["MEP Consultants","Co-create quieter buildings through integrated noise control, vibration isolation and coordinated MEP engineering."],
+    ["Acoustic Consultants","Unlock deeper project insight through advanced modelling with CadnaA, CadnaB, ODEON, INSUL and SoundPLAN."],
+    ["Interior Designers","Unite visual intent with acoustic performance to create spaces that look exceptional and sound equally refined."],
+    ["Contractors","Win and deliver with expert tender reviews, technical approvals, mock-ups and responsive on-site acoustic support."],
+    ["Fit-out Partners","Extend your capabilities with integrated interior, acoustic and AV design—backed by specialist construction delivery."],
+    ["Acoustic Distributors","Go beyond materials with end-to-end acoustic expertise—from design development to specification, supply and professional support."]
+  ];
+  var tabs = document.querySelectorAll('.role-tab');
+  if(!tabs.length) return;
+  var fNum  = document.querySelector('.role-feature-tag .rf-num');
+  var fName = document.querySelector('.role-feature-tag .rf-name');
+  var fDesc = document.querySelector('.role-feature-desc');
+  function select(i){
+    for(var j=0;j<tabs.length;j++){
+      var on = (j===i);
+      tabs[j].classList.toggle('is-active', on);
+      tabs[j].setAttribute('aria-pressed', on ? 'true' : 'false');
+      var ic = tabs[j].querySelector('.rt-icon');
+      if(ic) ic.textContent = on ? '−' : '+';
+    }
+    if(fNum)  fNum.textContent  = ('0'+(i+1)).slice(-2);
+    if(fName) fName.textContent = ROLES[i][0].toUpperCase();
+    if(fDesc) fDesc.textContent = ROLES[i][1];
+  }
+  for(var i=0;i<tabs.length;i++){
+    (function(idx){ tabs[idx].addEventListener('click', function(){ select(idx); }); })(i);
+  }
+  select(0);
+})();
+</script>
 <script src="js/naaya.js"></script>
 </body>
 </html>
