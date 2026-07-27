@@ -711,7 +711,7 @@
   }
 
   /* 3 · acoustic performance — text-left + image-right */
-  .tv-perf{ display:grid; grid-template-columns:.92fr 1.08fr; gap:5rem; align-items:stretch; }
+  .tv-perf{ display:grid; grid-template-columns:.92fr 1.08fr; gap:5rem; align-items:center; }
   .tv-perf-txt{ display:flex; flex-direction:column; min-width:0; }
   .tv-perf-lede{ font-size:1.45rem; line-height:1.6; color:var(--pv-muted); max-width:44rem; }
   .tv-perf-lede b{ color:var(--pv-ink); }
@@ -720,8 +720,8 @@
   .tv-nrc-l .k{ font-family:var(--pv-mono); font-size:1.25rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; }
   .tv-nrc-l .d{ font-size:1.35rem; color:var(--pv-muted); }
   .tv-nrc-l .s{ font-family:var(--pv-mono); font-size:1.05rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pv-faint); margin-top:.3rem; }
-  .tv-pic{ min-width:0; overflow:hidden; min-height:38rem; margin:0; box-shadow:0 2.6rem 6rem -2rem rgba(35,31,32,.22); }
-  .tv-pic img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .tv-pic{ min-width:0; overflow:hidden; margin:0; background:#fff; }
+  .tv-pic img{ width:100%; height:auto; object-fit:contain; display:block; }
   .tv-topbar{ display:flex; align-items:flex-start; justify-content:space-between; gap:2rem; padding-bottom:2rem; border-bottom:1px solid var(--pv-line); }
   .tv-topbar .ov-eyebrow{ margin-bottom:0; }
   .tv-kpi{ display:flex; align-items:baseline; gap:.9rem; flex:none; }
@@ -733,7 +733,6 @@
   .tv-perf-txt .tv-perf-lede{ margin-top:2rem; }
   @media(max-width:900px){
     .tv-perf{ grid-template-columns:1fr; gap:3rem; align-items:start; }
-    .tv-pic{ min-height:0; aspect-ratio:4/3; }
   }
   @media(max-width:600px){
     .tv-topbar{ flex-direction:column; }
@@ -1545,7 +1544,7 @@
       <h2 class="ov-h2">Performance you can <span style="color:var(--pv-accent)">trust</span>.</h2>
       <p class="tv-perf-lede">Tested to <b>BS EN ISO&nbsp;354:2003</b> in a reverberation chamber over a 50&nbsp;mm fibreglass cavity, reported as the practical absorption coefficient &alpha;p. Vega&rsquo;s grooved face and 7.5% rear perforation absorb the mid and low frequencies most rooms struggle with.</p>
     </div>
-    <figure class="tv-pic"><img loading="lazy" src="assets/products/vega/scene-4.webp" alt="Vega in an acoustic interior"></figure>
+    <figure class="tv-pic"><img loading="lazy" src="assets/products/vega/vega-sona-diagram.webp" alt="Vega practical absorption coefficient (αp) curve, 40 Hz – 10 kHz"></figure>
   </div>
 </section>
 
@@ -1629,7 +1628,6 @@
 <img src="assets/brand/naaya-logo-white.webp" alt="NAAYA" class="footer-brand-logo" style="height:2.4rem;width:auto;align-self:flex-start;margin-bottom:2rem">
 <address class="footer-addr">
 <a href="mailto:hello@naayaasia.com" class="footer-link"><span data-i18n="footer_email_label">Email</span><br>hello@naayaasia.com</a>
-<span class="footer-link"><span data-i18n="footer_addr_label">Address</span><br><span data-i18n="footer_addr">Guangzhou, China</span></span>
 </address>
 </div>
 
