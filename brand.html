@@ -302,6 +302,20 @@ main,.scroll{ transform:none!important; }
 }
 
 /* ================= S5 · How we work (dark) → shared in css/naaya-system.css (eyebrow now light on dark, display width capped) ================= */
+/* mobile: turn the 6-step delivery timeline into a horizontal swipe (right-only bleed) */
+@media(max-width:600px){
+  .bd-flow{ margin-top:4rem; }
+  .bd-flow-track{
+    display:flex; grid-template-columns:none;
+    overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+    gap:1.8rem; scrollbar-width:none;
+    margin-right:calc(-1 * var(--ns-gutter)); padding-right:var(--ns-gutter);
+  }
+  .bd-flow-track::-webkit-scrollbar{ display:none; }
+  .bd-flow-track .bd-step{ flex:0 0 74%; scroll-snap-align:start; }
+  .bd-flow-track .bd-step-t{ margin-top:2rem; }
+}
 
 /* ================= S6 · Who we served (logo grid — spec-sheet) ================= */
 .bd-served-head{ max-width:66rem; }
@@ -1010,7 +1024,7 @@ main,.scroll{ transform:none!important; }
 
 <!-- ===== S1 Hero ===== -->
 <section class="home-header ns-hero">
-<div class="ns-hero-bg"><img src="assets/brand/hero-wide.webp" alt="Urban acoustic noise-mapping simulation over a city skyline"></div>
+<div class="ns-hero-bg"><img src="assets/brand/about-hero.webp" alt="Flowing white architectural form against a clear sky"></div>
 <div class="ns-hero-inner">
 <span class="ns-hero-ey">Acoustic design &middot; Engineering &middot; Delivery</span>
 <h1 class="ns-hero-title">Integrated acoustic<br>environments for architecture<span class="dot"></span></h1>
