@@ -757,7 +757,7 @@
 
   /* 5 · models family — compact, real product photos */
   .ov-fam{ display:grid; grid-template-columns:repeat(5,1fr); gap:1.4rem; }
-  .ov-fam-item{ border:1px solid var(--pv-line); transition:border-color .25s; }
+  .ov-fam-item{ display:block; color:var(--pv-ink); text-decoration:none; border:1px solid var(--pv-line); transition:border-color .25s; }
   .ov-fam-item:hover{ border-color:var(--pv-ink); }
   .ov-fam-item figure{ margin:0; aspect-ratio:3/4; background:var(--pv-mist); overflow:hidden; }
   .ov-fam-item img{ width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.16,1,.3,1); }
@@ -1143,10 +1143,10 @@
 </div>
 <a href="projects-3.html" data-i18n="nav_projects">Projects</a>
 <a href="#" onclick="return false;" data-i18n="nav_process">Approach</a>
-<a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
+<a href="contact.html" data-i18n="nav_contact">Contact</a>
 </nav>
 <div class="site-nav-right">
-<a href="mailto:hello@naaya.com" class="site-nav-cta">
+<a href="contact.html" class="site-nav-cta">
 <span class="site-nav-cta-label" data-i18n="cta_button">Get in touch</span>
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="site-nav-cta-arrow"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 </a>
@@ -1463,7 +1463,7 @@
 </div>
 <a href="projects-3.html" data-i18n="nav_projects">Projects</a>
 <a href="#" onclick="return false;" data-i18n="nav_process">Approach</a>
-<a href="mailto:hello@naaya.com" data-i18n="nav_contact">Contact</a>
+<a href="contact.html" data-i18n="nav_contact">Contact</a>
 </nav>
 </div>
 <!-- sticky bar removed per feedback -->
@@ -1579,10 +1579,10 @@
   <span class="ov-eyebrow pv-rise">The Classic family</span>
   <h2 class="ov-h2 pv-rise">Ten formats, one core.</h2>
   <div class="ov-fam pv-rise">
-    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/5-3.webp" alt="Classic 5/3 — fine grooved face"></figure><div class="ov-fam-meta"><h3>5 / 3</h3><span class="sp">Uniform &middot; 5 mm</span></div></div>
-    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/13-3.webp" alt="Classic 13/3 — grooved face"></figure><div class="ov-fam-meta"><h3>13 / 3</h3><span class="sp">Uniform &middot; 13 mm</span></div></div>
-    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/28-4.webp" alt="Classic 28/4 — grooved face"></figure><div class="ov-fam-meta"><h3>28 / 4</h3><span class="sp">Uniform &middot; 28 mm</span></div></div>
-    <div class="ov-fam-item"><figure><img loading="lazy" src="assets/products/classic/59-2.webp" alt="Classic 59/2 — wide grooved face"></figure><div class="ov-fam-meta"><h3>59 / 2</h3><span class="sp">Uniform &middot; 59 mm</span></div></div>
+    <a class="ov-fam-item" href="product-vega-2.html"><figure><img loading="lazy" src="assets/products/classic/5-3.webp" alt="Classic 5/3 — fine grooved face"></figure><div class="ov-fam-meta"><h3>5 / 3</h3><span class="sp">Uniform &middot; 5 mm</span></div></a>
+    <a class="ov-fam-item" href="product-vega-2.html"><figure><img loading="lazy" src="assets/products/classic/13-3.webp" alt="Classic 13/3 — grooved face"></figure><div class="ov-fam-meta"><h3>13 / 3</h3><span class="sp">Uniform &middot; 13 mm</span></div></a>
+    <a class="ov-fam-item" href="product-vega-2.html"><figure><img loading="lazy" src="assets/products/classic/28-4.webp" alt="Classic 28/4 — grooved face"></figure><div class="ov-fam-meta"><h3>28 / 4</h3><span class="sp">Uniform &middot; 28 mm</span></div></a>
+    <a class="ov-fam-item" href="product-vega-2.html"><figure><img loading="lazy" src="assets/products/classic/59-2.webp" alt="Classic 59/2 — wide grooved face"></figure><div class="ov-fam-meta"><h3>59 / 2</h3><span class="sp">Uniform &middot; 59 mm</span></div></a>
     <a class="ov-fam-all" href="collection-classic.html"><span class="ar">&#8594;</span><span class="t">View all</span><span class="s">10 formats</span></a>
   </div>
 </section>
@@ -1646,13 +1646,13 @@
 <a href="brand.html">About NAAYA</a>
 <a href="projects-3.html">Project references</a>
 <a href="#" onclick="return false;">Process</a>
-<a href="mailto:hello@naaya.com">Contact</a>
+<a href="contact.html">Contact</a>
 </div>
 
 <div class="footer-col footer-col-cta">
 <h4 class="footer-col-title" data-i18n="footer_get_in_touch">Get in touch</h4>
 <p class="footer-cta-text" data-i18n="footer_cta_text">For project enquiries, samples and bespoke acoustic design.</p>
-<a href="mailto:hello@naaya.com" class="footer-cta-btn">
+<a href="contact.html" class="footer-cta-btn">
 <svg viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="arrow-svg"><path d="M0.6 0V6H13.1" stroke="currentcolor" stroke-width="1.2"></path><rect x="9.19" y="2.23" width="5.56" height="5.56" transform="rotate(45 9.19 2.23)" stroke="currentcolor" stroke-width="1.2"></rect></svg>
 <span data-i18n="cta_button">Get in touch</span>
 </a>
