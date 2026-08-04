@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Collection — NAAYA Acoustic</title>
+<title>Reverberation time & the Sabine limit — Approach · NAAYA Acoustic</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
@@ -121,21 +121,42 @@ main,.scroll{ transform:none!important; }
   .ab-rise-img img,.ab-rise-img.in img{ transform:none; transition:none; }
 }
 
-:root{  /* aliased to naaya-system.css */
-  --cl-muted:var(--ns-muted); --cl-faint:var(--ns-faint); --cl-hair:var(--ns-line);
+:root{
+  --cl-muted:color-mix(in srgb,var(--color-black) 64%,transparent);
+  --cl-faint:color-mix(in srgb,var(--color-black) 44%,transparent);
+  --cl-hair:color-mix(in srgb,var(--color-black) 12%,transparent);
 }
-/* .cl-wrap (container) + .cl-sec (rhythm) → naaya-system.css */
-.cl-mono{ font-family:var(--ns-mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; }
-.cl-secmark{ margin-bottom:3.2rem; }   /* type → naaya-system.css */
-.cl-lead{ font-family:var(--font-f-aeonik-pro); font-weight:600; font-size:clamp(2.4rem,2.4vw,3.8rem); letter-spacing:-.025em; line-height:1.25; color:var(--color-black); margin:0; max-width:30ch; }
+.cl-wrap{ max-width:164rem; margin:0 auto; padding:0 5rem; }
+@media(max-width:900px){ .cl-wrap{ padding:0 3.4rem; } }
+@media(max-width:600px){ .cl-wrap{ padding:0 2rem; } }
+.cl-mono{ font-family:var(--font-f-aeonik-mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; }
+.cl-sec{ margin:13rem 0; }
+@media(max-width:600px){ .cl-sec{ margin:7rem 0; } }
+.cl-secmark{ font-family:var(--font-f-aeonik-mono); font-size:1.15rem; letter-spacing:.14em; text-transform:uppercase; color:var(--cl-faint); margin-bottom:3.2rem; }
+.cl-lead{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:clamp(2.4rem,2.4vw,3.8rem); letter-spacing:-.025em; line-height:1.25; color:var(--color-black); margin:0; max-width:30ch; }
 
-/* ---- S1 Hero → shared .ns-hero in naaya-system.css ---- */
+/* ---- S1 Hero — full-bleed product texture ---- */
+.cl-hero{ position:relative; min-height:84svh; display:flex; flex-direction:column; background:#0e0c0c; overflow:hidden; }
+.cl-hero-bg{ position:absolute; inset:0; z-index:0; }
+.cl-hero-bg img{ width:100%; height:100%; object-fit:cover; opacity:.88; display:block; }
+.cl-hero-bg::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,8,8,.52) 0%,rgba(10,8,8,.16) 45%,rgba(10,8,8,.84) 100%); }
+.cl-hero-inner{ position:relative; z-index:2; margin-top:auto; width:100%; max-width:164rem; margin-left:auto; margin-right:auto; padding:16rem 5rem 6rem; }
+.cl-meta{ display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; color:rgba(255,255,255,.62); margin-bottom:4.2rem; }
+.cl-title{ font-family:var(--font-f-aeonik-pro); font-weight:400; letter-spacing:-.04em; line-height:.98; font-size:clamp(5rem,7vw,11.8rem); color:#fff; margin:0; max-width:12ch; }
+.cl-sub{ display:flex; justify-content:space-between; align-items:flex-end; gap:5rem; margin-top:4rem; flex-wrap:wrap; }
+.cl-sub > p{ font-family:var(--font-f-aeonik-pro); font-size:1.7rem; line-height:1.6; color:rgba(255,255,255,.78); max-width:46rem; margin:0; }
+.cl-facts{ display:flex; gap:4.2rem; flex-wrap:wrap; }
+@media(max-width:600px){ .cl-facts{ display:grid; grid-template-columns:1fr 1fr; gap:2.6rem 2.4rem; width:100%; } .cl-fact:last-child{ grid-column:1/-1; } }
+.cl-fact .k{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.55); margin-bottom:.7rem; }
+.cl-fact .v{ font-family:var(--font-f-aeonik-pro); font-size:1.5rem; font-weight:500; letter-spacing:-.01em; color:#fff; }
+@media(max-width:900px){ .cl-hero-inner{ padding:14rem 3.4rem 5rem; } }
+@media(max-width:600px){ .cl-hero-inner{ padding:12rem 2rem 4.2rem; } .cl-meta{ margin-bottom:3rem; } .cl-meta span:last-child{ display:none; } }
+@media(max-height:700px) and (max-width:600px){ .cl-hero-inner{ padding-bottom:2.6rem; } .cl-sub{ margin-top:2.6rem; } }
 
 /* ---- S2 Index : filter ---- */
 .cl-filter{ display:flex; flex-wrap:wrap; gap:.8rem; margin:5rem 0 0; }
 @media(max-width:600px){
-  /* first chip aligns with the content gutter; only the right edge bleeds for scroll affordance */
-  .cl-filter{ margin-top:3.4rem; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin-left:0; margin-right:-2rem; padding:0 2rem 0 0; }
+  .cl-filter{ margin-top:3.4rem; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin-left:-2rem; margin-right:-2rem; padding:0 2rem; }
   .cl-filter::-webkit-scrollbar{ display:none; }
   .cl-chip{ white-space:nowrap; flex:0 0 auto; }
 }
@@ -155,7 +176,7 @@ main,.scroll{ transform:none!important; }
 .cl-card-img{ overflow:hidden; background:#f4f2f0; }
 .cl-card-img img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; transition:transform 1.1s cubic-bezier(.16,1,.3,1); }
 .cl-card:hover .cl-card-img img{ transform:scale(1.04); }
-.cl-card h3{ font-family:var(--font-f-aeonik-pro); font-weight:600; font-size:2.3rem; letter-spacing:-.01em; color:var(--color-black); margin:1.6rem 0 .8rem; }
+.cl-card h3{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:2.3rem; letter-spacing:-.01em; color:var(--color-black); margin:1.6rem 0 .8rem; }
 .cl-card .d{ font-family:var(--font-f-aeonik-pro); font-size:1.45rem; line-height:1.55; color:var(--cl-muted); margin:0; }
 .cl-card .s{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--cl-faint); margin-top:1.4rem; }
 .cl-card .f{ display:inline-block; margin-top:1.4rem; font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-black); border-bottom:1px solid color-mix(in srgb,var(--color-black) 35%,transparent); padding-bottom:.3rem; transition:border-color .25s ease; }
@@ -177,7 +198,7 @@ main,.scroll{ transform:none!important; }
 @media(max-width:980px){ .cl-need{ grid-template-columns:1fr 1fr; gap:4rem; } }
 @media(max-width:560px){ .cl-need{ grid-template-columns:1fr; gap:3.2rem; } }
 .cl-need-item .n{ font-family:var(--font-f-aeonik-mono); font-size:1.1rem; letter-spacing:.12em; color:var(--cl-faint); }
-.cl-need-item h3{ font-family:var(--font-f-aeonik-pro); font-weight:600; font-size:2.1rem; letter-spacing:-.01em; color:var(--color-black); margin:1.4rem 0 1rem; }
+.cl-need-item h3{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:2.1rem; letter-spacing:-.01em; color:var(--color-black); margin:1.4rem 0 1rem; }
 .cl-need-item p{ font-family:var(--font-f-aeonik-pro); font-size:1.45rem; line-height:1.6; color:var(--cl-muted); margin:0 0 1.4rem; }
 .cl-need-item .ls{ font-family:var(--font-f-aeonik-mono); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-black); line-height:2; }
 
@@ -200,7 +221,7 @@ main,.scroll{ transform:none!important; }
 
 /* ---- S6 CTA ---- */
 .cl-cta{ display:flex; justify-content:space-between; align-items:center; gap:3rem; flex-wrap:wrap; margin-top:6.4rem; padding-top:6.4rem; border-top:1px solid var(--cl-hair); }
-.cl-cta p{ font-family:var(--font-f-aeonik-pro); font-weight:600; font-size:clamp(2.4rem,2.6vw,3.8rem); letter-spacing:-.025em; margin:0; max-width:22ch; }
+.cl-cta p{ font-family:var(--font-f-aeonik-pro); font-weight:400; font-size:clamp(2.4rem,2.6vw,3.8rem); letter-spacing:-.025em; margin:0; max-width:22ch; }
 .cl-cta-btns{ display:flex; gap:1.2rem; flex-wrap:wrap; }
 .cl-btn{ font-family:var(--font-f-aeonik-mono); font-size:1.3rem; letter-spacing:.06em; text-transform:uppercase; padding:1.6rem 2.8rem; text-decoration:none; border:1px solid var(--color-black); color:var(--color-black); }
 .cl-btn.solid{ background:var(--color-black); color:#fff; }
@@ -210,6 +231,270 @@ main,.scroll{ transform:none!important; }
 
 
 
+<style id="pc3">
+/* ============================================
+   project-case-3.html — process-led case study (.pc3-*)
+   ============================================ */
+:root{  /* tokens aliased to naaya-system.css */
+  --pc3-ink:var(--ns-ink); --pc3-paper:var(--ns-paper); --pc3-mist:var(--ns-mist);
+  --pc3-line:var(--ns-line); --pc3-hair:var(--ns-hair);
+  --pc3-muted:var(--ns-muted); --pc3-faint:var(--ns-faint); --pc3-red:var(--ns-red);
+  --pc3-mono:var(--ns-mono);
+}
+
+/* ---------- nav: inherits the dark-hero index-4 skin (transparent + white over
+   the hero, toggles once scrolled past .home-header). No override needed. ---------- */
+/* ---------- footer: compact flat-black, site-wide via css/naaya.css. ---------- */
+
+/* ================= S1 Hero (bg image + parallax + scroll cue) ================= */
+.pc3-hero{ position:relative; min-height:100svh; overflow:hidden; background:#000; color:#fff;
+  display:flex; align-items:flex-end; }
+.pc3-hero-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+.pc3-hero-bg img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  will-change:transform; transform:scale(1.12); }
+.pc3-hero-bg::after{ content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(12,11,11,.46) 0%, rgba(12,11,11,.20) 38%, rgba(12,11,11,.86) 100%); }
+.pc3-hero-inner{ position:relative; z-index:2; width:100%; max-width:152rem; margin:0 auto;
+  padding:0 4rem 14rem; }
+.pc3-hero-ey{ display:inline-block; font-family:var(--pc3-mono); font-size:1.15rem; letter-spacing:.26em;
+  text-transform:uppercase; color:rgba(255,255,255,.74); margin-bottom:2.6rem; }
+.pc3-hero-title{ position:static!important; clip:auto!important; width:auto!important; height:auto!important;
+  overflow:visible!important; margin:0; font-weight:800; line-height:.92; letter-spacing:-.035em;
+  font-size:clamp(4.4rem,8vw,10.4rem); color:#fff; }
+.pc3-hero-title .dot{ display:inline-block; width:.14em; height:.14em; margin-left:.05em;
+  background:var(--pc3-red); vertical-align:baseline; }
+.pc3-hero-lede{ font-size:clamp(1.5rem,1.7vw,1.9rem); line-height:1.6; color:rgba(255,255,255,.78);
+  max-width:56rem; margin:3rem 0 0; }
+/* scroll cue */
+.pc3-scrollcue{ position:absolute; left:50%; bottom:3.4rem; transform:translateX(-50%); z-index:3;
+  display:flex; flex-direction:column; align-items:center; gap:1.2rem; color:#fff; text-decoration:none; }
+.pc3-scrollcue span:first-child{ font-family:var(--pc3-mono); font-size:1rem; letter-spacing:.24em;
+  text-transform:uppercase; color:rgba(255,255,255,.7); }
+.pc3-scrollcue-line{ position:relative; width:1px; height:5.4rem; background:rgba(255,255,255,.28); overflow:hidden; }
+.pc3-scrollcue-line::after{ content:""; position:absolute; left:0; top:-50%; width:100%; height:50%;
+  background:#fff; animation:pc3drop 1.9s cubic-bezier(.7,0,.3,1) infinite; }
+@keyframes pc3drop{ 0%{ transform:translateY(0); } 60%,100%{ transform:translateY(300%); } }
+
+/* ---------- generic section ---------- */
+.pc3-sec{ background:var(--pc3-paper); color:var(--pc3-ink); }   /* rhythm/wrap/secmark → naaya-system.css */
+.pc3-h2{ margin:1.6rem 0 0; }
+
+/* ================= S2 Project Overview (Image #32 layout) ================= */
+.pc3-ov-top{ display:grid; grid-template-columns:0.9fr 2fr; gap:6rem; align-items:start; }
+.pc3-ov-h{ font-size:clamp(3.2rem,4.6vw,5.4rem); font-weight:600; letter-spacing:-.025em; line-height:1; margin:0; }
+.pc3-ov-p{ font-size:clamp(1.7rem,1.9vw,2.2rem); line-height:1.55; color:var(--pc3-ink); margin:.4rem 0 0; max-width:78rem; }
+.pc3-meta{ display:grid; grid-template-columns:repeat(4,1fr); gap:0 4rem; margin-top:7rem; }
+.pc3-meta-i{ display:flex; flex-direction:column; gap:1rem; padding-top:2.2rem; border-top:1px solid var(--pc3-line); }
+.pc3-meta-i .k{ font-family:var(--pc3-mono); font-size:1.15rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pc3-faint); }
+.pc3-meta-i .v{ font-size:1.9rem; font-weight:500; letter-spacing:-.01em; }
+
+/* ================= S3 Our Scope (50/50 + gallery) ================= */
+.pc3-scope{ background:var(--pc3-mist); }
+.pc3-scope-split{ display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
+.pc3-scope-text p{ font-size:1.6rem; line-height:1.7; color:var(--pc3-muted); margin:2.4rem 0 0; max-width:50rem; }
+.pc3-scope-list{ list-style:none; margin:3.4rem 0 0; padding:0; display:grid; gap:0; max-width:52rem; }
+.pc3-scope-list li{ display:grid; grid-template-columns:auto 1fr; gap:1.6rem; align-items:baseline;
+  padding:1.6rem 0; border-top:1px solid var(--pc3-line); font-size:1.55rem; }
+.pc3-scope-list li:last-child{ border-bottom:1px solid var(--pc3-line); }
+.pc3-scope-list .n{ font-family:var(--pc3-mono); font-size:1.15rem; color:var(--pc3-red); letter-spacing:.06em; }
+.pc3-scope-list b{ font-weight:600; }
+.pc3-scope-list .d{ display:block; color:var(--pc3-muted); font-size:1.4rem; margin-top:.4rem; }
+.pc3-scope-img{ position:relative; aspect-ratio:4/5; overflow:hidden; background:var(--pc3-mist); }
+.pc3-scope-img img{ width:100%; height:100%; object-fit:cover; }
+.pc3-gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; margin-top:1.8rem; }
+.pc3-gallery figure{ margin:0; aspect-ratio:3/2; overflow:hidden; background:var(--pc3-mist); }
+.pc3-gallery img{ width:100%; height:100%; object-fit:cover; transition:transform .9s cubic-bezier(.16,.84,.44,1); }
+.pc3-gallery figure:hover img{ transform:scale(1.05); }
+
+/* ================= S4 Acoustic Simulation workflow ================= */
+.pc3-flow-head{ max-width:64rem; margin:0 0 5.5rem; }
+.pc3-flow-head p{ font-size:1.6rem; line-height:1.65; color:var(--pc3-muted); margin:1.8rem 0 0; }
+.pc3-step{ display:grid; grid-template-columns:0.95fr 1.05fr; gap:5rem; align-items:center;
+  padding:5rem 0; border-top:1px solid var(--pc3-line); }
+.pc3-step:last-child{ border-bottom:1px solid var(--pc3-line); }
+.pc3-step-no{ font-family:var(--pc3-mono); font-size:1.2rem; letter-spacing:.12em; color:var(--pc3-red); }
+.pc3-step-title{ font-size:clamp(2.2rem,2.6vw,3.1rem); font-weight:600; letter-spacing:-.015em; line-height:1.1; margin:1.4rem 0 0; }
+.pc3-step-desc{ font-size:1.5rem; line-height:1.65; color:var(--pc3-muted); margin:1.8rem 0 0; max-width:44rem; }
+.pc3-step-link{ display:inline-flex; align-items:center; gap:.7rem; margin-top:2rem; font-family:var(--pc3-mono);
+  font-size:1.2rem; letter-spacing:.06em; text-transform:uppercase; color:var(--pc3-ink); text-decoration:none;
+  border-bottom:1px solid var(--pc3-line); padding-bottom:.5rem; transition:gap .3s ease, border-color .25s; }
+.pc3-step-link:hover{ gap:1.2rem; border-color:var(--pc3-ink); }
+.pc3-step-media{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--pc3-mist); }
+.pc3-step-media img{ width:100%; height:100%; object-fit:cover; }
+.pc3-step.rev{ direction:rtl; } .pc3-step.rev > *{ direction:ltr; }
+/* step 01 — metrics panel (no photo, redesigned: red index tick + big numerals;
+   min-height matches a typical image step so the section reads full + consistent) */
+.pc3-metrics{ display:grid; grid-template-columns:1fr 1fr; column-gap:5rem; row-gap:0; }
+.pc3-metric{ position:relative; min-height:21rem; padding:3.4rem 0 3.6rem; border-top:1px solid var(--pc3-line);
+  display:flex; flex-direction:column; }
+.pc3-metric::before{ content:""; position:absolute; top:-1px; left:0; width:3.6rem; height:2px; background:var(--pc3-red); }
+.pc3-metric .mk{ display:block; font-family:var(--pc3-mono); font-size:1.05rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--pc3-faint); padding-right:3rem; }
+.pc3-metric .mv{ display:block; margin-top:auto; font-size:clamp(3.4rem,4.4vw,4.8rem); font-weight:600; letter-spacing:-.03em; line-height:.95; }
+.pc3-metric .mv .mu{ font-size:.36em; font-weight:500; letter-spacing:0; color:var(--pc3-muted); margin-left:.12em; }
+.pc3-metric .md{ display:block; font-size:1.35rem; line-height:1.5; color:var(--pc3-muted); margin-top:1.4rem; }
+/* step 06 — data table under the image */
+.pc3-data{ margin-top:1.8rem; border:1px solid var(--pc3-line); }
+.pc3-data-row{ display:grid; grid-template-columns:1.6fr 1fr 1fr; }
+.pc3-data-row + .pc3-data-row{ border-top:1px solid var(--pc3-line); }
+.pc3-data-row > span{ padding:1.2rem 1.6rem; font-size:1.35rem; }
+.pc3-data-row > span + span{ border-left:1px solid var(--pc3-line); }
+.pc3-data-row.h > span{ font-family:var(--pc3-mono); font-size:1.05rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--pc3-faint); background:var(--pc3-mist); }
+.pc3-data-row b{ font-weight:600; }
+.pc3-data-row .ok{ color:var(--pc3-red); }
+/* step 04 — material modules (graphic + name, no photos) */
+.pc3-mats{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--pc3-line);
+  border:1px solid var(--pc3-line); }
+.pc3-mat{ background:var(--pc3-paper); color:var(--pc3-ink); padding:2.6rem 2.4rem 2.4rem;
+  display:flex; flex-direction:column; gap:1.6rem; min-height:13rem; transition:background .35s ease, color .35s ease; }
+.pc3-mat-fig{ display:flex; align-items:center; height:3.6rem; color:var(--pc3-ink); }
+.pc3-mat-svg{ width:4.8rem; height:3.6rem; }
+.pc3-mat-name{ margin-top:auto; font-size:1.45rem; font-weight:600; letter-spacing:-.01em; line-height:1.2; }
+.pc3-mat:hover{ background:var(--pc3-ink); color:#fff; }
+.pc3-mat:hover .pc3-mat-fig{ color:var(--pc3-red); }
+/* step 04 — style options (C boxed rows + F floating cloud) imported from compare page */
+.pc3-optlabel{ font-family:var(--pc3-mono); font-size:1.1rem; letter-spacing:.18em; text-transform:uppercase; color:var(--pc3-faint); margin:0 0 1.6rem; }
+.pc3-opt + .pc3-opt{ margin-top:4.5rem; }
+.pc3ic{ fill:none; stroke:currentColor; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; display:block; }
+/* Style C — boxed-icon rows (2-col, soft fill) */
+.pc3c-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+.pc3c-item{ display:flex; align-items:center; gap:1.8rem; padding:1.8rem; background:var(--pc3-mist);
+  border:1px solid transparent; transition:background .3s ease, border-color .3s ease; }
+.pc3c-box{ flex:none; width:6rem; height:6rem; display:flex; align-items:center; justify-content:center;
+  background:var(--pc3-paper); border:1px solid var(--pc3-line); color:var(--pc3-ink); transition:border-color .3s ease, color .3s ease; }
+.pc3c-box .pc3ic{ width:3.6rem; height:2.7rem; }
+.pc3c-name{ font-size:1.5rem; font-weight:600; letter-spacing:-.01em; line-height:1.25; }
+.pc3c-item:hover{ background:var(--pc3-paper); border-color:var(--pc3-ink); }
+.pc3c-item:hover .pc3c-box{ border-color:var(--pc3-red); color:var(--pc3-red); }
+/* Style F — floating chip cloud (organic scatter + drift, hover lift) */
+.pc3f-cloud{ position:relative; min-height:40rem; }
+.pc3f-chip{ position:absolute; animation:pc3f-float 7s ease-in-out infinite; will-change:transform; }
+.pc3f-pill{ display:inline-flex; align-items:center; gap:1rem; padding:1.2rem 2rem 1.2rem 1.4rem; cursor:default;
+  border:1px solid var(--pc3-line); border-radius:999px; background:var(--pc3-paper); color:var(--pc3-ink);
+  box-shadow:0 1px 2px rgba(35,31,32,.04);
+  transition:transform .35s ease, background .3s ease, color .3s ease, border-color .3s ease, box-shadow .35s ease; }
+.pc3f-pill .pc3ic{ width:3rem; height:2.3rem; color:var(--pc3-muted); flex:none; transition:color .3s ease; }
+.pc3f-name{ font-size:1.45rem; font-weight:600; letter-spacing:-.01em; }
+.pc3f-pill:hover{ background:var(--pc3-ink); color:#fff; border-color:var(--pc3-ink); transform:translateY(-.6rem);
+  box-shadow:0 1.6rem 3.4rem rgba(35,31,32,.18); }
+.pc3f-pill:hover .pc3ic{ color:var(--pc3-red); }
+.pc3f-chip:nth-child(1){ top:0;       left:2%;   animation-duration:6.6s; animation-delay:-2.1s; }
+.pc3f-chip:nth-child(2){ top:6.6rem;  right:0;   animation-duration:8.1s; animation-delay:-4.4s; }
+.pc3f-chip:nth-child(3){ top:14.8rem; left:7%;   animation-duration:7.2s; animation-delay:-0.8s; }
+.pc3f-chip:nth-child(4){ top:13.4rem; right:11%; animation-duration:6.9s; animation-delay:-3.3s; }
+.pc3f-chip:nth-child(5){ top:25.2rem; left:16%;  animation-duration:7.9s; animation-delay:-1.5s; }
+.pc3f-chip:nth-child(6){ top:29.6rem; right:18%; animation-duration:6.3s; animation-delay:-5.2s; }
+@keyframes pc3f-float{
+  0%   { transform:translate(0, 0)          rotate(-.4deg); }
+  50%  { transform:translate(.4rem, -1.1rem) rotate(.5deg); }
+  100% { transform:translate(0, 0)          rotate(-.4deg); }
+}
+@media (prefers-reduced-motion:reduce){ .pc3f-chip{ animation:none; } }
+
+/* ================= S5 Related projects (4-up square — matches projects-3 .pj3-card) ================= */
+.pc3-rel-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; margin-top:4rem; }
+.pc3-card{ position:relative; display:block; overflow:hidden; text-decoration:none; aspect-ratio:1/1; background:var(--pc3-mist); color:#fff; }
+.pc3-card-img{ position:absolute; inset:0; }
+.pc3-card-img img{ width:100%; height:100%; object-fit:cover; transition:transform .9s cubic-bezier(.16,.84,.44,1); }
+.pc3-card:hover .pc3-card-img img{ transform:scale(1.06); }
+.pc3-card::after{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to top, rgba(20,18,18,.92) 0%, rgba(20,18,18,.42) 36%, rgba(20,18,18,0) 64%); }
+.pc3-card-body{ position:absolute; inset:0; z-index:2; padding:1.9rem; display:flex; flex-direction:column; justify-content:space-between; }
+.pc3-card-tag{ align-self:flex-start; display:inline-flex; align-items:center; gap:.55rem;
+  font-size:.98rem; letter-spacing:.1em; text-transform:uppercase; color:#fff;
+  border:1px solid rgba(255,255,255,.42); border-radius:999px; padding:.45rem 1rem .45rem .8rem; }
+.pc3-card-tag .pc3-ic{ width:1.4rem; height:1.4rem; flex:none; }
+.pc3-card h3{ font-size:1.72rem; font-weight:600; line-height:1.16; letter-spacing:-.01em; margin:0; }
+.pc3-card-loc{ margin:.6rem 0 0; font-size:1.12rem; letter-spacing:.03em; color:rgba(255,255,255,.68); }
+.pc3-card-go{ display:inline-flex; align-items:center; gap:.55rem; margin-top:1.1rem; font-size:1.02rem;
+  letter-spacing:.08em; text-transform:uppercase; color:#fff; transition:gap .3s ease; }
+.pc3-card:hover .pc3-card-go{ gap:1rem; }
+
+/* ================= S6 Get in touch (pc3-contact) ================= */
+/* pc3-contact → shared in css/naaya-system.css */
+/* .pc3-contact .pc3-cta (red button) → naaya-system.css */
+
+/* ---------- reveal ---------- */
+/* .pc3-rise base + .in → naaya-system.css */
+.pc3-rise.d1{ transition-delay:.08s } .pc3-rise.d2{ transition-delay:.16s } .pc3-rise.d3{ transition-delay:.24s }
+
+/* ---------- responsive ---------- */
+@media(max-width:1280px){ .pc3-rel-grid{ grid-template-columns:repeat(3,1fr); } }
+@media(max-width:1100px){ .pc3-gallery{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:960px){ .pc3-rel-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:900px){
+  .pc3-hero-inner{ padding:0 2.4rem 11rem; }   /* .pc3-sec pad + .pc3-wrap gutter → tokens */
+  .pc3-ov-top{ grid-template-columns:1fr; gap:2.6rem; }
+  .pc3-meta{ grid-template-columns:repeat(2,1fr); gap:0 3rem; margin-top:5rem; row-gap:0; }
+  .pc3-meta-i{ margin-top:2.4rem; }
+  .pc3-scope-split{ grid-template-columns:1fr; gap:3.4rem; }
+  .pc3-scope-img{ aspect-ratio:16/10; }
+  .pc3-step{ grid-template-columns:1fr; gap:2.8rem; padding:4rem 0; }
+  .pc3-step.rev{ direction:ltr; }
+  .pc3-contact-grid{ grid-template-columns:1fr; gap:3.4rem; align-items:start; }
+}
+@media(max-width:600px){
+  .pc3-gallery,.pc3-rel-grid{ grid-template-columns:1fr; }
+  .pc3-meta{ grid-template-columns:1fr; }
+  .pc3-metrics{ grid-template-columns:1fr; column-gap:0; }
+  .pc3-metric{ min-height:auto; padding:2.4rem 0 2.6rem; }
+  .pc3-metric .mk{ margin-bottom:1.4rem; }
+  .pc3-metric .md{ margin-top:1rem; }
+  .pc3-mats{ grid-template-columns:1fr; }
+  .pc3c-grid{ grid-template-columns:1fr; }
+  .pc3f-cloud{ position:static; min-height:0; display:flex; flex-direction:column; align-items:stretch; gap:1rem; }
+  .pc3f-chip{ position:static; animation:none; width:100%; }
+  .pc3f-pill{ width:100%; justify-content:flex-start; padding:1.4rem 1.8rem; }
+  .pc3-scrollcue{ display:none; }
+}
+
+/* footer responsive: inherits index-4 / naaya.css */
+</style>
+<style id="apr-article">
+/* ============================================
+   approach-article.html — academic paper body (.apr-*)
+   reuses .pc3-hero/.pc3-sec/.pc3-wrap/.pc3-meta/.pc3-secmark/.pc3-contact/.pc3-rel-grid chrome
+   ============================================ */
+.apr-col{ max-width:78rem; margin:0 auto; }
+/* Abstract (S2) */
+.apr-abstract{ margin-top:2.4rem; }
+.apr-abstract .k{ display:block; font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; color:#e3261b; font-weight:500; margin-bottom:1.4rem; }
+.apr-abstract p{ font-size:1.7rem; line-height:1.62; color:var(--ns-ink); margin:0; }
+/* article body blocks */
+.apr-block{ margin-top:6.8rem; }
+.apr-block:first-child{ margin-top:0; }
+.apr-h2{ font-size:clamp(2.2rem,3.1vw,3.15rem); font-weight:600; line-height:1.12; letter-spacing:-.015em; margin:1.2rem 0 0; color:var(--ns-ink); }
+.apr-body{ margin-top:2rem; }
+.apr-body > p{ font-size:1.5rem; line-height:1.78; color:#33302e; margin:0 0 1.7rem; }
+.apr-body > p:last-child{ margin-bottom:0; }
+.apr-body b{ font-weight:600; color:var(--ns-ink); }
+.apr-body a{ color:#e3261b; text-decoration:none; border-bottom:1px solid rgba(227,38,27,.35); }
+/* pull quote */
+.apr-quote{ margin:3.6rem 0; padding-left:2.6rem; border-left:3px solid #e3261b;
+  font-size:2.05rem; line-height:1.4; font-weight:500; letter-spacing:-.01em; color:var(--ns-ink); }
+/* figures: 1–3 images */
+.apr-fig{ margin:3.4rem 0 0; }
+.apr-fig-grid{ display:grid; gap:1.2rem; }
+.apr-fig-2 .apr-fig-grid{ grid-template-columns:1fr 1fr; }
+.apr-fig-3 .apr-fig-grid{ grid-template-columns:1fr 1fr 1fr; }
+.apr-fig img{ width:100%; height:100%; object-fit:cover; display:block; background:var(--ns-mist); }
+.apr-fig-1 img{ aspect-ratio:16/9; }
+.apr-fig-2 img, .apr-fig-3 img{ aspect-ratio:4/3; }
+.apr-fig figcaption{ margin-top:1.2rem; font-size:1.18rem; line-height:1.5; color:var(--ns-muted); }
+.apr-fig figcaption b{ color:var(--ns-ink); font-weight:600; }
+/* references */
+.apr-refs{ list-style:none; margin:2.4rem 0 0; padding:0; }
+.apr-refs li{ font-size:1.3rem; line-height:1.6; color:var(--ns-muted); padding:1.2rem 0; border-top:1px solid var(--ns-hair); display:flex; gap:1.4rem; }
+.apr-refs li:last-child{ border-bottom:1px solid var(--ns-hair); }
+.apr-refs .rn{ color:#e3261b; font-weight:600; flex:none; }
+.apr-refs b{ color:var(--ns-ink); font-weight:600; }
+@media(max-width:640px){
+  .apr-fig-2 .apr-fig-grid, .apr-fig-3 .apr-fig-grid{ grid-template-columns:1fr; }
+  .apr-quote{ font-size:1.75rem; padding-left:1.8rem; }
+  .apr-abstract p{ font-size:1.5rem; }
+}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -873,246 +1158,141 @@ main,.scroll{ transform:none!important; }
 </div>
 <main class="main"><div class="scroll" data-v-eefc1d23><div class="content" data-v-eefc1d23><div class="home-page">
 
-<!-- ===== S1 Head ===== -->
-<section class="home-header ns-hero">
-<div class="ns-hero-bg"><img src="assets/collection-hero.webp" alt="Wood Curve — curved perforated timber acoustic wall"></div>
-<div class="ns-hero-inner">
-<span class="ns-hero-ey">NAAYA — Products · Catalogue 2026</span>
-<h1 class="ns-hero-title">Collection<span class="dot"></span></h1>
-<p class="ns-hero-lede">Twenty series across five material families — engineered, lab-measured and made in our own factory. One catalogue for every acoustic challenge, from concert halls to clean rooms.</p>
+<!-- ===== S1 Hero ===== -->
+<section class="home-header pc3-hero">
+<div class="pc3-hero-bg"><img src="assets/projects/case-hall.webp" alt="Auditorium interior with timber acoustic panelling"></div>
+<div class="pc3-hero-inner">
+<span class="pc3-hero-ey">Approach &mdash; Room Acoustics</span>
+<h1 class="pc3-hero-title">Reverberation time<br>&amp; the Sabine limit<span class="dot"></span></h1>
+<p class="pc3-hero-lede">The reverberation-time formula every acoustician starts with &mdash; where it holds, where it quietly breaks, and what to reach for when a room refuses to behave.</p>
 </div>
-<a class="ns-scrollcue" href="#collection-start" aria-label="Scroll down"><span>Scroll</span><span class="ns-scrollcue-line"></span></a>
+<a class="pc3-scrollcue" href="#overview" aria-label="Scroll down"><span>Scroll</span><span class="pc3-scrollcue-line"></span></a>
 </section>
 
-<!-- ===== S2 Index ===== -->
-<section class="cl-sec" id="collection-start"><div class="cl-wrap">
-<div class="cl-secmark">01 — Index</div>
-<p class="cl-lead">Sixteen product lines. Filter by material family.</p>
-
-<div class="cl-filter" aria-label="Filter series">
-<button class="cl-chip is-active" data-f="all" type="button">All<sup>16</sup></button>
-<button class="cl-chip" data-f="wood" type="button">Wood<sup>05</sup></button>
-<button class="cl-chip" data-f="ceiling" type="button">Ceiling &amp; seamless<sup>05</sup></button>
-<button class="cl-chip" data-f="fibre" type="button">Fibre &amp; PET<sup>03</sup></button>
-<button class="cl-chip" data-f="metal" type="button">Metal<sup>01</sup></button>
-<button class="cl-chip" data-f="specialty" type="button">Specialty<sup>02</sup></button>
+<!-- ===== S2 Abstract & meta ===== -->
+<section id="overview" class="pc3-sec">
+<div class="pc3-wrap">
+<div class="apr-col">
+<div class="apr-abstract pc3-rise">
+<span class="k">Abstract</span>
+<p>Reverberation time is the first number most acousticians reach for, and the Sabine equation is how they get it. This note revisits that equation as a working tool &mdash; the assumptions baked into it, the room conditions where it stays honest, and the common cases where it drifts far enough to mislead. We close with the practical corrections and on-site checks NAAYA uses on real projects.</p>
 </div>
-
-<div class="cl-grid">
-
-<a class="cl-card" href="collection-classic.html" data-cat="wood">
-<div class="cl-card-bar"><span>01 · Wood</span><span>10 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/classic.webp" alt="Classic series — grooved timber wall" loading="lazy"></div>
-<h3>Classic</h3>
-<p class="d">Grooved panels on an MDF/MGO base with melamine, HPL or veneer finish — the fundamental absorbing surface.</p>
-<div class="s">NRC ≤ 0.80 · 15 mm</div>
-<span class="f">View 10 models →</span>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="wood">
-<div class="cl-card-bar"><span>02 · Wood</span><span>6 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/perfo.webp" alt="Perfo series — perforated panels" loading="lazy"></div>
-<h3>Perfo</h3>
-<p class="d">Double-sided perforated panels in six open-area patterns, tuned for mid-to-low frequency absorption.</p>
-<div class="s">NRC ≤ 0.85 · 15 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="wood">
-<div class="cl-card-bar"><span>03 · Wood</span><span>11 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/micro.webp" alt="Micro series — micro-perforated ceiling" loading="lazy"></div>
-<h3>Micro</h3>
-<p class="d">0.5–1 mm micro-perforations form a Helmholtz resonator — near-invisible control. Micro Classic · Micro Art.</p>
-<div class="s">NRC ≤ 0.85 · 15 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="wood">
-<div class="cl-card-bar"><span>04 · Wood</span><span>3 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/curve.webp" alt="Wood Curve series — curved timber shells" loading="lazy"></div>
-<h3>Wood Curve</h3>
-<p class="d">Kerf-cut MDF that bends into seamless waves, columns and organic forms, down to a 1,000 mm radius.</p>
-<div class="s">NRC ≤ 0.85 · 15 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="wood">
-<div class="cl-card-bar"><span>05 · Wood</span><span>22 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/art.webp" alt="Art Acoustic series — carved feature wall" loading="lazy"></div>
-<h3>Art Acoustic</h3>
-<p class="d">CNC-carved artistic patterns that absorb mid-to-high reverberation while serving as sculptural focal points.</p>
-<div class="s">NRC ≤ 0.90 · 15 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="metal">
-<div class="cl-card-bar"><span>06 · Metal</span><span>17 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/phonex.webp" alt="Phonex Metal series — perforated aluminium" loading="lazy"></div>
-<h3>Phonex Metal</h3>
-<p class="d">Perforated aluminium on a honeycomb core — fire-resistant and moisture-proof. Compose · Classic · Standard.</p>
-<div class="s">NRC 0.70–0.80 · 20 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="ceiling">
-<div class="cl-card-bar"><span>07 · Ceiling</span><span>2 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/uniseam.webp" alt="Uniseam series — seamless acoustic ceiling" loading="lazy"></div>
-<h3>Uniseam</h3>
-<p class="d">A truly monolithic, joint-free ceiling — trowel-applied over reinforced scrim. Aero · Mono.</p>
-<div class="s">NRC 0.75+ · 12 / 30 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="ceiling">
-<div class="cl-card-bar"><span>08 · Ceiling</span><span>4 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/cleaneo.webp" alt="Cleaneo series — perforated gypsum" loading="lazy"></div>
-<h3>Cleaneo</h3>
-<p class="d">High-performance perforated gypsum for monolithic ceiling and wall systems, finely tunable absorption.</p>
-<div class="s">NRC ≤ 0.80 · 12.5 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="ceiling">
-<div class="cl-card-bar"><span>09 · Ceiling</span><span>1 system</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/acouspray.webp" alt="Acouspray — seamless sprayed finish" loading="lazy"></div>
-<h3>Acouspray</h3>
-<p class="d">Spray-applied cellulose that cures into a seamless, low-density acoustic envelope on any substrate.</p>
-<div class="s">NRC ≤ 0.95 · 30 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="ceiling">
-<div class="cl-card-bar"><span>10 · Ceiling</span><span>2 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/acona.webp" alt="Acona Classic series — fibreglass lay-in tiles" loading="lazy"></div>
-<h3>Acona Classic</h3>
-<p class="d">High-density fibreglass lay-in tiles with a decorative face — non-combustible and formaldehyde-free.</p>
-<div class="s">NRC ≤ 1.00 · 15 / 20 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="ceiling">
-<div class="cl-card-bar"><span>11 · Ceiling</span><span>10 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/aconaart.webp" alt="Acona Art series — sculptural space absorbers" loading="lazy"></div>
-<h3>Acona Art</h3>
-<p class="d">Sculptural moulded-fibreglass clouds, baffles and pyramids for three-dimensional acoustic control.</p>
-<div class="s">NRC ≤ 1.00 · 25 / 40 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="fibre">
-<div class="cl-card-bar"><span>12 · Fibre</span><span>2 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/fabric.webp" alt="Fabricoustic series — fabric-wrapped panels" loading="lazy"></div>
-<h3>Fabricoustic</h3>
-<p class="d">Fabric-wrapped panels over glass-fibre (Classic) or recycled cotton (Eco), in Class-A acoustic fabric.</p>
-<div class="s">NRC ≤ 0.90 · 25–60 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="fibre">
-<div class="cl-card-bar"><span>13 · Fibre</span><span>30 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/pet.webp" alt="Polyester PET series — recyclable fibre panels" loading="lazy"></div>
-<h3>Polyester (PET)</h3>
-<p class="d">100% recyclable polyester fibre — flat panels, V-groove walls, engraving ceilings and folded clouds.</p>
-<div class="s">NRC ≤ 0.85 · 9 / 12 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="fibre">
-<div class="cl-card-bar"><span>14 · Fibre</span><span>7 shapes</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/woodwool.webp" alt="Wood Wool series — mineralised wood wool tiles" loading="lazy"></div>
-<h3>Wood Wool</h3>
-<p class="d">Mineralised wood wool bound with cement — impact-resistant, fire-safe, moisture-proof and insulating.</p>
-<div class="s">NRC 0.60–0.65 · 15–25 mm</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="specialty">
-<div class="cl-card-bar"><span>15 · Specialty</span><span>17 models</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/diffuser.webp" alt="Diffuser series — MLS and QRD diffusers" loading="lazy"></div>
-<h3>Diffuser</h3>
-<p class="d">MLS, QRD, Skyline and geometric diffusers in solid wood or MDF — scattering measured to ISO 17497.</p>
-<div class="s">ISO 17497 · Wood / MDF</div>
-</a>
-
-<a class="cl-card" href="collection-classic.html" data-cat="specialty">
-<div class="cl-card-bar"><span>16 · Specialty</span><span>3 types</span></div>
-<div class="cl-card-img"><img src="assets/mega/scene/door.webp" alt="Soundproofed Door — studio doorway" loading="lazy"></div>
-<h3>Soundproofed Door</h3>
-<p class="d">Metal-wood composite, metal or solid-wood doorsets, tested to ISO 10140 for studios and halls.</p>
-<div class="s">STC 35–45 dB · 50–100 mm</div>
-</a>
-
-</div>
-</div></section>
-
-<!-- ===== S3 By need ===== -->
-<section class="cl-sec"><div class="cl-wrap">
-<div class="cl-secmark">02 — Choosing a system</div>
-<p class="cl-lead">Start from the problem, not the product.</p>
-<div class="cl-need">
-<div class="cl-need-item">
-<span class="n">A</span>
-<h3>Control reverberation</h3>
-<p>Bring speech clarity and music balance to halls, offices and public rooms.</p>
-<div class="ls">Classic · Micro · Acona · PET</div>
-</div>
-<div class="cl-need-item">
-<span class="n">B</span>
-<h3>Invisible acoustics</h3>
-<p>Monolithic surfaces where the treatment should not read as a product.</p>
-<div class="ls">Uniseam · Acouspray · Cleaneo · Micro</div>
-</div>
-<div class="cl-need-item">
-<span class="n">C</span>
-<h3>Demanding environments</h3>
-<p>Impact, humidity, hygiene and fire — airports, labs, kitchens, schools.</p>
-<div class="ls">Phonex · Wood Wool · Soundproofed Door</div>
-</div>
-<div class="cl-need-item">
-<span class="n">D</span>
-<h3>Sculpture &amp; diffusion</h3>
-<p>Acoustic performance as a visual statement, or precise scattering control.</p>
-<div class="ls">Art Acoustic · Acona Art · Wood Curve · Diffuser</div>
+<div class="pc3-meta apr-meta pc3-rise d1" style="margin-top:3.4rem">
+<div class="pc3-meta-i"><span class="k">Topic</span><span class="v">Room Acoustics</span></div>
+<div class="pc3-meta-i"><span class="k">Published</span><span class="v">2026</span></div>
+<div class="pc3-meta-i"><span class="k">Author</span><span class="v">NAAYA Acoustics Team</span></div>
+<div class="pc3-meta-i"><span class="k">Reading time</span><span class="v">8 minutes</span></div>
 </div>
 </div>
-</div></section>
+</div>
+</section>
 
-<!-- ===== S4 Finishes ===== -->
-<section class="cl-sec"><div class="cl-wrap">
-<div class="cl-secmark">03 — Finishes</div>
-<p class="cl-lead">One palette across the wood-based collection.</p>
-<div class="cl-fin">
-<div class="cl-fin-col">
-<div class="k"><span>Melamine</span><em>8 finishes</em></div>
-<p>White Oak to Dark Walnut — durable resin surfaces for high-traffic interiors.</p>
-</div>
-<div class="cl-fin-col">
-<div class="k"><span>HPL</span><em>8 finishes</em></div>
-<p>Elegant Oak to Afromosia — high-pressure laminate for the hardest wear.</p>
-</div>
-<div class="cl-fin-col">
-<div class="k"><span>Veneer</span><em>14 finishes</em></div>
-<p>Washed White Oak to European Ebony — natural wood, sequence-matched.</p>
-</div>
-<div class="cl-fin-col">
-<div class="k"><span>Paint</span><em>12 + RAL / Pantone</em></div>
-<p>Twelve standard coats, or any RAL and Pantone colour on request.</p>
-</div>
-</div>
-</div></section>
+<!-- ===== S3 Article body (repeatable text + 1-3 figure blocks) ===== -->
+<section class="pc3-sec">
+<div class="pc3-wrap">
+<div class="apr-col">
 
-<!-- ===== S5 Certifications ===== -->
-<section class="cl-sec"><div class="cl-wrap">
-<div class="cl-secmark">04 — Tested, not claimed</div>
-<p class="cl-lead">Every series ships with its lab report.</p>
-<div class="cl-certs">
-<div class="cl-cert"><span class="c">ISO 354</span><span class="w">Sound absorption — reverberation room method</span><span class="x">All absorbing series</span></div>
-<div class="cl-cert"><span class="c">EN 13501</span><span class="w">Reaction to fire classification</span><span class="x">All series</span></div>
-<div class="cl-cert"><span class="c">EN 717</span><span class="w">Formaldehyde &amp; VOC emission</span><span class="x">All series</span></div>
-<div class="cl-cert"><span class="c">ISO 10140</span><span class="w">Airborne sound insulation</span><span class="x">Soundproofed Door</span></div>
-<div class="cl-cert"><span class="c">ISO 17497</span><span class="w">Sound scattering &amp; diffusion</span><span class="x">Diffuser</span></div>
+<!-- block 01 — text + ONE figure -->
+<div class="apr-block pc3-rise">
+<div class="pc3-secmark">01 &mdash; The equation</div>
+<h2 class="apr-h2">What Sabine actually says</h2>
+<div class="apr-body">
+<p>In 1898 Wallace Clement Sabine reduced the decay of sound in a room to a single, elegant relationship: reverberation time grows with the volume of the space and falls as you add absorption. In modern form, <b>RT&#8323;&#8320; = 0.161&#8202;V / A</b>, where <b>V</b> is room volume in cubic metres and <b>A</b> is the total absorption in sabins &mdash; the sum of every surface area multiplied by its absorption coefficient.</p>
+<p>The equation&rsquo;s appeal is that it needs almost nothing: a volume, a handful of materials, and their coefficients. For a first pass on a rectangular room with evenly spread absorption it is remarkably close to reality &mdash; which is exactly why it has survived for more than a century.</p>
 </div>
-</div></section>
+<figure class="apr-fig apr-fig-1 pc3-rise">
+<div class="apr-fig-grid"><img src="assets/services/sim.webp" alt="Measured energy-decay curve" loading="lazy"></div>
+<figcaption><b>Fig.&nbsp;1</b> &mdash; A measured energy-decay curve. Reverberation time is read from the slope over the first 60&nbsp;dB of decay (RT&#8323;&#8320;), or extrapolated from the first 20&ndash;30&nbsp;dB.</figcaption>
+</figure>
+</div>
 
-<!-- ===== S6 Get in touch (dark, matches project-case-3) ===== -->
+<!-- block 02 — text + pull quote + TWO figures -->
+<div class="apr-block pc3-rise">
+<div class="pc3-secmark">02 &mdash; Where it holds</div>
+<h2 class="apr-h2">Diffuse fields and even absorption</h2>
+<div class="apr-body">
+<p>Sabine&rsquo;s derivation assumes a <b>diffuse sound field</b> &mdash; energy arriving equally from all directions, with absorption spread evenly around the room. Under those conditions every sound ray sees the same average absorption on each reflection, and the decay is a clean exponential.</p>
+<p>Most ordinary rooms &mdash; classrooms, offices, rehearsal spaces, moderately furnished halls &mdash; are close enough to this ideal that the formula predicts RT within a comfortable tolerance. It is the honest workhorse of everyday design.</p>
+</div>
+<blockquote class="apr-quote">Sabine is not wrong so much as trusting: it believes every reflection sees the same room.</blockquote>
+<figure class="apr-fig apr-fig-2 pc3-rise">
+<div class="apr-fig-grid"><img src="assets/projects/case-conf.webp" alt="Evenly treated meeting room" loading="lazy"><img src="assets/case3/scope-1.webp" alt="Distributed acoustic panelling" loading="lazy"></div>
+<figcaption><b>Fig.&nbsp;2</b> &mdash; Two rooms where the equation behaves: absorption distributed across ceiling and walls keeps the field close to diffuse.</figcaption>
+</figure>
+</div>
+
+<!-- block 03 — text + THREE figures -->
+<div class="apr-block pc3-rise">
+<div class="pc3-secmark">03 &mdash; Where it breaks</div>
+<h2 class="apr-h2">Three rooms that misbehave</h2>
+<div class="apr-body">
+<p>The trouble starts when the field stops being diffuse. <b>Highly absorptive rooms</b> &mdash; recording studios, anechoic-leaning spaces &mdash; violate Sabine&rsquo;s assumption that each ray survives many reflections; here the <b>Eyring</b> formulation is closer. <b>Uneven absorption</b> &mdash; a dead ceiling over hard parallel walls &mdash; produces flutter and a decay that no single number describes well. And <b>coupled volumes</b> &mdash; a stage house joined to an auditorium &mdash; decay in two stages the simple model cannot see at all.</p>
+</div>
+<figure class="apr-fig apr-fig-3 pc3-rise">
+<div class="apr-fig-grid"><img src="assets/projects/case-hall.webp" alt="Highly absorptive studio" loading="lazy"><img src="assets/projects/case-opera.webp" alt="Coupled auditorium volume" loading="lazy"><img src="assets/services/testing.webp" alt="Room with one-sided absorption" loading="lazy"></div>
+<figcaption><b>Fig.&nbsp;3</b> &mdash; Left to right: a highly absorptive studio, a coupled stage-and-house volume, and a room with absorption concentrated on one surface. Each departs from the diffuse-field ideal in a different way.</figcaption>
+</figure>
+</div>
+
+<!-- block 04 — text only -->
+<div class="apr-block pc3-rise">
+<div class="pc3-secmark">04 &mdash; In practice</div>
+<h2 class="apr-h2">How we use it, and what we check</h2>
+<div class="apr-body">
+<p>On a live project, Sabine is the start of the conversation, not the end. We use it to size absorption quickly and to sanity-check a target, then switch to <b>Eyring</b> for absorptive rooms and to <b>ray-tracing simulation</b> whenever the geometry is complex, the absorption is uneven, or volumes are coupled.</p>
+<p>Finally, we verify on site. A measured RT&#8323;&#8320; against the predicted value tells us whether the room really is behaving as the model assumed &mdash; and when it isn&rsquo;t, the gap itself is diagnostic. That closing loop, from formula to simulation to measurement, is what keeps a prediction honest.</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ===== S4 References ===== -->
+<section class="pc3-sec pc3-scope">
+<div class="pc3-wrap">
+<div class="apr-col">
+<div class="pc3-secmark pc3-rise">References</div>
+<h2 class="apr-h2 pc3-rise">Further reading</h2>
+<ul class="apr-refs pc3-rise d1">
+<li><span class="rn">1</span><span>Sabine, W.&nbsp;C. <b>Collected Papers on Acoustics.</b> Harvard University Press, 1922.</span></li>
+<li><span class="rn">2</span><span>Eyring, C.&nbsp;F. &ldquo;Reverberation time in dead rooms.&rdquo; <b>J. Acoust. Soc. Am.</b>, 1930.</span></li>
+<li><span class="rn">3</span><span>ISO&nbsp;3382-1. <b>Measurement of room acoustic parameters.</b> International Organization for Standardization.</span></li>
+<li><span class="rn">4</span><span>Kuttruff, H. <b>Room Acoustics.</b> 6th ed., CRC Press, 2016.</span></li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- ===== S5 More from Approach ===== -->
+<section class="pc3-sec">
+<div class="pc3-wrap">
+<div class="pc3-head pc3-rise" style="display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;flex-wrap:wrap;">
+<div><div class="pc3-secmark">More from Approach</div><h2 class="pc3-h2">Related notes.</h2></div>
+<a class="pc3-step-link" href="approach.html"><span>All articles</span><span>&rarr;</span></a>
+</div>
+<div class="pc3-rel-grid">
+<a class="pc3-card pc3-rise d1" href="approach-article.html"><div class="pc3-card-img"><img src="assets/case3/scope-1.webp" alt="Choosing acoustic surfaces by absorption class" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="1.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg>Materials</span><div class="pc3-card-bottom"><h3>Choosing acoustic surfaces by absorption class</h3><p class="pc3-card-loc">7 min read</p><span class="pc3-card-go">Read &rarr;</span></div></div></a>
+<a class="pc3-card pc3-rise d2" href="approach-article.html"><div class="pc3-card-img"><img src="assets/services/sim.webp" alt="From ODEON model to built room" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="1.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg>Simulation</span><div class="pc3-card-bottom"><h3>From ODEON model to built room</h3><p class="pc3-card-loc">9 min read</p><span class="pc3-card-go">Read &rarr;</span></div></div></a>
+<a class="pc3-card pc3-rise d3" href="approach-article.html"><div class="pc3-card-img"><img src="assets/services/testing.webp" alt="How to read an ISO 354 test report" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="1.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg>Standards</span><div class="pc3-card-bottom"><h3>How to read an ISO 354 test report</h3><p class="pc3-card-loc">5 min read</p><span class="pc3-card-go">Read &rarr;</span></div></div></a>
+<a class="pc3-card pc3-rise" href="approach-article.html"><div class="pc3-card-img"><img src="assets/projects/case-conf.webp" alt="Speech intelligibility in the open-plan office" loading="lazy"></div><div class="pc3-card-body"><span class="pc3-card-tag"><svg class="pc3-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="1.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg>Room Acoustics</span><div class="pc3-card-bottom"><h3>Speech intelligibility in the open-plan office</h3><p class="pc3-card-loc">6 min read</p><span class="pc3-card-go">Read &rarr;</span></div></div></a>
+</div>
+</div>
+</section>
+
+<!-- ===== S6 Contact ===== -->
 <section class="pc3-sec pc3-contact">
 <div class="pc3-wrap">
 <div class="pc3-contact-grid">
 <div>
-<h2>Not sure which system<br>fits your room<span class="dot">.</span></h2>
-<p class="pc3-contact-sub">Tell us about your space and our acoustic team will recommend the right series, finish and build for it.</p>
-<a class="pc3-cta" href="contact.html"><span>Talk to an engineer &rarr;</span></a>
+<h2>Put the theory<br>to work<span class="dot">.</span></h2>
+<p class="pc3-contact-sub">Have a room that isn&rsquo;t behaving? Tell us about your space and our acoustic team will take it from first principle to measured performance.</p>
+<a class="pc3-cta" href="contact.html"><span>Start a project &rarr;</span></a>
 </div>
 </div>
 </div>
 </section>
+
 <footer class="footer" data-v-b5a28948><div class="container" data-v-b5a28948><a aria-current="page" href="index-4.html" class="is-active is-exact-active logo" data-v-b5a28948><svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="brandmark-svg" data-v-b5a28948><path d="M42 15.1935V10.5L21 0L0 10.5V31.5L21 42L42 31.5V19.95L25.2 11.55V23.2995L37.2435 29.1795L21 37.3065L4.2 28.9065V13.0935L21 4.6935L42 15.1935Z" fill="currentcolor"></path><path d="M21 13.902V9.45L8.4 15.75V20.4435L21 13.902Z" fill="currentcolor"></path></svg></a><div class="footer-content">
 
 <div class="footer-col footer-col-brand">
@@ -1159,54 +1339,28 @@ main,.scroll{ transform:none!important; }
 </div><div class="bottom" data-v-b5a28948><div class="copyright" data-v-b5a28948> ©2014, NAAYA™</div><div class="nav" data-v-b5a28948><ul class="social" data-v-b5a28948><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>Instagram</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>YouTube</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>LinkedIn</a></li><li class="item" data-v-b5a28948><a href="#" rel="noopener noreferrer" target="_blank" class="link" data-v-b5a28948>X</a></li></ul><ul class="legal" data-v-b5a28948><li class="item" data-v-b5a28948><a href="/privacy-policy" class="link" data-v-b5a28948>Privacy policy</a></li><li class="item" data-v-b5a28948><a href="/terms-conditions" class="link" data-v-b5a28948>Terms &amp; conditions</a></li></ul></div><a href="https://www.exoape.com/" rel="noopener noreferrer" target="_blank" class="exo-ape link" data-v-b5a28948> Crafted by NAAYA </a></div><div class="background" data-v-b5a28948><div class="wordmark" data-v-b5a28948><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div><img src="assets/footer-bg.jpg" class="base-image" width="1600" height="900" data-v-b5a28948></div></div></footer></div></div></div></main></div></div><div id="teleports"></div>
 
 <script src="js/naaya.js"></script>
+
 <script>
-/* Scroll-reveal motion for text & images */
 (function(){
-  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  var STEP=90;
-  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}})},{threshold:0.12,rootMargin:'0px 0px -5% 0px'});
-  function R(el,d,img){ if(!el)return; el.classList.add('ab-rise'); if(img)el.classList.add('ab-rise-img'); if(d)el.style.transitionDelay=(d*STEP)+'ms'; obs.observe(el); }
-  function each(p,sel,fn){ Array.prototype.forEach.call((p||document).querySelectorAll(sel),fn); }
-  // head
-  R(document.querySelector('.cl-meta'),0);
-  R(document.querySelector('.cl-title'),1);
-  R(document.querySelector('.cl-sub > p'),2);
-  each(document,'.cl-fact',function(el,i){ R(el,i+3); });
-  // section marks + leads
-  each(document,'.cl-secmark',function(el){ R(el,0); });
-  each(document,'.cl-lead',function(el){ R(el,1); });
-  // filter + cards
-  R(document.querySelector('.cl-filter'),2);
-  each(document,'.cl-grid .cl-card',function(el,i){ R(el,(i%4),true); });
-  // need tiles / finishes / certs
-  each(document,'.cl-need-item',function(el,i){ R(el,i); });
-  each(document,'.cl-fin-col',function(el,i){ R(el,i); });
-  each(document,'.cl-cert',function(el,i){ R(el,Math.min(i,3)); });
-  // cta
-  R(document.querySelector('.cl-cta'),1);
-  // hero parallax (shared .ns-hero)
-  var nsHero=document.querySelector('.ns-hero'), nsBg=document.querySelector('.ns-hero-bg img');
-  if(nsHero && nsBg){ (function raf(){ var r=nsHero.getBoundingClientRect();
-    if(r.bottom>0 && r.top<window.innerHeight){ nsBg.style.transform='translateY('+(-r.top*0.16)+'px) scale(1.14)'; }
-    requestAnimationFrame(raf); })(); }
+  // reveal on scroll
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.pc3-rise').forEach(function(el){ io.observe(el); });
+  // hero parallax (robust under Lenis transformed scroller — read rendered rect)
+  var hero=document.querySelector('.pc3-hero'), bg=document.querySelector('.pc3-hero-bg img');
+  if(hero && bg){
+    var raf=function(){
+      var r=hero.getBoundingClientRect();
+      if(r.bottom>0 && r.top<window.innerHeight){
+        bg.style.transform='translateY('+(-r.top*0.16)+'px) scale(1.14)';
+      }
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+  }
 })();
 </script>
-<script>
-/* Material family filter */
-(function(){
-  var chips=document.querySelectorAll('.cl-chip');
-  var cards=document.querySelectorAll('.cl-card[data-cat]');
-  Array.prototype.forEach.call(chips,function(chip){
-    chip.addEventListener('click',function(){
-      Array.prototype.forEach.call(chips,function(c){ c.classList.remove('is-active'); });
-      chip.classList.add('is-active');
-      var f=chip.getAttribute('data-f');
-      Array.prototype.forEach.call(cards,function(card){
-        card.style.display=(f==='all'||card.getAttribute('data-cat')===f)?'':'none';
-      });
-    });
-  });
-})();
-</script>
+
 </body>
 </html>
