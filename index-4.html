@@ -86,6 +86,10 @@
     margin-top:1.4rem;
   }
 
+  /* --- Calculator dashboard as video (replaces UI mockup) --- */
+  .calc-dashboard-video{ line-height:0; }
+  .calc-video{ width:100%; height:auto; display:block; }
+
   /* --- About mosaic: single showcase image (transparent architectural cutaway) --- */
   .about-mosaic-single{ align-self:center; }
   .about-mosaic-single img{ width:100%; height:auto; display:block; }
@@ -909,7 +913,7 @@
 </div>
 
 <div class="about-mosaic-single">
-<img src="assets/services/sina-spaces.webp" alt="Architectural cutaway of four acoustic spaces — concert hall, gallery, ballroom and chapel">
+<img src="assets/services/home-about.webp" alt="Architectural cutaway of a multi-use building — concert hall, auditorium, sports hall, offices and recording studio">
 </div>
 
 </div>
@@ -1068,66 +1072,10 @@
 </section><section class="calc">
 <div class="calc-inner">
 
-<a href="simulator-v2/" class="calc-dashboard" aria-label="Launch the acoustic calculator">
-
-<div class="calc-bar">
-<span class="calc-bar-dot"></span><span class="calc-bar-dot"></span><span class="calc-bar-dot"></span>
-<span class="calc-bar-label">NAAYA RT60 CALCULATOR</span>
-<span class="calc-bar-pill">LIVE</span>
-</div>
-
-<div class="calc-body">
-
-<div class="calc-row">
-<div class="calc-pill">AUDITORIUM</div>
-<div class="calc-pill calc-pill-faint">VOLUME 240 m³</div>
-</div>
-
-<div class="calc-rt">
-<div class="calc-rt-col">
-<div class="calc-rt-label">BEFORE</div>
-<div class="calc-rt-value">1.8<span class="calc-rt-unit">s</span></div>
-<div class="calc-rt-note">Too reverberant</div>
-</div>
-<div class="calc-rt-arrow">→</div>
-<div class="calc-rt-col">
-<div class="calc-rt-label">AFTER</div>
-<div class="calc-rt-value calc-rt-value-good">0.9<span class="calc-rt-unit">s</span></div>
-<div class="calc-rt-note">Optimal speech</div>
-</div>
-</div>
-
-<div class="calc-chart">
-<div class="calc-chart-head">
-<span>FREQUENCY RESPONSE</span>
-<span>125 — 4k Hz</span>
-</div>
-<svg viewBox="0 0 320 88" class="calc-chart-svg" preserveAspectRatio="none">
-<g stroke="currentColor" stroke-width="1" fill="none" opacity=".15">
-<line x1="0" y1="22" x2="320" y2="22"/>
-<line x1="0" y1="44" x2="320" y2="44"/>
-<line x1="0" y1="66" x2="320" y2="66"/>
-</g>
-<path d="M0,18 L53,22 L106,30 L160,48 L213,60 L266,52 L320,38" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 3" fill="none" opacity=".55"/>
-<path d="M0,52 L53,58 L106,64 L160,70 L213,72 L266,68 L320,62" stroke="currentColor" stroke-width="1.8" fill="none"/>
-<g fill="currentColor">
-<circle cx="0" cy="52" r="2.4"/><circle cx="53" cy="58" r="2.4"/><circle cx="106" cy="64" r="2.4"/><circle cx="160" cy="70" r="2.4"/><circle cx="213" cy="72" r="2.4"/><circle cx="266" cy="68" r="2.4"/><circle cx="320" cy="62" r="2.4"/>
-</g>
-</svg>
-</div>
-
-<div class="calc-mats">
-<div class="calc-mats-label">SURFACE MIX</div>
-<div class="calc-mats-row">
-<div class="calc-mat-chip is-on"><span class="calc-mat-swatch"></span>Wood Grooved · 38%</div>
-<div class="calc-mat-chip is-on"><span class="calc-mat-swatch s-2"></span>Micro Perfo · 24%</div>
-<div class="calc-mat-chip"><span class="calc-mat-swatch s-3"></span>Fabric · 18%</div>
-<div class="calc-mat-chip"><span class="calc-mat-swatch s-4"></span>Diffuser · 20%</div>
-</div>
-</div>
-
-</div>
-
+<a href="simulator-v2/" class="calc-dashboard calc-dashboard-video" aria-label="Launch the acoustic calculator">
+<video class="calc-video" autoplay muted loop playsinline poster="assets/calc-poster.webp" width="1280" height="720">
+<source src="assets/calc-demo.mp4" type="video/mp4">
+</video>
 <div class="calc-hover-cta">↗ Launch calculator</div>
 </a>
 
